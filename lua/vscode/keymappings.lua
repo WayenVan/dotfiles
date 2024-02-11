@@ -3,22 +3,19 @@ local vscode = require("vscode-neovim")
 local map = vim.keymap.set
 
 -- settings for tabs
-map("n", "th", function()
+map("n", "gh", function()
   vscode.action("workbench.action.previousEditor")
 end, {})
-map("n", "tl", function()
+map("n", "gl", function()
   vscode.action("workbench.action.nextEditor")
 end, {})
 
 -- setting for panel and bar
+map("n", "<leader><leader>", function()
+  vscode.action("workbench.action.quickOpen")
+end, {})
 map("n", "<leader>p", function()
-  vscode.action("workbench.action.togglePanel")
-end, {})
-map("n", "<leader>b", function()
-  vscode.action("workbench.action.toggleAuxiliaryBar")
-end, {})
-map("n", "<leader>e", function()
-  vscode.action("workbench.action.toggleSidebarVisibility")
+  vscode.action("workbench.action.showCommands")
 end, {})
 
 -- sett select all
@@ -40,11 +37,6 @@ map({ "n", "v" }, "?", function()
 end, {})
 map({ "n", "v" }, "/", function()
   vscode.action("actions.find")
-end, {})
-
--- toggle
-map({ "n", "v" }, "<c-t>", function()
-  vscode.action("workbench.action.terminal.toggleTerminal")
 end, {})
 
 -- goto defination and reference

@@ -17,6 +17,12 @@ end, {})
 map("n", "<leader>p", function()
   vscode.action("workbench.action.showCommands")
 end, {})
+map("n", "<leader>f", function()
+  vscode.action("editor.action.formatDocument")
+end, {})
+map("v", "<leader>f", function()
+  vscode.action("editor.action.formatSelection")
+end, {})
 
 -- sett select all
 map({ "n", "v" }, "<c-a>", function()

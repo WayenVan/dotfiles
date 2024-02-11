@@ -23,4 +23,16 @@ require("lazy").setup({
       require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
     end,
   },
+  {
+    "vscode-neovim/vscode-multi-cursor.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("vscode-multi-cursor").setup({
+        default_mappings = true,
+        no_selection = false,
+      })
+    end,
+    cond = not not vim.g.vscode,
+    opts = {},
+  },
 })

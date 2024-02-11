@@ -46,12 +46,12 @@ map({ "n", "v" }, "/", function()
 end, {})
 
 -- goto defination and reference
-map({ "n", "v" }, "gd", function()
-  vscode.action("editor.action.revealDefinition")
-end, {})
-map({ "n", "v" }, "gr", function()
-  vscode.action("editor.action.goToReferences")
-end, {})
+-- map({ "n", "v" }, "gd", function()
+--   vscode.action("editor.action.revealDefinition")
+-- end, {})
+-- map({ "n", "v" }, "gr", function()
+--   vscode.action("editor.action.goToReferences")
+-- end, {})
 
 -- try hop
 -- place this in one of your configuration file(s)

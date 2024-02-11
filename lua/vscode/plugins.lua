@@ -35,4 +35,11 @@ require("lazy").setup({
     cond = not not vim.g.vscode,
     opts = {},
   },
+  {
+    "echasnovski/mini.nvim",
+    version = "*",
+    config = function()
+      require("mini.surround").setup()
+    end,
+  },
 })

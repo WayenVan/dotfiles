@@ -37,14 +37,6 @@ map("n", "<leader>q", function()
   vscode.action("workbench.action.closeActiveEditor")
 end, {})
 
--- setting for find
-map({ "n", "v" }, "?", function()
-  vscode.action("actions.find")
-end, {})
-map({ "n", "v" }, "/", function()
-  vscode.action("actions.find")
-end, {})
-
 -- goto defination and reference
 -- map({ "n", "v" }, "gd", function()
 --   vscode.action("editor.action.revealDefinition")

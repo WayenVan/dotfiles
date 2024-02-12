@@ -3,10 +3,10 @@ local vscode = require("vscode-neovim")
 local map = vim.keymap.set
 
 -- settings for tabs
-map("n", "gh", function()
+map("n", "H", function()
   vscode.action("workbench.action.previousEditor")
 end, {})
-map("n", "gl", function()
+map("n", "L", function()
   vscode.action("workbench.action.nextEditor")
 end, {})
 
@@ -52,20 +52,7 @@ end, {})
 -- map({ "n", "v" }, "gr", function()
 --   vscode.action("editor.action.goToReferences")
 -- end, {})
-
--- try hop
--- place this in one of your configuration file(s)
-local hop = require("hop")
-local directions = require("hop.hint").HintDirection
-vim.keymap.set("", "f", function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-end, { remap = true })
-vim.keymap.set("", "F", function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-end, { remap = true })
-vim.keymap.set("", "t", function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-end, { remap = true })
-vim.keymap.set("", "T", function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-end, { remap = true })
+--
+local opts = { noremap = true, silent = true }
+vim.keymap.set("v", ">", ">gv", opts)
+vim.keymap.set("v", "<", "<gv", opts)

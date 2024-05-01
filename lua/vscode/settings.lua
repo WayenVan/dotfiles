@@ -1,4 +1,4 @@
 vim.g.mapleader = " "
-vim.wo.relativenumber = true
+vim.wo.relativenumber = False
 require("vscode.lazy")
 require("vscode.keymappings")

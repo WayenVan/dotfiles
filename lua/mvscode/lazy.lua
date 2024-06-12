@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local vscode = require("vscode-neovim")
+local nvscode = require("vscode-neovim")
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -13,7 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vscode.notify("lazy loading plugins")
+nvscode.notify("lazy loading plugins")
 require("lazy").setup({
   { import = "mvscode.plugins" },
   {

@@ -1,40 +1,40 @@
-local vscode = require("vscode-neovim")
+local nvscode = require("vscode-neovim")
 -- custom key maps
 local map = vim.keymap.set
 
 -- settings for tabs
 map("n", "H", function()
-  vscode.action("workbench.action.previousEditor")
+  nvscode.action("workbench.action.previousEditor")
 end, {})
 map("n", "L", function()
-  vscode.action("workbench.action.nextEditor")
+  nvscode.action("workbench.action.nextEditor")
 end, {})
 
 -- setting for panel and bar
 map("n", "<leader><leader>", function()
-  vscode.action("workbench.action.quickOpen")
+  nvscode.action("workbench.action.quickOpen")
 end, {})
 map("n", "<leader>p", function()
-  vscode.action("workbench.action.showCommands")
+  nvscode.action("workbench.action.showCommands")
 end, {})
 map("n", "<leader>f", function()
-  vscode.action("editor.action.formatDocument")
+  nvscode.action("editor.action.formatDocument")
 end, {})
 map("v", "<leader>f", function()
-  vscode.action("editor.action.formatSelection")
+  nvscode.action("editor.action.formatSelection")
 end, {})
 
 -- sett select all
 map({ "n", "v" }, "<c-a>", function()
-  vscode.action("editor.action.selectAll")
+  nvscode.action("editor.action.selectAll")
 end, {})
 
 -- settings for leader
 map("n", "<leader>s", function()
-  vscode.action("workbench.action.files.save")
+  nvscode.action("workbench.action.files.save")
 end, {})
 map("n", "<leader>q", function()
-  vscode.action("workbench.action.closeActiveEditor")
+  nvscode.action("workbench.action.closeActiveEditor")
 end, {})
 
 -- goto defination and reference

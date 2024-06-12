@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vscode.notify("lazy loading plugins")
 require("lazy").setup({
-  { import = "vscode.plugins" },
+  { import = "mvscode.plugins" },
   {
     "vscode-neovim/vscode-multi-cursor.nvim",
     event = "VeryLazy",

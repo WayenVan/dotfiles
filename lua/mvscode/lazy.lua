@@ -17,15 +17,15 @@ vs.notify("lazy loading plugins")
 require("lazy").setup({
   { import = "mvscode.plugins" },
   {
-    "vscode-neovim/vscode-multi-cursor.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("vscode-multi-cursor").setup({
-        default_mappings = true,
-        no_selection = false,
-      })
-    end,
-    cond = not not vim.g.vscode,
-    opts = {},
+    -- "vscode-neovim/vscode-multi-cursor.nvim",
+    -- event = "VeryLazy",
+    -- config = function()
+    --   require("vscode-multi-cursor").setup({
+    --     default_mappings = true,
+    --     no_selection = false,
+    --   })
+    -- end,
+    -- cond = not not vim.g.vscode,
+    -- opts = {},
   },
 })

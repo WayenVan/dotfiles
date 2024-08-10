@@ -83,8 +83,8 @@ end, {})
 map({ "n", "v" }, "<leader>ub", function()
   vs.action("workbench.action.toggleAuxiliaryBar")
 end, {})
-map({ "n", "v" }, "<leader>ut", function()
-  vs.action("workbench.action.terminal.toggleTerminal")
+map({ "n", "v" }, "<leader>up", function()
+  vs.action("workbench.action.togglePanel")
 end, {})
 
 

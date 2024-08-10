@@ -29,22 +29,66 @@ map({ "n", "v" }, "<c-a>", function()
   vs.action("editor.action.selectAll")
 end, {})
 
--- settings for leader
-map("n", "<leader>s", function()
+-- save file
+map({ "n", "v" }, "<c-s>", function()
   vs.action("workbench.action.files.save")
 end, {})
-map("n", "<leader>q", function()
-  vs.action("workbench.action.closeActiveEditor")
+
+-- tab moving
+map({ "n", "v" }, "<leader>bl", function()
+  vs.action("workbench.action.moveEditorToNextGroup")
+end, {})
+map({ "n", "v" }, "<leader>bh", function()
+  vs.action("workbench.action.moveEditorToPreviousGroup")
 end, {})
 
--- goto defination and reference
--- map({ "n", "v" }, "gd", function()
---   vscode.action("editor.action.revealDefinition")
--- end, {})
--- map({ "n", "v" }, "gr", function()
---   vscode.action("editor.action.goToReferences")
--- end, {})
---
+-- tab management
+map({ "n", "v" }, "<leader>bd", function()
+  vs.action("workbench.action.closeActiveEditor")
+end, {})
+map({ "n", "v" }, "<leader>bD", function()
+  vs.action("workbench.action.closeEditorsInGroup")
+end, {})
+
+-- toggle explorer
+map({ "n", "v" }, "<leader>e", function()
+  vs.action("workbench.files.action.focusFilesExplorer")
+end, {})
+
+-- toggle terminal
+map({ "n", "v" }, "<leader>t", function()
+  vs.action("workbench.action.terminal.toggleTerminal")
+end, {})
+
+-- search
+map({ "n", "v" }, "<leader>ss", function()
+  vs.action("workbench.action.gotoSymbol")
+end, {})
+
+-- copy paste
+-- -- Yank to the system clipboard by default
+map('n', '<leader>y', '"+y')
+map('v', '<leader>y', '"+y')
+map('n', '<leader>Y', '"+Y')
+
+-- Paste from the system clipboard by default
+map('n', '<leader>p', '"+p')
+map('v', '<leader>p', '"+p')
+map('n', '<leader>P', '"+P')
+
+-- set for ui
+map({ "n", "v" }, "<leader>ue", function()
+  vs.action("workbench.action.toggleSidebarVisibility")
+end, {})
+map({ "n", "v" }, "<leader>ub", function()
+  vs.action("workbench.action.toggleAuxiliaryBar")
+end, {})
+map({ "n", "v" }, "<leader>ut", function()
+  vs.action("workbench.action.terminal.toggleTerminal")
+end, {})
+
+
+
 local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)

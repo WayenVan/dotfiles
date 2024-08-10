@@ -1,3 +1,14 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+
+local map = vim.keymap.set
+-- -- Yank to the system clipboard by default
+map('n', '<leader>y', '"+y', {desc = "Yank to the system clipboard "})
+map('v', '<leader>y', '"+y', {desc = "Yank to the system clipboard "})
+map('n', '<leader>Y', '"+Y', {desc = "Yank to the system clipboard "})
+
+-- Paste from the system clipboard by default
+map('n', '<leader>p', '"+p', {desc = "paste to the system clipboard"})
+map('v', '<leader>p', '"+p', {desc = "paste to the system clipboard"})
+map('n', '<leader>P', '"+P', {desc = "paste to the system clipboard"})

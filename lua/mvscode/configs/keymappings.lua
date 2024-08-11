@@ -46,7 +46,7 @@ map("v", "<leader>cf", function()
 end, {})
 
 -- sett select all
-map({ "n", "v" }, "<c-a>", function()
+map({ "n", "v" }, "vA", function()
   vs.action("editor.action.selectAll")
 end, {})
 

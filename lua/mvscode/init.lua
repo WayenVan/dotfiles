@@ -1,7 +1,12 @@
 vim.g.mapleader = " "
-vim.wo.relativenumber = False
+local vs = require("vscode-neovim")
+
+vs.notify("Start loading neovim settings")
+
 require("mvscode.configs.keymappings")
-require("mvscode.configs.lazy")
 require("mvscode.configs.cmds")
+require("mvscode.configs.lazy")
 require("mvscode.configs.opts")
+
+vs.notify("Neovim settings loaded")
 

@@ -64,6 +64,12 @@ end, {})
 map({ "n", "v" }, "<leader>ss", function()
   vs.action("workbench.action.gotoSymbol")
 end, {})
+map({ "n", "v" }, "<leader>sf", function()
+  vs.action("actions.find")
+end, {})
+map({ "n", "v" }, "<leader>sr", function()
+  vs.action("editor.action.startFindReplaceAction")
+end, {})
 
 -- copy paste
 -- -- Yank to the system clipboard by default
@@ -76,7 +82,7 @@ map('n', '<leader>p', '"+p')
 map('v', '<leader>p', '"+p')
 map('n', '<leader>P', '"+P')
 
--- set for ui
+-- set for ui, explorer, panel, and bar
 map({ "n", "v" }, "<leader>ue", function()
   vs.action("workbench.action.toggleSidebarVisibility")
 end, {})
@@ -87,8 +93,13 @@ map({ "n", "v" }, "<leader>up", function()
   vs.action("workbench.action.togglePanel")
 end, {})
 
+-- set for diagnostics/quickfix
+map({ "n", "v" }, "<leader>xx", function()
+  vs.action("workbench.panel.markers.view.focus")
+end, {})
 
 
+-- indent
 local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)

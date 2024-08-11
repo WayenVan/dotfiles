@@ -24,3 +24,11 @@ api.nvim_create_user_command(
     end,
     {nargs = 0}
 )
+
+api.nvim_create_user_command(
+    'DebugConsole',
+    function(opts)
+        vs.action("workbench.panel.repl.view.focus")
+    end,
+    {nargs = 0}
+)

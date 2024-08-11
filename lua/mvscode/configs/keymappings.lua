@@ -14,13 +14,34 @@ end, {})
 map("n", "<leader><leader>", function()
   vs.action("workbench.action.quickOpen")
 end, {})
-map("n", "<leader>p", function()
-  vs.action("workbench.action.showCommands")
+
+-- settings for go to xxxxxx
+map({ "n", "v" }, "gd", function()
+  vs.action("editor.action.peekDefinition")
 end, {})
-map("n", "<leader>f", function()
+map({ "n", "v" }, "gD", function()
+  vs.action("editor.action.peekDeclaration")
+end, {})
+map({ "n", "v" }, "gI", function()
+  vs.action("editor.action.peekImplementation")
+end, {})
+map({ "n", "v" }, "gy", function()
+  vs.action("editor.action.peekTypeDefinition")
+end, {})
+map({ "n", "v" }, "gY", function()
+  vs.action("editor.showTypeHierarchy")
+end, {})
+
+map({ "n", "v" }, "gb", function()
+  vs.action("editor.showTypeHierarchy")
+end, {})
+
+
+-- settings for code
+map("n", "<leader>cf", function()
   vs.action("editor.action.formatDocument")
 end, {})
-map("v", "<leader>f", function()
+map("v", "<leader>cf", function()
   vs.action("editor.action.formatSelection")
 end, {})
 
@@ -98,6 +119,10 @@ map({ "n", "v" }, "<leader>xx", function()
   vs.action("workbench.panel.markers.view.focus")
 end, {})
 
+-- window settings
+map({ "n", "v" }, "<c-w>q", function()
+  vs.action("workbench.action.closeEditorsInGroup")
+end, {})
 
 -- indent
 local opts = { noremap = true, silent = true }

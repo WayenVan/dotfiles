@@ -1,13 +1,29 @@
-local vs = require("vscode-neovim")
+local vs = require("vscode")
 -- custom key maps
 local map = vim.keymap.set
 
--- settings for tabs
+-- settings for tabs(buffers)
 map("n", "H", function()
   vs.action("workbench.action.previousEditor")
 end, {})
 map("n", "L", function()
   vs.action("workbench.action.nextEditor")
+end, {})
+
+-- tab moving
+map({ "n", "v" }, "<leader>bl", function()
+  vs.action("workbench.action.moveEditorToNextGroup")
+end, {})
+map({ "n", "v" }, "<leader>bh", function()
+  vs.action("workbench.action.moveEditorToPreviousGroup")
+end, {})
+
+-- tab management
+map({ "n", "v" }, "<leader>bd", function()
+  vs.action("workbench.action.closeActiveEditor")
+end, {})
+map({ "n", "v" }, "<leader>bD", function()
+  vs.action("workbench.action.closeEditorsInGroup")
 end, {})
 
 -- setting for panel and bar
@@ -53,22 +69,6 @@ end, {})
 -- save file
 map({ "n", "v" }, "<c-s>", function()
   vs.action("workbench.action.files.save")
-end, {})
-
--- tab moving
-map({ "n", "v" }, "<leader>bl", function()
-  vs.action("workbench.action.moveEditorToNextGroup")
-end, {})
-map({ "n", "v" }, "<leader>bh", function()
-  vs.action("workbench.action.moveEditorToPreviousGroup")
-end, {})
-
--- tab management
-map({ "n", "v" }, "<leader>bd", function()
-  vs.action("workbench.action.closeActiveEditor")
-end, {})
-map({ "n", "v" }, "<leader>bD", function()
-  vs.action("workbench.action.closeEditorsInGroup")
 end, {})
 
 -- toggle explorer
@@ -122,6 +122,9 @@ end, {})
 -- window settings
 map({ "n", "v" }, "<c-w>q", function()
   vs.action("workbench.action.closeEditorsInGroup")
+end, {})
+map({ "n", "v" }, "<c-w>m", function()
+  vs.action("workbench.action.toggleEditorWidths")
 end, {})
 
 -- indent

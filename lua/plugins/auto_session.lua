@@ -18,5 +18,10 @@ return {
       auto_restore_lazy_delay_enabled = true,
       log_level = "error",
     },
+    keys = {
+      { "<leader>qS", "<cmd>SessionSave<cr>", desc = "Save session" },
+      { "<leader>qs", "<cmd>SessionSearch<cr>", desc = "Search sessions" },
+      { "<leader>qD", "<cmd>SessionDelete<cr>", desc = "Delete sessions" },
+    },
   },
 }

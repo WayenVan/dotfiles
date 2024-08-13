@@ -23,8 +23,5 @@ map("n", "<leader>T", function()
 end, { desc = "Terminal (cwd)" })
 
 -- Window settings
-map("n", "<c-w>m", "<c-w>|", { desc = "Max out width" })
 
--- session settings
-map("n", "<leader>qS", "<cmd>SessionSave<cr>", { desc = "Save session" })
-map("n", "<leader>qs", "<cmd>SessionSearch<cr>", { desc = "Search sessions" })
+map("n", "<c-w>m", "<c-w>|", { desc = "Max out width" })

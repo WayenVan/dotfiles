@@ -1,19 +1,3 @@
--- return {
---   {
---     "neovim/nvim-lspconfig",
---     opts = function(_, opts)
---       local table_utils = require("utils.table_utils")
---       local other_servers = require("plugins.lsp.servers")
---       opts.servers = table_utils.mergeTables(opts.servers, other_servers)
---       -- error(opts.servers["pyright"]["settings"]["python"]["analysis"]["exclude"], 5)
---       return opts
---     end,
---     -- config = function()
---     --   print("haha")
---     -- end,
---   },
--- }
-
 return {
   {
     "neovim/nvim-lspconfig",

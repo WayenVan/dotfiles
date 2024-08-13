@@ -12,7 +12,7 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-j>"] = cmp.mapping.select_next_item(),
         ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-P>"] = cmp.mapping.complete(),
         ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
         ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
         ["<S-CR>"] = LazyVim.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -21,7 +21,6 @@ return {
           fallback()
         end,
         ["<C-N>"] = cmp.config.disable,
-        ["<C-P>"] = cmp.config.disable,
       })
 
       opts.mapping = mapping

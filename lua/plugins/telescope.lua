@@ -9,6 +9,7 @@ return {
 
       -- change selection to j and k
       opts.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+
       opts.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
 
       return opts

@@ -4,26 +4,32 @@ local map = vim.keymap.set
 
 -- settings for tabs(buffers)
 map("n", "H", function()
-  vs.action("workbench.action.previousEditor")
+  vs.action("workbench.action.previousEditorInGroup")
 end, {})
 map("n", "L", function()
-  vs.action("workbench.action.nextEditor")
+  vs.action("workbench.action.nextEditorInGroup")
 end, {})
 
 -- tab moving
-map({ "n", "v" }, "<leader>bl", function()
+map("n", "<leader>bl", function()
   vs.action("workbench.action.moveEditorToNextGroup")
 end, {})
-map({ "n", "v" }, "<leader>bh", function()
+map("n", "<leader>bh", function()
   vs.action("workbench.action.moveEditorToPreviousGroup")
 end, {})
 
 -- tab management
-map({ "n", "v" }, "<leader>bd", function()
+map("n", "<leader>bd", function()
   vs.action("workbench.action.closeActiveEditor")
 end, {})
-map({ "n", "v" }, "<leader>bD", function()
+map("n", "<leader>bD", function()
   vs.action("workbench.action.closeEditorsInGroup")
+end, {})
+map("n", "<leader>bL", function()
+  vs.action("workbench.action.closeEditorsToTheLeft")
+end, {})
+map("n", "<leader>bR", function()
+  vs.action("workbench.action.closeEditorsToTheRight")
 end, {})
 
 -- setting for panel and bar
@@ -107,11 +113,15 @@ map('n', '<leader>P', '"+P')
 map({ "n", "v" }, "<leader>ue", function()
   vs.action("workbench.action.toggleSidebarVisibility")
 end, {})
-map({ "n", "v" }, "<leader>ub", function()
+map({ "n", "v" }, "<leader>ua", function()
   vs.action("workbench.action.toggleAuxiliaryBar")
 end, {})
 map({ "n", "v" }, "<leader>up", function()
   vs.action("workbench.action.togglePanel")
+end, {})
+-- theme
+map({ "n", "v" }, "<leader>ub", function()
+  vs.action("workbench.action.toggleLightDarkThemes")
 end, {})
 
 -- set for diagnostics/quickfix
@@ -131,3 +141,12 @@ end, {})
 local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)
+
+
+-- debug
+map("n", "<leader>db", function()
+  vs.action("editor.debug.action.toggleBreakpoint")
+end, {})
+map("n", "<leader>dt", function()
+  vs.action("workbench.panel.repl.view.focus")
+end, {})

@@ -58,7 +58,6 @@ map({ "n", "v" }, "gb", function()
   vs.action("editor.showTypeHierarchy")
 end, {})
 
-
 -- settings for code
 map("n", "<leader>cf", function()
   vs.action("editor.action.formatDocument")
@@ -100,14 +99,14 @@ end, {})
 
 -- copy paste
 -- -- Yank to the system clipboard by default
-map('n', '<leader>y', '"+y')
-map('v', '<leader>y', '"+y')
-map('n', '<leader>Y', '"+Y')
+map("n", "<leader>y", '"+y')
+map("v", "<leader>y", '"+y')
+map("n", "<leader>Y", '"+Y')
 
 -- Paste from the system clipboard by default
-map('n', '<leader>p', '"+p')
-map('v', '<leader>p', '"+p')
-map('n', '<leader>P', '"+P')
+map("n", "<leader>p", '"+p')
+map("v", "<leader>p", '"+p')
+map("n", "<leader>P", '"+P')
 
 -- set for ui, explorer, panel, and bar
 map({ "n", "v" }, "<leader>ue", function()
@@ -141,7 +140,6 @@ end, {})
 local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)
-
 
 -- debug
 map("n", "<leader>db", function()

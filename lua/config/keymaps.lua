@@ -23,5 +23,11 @@ map("n", "<leader>T", function()
 end, { desc = "Terminal (cwd)" })
 
 -- Window settings
-
 map("n", "<c-w>m", "<c-w>|", { desc = "Max out width" })
+
+-- auto signature
+map("i", "<c-a-p>", function()
+  vim.lsp.buf.signature_help()
+end, { desc = "Show function signature" })
+
+-- show neo tree

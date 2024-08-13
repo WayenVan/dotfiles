@@ -90,6 +90,8 @@ return {
 
       -- setup keymaps
       LazyVim.lsp.on_attach(function(client, buffer)
+        -- set lsp signature
+        require("lsp_signature").on_attach({}, buffer)
         require("lazyvim.plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 

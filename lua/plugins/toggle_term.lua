@@ -1,7 +1,6 @@
 return {
   {
     "akinsho/toggleterm.nvim",
-    lazy = true,
     cmd = { "ToggleTerm" },
     keys = {
       {
@@ -18,6 +17,7 @@ return {
           local count = vim.v.count1
           require("toggleterm").toggle(count, 0, LazyVim.root.get(), "float")
         end,
+        noremap = true,
         desc = "ToggleTerm (float root_dir)",
       },
       -- {

@@ -21,4 +21,4 @@ map("i", "<c-a-p>", function()
   vim.lsp.buf.signature_help()
 end, { desc = "Show function signature" })
 
--- show neo tree
+vim.keymap.set("n", "<c-/>", "<cmd>ToggleTerm<cr>")

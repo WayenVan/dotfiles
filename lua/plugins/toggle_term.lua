@@ -1,13 +1,15 @@
 return {
   {
     "akinsho/toggleterm.nvim",
+    lazy = false,
+    dependencies = { { "folke/which-key.nvim" } },
     cmd = { "ToggleTerm" },
     keys = {
       {
         "<c-_>",
         function()
           local count = vim.v.count1
-          require("toggleterm").toggle(count, 0, LazyVim.root.get(), "float")
+          require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
         desc = "ToggleTerm (float root_dir)",
       },
@@ -15,37 +17,45 @@ return {
         "<c-/>",
         function()
           local count = vim.v.count1
-          require("toggleterm").toggle(count, 0, LazyVim.root.get(), "float")
+          require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
         noremap = true,
         desc = "ToggleTerm (float root_dir)",
       },
-      -- {
-      --   "<leader>Th",
-      --   function()
-      --     local count = vim.v.count1
-      --     require("toggleterm").toggle(count, 15, LazyVim.root.get(), "horizontal")
-      --   end,
-      --   desc = "ToggleTerm (horizontal root_dir)",
-      -- },
-      -- {
-      --   "<leader>Tv",
-      --   function()
-      --     local count = vim.v.count1
-      --     require("toggleterm").toggle(count, vim.o.columns * 0.4, LazyVim.root.get(), "vertical")
-      --   end,
-      --   desc = "ToggleTerm (vertical root_dir)",
-      -- },
-      -- {
-      --   "<leader>Tn",
-      --   "<cmd>ToggleTermSetName<cr>",
-      --   desc = "Set term name",
-      -- },
-      -- {
-      --   "<leader>Ts",
-      --   "<cmd>TermSelect<cr>",
-      --   desc = "Select term",
-      -- },
+      {
+        "<leader>tf",
+        function()
+          local count = vim.v.count1
+          require("toggleterm").toggle(count, 15, LazyVim.root.get(), "float")
+        end,
+        desc = "ToggleTerm (vertical root_dir)",
+      },
+      {
+        "<leader>th",
+        function()
+          local count = vim.v.count1
+          require("toggleterm").toggle(count, 15, LazyVim.root.get(), "horizontal")
+        end,
+        desc = "ToggleTerm (horizontal root_dir)",
+      },
+      {
+        "<leader>tv",
+        function()
+          local count = vim.v.count1
+          require("toggleterm").toggle(count, vim.o.columns * 0.4, LazyVim.root.get(), "vertical")
+        end,
+        desc = "ToggleTerm (vertical root_dir)",
+      },
+      {
+        "<leader>tn",
+        "<cmd>ToggleTermSetName<cr>",
+        desc = "Set term name",
+      },
+      {
+        "<leader>ts",
+        "<cmd>TermSelect<cr>",
+        desc = "Select term",
+      },
       -- {
       --   "<leader>Tt",
       --   function()
@@ -84,7 +94,7 @@ return {
       insert_mappings = true, -- whether or not the open mapping applies in insert mode
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
-      direction = "horizontal" or "vertical" or "window" or "float",
+      direction = "float" or "horizontal" or "vertical" or "window",
       -- direction = "vertical",
       close_on_exit = true, -- close the terminal window when the process exits
       -- shell = vim.o.shell, -- change the default shell
@@ -104,5 +114,11 @@ return {
       --   }
       -- }
     },
+    config = function(_, opts)
+      local wk = require("which-key")
+      wk.add({ "<leader>t", group = "ToogleTerm", icon = "" })
+      -- local no = require("noice")
+      -- no.notify(vim.inspect(opts), 0)
+    end,
   },
 }

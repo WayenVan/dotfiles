@@ -13,15 +13,6 @@ map("n", "<leader>p", '"+p', { desc = "paste to clipboard" })
 map("v", "<leader>p", '"+p', { desc = "paste to clipboard" })
 map("n", "<leader>P", '"+P', { desc = "paste to clipboard" })
 
--- Floating terminal
-local lazyterm = function()
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-map("n", "<leader>t", lazyterm, { desc = "Terminal (Root Dir)" })
-map("n", "<leader>T", function()
-  LazyVim.terminal()
-end, { desc = "Terminal (cwd)" })
-
 -- Window settings
 map("n", "<c-w>m", "<c-w>|", { desc = "Max out width" })
 

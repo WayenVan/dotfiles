@@ -1,8 +1,6 @@
+-- set up python dap it was set by nvim-dap-python
 local dap = require("dap")
 
--- local no = require("noice")
--- no.notify("hahahhahahh", "error")
---
 -- dap.adapters.mypy = function(cb, config)
 --   cb({
 --     type = "executable",

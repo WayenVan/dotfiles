@@ -8,9 +8,9 @@ return {
     local util = require("lspconfig").util
     local root_parttern = {
       ".git/",
-      "init.lua",
-      "package.json",
       ".neoconf.json",
+      "package.json",
+      "init.lua",
     }
     return util.root_pattern(unpack(root_parttern))(fname) or nil
   end,

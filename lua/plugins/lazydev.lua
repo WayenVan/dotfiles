@@ -6,6 +6,8 @@ return {
         { path = "toggleterm.nvim" },
         { path = "planery.nvim" },
         { path = "noice.nvim" },
+        { path = "LuaSnip" },
+        { path = "nvim-dap" },
       },
     },
   },

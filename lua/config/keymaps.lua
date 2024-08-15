@@ -21,4 +21,6 @@ map("i", "<c-a-p>", function()
   vim.lsp.buf.signature_help()
 end, { desc = "Show function signature" })
 
--- tree toggle
+--  in command mode
+map("c", "<c-k>", "<C-p>", { noremap = true, silent = true })
+map("c", "<c-j>", "<C-n>", { noremap = true, silent = true })

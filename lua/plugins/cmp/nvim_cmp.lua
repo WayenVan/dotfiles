@@ -10,7 +10,6 @@ return {
       opts.mapping["<C-P>"] = cmp.mapping.complete()
       opts.mapping["<C-j>"] = cmp.mapping.select_next_item()
       opts.mapping["<C-k>"] = cmp.mapping.select_prev_item()
-      return opts
     end,
   },
 }

@@ -122,7 +122,6 @@ return {
     opts = function(_, opts)
       local wk = require("which-key")
       wk.add({ "<leader>t", group = "ToogleTerm", icon = "" })
-      return opts
     end,
   },
 }

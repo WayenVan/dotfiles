@@ -5,7 +5,6 @@ return {
       spec = {
         { "<BS>", desc = "Decrement Selection", mode = "x" },
         { "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
-        { "<leader>o", group = "Neoc(o)nf", icon = "" },
       },
     },
   },

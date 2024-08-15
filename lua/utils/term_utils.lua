@@ -1,14 +1,15 @@
-local ret = {}
+local M = {}
 
-local t = require("toggleterm.terminal")
+local function load_toggleterm()
+  local t = require("toggleterm.terminal")
+  return t
+end
 
----@param config TermCreateArgs
-function ret.create_terminal(config)
+---@param config TermCreateArgs?
+function M.create_terminal(config)
   -- set defualt values
-  if config.exit_on_close == nil then
-    config.exit_on_close = false
-  end
+  local t = load_toggleterm()
   t.Terminal:new(config):toggle()
 end
 
-return ret
+return M

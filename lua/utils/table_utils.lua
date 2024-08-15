@@ -1,6 +1,6 @@
-local utils = {}
+local M = {}
 
-function utils.mergeTables(table1, table2)
+function M.mergeTables(table1, table2)
   -- Create a new table to hold the merged results
   local merged = {}
 
@@ -19,4 +19,4 @@ function utils.mergeTables(table1, table2)
   return merged
 end
 
-return utils
+return M

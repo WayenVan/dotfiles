@@ -12,6 +12,7 @@ return {
           require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
         desc = "ToggleTerm (float root_dir)",
+        mode = { "n", "i" },
       },
       {
         "<c-/>",
@@ -21,6 +22,7 @@ return {
         end,
         noremap = true,
         desc = "ToggleTerm (float root_dir)",
+        mode = { "n", "i" },
       },
       {
         "<leader>tf",
@@ -95,8 +97,8 @@ return {
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
       direction = "float" or "horizontal" or "vertical" or "window",
-      -- direction = "vertical",
-      close_on_exit = true, -- close the terminal window when the process exits
+      -- direction = "float",
+      close_on_exit = false, -- close the terminal window when the process exits
       -- shell = vim.o.shell, -- change the default shell
       -- This field is only relevant if direction is set to 'float'
       -- float_opts = {
@@ -114,11 +116,13 @@ return {
       --   }
       -- }
     },
-    config = function(_, opts)
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    opts = function(_, opts)
       local wk = require("which-key")
       wk.add({ "<leader>t", group = "ToogleTerm", icon = "" })
-      -- local no = require("noice")
-      -- no.notify(vim.inspect(opts), 0)
+      return opts
     end,
   },
 }

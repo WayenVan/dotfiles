@@ -5,7 +5,10 @@ return {
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
-      servers = require("plugins.lsp.servers"),
+      -- servers = require("plugins.lsp.servers"),
+      servers = {
+        lua_ls = require("plugins.lsp.lua_ls"),
+      },
     },
   },
 }

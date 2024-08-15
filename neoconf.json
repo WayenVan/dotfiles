@@ -1,7 +1,18 @@
 {
-  // "lspconfig": {
-  //   "lua_ls": {
-  //     "Lua.hint.enable": false
-  //   }
-  // }
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.hint.enable": false,
+      "Lua.hint.setType": false,
+      "Lua.hint.paramType": true,
+      "Lua.hint.paramName": "Disable",
+      "Lua.hint.semicolon": "Disable",
+      "Lua.hint.arrayIndex": "Disable",
+      "Lua.workspace.checkThirdParty": false,
+      "Lua.codelens.enable": true,
+      "Lua.completion.callSnippet": "Replace",
+      "Lua.doc.privateName": [
+        "^-"
+      ]
+    }
+  }
 }

@@ -20,3 +20,5 @@ map("n", "<c-w>m", "<c-w>|", { desc = "Max out width" })
 map("i", "<c-a-p>", function()
   vim.lsp.buf.signature_help()
 end, { desc = "Show function signature" })
+
+-- tree toggle

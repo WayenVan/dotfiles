@@ -9,7 +9,7 @@
       "Lua.hint.arrayIndex": "Disable",
       "Lua.workspace.checkThirdParty": false,
       "Lua.codelens.enable": true,
-      "Lua.completion.callSnippet": "Diable",
+      "Lua.completion.callSnippet": "Disable",
       "Lua.completion.showParams": false,
       "Lua.doc.privateName": [
         "^-"

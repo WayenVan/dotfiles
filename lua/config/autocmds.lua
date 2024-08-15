@@ -11,6 +11,6 @@ vim.api.nvim_create_augroup("AutoSourceNvimLua", { clear = true })
 vim.api.nvim_create_autocmd({ "DirChanged" }, {
   group = "AutoSourceNvimLua",
   callback = function()
-    require("utils.file").auto_sourcing()
+    require("utils.file").auto_source()
   end,
 })

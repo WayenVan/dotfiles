@@ -27,7 +27,6 @@ return {
       })
       -- remove key binding
       opts.mapping = mapping
-      table_utils.printTable(opts.mapping)
       return opts
     end,
   },

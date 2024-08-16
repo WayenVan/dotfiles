@@ -25,3 +25,11 @@ end, { desc = "Terminal (cwd)" })
 
 -- neoconf
 map("n", "<leader>os", "<cmd>Neoconf show<cr>", { desc = "(S)how neoconf" })
+
+-- lazyvim extra
+map("n", "<leader>lx", "", { desc = "Lazy" })
+map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })
+map("n", "<leader>lc", function()
+  LazyVim.news.changelog()
+end, { desc = "LazyVim Changelog" })
+map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })

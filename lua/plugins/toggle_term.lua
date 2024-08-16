@@ -11,7 +11,7 @@ return {
           local count = vim.v.count1
           require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
-        desc = "ToggleTerm (float root_dir)",
+        desc = "ToggleTerm",
         mode = { "n", "i" },
       },
       {
@@ -21,7 +21,7 @@ return {
           require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
         noremap = true,
-        desc = "ToggleTerm (float root_dir)",
+        desc = "ToggleTerm",
         mode = { "n", "i" },
       },
       {
@@ -30,7 +30,7 @@ return {
           local count = vim.v.count1
           require("toggleterm").toggle(count, 15, LazyVim.root.get(), "float")
         end,
-        desc = "ToggleTerm (vertical root_dir)",
+        desc = "ToggleTerm (float root_dir)",
       },
       {
         "<leader>th",

@@ -1,7 +1,7 @@
 return {
   {
     "L3MON4D3/LuaSnip",
-    opts = function(_, opts)
+    keys = function(_, keys)
       local ls = require("luasnip")
       local M = {}
 
@@ -42,28 +42,35 @@ return {
         ls.cleanup()
         M.reload_package("<update the module name here>")
       end
-      local set = vim.keymap.set
 
       local mode = { "i", "s" }
       local normal = { "n" }
 
-      set(mode, "<c-i>", M.expand_or_jump)
-      set(mode, "<c-n>", M.jump_prev)
-      set(mode, "<c-l>", M.change_choice)
+      -- set(mode, "<c-i>", M.expand_or_jump)
+      -- set(mode, "<c-n>", M.jump_prev)
+      -- set(mode, "<c-l>", M.change_choice)
       -- set(normal, ",r", M.refresh_snippets)
-      --
-      --
-      require("plugins.cmp.snippets.lua")
+
+      local mappings = {
+        { "<c-i>", M.expand_or_jump, mode = mode },
+        { "<c-n>", M.jump_prev,      mode = mode },
+        { "<c-l>", M.change_choice,  mode = mode },
+      }
+      return vim.list_extend(mappings, keys)
     end,
+    opts = function(_, opts)
+      -- import snipets
+      require("plugins.cmp.snippets.lua")
+    end
   },
   -- disable lazynvim cmp key settings
   {
     "nvim-cmp",
-  -- stylua: ignore
-  keys = {
-    { "<tab>", false },
-    { "<tab>", false},
-    { "<s-tab>", false},
-  },
+    -- stylua: ignore
+    keys = {
+      { "<tab>",   false },
+      { "<tab>",   false },
+      { "<s-tab>", false },
+    },
   },
 }

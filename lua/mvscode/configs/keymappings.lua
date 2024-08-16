@@ -11,10 +11,10 @@ map("n", "L", function()
 end, {})
 
 -- tab moving
-map("n", "<leader>bl", function()
+map("n", "<leader>bL", function()
   vs.action("workbench.action.moveEditorToNextGroup")
 end, {})
-map("n", "<leader>bh", function()
+map("n", "<leader>bH", function()
   vs.action("workbench.action.moveEditorToPreviousGroup")
 end, {})
 
@@ -25,10 +25,10 @@ end, {})
 map("n", "<leader>bD", function()
   vs.action("workbench.action.closeEditorsInGroup")
 end, {})
-map("n", "<leader>bL", function()
+map("n", "<leader>bl", function()
   vs.action("workbench.action.closeEditorsToTheLeft")
 end, {})
-map("n", "<leader>bR", function()
+map("n", "<leader>br", function()
   vs.action("workbench.action.closeEditorsToTheRight")
 end, {})
 
@@ -135,6 +135,20 @@ end, {})
 map({ "n", "v" }, "<c-w>m", function()
   vs.action("workbench.action.toggleEditorWidths")
 end, {})
+
+-- window moving
+map("n", "<c-h>", function()
+  vs.call("workbench.action.navigateLeft")
+end)
+map("n", "<c-j>", function()
+  vs.call("workbench.action.navigateDown")
+end)
+map("n", "<c-k>", function()
+  vs.call("workbench.action.navigateUp")
+end)
+map("n", "<c-l>", function()
+  vs.call("workbench.action.navigateRight")
+end)
 
 -- indent
 local opts = { noremap = true, silent = true }

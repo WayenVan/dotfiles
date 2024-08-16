@@ -40,30 +40,12 @@ return {
         end,
         desc = "Buffer Explorer",
       },
+      opts = function(_, opts)
+        opts.window.mappings["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } }
+        opts.window.mappings["l"] = "focus_preview"
+        opts.window.mappings["<C-b>"] = { "scroll_preview", config = { direction = 10 } }
+        opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
+      end,
     },
-    -- {
-    --   "nvim-neo-tree/neo-tree.nvim",
-    --   opts = function(_, opts)
-    --     -- Lua function to change the working directory to the currently selected item in Neo-tree
-    --
-    --     -- Create a command to change the working directory to the Neo-tree selected item
-    --     vim.keymap.set("n", "<leader>fC", function()
-    --       -- Get the current node in Neo-tree
-    --       local node = require("neo-tree").sources.filesystem.get_node_under_cursor()
-    --
-    --       -- If the selected node is a directory, use its path
-    --       -- Otherwise, use the parent directory's path
-    --       local path = node.path
-    --       if node.type ~= "directory" then
-    --         path = vim.fn.fnamemodify(path, ":h")
-    --       end
-    --
-    --       -- Change Neovim's working directory to the selected path
-    --       vim.cmd("cd " .. path)
-    --       print("Working directory changed to: " .. path)
-    --     end, { noremap = true, silent = true, desc = "Change working directory to Neo-tree item" })
-    --     return opts
-    --   end,
-    -- },
   },
 }

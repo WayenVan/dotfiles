@@ -1,11 +1,16 @@
-local no = require("noice")
+local function load_noice()
+  return require("noice")
+end
 
 local M = {}
 
 --- @param lsp_name string
 function M.get_python_lsp(lsp_name)
   lsp_name = lsp_name or "pyright"
+
+  local no = load_noice()
   local lsp_clients = vim.lsp.get_clients({ name = lsp_name })
+
   if #lsp_clients < 1 then
     no.notify("No python lsp server found", "error")
     return nil
@@ -21,6 +26,7 @@ end
 --- @param lsp_name string
 function M.get_python_path(lsp_name)
   lsp_name = lsp_name or "pyright"
+
   local lsp_client = M.get_python_lsp(lsp_name)
   if lsp_client == nil then
     return nil

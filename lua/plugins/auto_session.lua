@@ -30,7 +30,11 @@ return {
     opts = function(_, opts)
       local function restore_neo_tree()
         local tree = require("neo-tree.command")
-        tree.execute({ action = "focus" })
+        tree.execute({
+          action = "show",
+          position = "left",
+          dir = vim.fn.getcwd(),
+        })
       end
       opts.post_restore_cmds = { restore_neo_tree }
     end,

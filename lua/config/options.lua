@@ -10,3 +10,5 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = 0.85
   end
 end
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

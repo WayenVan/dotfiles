@@ -9,6 +9,7 @@ return {
         { path = "noice.nvim", mods = { "noice" } },
         { path = "LuaSnip", mods = { "luasnip" } },
         { path = "nvim-dap", mods = { "dap" } },
+        { path = "neo-tree.nvim" },
       },
     },
   },

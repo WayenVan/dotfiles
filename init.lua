@@ -5,6 +5,6 @@ else
   require("config.lazy")
   -- add new cmds
   require("config.cmds")
-  -- auto sourcing
-  require("utils.file").auto_source()
+  -- auto run
+  require("config.autorun")
 end

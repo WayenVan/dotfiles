@@ -4,6 +4,7 @@
 
 local map = vim.keymap.set
 -- -- Yank to the system clipboard by default
+
 map("n", "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map("v", "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map("n", "<leader>Y", '"+Y', { desc = "Yank to clipboard" })

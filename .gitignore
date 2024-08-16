@@ -9,3 +9,5 @@ data
 lazy-lock.json
 
 *.code-workspace
+
+**/__pycache__

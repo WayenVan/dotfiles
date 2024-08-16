@@ -10,6 +10,7 @@ return {
         { path = "LuaSnip", mods = { "luasnip" } },
         { path = "nvim-dap", mods = { "dap" } },
         { path = "neo-tree.nvim" },
+        { path = "neoconf.nvim", mods = { "neoconf" } },
       },
     },
   },

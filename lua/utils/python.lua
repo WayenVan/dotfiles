@@ -4,7 +4,7 @@ end
 
 local M = {}
 
---- @param lsp_name string
+--- @param lsp_name? string
 function M.get_python_lsp(lsp_name)
   lsp_name = lsp_name or "pyright"
 
@@ -23,7 +23,7 @@ function M.get_python_lsp(lsp_name)
   end
 end
 
---- @param lsp_name string
+--- @param lsp_name? string
 function M.get_python_path(lsp_name)
   lsp_name = lsp_name or "pyright"
 

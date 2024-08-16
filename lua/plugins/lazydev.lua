@@ -3,11 +3,12 @@ return {
     "folke/lazydev.nvim",
     opts = {
       library = {
-        { path = "toggleterm.nvim" },
-        { path = "planery.nvim" },
-        { path = "noice.nvim" },
-        { path = "LuaSnip" },
-        { path = "nvim-dap" },
+        "LazyVim",
+        { path = "toggleterm.nvim", mods = { "toggleterm" } },
+        { path = "plenary.nvim", mods = { "plenary" } },
+        { path = "noice.nvim", mods = { "noice" } },
+        { path = "LuaSnip", mods = { "luasnip" } },
+        { path = "nvim-dap", mods = { "dap" } },
       },
     },
   },

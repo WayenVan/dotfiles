@@ -4,7 +4,9 @@
 
 -- neovide settings
 if vim.g.neovide then
-  vim.g.neovide_cursor_antialiasing = true
   vim.g.neovide_scale_factor = 1.0
   vim.o.guifont = "JetBrainsMono Nerd Font:h14"
+  if LazyVim.is_win() then
+    vim.g.neovide_scale_factor = 0.85
+  end
 end

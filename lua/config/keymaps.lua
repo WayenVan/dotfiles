@@ -40,3 +40,5 @@ map("n", "<space>T", "<Nop>")
 map("n", "<space>l", "<Nop>")
 map("n", "<space>L", "<Nop>")
 
+-- terminal send esc to shell
+map("t", "<c-[>", "<Esc>", { silent = true })

@@ -37,3 +37,5 @@ map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })
 -- diable space t
 map("n", "<space>t", "<Nop>")
 map("n", "<space>T", "<Nop>")
+map("n", "<space>l", "<Nop>")
+map("n", "<space>L", "<Nop>")

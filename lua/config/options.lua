@@ -9,4 +9,5 @@ if LazyVim.is_win() then
   vim.g.neovide_scale_factor = 0.85
 end
 
+-- sessiont setting
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

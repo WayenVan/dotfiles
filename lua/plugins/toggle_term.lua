@@ -58,6 +58,35 @@ return {
         "<cmd>TermSelect<cr>",
         desc = "Select term",
       },
+      -- lazygit
+      {
+        "<leader>gg",
+        function()
+          require("utils.term").lazygit_cwd()
+        end,
+        desc = "lazygit (cwd)",
+      },
+      {
+        "<leader>gG",
+        function()
+          require("utils.term").lazygit_root()
+        end,
+        desc = "lazygit (root)",
+      },
+      {
+        "<leader>gl",
+        function()
+          require("utils.term").lazygit_log_cwd()
+        end,
+        desc = "lazygit log (cwd)",
+      },
+      {
+        "<leader>gL",
+        function()
+          require("utils.term").lazygit_log_root()
+        end,
+        desc = "lazygit log (root)",
+      },
       -- {
       --   "<leader>Tt",
       --   function()

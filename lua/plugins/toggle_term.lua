@@ -1,7 +1,7 @@
 return {
   {
     "akinsho/toggleterm.nvim",
-    lazy = false,
+    lazy = true,
     dependencies = { { "folke/which-key.nvim" } },
     cmd = { "ToggleTerm" },
     keys = {

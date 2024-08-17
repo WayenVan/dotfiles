@@ -16,7 +16,7 @@ return {
       auto_session_enable_last_session = false,
       auto_session_use_git_branch = false,
       auto_restore_lazy_delay_enabled = true,
-      log_level = "warn",
+      log_level = "error",
     },
     keys = {
       { "<leader>qS", "<cmd>SessionSave<cr>", desc = "Save session" },

@@ -9,7 +9,6 @@ end
 
 -- global user state
 UserState = {
-
   -- conda info --json result, if not installed, the value should be nil
   conda_info = utils.create_lazy_var(function()
     return python_utils.get_conda_info()

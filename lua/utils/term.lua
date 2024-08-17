@@ -12,10 +12,17 @@ function M.create_terminal(config)
   t.Terminal:new(config):toggle()
 end
 
-local lazygit_cwd = nil
+-- cutomized local terminal
+local storage = {
+  lazygit_cwd = nil,
+  lazygit_root = nil,
+  lazygit_log_cwd = nil,
+  lazygit_log_root = nil,
+}
+
 function M.lazygit_cwd()
-  if not lazygit_cwd then
-    lazygit_cwd = load_toggleterm().Terminal:new({
+  if not storage.lazygit_cwd then
+    storage.lazygit_cwd = load_toggleterm().Terminal:new({
       cmd = "lazygit",
       dir = vim.fn.getcwd(),
       direction = "float",
@@ -24,13 +31,12 @@ function M.lazygit_cwd()
       display_name = "LazyGitCwd",
     })
   end
-  lazygit_cwd:toggle()
+  storage.lazygit_cwd:toggle()
 end
 
-local lazygit_root = nil
 function M.lazygit_root()
-  if not lazygit_root then
-    lazygit_root = load_toggleterm().Terminal:new({
+  if not storage.lazygit_root then
+    storage.lazygit_root = load_toggleterm().Terminal:new({
       cmd = "lazygit",
       dir = LazyVim.root(),
       direction = "float",
@@ -39,13 +45,12 @@ function M.lazygit_root()
       display_name = "LazyGitRoot",
     })
   end
-  lazygit_root:toggle()
+  storage.lazygit_root:toggle()
 end
 
-local lazygit_log_cwd = nil
 function M.lazygit_log_cwd()
-  if not lazygit_log_cwd then
-    lazygit_log_cwd = load_toggleterm().Terminal:new({
+  if not storage.lazygit_log_cwd then
+    storage.lazygit_log_cwd = load_toggleterm().Terminal:new({
       cmd = "lazygit log",
       dir = vim.fn.getcwd(),
       direction = "float",
@@ -54,13 +59,12 @@ function M.lazygit_log_cwd()
       display_name = "LazyGitLog",
     })
   end
-  lazygit_log_cwd:toggle()
+  storage.lazygit_log_cwd:toggle()
 end
 
-local lazygit_log_root = nil
 function M.lazygit_log_root()
-  if not lazygit_log_root then
-    lazygit_log_root = load_toggleterm().Terminal:new({
+  if not storage.lazygit_log_root then
+    storage.lazygit_log_root = load_toggleterm().Terminal:new({
       cmd = "lazygit log",
       dir = LazyVim.root(),
       direction = "float",
@@ -69,7 +73,17 @@ function M.lazygit_log_root()
       display_name = "LazyGitLog",
     })
   end
-  lazygit_log_root:toggle()
+  storage.lazygit_log_root:toggle()
+end
+
+-- clear all stored terminal
+function M.clear_storage()
+  for key, value in pairs(storage) do
+    if value ~= nil then
+      value:shutdown()
+      storage[key] = nil
+    end
+  end
 end
 
 return M

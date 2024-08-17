@@ -120,7 +120,7 @@ return {
       --- @param t Terminal
       on_create = function(t)
         --- check anaconda
-        if t.cmd ~= nil then
+        if t.cmd == nil then
           if UserState.conda_info() ~= nil then
             local conda_info = UserState.conda_info()
             local env_name = conda_info.active_prefix_name

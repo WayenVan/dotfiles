@@ -117,6 +117,19 @@ return {
       -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
       -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
       -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
+      --- @param t Terminal
+      on_create = function(t)
+        --- check anaconda
+        if t.cmd ~= nil then
+          if UserState.conda_info() ~= nil then
+            local conda_info = UserState.conda_info()
+            local env_name = conda_info.active_prefix_name
+            if env_name ~= "base" then
+              require("toggleterm").exec(string.format("conda activate %s", conda_info.active_prefix_name), t.id)
+            end
+          end
+        end
+      end,
       hide_numbers = true, -- hide the number column in toggleterm buffers
       shade_filetypes = {},
       shade_terminals = true,

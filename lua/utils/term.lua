@@ -5,7 +5,7 @@ local function load_toggleterm()
   return t
 end
 
----@param config TermCreateArgs?
+---@param config TermCreateArgs
 function M.create_terminal(config)
   -- set defualt values
   local t = load_toggleterm()

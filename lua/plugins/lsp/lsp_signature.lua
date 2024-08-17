@@ -16,7 +16,7 @@ return {
       require("lsp_signature").setup(opts)
       LazyVim.lsp.on_attach(function(client, buffer)
         require("lsp_signature").on_attach({
-          hint_prefix = " ",
+          hint_prefix = "🧐 ",
         }, buffer)
       end)
     end,

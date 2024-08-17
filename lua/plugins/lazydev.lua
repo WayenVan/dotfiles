@@ -4,7 +4,7 @@ return {
     opts = {
       library = {
         "LazyVim",
-        { path = "toggleterm.nvim", mods = { "toggleterm" } },
+        { path = "toggleterm.nvim", mods = { "toggleterm", "toggleterm.terminal" } },
         { path = "plenary.nvim", mods = { "plenary" } },
         { path = "noice.nvim", mods = { "noice" } },
         { path = "LuaSnip", mods = { "luasnip" } },

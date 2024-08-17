@@ -43,6 +43,7 @@ return {
         M.reload_package("<update the module name here>")
       end
 
+      local set = vim.keymap.set
       local mode = { "i", "s" }
       local normal = { "n" }
 
@@ -53,15 +54,15 @@ return {
 
       local mappings = {
         { "<c-i>", M.expand_or_jump, mode = mode },
-        { "<c-n>", M.jump_prev,      mode = mode },
-        { "<c-l>", M.change_choice,  mode = mode },
+        { "<c-n>", M.jump_prev, mode = mode },
+        { "<c-l>", M.change_choice, mode = mode },
       }
-      return vim.list_extend(mappings, keys)
+      return vim.list_extend(keys, mappings)
     end,
     opts = function(_, opts)
       -- import snipets
       require("plugins.cmp.snippets.lua")
-    end
+    end,
   },
   -- disable lazynvim cmp key settings
   {

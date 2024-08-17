@@ -2,6 +2,10 @@ local function load_noice()
   return require("noice")
 end
 
+local function load_utils()
+  return require("utils.misc")
+end
+
 local M = {}
 
 --- @param lsp_name? string
@@ -32,6 +36,16 @@ function M.get_python_path(lsp_name)
     return nil
   else
     return lsp_client.config.settings.python.pythonPath
+  end
+end
+
+function M.get_conda_info()
+  local u = load_utils()
+  local cmd_result = vim.fn.system("conda info --json")
+  if u.error_exist_str(cmd_result) then
+    return nil
+  else
+    return vim.json.decode(cmd_result)
   end
 end
 

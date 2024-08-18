@@ -1,7 +1,7 @@
 return {
   {
     "L3MON4D3/LuaSnip",
-    opts = function(_, opts)
+    init = function()
       local ls = require("luasnip")
       local M = {}
       function M.expand_or_jump()
@@ -45,7 +45,8 @@ return {
       set(mode, "<c-n>", M.jump_prev)
       set(mode, "<c-l>", M.change_choice)
       set(normal, ",r", M.refresh_snippets)
-
+    end,
+    opts = function(_, opts)
       -- import snipets
       require("plugins.cmp.snippets.lua")
     end,

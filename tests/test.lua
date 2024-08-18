@@ -1,6 +1,9 @@
-local no = require("noice")
 local u = require("utils.misc")
+local n = require("noice")
 
-local result = UserState.conda_info()
 -- result = vim.json.decode(result)
-no.notify(vim.inspect(result), "info")
+vim.api.nvim_input("hello")
+
+vim.print("Enter")
+local a = vim.fn.getcharstr()
+n.notify(a, "info")

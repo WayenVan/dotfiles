@@ -14,19 +14,8 @@ map("n", "<leader>p", '"+p', { desc = "paste from clipboard" })
 map("v", "<leader>p", '"+p', { desc = "paste from clipboard" })
 map("n", "<leader>P", '"+P', { desc = "paste from clipboard" })
 
---- floating terminals
-local lazyterm = function()
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-map("n", "<leader>t", lazyterm, { desc = "Terminal (Root Dir)" })
-map("n", "<leader>T", function()
-  LazyVim.terminal()
-end, { desc = "Terminal (cwd)" })
-
--- neoconf
-map("n", "<leader>os", "<cmd>Neoconf show<cr>", { desc = "(S)how neoconf" })
-
 -- lazyvim extra
+map("n", "<leader>l", "", { desc = "LazyVim" })
 map("n", "<leader>lx", "", { desc = "Lazy" })
 map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })
 map("n", "<leader>lc", function()
@@ -42,3 +31,9 @@ map("n", "<space>L", "<Nop>")
 
 -- terminal send esc to shell
 map("t", "<c-[>", "<Esc>", { silent = true })
+
+-- server settings
+map("n", "<leader>sv", "", { desc = "+nvim server" })
+map("n", "<leader>svv", "<cmd>ServerSelect<cr>", { desc = "Server delete" })
+map("n", "<leader>svc", "<cmd>ServerClear<cr>", { desc = "Server clear" })
+map("n", "<leader>svs", "<cmd>ServerStart<cr>", { desc = "Server start" })

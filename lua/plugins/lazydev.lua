@@ -11,6 +11,7 @@ return {
         { path = "nvim-dap", mods = { "dap" } },
         { path = "neo-tree.nvim" },
         { path = "neoconf.nvim", mods = { "neoconf" } },
+        { path = "telescope.nvim", modes = { "telescope.pickers", "telescope" } },
       },
     },
   },

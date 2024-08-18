@@ -17,10 +17,21 @@ return {
       auto_session_use_git_branch = false,
       auto_restore_lazy_delay_enabled = true,
       log_level = "error",
+      session_lens = {
+        -- If load_on_setup is false, make sure you use `:SessionSearch` to open the picker as it will initialize everything first
+        load_on_setup = true,
+        theme_conf = { border = true },
+        previewer = true,
+        mappings = {
+          -- Mode can be a string or a table, e.g. {"i", "n"} for both insert and normal mode
+          delete_session = { "i", "<C-D>" },
+          alternate_session = { "i", "<C-S>" },
+        },
+      },
     },
     keys = {
       { "<leader>qS", "<cmd>SessionSave<cr>", desc = "Save session" },
-      { "<leader>qs", "<cmd>SessionSearch<cr>", desc = "Search sessions" },
+      { "<leader>qs", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
       { "<leader>qd", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
       { "<leader>qD", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
     },

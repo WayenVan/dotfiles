@@ -15,8 +15,10 @@ end, {})
 -- server command settings
 vim.api.nvim_create_user_command("ServerStart", function()
   local addr = vim.fn.input("Enter the server address")
-  local result = vim.fn.serverstart(addr)
-  noice().notify(string.format("A nvim server start at %s", result), "info")
+  if addr ~= nil and addr ~= "" then
+    local result = vim.fn.serverstart(addr)
+    noice().notify(string.format("A nvim server start at %s", result), "info")
+  end
 end, {})
 
 vim.api.nvim_create_user_command("ServerClear", function()
@@ -28,4 +30,8 @@ vim.api.nvim_create_user_command("ServerClear", function()
   for _, addr in ipairs(addrs) do
     vim.fn.serverstop(addr)
   end
+end, {})
+
+vim.api.nvim_create_user_command("ServerSelect", function()
+  require("utils.pickers").server_picker()
 end, {})

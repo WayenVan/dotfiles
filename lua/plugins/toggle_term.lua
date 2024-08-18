@@ -54,7 +54,7 @@ return {
         desc = "Set term name",
       },
       {
-        "<leader>ts",
+        "<leader>tt",
         "<cmd>TermSelect<cr>",
         desc = "Select term",
       },

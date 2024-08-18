@@ -4,6 +4,9 @@
 
 local map = vim.keymap.set
 -- -- Yank to the system clipboard by default
+-- groups
+map("n", "<leader>n", "", { desc = "+noice/neoconfig" })
+map("n", "<leader>z", "", { desc = "+zen" })
 
 map("n", "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map("v", "<leader>y", '"+y', { desc = "Yank to clipboard" })

@@ -18,7 +18,6 @@ return {
     { "<leader>snt", false},
     { "<c-f>", false},
     { "<c-b>", false},
-    { "<leader>n", "", desc = "+noice/neoconfig"},
     { "<leader>ns", "", desc = "+noice"},
     { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
     { "<leader>nsl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },

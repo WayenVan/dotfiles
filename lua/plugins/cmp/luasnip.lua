@@ -47,17 +47,17 @@ return {
       local mode = { "i", "s" }
       local normal = { "n" }
 
-      -- set(mode, "<c-i>", M.expand_or_jump)
-      -- set(mode, "<c-n>", M.jump_prev)
-      -- set(mode, "<c-l>", M.change_choice)
+      set(mode, "<c-i>", M.expand_or_jump)
+      set(mode, "<c-n>", M.jump_prev)
+      set(mode, "<c-l>", M.change_choice)
       -- set(normal, ",r", M.refresh_snippets)
 
-      local mappings = {
-        { "<c-i>", M.expand_or_jump, mode = mode },
-        { "<c-n>", M.jump_prev, mode = mode },
-        { "<c-l>", M.change_choice, mode = mode },
-      }
-      return vim.list_extend(keys, mappings)
+      -- local mappings = {
+      --   { "<C-i>", M.expand_or_jump, mode = mode },
+      --   { "<C-n>", M.jump_prev, mode = mode },
+      --   { "<C-l>", M.change_choice, mode = mode },
+      -- }
+      -- return vim.list_extend(keys, mappings)
     end,
     opts = function(_, opts)
       -- import snipets

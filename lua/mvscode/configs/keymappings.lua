@@ -162,3 +162,8 @@ end, {})
 map("n", "<leader>dt", function()
   vs.action("workbench.panel.repl.view.focus")
 end, {})
+
+-- zen mode
+map("n", "<leader>zz", function()
+  vs.action("workbench.action.toggleZenMode")
+end, {})

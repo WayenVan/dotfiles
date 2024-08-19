@@ -1,0 +1,5 @@
+return {
+  {
+    "AbaoFromCUG/websocket.nvim",
+  },
+}

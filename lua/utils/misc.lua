@@ -39,4 +39,9 @@ end
 function M.execute_shell_command(cmd)
   return vim.fn.system(cmd)
 end
+
+function M.isLinux()
+  local sysname = vim.uv.os_uname().sysname
+  return sysname and sysname:lower():find("linux") and true or false
+end
 return M

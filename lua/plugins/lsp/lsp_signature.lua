@@ -2,7 +2,9 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      doc_lines = 0,
+    },
     keys = {
       {
         "<c-g>",

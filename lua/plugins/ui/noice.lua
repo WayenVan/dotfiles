@@ -1,4 +1,3 @@
-local cfg = require("noice.config.preset")
 return {
   {
     "folke/noice.nvim",

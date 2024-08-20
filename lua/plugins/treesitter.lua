@@ -1,9 +1,6 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      { "theHamsta/nvim-treesitter-pairs" },
-    },
     opts = {
       -- rainbow = {
       --   enable = true,

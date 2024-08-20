@@ -2,6 +2,15 @@ return {
 
   {
     "SUSTech-data/neopyter",
+    lazy = true,
+    dependencies = {
+      {
+        "AbaoFromCUG/websocket.nvim",
+      },
+    },
+    keys = {
+      { "<leader>jj", "<cmd>Neopyter connect<cr>", desc = "connect to kernel" },
+    },
     ---@type neopyter.Option
     opts = {
       mode = "proxy",
@@ -30,7 +39,7 @@ return {
         map("n", "<leader>jR", "<cmd>Neopyter execute notebook:restart-run-all<cr>", "restart kernel and run all")
 
         map("n", "<leader>jd", "<cmd>Neopyter disconnect<cr>", "disconnect")
-        map("n", "<leader>jj", "<cmd>Neopyter connect<cr>", "connect to kernel")
+        -- map("n", "<leader>jj", "<cmd>Neopyter connect<cr>", "connect to kernel")
       end,
       highlight = {
         enable = true,

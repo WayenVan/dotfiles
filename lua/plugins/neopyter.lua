@@ -2,14 +2,11 @@ return {
 
   {
     "SUSTech-data/neopyter",
-    lazy = true,
+    ft = "python",
     dependencies = {
       {
         "AbaoFromCUG/websocket.nvim",
       },
-    },
-    keys = {
-      { "<leader>jj", "<cmd>Neopyter connect<cr>", desc = "connect to kernel" },
     },
     ---@type neopyter.Option
     opts = {
@@ -21,6 +18,7 @@ return {
         local function map(mode, lhs, rhs, desc)
           vim.keymap.set(mode, lhs, rhs, { desc = desc, buffer = buf })
         end
+        map("n", "<laeder>j", "", "Jupyter")
         -- same, recommend the former
         map("n", "<C-Enter>", "<cmd>Neopyter execute notebook:run-cell<cr>", "run selected")
         -- map("n", "<C-Enter>", "<cmd>Neopyter run current<cr>", "run selected")
@@ -39,7 +37,7 @@ return {
         map("n", "<leader>jR", "<cmd>Neopyter execute notebook:restart-run-all<cr>", "restart kernel and run all")
 
         map("n", "<leader>jd", "<cmd>Neopyter disconnect<cr>", "disconnect")
-        -- map("n", "<leader>jj", "<cmd>Neopyter connect<cr>", "connect to kernel")
+        map("n", "<leader>jj", "<cmd>Neopyter connect<cr>", "connect to kernel")
       end,
       highlight = {
         enable = true,

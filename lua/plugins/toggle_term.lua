@@ -127,15 +127,15 @@ return {
       --- @param t Terminal
       on_create = function(t)
         --- check anaconda
-        if t.cmd == nil then
-          if UserState.conda_info() ~= nil then
-            local conda_info = UserState.conda_info()
-            local env_name = conda_info.active_prefix_name
-            if env_name ~= "base" then
-              require("toggleterm").exec(string.format("conda activate %s", conda_info.active_prefix_name), t.id)
-            end
-          end
-        end
+        -- if t.cmd == nil then
+        --   if UserState.conda_info() ~= nil then
+        --     local conda_info = UserState.conda_info()
+        --     local env_name = conda_info.active_prefix_name
+        --     if env_name ~= "base" then
+        --       require("toggleterm").exec(string.format("conda activate %s", conda_info.active_prefix_name), t.id)
+        --     end
+        --   end
+        -- end
       end,
       hide_numbers = true, -- hide the number column in toggleterm buffers
       shade_filetypes = {},

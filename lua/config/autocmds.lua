@@ -20,3 +20,17 @@ vim.api.nvim_create_autocmd({ "DirChanged" }, {
     require("utils.term").clear_storage()
   end,
 })
+
+-- change color theme
+-- function ToggleTheme()
+--   if vim.o.background == "dark" then
+--     require("tokyonight").load()
+--   else
+--     require("catppuccin").load()
+--   end
+-- end
+--
+-- vim.api.nvim_create_autocmd("OptionSet", {
+--   pattern = "background",
+--   callback = ToggleTheme,
+-- })

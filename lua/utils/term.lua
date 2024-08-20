@@ -86,4 +86,11 @@ function M.clear_storage()
   end
 end
 
+function M.clear_all()
+  local t = load_toggleterm()
+  for _, v in pairs(t.get_all()) do
+    v:shutdown()
+  end
+end
+
 return M

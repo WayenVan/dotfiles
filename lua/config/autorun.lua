@@ -9,6 +9,7 @@ UserState = {
   conda_info = utils.create_lazy_var(function()
     return python_utils.get_conda_info()
   end),
+  --- maintain a list of loaded init files, prevent duplicate loading
   loaded_init_files = {},
 }
 

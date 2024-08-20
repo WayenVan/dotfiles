@@ -58,6 +58,13 @@ return {
         "<cmd>TermSelect<cr>",
         desc = "Select term",
       },
+      {
+        "<leader>tc",
+        function()
+          require("utils.term").clear_all()
+        end,
+        desc = "Clear all terms",
+      },
       -- lazygit
       {
         "<leader>gg",

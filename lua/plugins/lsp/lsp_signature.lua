@@ -2,7 +2,22 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      bind = true,
+      border = "solid",
+      transparency = 20,
+      doc_lines = 0,
+      handler_opts = {
+        border = "solid",
+      },
+      hint_enable = false,
+      hint_prefix = {
+        above = "↙ ", -- when the hint is on the line above the current line
+        current = "← ", -- when the hint is on the same line
+        below = "↖ ", -- when the hint is on the line below the current line
+      },
+      hi_parameter = "@markup.list.markdown",
+    },
     keys = {
       {
         "<c-g>",
@@ -15,22 +30,7 @@ return {
     config = function(_, opts)
       require("lsp_signature").setup(opts)
       LazyVim.lsp.on_attach(function(client, buffer)
-        require("lsp_signature").on_attach({
-          bind = true,
-          border = "solid",
-          transparency = 20,
-          doc_lines = 0,
-          handler_opts = {
-            border = "solid",
-          },
-          hint_enable = false,
-          hint_prefix = {
-            above = "↙ ", -- when the hint is on the line above the current line
-            current = "← ", -- when the hint is on the same line
-            below = "↖ ", -- when the hint is on the line below the current line
-          },
-          hi_parameter = "@markup.list.markdown",
-        }, buffer)
+        require("lsp_signature").on_attach({}, buffer)
       end)
     end,
   },

@@ -51,6 +51,13 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      -- show hide_files
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+        },
+      },
+      -- add copy path command
       commands = {
         copy_selector = function(state)
           local node = state.tree:get_node()

@@ -4,4 +4,5 @@ return {
   -- { "folke/noice.nvim", enabled = false },
   -- { "nvim-treesitter/nvim-treesitter", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
+  { "linux-cultist/venv-selector.nvim", enabled = false },
 }

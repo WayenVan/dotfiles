@@ -27,11 +27,11 @@ end, { desc = "LazyVim Changelog" })
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })
 
 -- diable space t
-map("n", "<space>t", "<Nop>")
-map("n", "<space>T", "<Nop>")
-map("n", "<space>l", "<Nop>")
-map("n", "<space>L", "<Nop>")
-map("n", "<space>z", "<Nop>")
+-- map("n", "<space>t", "<Nop>")
+-- map("n", "<space>T", "<Nop>")
+-- map("n", "<space>l", "<Nop>")
+-- map("n", "<space>L", "<Nop>")
+-- map("n", "<space>z", "<Nop>")
 
 -- terminal send esc to shell
 map("t", "<c-[>", "<Esc>", { silent = true })

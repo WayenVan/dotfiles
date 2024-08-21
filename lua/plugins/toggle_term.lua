@@ -5,6 +5,7 @@ return {
     dependencies = { { "folke/which-key.nvim" } },
     cmd = { "ToggleTerm" },
     keys = {
+      { "<leader>t", "", desc = "toggle terminal" },
       {
         "<c-_>",
         function()

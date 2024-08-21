@@ -6,6 +6,7 @@ return {
       "nvim-telescope/telescope.nvim", -- Only needed if you want to use sesssion lens
     },
     opts = {
+      silent_restore = true,
       auto_session_enabled = true,
       auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
       auto_save_enabled = true,

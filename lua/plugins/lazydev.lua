@@ -12,6 +12,7 @@ return {
         { path = "neo-tree.nvim" },
         { path = "neoconf.nvim", mods = { "neoconf" } },
         { path = "telescope.nvim", modes = { "telescope.pickers", "telescope" } },
+        { path = "venv-selector", modes = { "venv-selector" } },
       },
     },
   },

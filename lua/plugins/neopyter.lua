@@ -2,12 +2,8 @@ return {
 
   {
     "SUSTech-data/neopyter",
-    ft = "python",
-    dependencies = {
-      {
-        "AbaoFromCUG/websocket.nvim",
-      },
-    },
+    lazy = true,
+    enabled = false,
     ---@type neopyter.Option
     opts = {
       mode = "proxy",
@@ -40,7 +36,7 @@ return {
         map("n", "<leader>jj", "<cmd>Neopyter connect<cr>", "connect to kernel")
       end,
       highlight = {
-        enable = true,
+        enable = false,
         shortsighted = false,
       },
       parser = {

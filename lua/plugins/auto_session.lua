@@ -48,7 +48,34 @@ return {
           dir = vim.fn.getcwd(),
         })
       end
+
+      local function hide_tree()
+        local tree = require("neo-tree.command")
+        tree.execute({
+          action = "hide",
+        })
+      end
+      local function delete_not_good_buffer()
+        -- Get a list of all buffer numbers
+        local buffers = vim.api.nvim_list_bufs()
+
+        -- Iterate over each buffer
+        for _, buf in ipairs(buffers) do
+          -- Get the buffer type (e.g., "", "help", "quickfix", etc.)
+          local buf_type = vim.api.nvim_buf_get_option(buf, "buftype")
+
+          -- Check if the buffer is not normal (i.e., buf_type is not empty)
+          if buf_type ~= "" then
+            -- Delete the buffer
+            vim.api.nvim_buf_delete(buf, { force = true })
+            print("Deleted Buffer:", buf, "Type:", buf_type)
+          end
+        end
+      end
       opts.post_restore_cmds = { restore_neo_tree }
+
+      -- do the cleaning job before saving so avoid any possible errors
+      opts.pre_save_cmds = { hide_tree, delete_not_good_buffer }
     end,
   },
 }

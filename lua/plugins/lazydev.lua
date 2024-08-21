@@ -13,6 +13,7 @@ return {
         { path = "neoconf.nvim", mods = { "neoconf" } },
         { path = "telescope.nvim", modes = { "telescope.pickers", "telescope" } },
         { path = "venv-selector", modes = { "venv-selector" } },
+        { path = "lsp-config" },
       },
     },
   },

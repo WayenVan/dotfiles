@@ -45,12 +45,12 @@ map("n", "<leader>svs", "<cmd>ServerStart<cr>", { desc = "Server start" })
 -- cutomized text object
 local function select_above()
   local line = vim.fn.line(".")
-  local cmd = string.format("normal! ggV%dgg", line - 1)
+  local cmd = string.format("normal! ggV%dgg", line)
   vim.cmd(cmd)
 end
 local function select_below()
   local line = vim.fn.line(".")
-  local cmd = string.format("normal! GV%dgg", line + 1)
+  local cmd = string.format("normal! GV%dgg", line)
   vim.cmd(cmd)
 end
 vim.keymap.set("n", "gA", select_above, { desc = "select above" })

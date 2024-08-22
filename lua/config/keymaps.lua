@@ -55,3 +55,6 @@ local function select_below()
 end
 vim.keymap.set("n", "gA", select_above, { desc = "select above" })
 vim.keymap.set("n", "gB", select_below, { desc = "select below" })
+
+-- neovide setting
+vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })

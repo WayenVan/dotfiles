@@ -35,3 +35,16 @@ end, {})
 vim.api.nvim_create_user_command("ServerSelect", function()
   require("utils.pickers").server_picker()
 end, {})
+
+vim.api.nvim_create_user_command("VideScale", function()
+  local factor = vim.fn.input("Enter the Scaler Factor")
+  if factor ~= "" and factor ~= nil then
+    factor = tonumber(factor)
+    if factor then
+      vim.g.neovide_scale_factor = factor
+      noice().notify("Neovide Facotr Set to " .. tostring(factor), "info")
+    else
+      noice().notify("Invalid Factor", "error")
+    end
+  end
+end, {})

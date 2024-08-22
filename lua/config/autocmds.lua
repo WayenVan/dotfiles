@@ -4,6 +4,7 @@
 
 vim.api.nvim_create_augroup("AutoSourceNvimLua", { clear = true })
 vim.api.nvim_create_augroup("ToggleTerm", { clear = true })
+vim.api.nvim_create_augroup("UserStorage", { clear = true })
 
 -- Create an autocommand to run when entering a directory
 vim.api.nvim_create_autocmd({ "DirChanged" }, {
@@ -21,16 +22,10 @@ vim.api.nvim_create_autocmd({ "DirChanged" }, {
   end,
 })
 
--- change color theme
--- function ToggleTheme()
---   if vim.o.background == "dark" then
---     require("tokyonight").load()
---   else
---     require("catppuccin").load()
---   end
--- end
---
--- vim.api.nvim_create_autocmd("OptionSet", {
---   pattern = "background",
---   callback = ToggleTheme,
--- })
+-- save storage when exiting
+vim.api.nvim_create_autocmd({ "QuitPre" }, {
+  group = "UserStorage",
+  callback = function()
+    require("utils.storage").save_storage(UserStorage)
+  end,
+})

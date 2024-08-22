@@ -1,22 +1,17 @@
 local M = {}
 
-function M.mergeTables(table1, table2)
-  -- Create a new table to hold the merged results
-  local merged = {}
-
-  -- Copy all entries from the first table
-  for key, value in pairs(table1) do
-    merged[key] = value
-  end
-  -- Copy entries from the second table, skipping existing keys
-  for key, value in pairs(table2) do
-    if merged[key] == nil then
-      merged[key] = value
+function M.deep_merge(t1, t2)
+  t1 = vim.deepcopy(t1)
+  for k, v in pairs(t2) do
+    if type(v) == "table" and type(t1[k]) == "table" then
+      -- If both t1[k] and t2[k] are tables, recursively merge them
+      M.deep_merge(t1[k], v)
     else
-      print("Skipping key: " .. tostring(key) .. " as it already exists.")
+      -- Otherwise, overwrite t1's value with t2's value
+      t1[k] = v
     end
   end
-  return merged
+  return t1
 end
 
 return M

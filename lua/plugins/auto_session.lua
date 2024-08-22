@@ -62,7 +62,7 @@ return {
         -- Iterate over each buffer
         for _, buf in ipairs(buffers) do
           -- Get the buffer type (e.g., "", "help", "quickfix", etc.)
-          local buf_type = vim.api.nvim_buf_get_option(buf, "buftype")
+          local buf_type = vim.api.nvim_get_option_value("buftype", { buf = buf })
 
           -- Check if the buffer is not normal (i.e., buf_type is not empty)
           if buf_type ~= "" then

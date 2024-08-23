@@ -1,6 +1,9 @@
 return {
   {
     "mfussenegger/nvim-dap",
+    keys = {
+      { "<leader>da", "<cmd>DapNew<cr>", desc = "Create a new dap session" },
+    },
     config = function()
       -- setup customized adapters
       require("plugins.dap.python")
@@ -31,6 +34,17 @@ return {
       if vim.fn.filereadable(".vscode/launch.json") then
         vscode.load_launchjs()
       end
+
+      -- setting keymaps for session selection
+      vim.keymap.set("n", "<leader>ds", function()
+        if #require("dap").sessions() == 0 then
+          require("noice").notify("No dap session running", "info")
+          return
+        end
+        local ui = require("dap.ui.widgets")
+        local s = ui.sessions
+        ui.cursor_float(s, {})
+      end, { desc = "Sessions" })
     end,
   },
 }

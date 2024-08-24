@@ -45,7 +45,23 @@ return {
         opts.window.mappings["l"] = "focus_preview"
         opts.window.mappings["<C-b>"] = { "scroll_preview", config = { direction = 10 } }
         opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
+        opts.window.mappings["-"] = "open_split"
+        opts.window.mappings["_"] = "open_vsplit"
+        opts.window.mappings["s"] = "none"
+        opts.window.mappings["S"] = "none"
       end,
+      -- opts = {
+      --   window = {
+      --     mappings = {
+      --       ["<C-b>"] = { "scroll_preview", config = { direction = 10 } },
+      --       ["<C-f>"] = { "scroll_preview", config = { direction = -10 } },
+      --       ["-"] = "open_split",
+      --       ["_"] = "open_vsplit",
+      --       s = "none",
+      --       S = "none",
+      --     },
+      --   },
+      -- },
     },
   },
   {

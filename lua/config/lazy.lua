@@ -12,6 +12,9 @@ require("lazy").setup({
     {
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
+      opts = {
+        colorscheme = "everforest",
+      },
       -- diable keys
       keys = {
         { "<leader>t", false },
@@ -43,6 +46,7 @@ require("lazy").setup({
   },
   install = {
     colorscheme = {
+      "everforest",
       "tokyonight",
       "catppuccin",
       "habamax",

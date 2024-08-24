@@ -20,8 +20,10 @@ return {
         },
         {
           elements = {
-            "repl",
-            "console",
+            { id = "repl", size = 0.4 },
+            { id = "console", size = 0.6 },
+            -- "repl",
+            -- "console",
           },
           size = 10,
           position = "bottom", -- Can be "bottom" or "top"

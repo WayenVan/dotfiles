@@ -3,6 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     keys = {
       { "<leader>da", "<cmd>DapNew<cr>", desc = "Create a new dap session" },
+      { "<leader>dn", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over" },
     },
     config = function()
       -- setup customized adapters

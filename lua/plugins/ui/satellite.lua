@@ -1,7 +1,7 @@
 return {
   {
     "lewis6991/satellite.nvim",
-    event = "VeryLazy",
+    lazy = false,
     opts = {},
   },
 }

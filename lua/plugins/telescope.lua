@@ -11,6 +11,11 @@ return {
       opts.defaults.mappings.i["<C-j>"] = actions.move_selection_next
       opts.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
 
+      opts.defaults.file_ignore_patterns = {
+        "%.git/",
+        "node_modules/",
+      }
+
       return opts
     end,
     keys = {

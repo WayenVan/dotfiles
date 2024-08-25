@@ -5,4 +5,5 @@ return {
   -- { "nvim-treesitter/nvim-treesitter", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
   { "linux-cultist/venv-selector.nvim", enabled = false },
+  { "echasnovski/mini.icons", enabled = false },
 }

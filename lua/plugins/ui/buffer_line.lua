@@ -3,7 +3,10 @@ return {
     "akinsho/bufferline.nvim",
     opts = {
       options = {
-        separator_style = "slant",
+        indicator = {
+          style = "underline",
+        },
+        separator_style = "slope",
         groups = {
           items = {
             require("bufferline.groups").builtin.pinned:with({ icon = "📌" }), -- Group for pinned buffers

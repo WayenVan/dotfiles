@@ -2,6 +2,7 @@ return {
   {
     "mfussenegger/nvim-dap",
     keys = {
+      { "<leader>dR", "<cmd>lua require('dap').restart()<cr>", desc = "Restart" },
       { "<leader>da", "<cmd>DapNew<cr>", desc = "Create a new dap session" },
       { "<leader>dn", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over" },
     },

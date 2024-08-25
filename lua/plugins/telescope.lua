@@ -20,6 +20,7 @@ return {
     end,
     keys = {
       -- find
+      { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
       { "<leader>fF", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
       { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
       { "<leader>fT", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },

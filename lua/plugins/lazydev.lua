@@ -14,6 +14,7 @@ return {
         { path = "telescope.nvim", modes = { "telescope.pickers", "telescope" } },
         { path = "venv-selector", modes = { "venv-selector" } },
         { path = "lsp-config" },
+        { path = "oversser.nvim", modes = { "oversser" } },
       },
     },
   },

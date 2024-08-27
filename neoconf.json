@@ -9,14 +9,14 @@
       "Lua.hint.arrayIndex": "Disable",
       "Lua.workspace.checkThirdParty": false,
       "Lua.codelens.enable": true,
-      "Lua.completion.callSnippet": "Disable",
+      "Lua.completion.callSnippet": "Both",
       "Lua.completion.showParams": false,
       "Lua.doc.privateName": [
         "^-"
       ]
     },
     "pyright": {
-      "python.analysis.typeCheckingMode": "basic"
+      "python.analysis.typeCheckingMode": "off"
     }
   }
 }

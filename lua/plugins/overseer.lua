@@ -19,7 +19,7 @@ return {
       local new_keys = {
         { "<leader>oo", "<cmd>OverseerToggle<cr>", desc = "Task list" },
         { "<leader>oa", "<cmd>OverseerRun<cr>", desc = "Run task" },
-        { "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
+        { "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Quick Action" },
         { "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
         -- { "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task builder" },
         { "<leader>os", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },

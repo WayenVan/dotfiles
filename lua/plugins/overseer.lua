@@ -2,10 +2,17 @@ return {
   {
     "stevearc/overseer.nvim",
     opts = {
-      strategy = "toggleterm",
+      strategy = {
+        "toggleterm",
+      },
+      templates = { "shell", "user.run_python" },
       default_detail = 3,
       task_list = {
         direction = "right",
+        bindings = {
+          ["o"] = "OpenFloat",
+          ["O"] = "Open",
+        },
       },
     },
     keys = function(_, keys)

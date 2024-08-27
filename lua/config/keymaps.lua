@@ -27,11 +27,6 @@ end, { desc = "LazyVim Changelog" })
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })
 
 -- diable space t
--- map("n", "<space>t", "<Nop>")
--- map("n", "<space>T", "<Nop>")
--- map("n", "<space>l", "<Nop>")
--- map("n", "<space>L", "<Nop>")
--- map("n", "<space>z", "<Nop>")
 
 -- terminal send esc to shell
 map("t", "<c-[>", "<Esc>", { silent = true })
@@ -64,7 +59,7 @@ map("c", "<C-j>", "<C-n>", { noremap = true, silent = true })
 map("c", "<C-k>", "<C-p>", { noremap = true, silent = true })
 
 -- git
-map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
-map("n", "<leader>gd", "<cmd>Neogit diff<cr>", { desc = "Neogit Different" })
-map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Neogit push" })
-map("n", "<leader>gP", "<cmd>Neogit pull<cr>", { desc = "Neogit pull" })
+map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit", noremap = true })
+map("n", "<leader>gd", "<cmd>Neogit diff<cr>", { desc = "Neogit Different", noremap = true })
+map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Neogit push", noremap = true })
+map("n", "<leader>gP", "<cmd>Neogit pull<cr>", { desc = "Neogit pull", noremap = true })

@@ -25,7 +25,22 @@ return {
         options = {
           theme = "auto",
           globalstatus = vim.o.laststatus == 3,
-          disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter" } },
+          disabled_filetypes = {
+            statusline = { "dashboard", "alpha", "ministarter", "TelescopePrompt" },
+            winbar = {
+              "dashboard",
+              "alpha",
+              "ministarter",
+              "TelescopePrompt",
+              "neo-tree",
+              "OverseerList",
+              "Outline",
+              "trouble",
+              "toggleterm",
+              "copilot-chat",
+              "aerial",
+            },
+          },
         },
         sections = {
           lualine_a = { "mode" },

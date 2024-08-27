@@ -16,6 +16,7 @@ require("lazy").setup({
         colorscheme = "everforest",
       },
       -- diable keys
+      -- this might not work
       keys = {
         { "<leader>t", false },
         { "<leader>T", false },

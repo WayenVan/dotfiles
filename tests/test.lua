@@ -11,8 +11,10 @@ require("overseer").register_template({
       -- the name of the task (defaults to the cmd of the task)
       name = "Python",
       -- set the working directory for the task
+      --
       cwd = vim.fn.getcwd(),
       -- additional environment variables
+      --
       env = {
         VAR = "FOO",
       },

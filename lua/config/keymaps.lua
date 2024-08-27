@@ -62,3 +62,7 @@ vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler
 -- map
 map("c", "<C-j>", "<C-n>", { noremap = true, silent = true })
 map("c", "<C-k>", "<C-p>", { noremap = true, silent = true })
+
+-- git
+map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
+map("n", "<leader>gd", "<cmd>Neogit diff<cr>", { desc = "Neogit Different" })

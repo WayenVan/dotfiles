@@ -68,33 +68,33 @@ return {
       },
       -- lazygit
       {
-        "<leader>gg",
+        "<leader>gl",
         function()
           require("utils.term").lazygit_cwd()
         end,
         desc = "lazygit (cwd)",
       },
       {
-        "<leader>gG",
+        "<leader>gL",
         function()
           require("utils.term").lazygit_root()
         end,
         desc = "lazygit (root)",
       },
-      {
-        "<leader>gl",
-        function()
-          require("utils.term").lazygit_log_cwd()
-        end,
-        desc = "lazygit log (cwd)",
-      },
-      {
-        "<leader>gL",
-        function()
-          require("utils.term").lazygit_log_root()
-        end,
-        desc = "lazygit log (root)",
-      },
+      -- {
+      --   "<leader>gl",
+      --   function()
+      --     require("utils.term").lazygit_log_cwd()
+      --   end,
+      --   desc = "lazygit log (cwd)",
+      -- },
+      -- {
+      --   "<leader>gL",
+      --   function()
+      --     require("utils.term").lazygit_log_root()
+      --   end,
+      --   desc = "lazygit log (root)",
+      -- },
       -- {
       --   "<leader>Tt",
       --   function()

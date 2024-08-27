@@ -5,7 +5,7 @@ return {
     render = "compact",
     -- stages = "fade",
     stages = "fade_in_slide_out",
-    fps = 120,
+    fps = 60,
     top_down = false,
   },
 }

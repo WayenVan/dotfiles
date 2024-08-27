@@ -66,3 +66,5 @@ map("c", "<C-k>", "<C-p>", { noremap = true, silent = true })
 -- git
 map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
 map("n", "<leader>gd", "<cmd>Neogit diff<cr>", { desc = "Neogit Different" })
+map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Neogit push" })
+map("n", "<leader>gP", "<cmd>Neogit pull<cr>", { desc = "Neogit pull" })

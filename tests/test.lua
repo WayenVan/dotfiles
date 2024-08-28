@@ -5,3 +5,4 @@ require("overseer")
 
 print(require("nvim-navic").get_location())
 local wb = require("winbar")
+LazyVim.cmp.confirm()

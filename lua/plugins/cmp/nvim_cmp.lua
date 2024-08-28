@@ -6,10 +6,12 @@ return {
     },
     opts = function(_, opts)
       local cmp = require("cmp")
-      opts.mapping["<C-N>"] = cmp.config.disable
-      opts.mapping["<C-P>"] = cmp.mapping.complete()
-      opts.mapping["<C-j>"] = cmp.mapping.select_next_item()
-      opts.mapping["<C-k>"] = cmp.mapping.select_prev_item()
+      -- opts.mapping["<C-N>"] = cmp.config.disable
+      -- opts.mapping["<C-P>"] = cmp.mapping.complete()
+      -- opts.mapping["<C-P>"] = cmp.config.disable
+      -- opts.mapping["<C-J>"] = cmp.mapping.select_next_item()
+      -- opts.mapping["<C-K>"] = cmp.mapping.select_prev_item()
+      opts.mapping["<CR>"] = cmp.config.disable
     end,
   },
 }

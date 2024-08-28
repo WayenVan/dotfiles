@@ -18,14 +18,14 @@ elseif is_linux() then
 else
   config.default_prog = { "powershell.exe" }
   config.font = wezterm.font("JetBrainsMono Nerd Font")
-  config.font_size = 17
+  config.font_size = 11
 end
 
 local date = os.date("*t")
 if (tonumber(date.hour) >= 8) and (tonumber(date.hour) <= 19) then
-  config.color_scheme = "Everforest Light (Gogh)"
+  config.color_scheme = "Everforest Light Soft (Gogh)"
 else
-  config.color_scheme = "Everforest Dark (Gogh)"
+  config.color_scheme = "Everforest Dark Soft (Gogh)"
 end
 
 return config

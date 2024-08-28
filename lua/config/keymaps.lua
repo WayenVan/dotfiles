@@ -55,8 +55,8 @@ vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
 
 -- map
-map("c", "<C-j>", "<C-n>", { noremap = true, silent = true })
-map("c", "<C-k>", "<C-p>", { noremap = true, silent = true })
+-- map("c", "<C-j>", "<C-n>", { noremap = true, silent = true })
+-- map("c", "<C-k>", "<C-p>", { noremap = true, silent = true })
 
 -- git
 map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit", noremap = true })

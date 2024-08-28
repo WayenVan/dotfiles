@@ -15,6 +15,7 @@ return {
         { path = "venv-selector", modes = { "venv-selector" } },
         { path = "lsp-config" },
         { path = "oversser.nvim", modes = { "oversser" } },
+        { path = "nvim-cmp", modes = { "cmp" } },
       },
     },
   },

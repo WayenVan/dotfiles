@@ -34,3 +34,5 @@ vim.o.guifont = "JetBrainsMono Nerd Font:h14"
 -- elseif misc.isLinux() then
 --   vim.g.neovide_scale_factor = 1.15
 -- end
+--
+vim.opt.mouse = "a"

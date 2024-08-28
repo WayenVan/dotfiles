@@ -4,4 +4,4 @@ require("overseer")
 --
 
 print(require("nvim-navic").get_location())
-local wb = require("utils.winbar")
+local wb = require("winbar")

@@ -32,9 +32,9 @@ vim.api.nvim_create_autocmd({ "QuitPre" }, {
 
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufFilePost" }, {
   callback = function()
-    local buf_type = vim.bo.buftype
-    if buf_type == "" then
-      vim.opt_local.winbar = "%f"
-    end
+    -- local buf_type = vim.bo.buftype
+    -- if buf_type == "" then
+    --   vim.opt_local.winbar = "%f"
+    -- end
   end,
 })

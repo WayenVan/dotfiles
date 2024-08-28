@@ -29,8 +29,8 @@ return {
             statusline = { "dashboard", "alpha", "ministarter", "TelescopePrompt" },
             winbar = {
               "dashboard",
-              "alpha",
-              "ministarter",
+              -- "alpha",
+              -- "ministarter",
               "TelescopePrompt",
               "neo-tree",
               -- "OverseerList",
@@ -46,7 +46,28 @@ return {
           },
         },
         sections = {
-          lualine_a = { "mode" },
+          lualine_a = {
+            "mode",
+            {
+              -- function()
+              --   local id = vim.apt.nvim_get_current_buf()
+              --   local term = require("toggleterm.terminal").get(id)
+              --   if term then
+              --     return "yes"
+              --   end
+              --   return "no"
+              -- end,
+              LazyVim.lualine.pretty_path(),
+              cond = function()
+                local ft = vim.bo.filetype
+                if ft == "toggleterm" then
+                  return true
+                else
+                  return false
+                end
+              end
+            },
+          },
           lualine_b = { "branch" },
 
           lualine_c = {
@@ -67,30 +88,30 @@ return {
             "fileformat",
           },
           lualine_x = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            color = function() return LazyVim.ui.fg("Statement") end,
-          },
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            color = function() return LazyVim.ui.fg("Constant") end,
-          },
-          -- stylua: ignore
-          {
-            function() return "  " .. require("dap").status() end,
-            cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = function() return LazyVim.ui.fg("Debug") end,
-          },
-          -- stylua: ignore
-          {
-            require("lazy.status").updates,
-            cond = require("lazy.status").has_updates,
-            color = function() return LazyVim.ui.fg("Special") end,
-          },
+            -- stylua: ignore
+            {
+              function() return require("noice").api.status.command.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+              color = function() return LazyVim.ui.fg("Statement") end,
+            },
+            -- stylua: ignore
+            {
+              function() return require("noice").api.status.mode.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+              color = function() return LazyVim.ui.fg("Constant") end,
+            },
+            -- stylua: ignore
+            {
+              function() return "  " .. require("dap").status() end,
+              cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+              color = function() return LazyVim.ui.fg("Debug") end,
+            },
+            -- stylua: ignore
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = function() return LazyVim.ui.fg("Special") end,
+            },
             {
               "diff",
               symbols = {
@@ -111,7 +132,7 @@ return {
             },
           },
           lualine_y = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            { "progress", separator = " ",                  padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
@@ -124,7 +145,7 @@ return {
         winbar = {
           lualine_a = {},
           lualine_b = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype",                   icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
           lualine_c = {
@@ -143,7 +164,7 @@ return {
         },
         inactive_winbar = {
           lualine_a = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype",                   icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
           lualine_b = {},

@@ -4,15 +4,19 @@ return {
     filetype = "python",
   },
   params = {
-    args = { optional = true, type = "list", delimiter = " " },
+    args = { optional = false, type = "list", delimiter = " " },
   },
   builder = function(params)
     local args = { vim.fn.expand("%:p") }
     if params.args ~= nil then
       vim.list_extend(args, params.args)
     end
+    local name = vim.fn.expand("%:t") .. "\n"
+    for i, arg in ipairs(params.args) do
+      name = name .. arg .. "\n"
+    end
     return {
-      name = vim.fn.expand("%:t"),
+      name = name,
       cmd = LazyVim.is_win() and "python" or "python3",
       cwd = vim.fn.getcwd(),
       args = args,

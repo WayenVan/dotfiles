@@ -9,13 +9,16 @@ local is_darwin = function()
   return wezterm.target_triple:find("darwin") ~= nil
 end
 
-config.font = wezterm.font("JetBrainsMonoNL NF")
+config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.max_fps = 144
 
 if is_darwin() then
   config.font_size = 16
+elseif is_linux() then
 else
-  config.font_size = 11
+  config.default_prog = { "powershell.exe" }
+  config.font = wezterm.font("JetBrainsMono Nerd Font")
+  config.font_size = 17
 end
 
 local date = os.date("*t")

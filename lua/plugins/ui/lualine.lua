@@ -32,7 +32,7 @@ return {
               "alpha",
               "ministarter",
               "TelescopePrompt",
-              -- "neo-tree",
+              "neo-tree",
               -- "OverseerList",
               -- "Outline",
               -- "trouble",
@@ -91,7 +91,6 @@ return {
             cond = require("lazy.status").has_updates,
             color = function() return LazyVim.ui.fg("Special") end,
           },
-            "hostname",
             {
               "diff",
               symbols = {
@@ -116,30 +115,43 @@ return {
             { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
+            { "hostname", separator = " " },
             function()
               return " " .. os.date("%R")
             end,
           },
         },
-        -- winbar = {
-        --   lualine_a = {},
-        --   lualine_b = {},
-        --   lualine_c = {
-        --     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        --     { LazyVim.lualine.pretty_path() },
-        --     {
-        --       function(self)
-        --         return require("nvim-navic").get_location({})
-        --       end,
-        --       cond = function()
-        --         return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-        --       end,
-        --     },
-        --   },
-        --   lualine_x = {},
-        --   lualine_y = {},
-        --   lualine_z = {},
-        -- },
+        winbar = {
+          lualine_a = {
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { LazyVim.lualine.pretty_path() },
+          },
+          lualine_b = {},
+          lualine_c = {
+            {
+              function(self)
+                return require("nvim-navic").get_location({})
+              end,
+              cond = function()
+                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+              end,
+            },
+          },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { LazyVim.lualine.pretty_path() },
+          },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
         extensions = { "neo-tree", "lazy" },
       }
 

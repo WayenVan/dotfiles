@@ -8,3 +8,4 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 -- clipboard
 vim.opt.clipboard = ""
+-- vim.opt.winbar = "%f"

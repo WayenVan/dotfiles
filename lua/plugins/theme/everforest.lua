@@ -8,9 +8,10 @@ return {
     config = function()
       require("everforest").setup({
         -- don't need to load for dapui
-        -- on_highlights = function(hl, palette)
-        --   require("utils.ui").setup_hl_dapui(hl)
-        -- end,
+        on_highlights = function(hl, palette)
+          hl["WinBar"] = { link = "Normal" }
+          hl["WinBarNC"] = { link = "Normal" }
+        end,
       })
     end,
   },

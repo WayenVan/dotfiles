@@ -114,6 +114,7 @@ return {
         end,
       },
       window = {
+        title = "",
         mappings = {
           Y = "copy_selector",
         },

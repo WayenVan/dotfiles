@@ -32,16 +32,16 @@ return {
               "alpha",
               "ministarter",
               "TelescopePrompt",
-              "neo-tree",
-              "OverseerList",
-              "Outline",
-              "trouble",
-              "toggleterm",
-              "copilot-chat",
-              "aerial",
-              "NeogitStatus",
-              "NeogitPopup",
-              "FilePanel",
+              -- "neo-tree",
+              -- "OverseerList",
+              -- "Outline",
+              -- "trouble",
+              -- "toggleterm",
+              -- "copilot-chat",
+              -- "aerial",
+              -- "NeogitStatus",
+              -- "NeogitPopup",
+              -- "FilePanel",
             },
           },
         },
@@ -121,25 +121,25 @@ return {
             end,
           },
         },
-        winbar = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { LazyVim.lualine.pretty_path() },
-            {
-              function(self)
-                return require("nvim-navic").get_location({})
-              end,
-              cond = function()
-                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-              end,
-            },
-          },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
+        -- winbar = {
+        --   lualine_a = {},
+        --   lualine_b = {},
+        --   lualine_c = {
+        --     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+        --     { LazyVim.lualine.pretty_path() },
+        --     {
+        --       function(self)
+        --         return require("nvim-navic").get_location({})
+        --       end,
+        --       cond = function()
+        --         return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+        --       end,
+        --     },
+        --   },
+        --   lualine_x = {},
+        --   lualine_y = {},
+        --   lualine_z = {},
+        -- },
         extensions = { "neo-tree", "lazy" },
       }
 

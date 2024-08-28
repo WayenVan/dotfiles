@@ -35,4 +35,3 @@ vim.o.guifont = "JetBrainsMono Nerd Font:h14"
 --   vim.g.neovide_scale_factor = 1.15
 -- end
 --
-vim.opt.mouse = "a"

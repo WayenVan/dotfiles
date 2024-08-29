@@ -6,12 +6,21 @@ return {
     },
     opts = function(_, opts)
       local cmp = require("cmp")
+      local types = require("cmp.types")
+
       -- opts.mapping["<C-N>"] = cmp.config.disable
       -- opts.mapping["<C-P>"] = cmp.mapping.complete()
       -- opts.mapping["<C-P>"] = cmp.config.disable
       -- opts.mapping["<C-J>"] = cmp.mapping.select_next_item()
       -- opts.mapping["<C-K>"] = cmp.mapping.select_prev_item()
       opts.mapping["<CR>"] = cmp.config.disable
+      opts.completeopt = "menu,menuone,noselect,noinsert"
+      opts.confirmation = {
+        default_behavior = types.cmp.ConfirmBehavior.Replace,
+        get_commit_characters = function(commit_characters)
+          return commit_characters
+        end,
+      }
     end,
   },
 }

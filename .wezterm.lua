@@ -23,9 +23,11 @@ end
 
 local date = os.date("*t")
 if (tonumber(date.hour) >= 8) and (tonumber(date.hour) <= 19) then
-	config.color_scheme = "Everforest Light Soft (Gogh)"
+	-- config.color_scheme = "Everforest Light Soft (Gogh)"
+	config.color_scheme = "Catppuccin Latte"
 else
 	config.color_scheme = "Everforest Dark Soft (Gogh)"
+	-- config.color_scheme = "Catppuccin Latte"
 end
 
 config.window_padding = {

@@ -17,7 +17,7 @@ return {
           jump_labels = false,
           highlight = { backdrop = true },
           label = {
-            rainbow = { enabled = true },
+            rainbow = { enabled = false },
           },
         },
         treesitter = {

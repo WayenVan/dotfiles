@@ -131,9 +131,9 @@ return {
             },
           },
           lualine_y = {
-            "fileformat",
-            "encoding",
-            "filesize",
+            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
+            { "encoding", separator = " ", padding = { left = 0, right = 0 } },
+            { "filesize", padding = { left = 0, right = 1 } },
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },

@@ -33,6 +33,7 @@ return {
               -- "ministarter",
               "TelescopePrompt",
               "neo-tree",
+              "dap-repl",
               -- "OverseerList",
               -- "Outline",
               -- "trouble",

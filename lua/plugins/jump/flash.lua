@@ -14,7 +14,7 @@ return {
           },
         },
         char = {
-          jump_labels = true,
+          jump_labels = false,
           highlight = { backdrop = true },
           label = {
             rainbow = { enabled = true },

@@ -1,7 +1,6 @@
 local M = {}
 
 local p = require("plenary.path")
-local u_table = require("utils.table")
 local no = require("noice")
 
 local default_storage = {
@@ -20,7 +19,7 @@ function M.get_storage()
       local content = file:read("*a")
       local storage = vim.fn.json_decode(content)
       if storage then
-        storage = u_table.deep_merge(default_storage, storage)
+        storage = vim.tbl_deep_extend('force', default_storage, storage)
         no.notify("Storage loaded in " .. storage_file:absolute(), "info")
         return storage
       else

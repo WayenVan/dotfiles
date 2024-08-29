@@ -97,14 +97,14 @@ return {
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
               color = function() return LazyVim.ui.fg("Statement") end,
             },
+          },
+          lualine_x = {
             -- stylua: ignore
             {
               function() return require("noice").api.status.mode.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
               color = function() return LazyVim.ui.fg("Constant") end,
             },
-          },
-          lualine_x = {
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
@@ -131,11 +131,11 @@ return {
             },
           },
           lualine_y = {
-            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
-            { "encoding", separator = " ", padding = { left = 0, right = 0 } },
-            { "filesize", padding = { left = 0, right = 1 } },
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
-            { "location", padding = { left = 0, right = 1 } },
+            { "fileformat", separator = " ",                  padding = { left = 1, right = 0 } },
+            { "encoding",   separator = " ",                  padding = { left = 0, right = 0 } },
+            { "filesize",   padding = { left = 0, right = 1 } },
+            { "progress",   separator = " ",                  padding = { left = 1, right = 0 } },
+            { "location",   padding = { left = 0, right = 1 } },
           },
           lualine_z = {
             -- { "hostname", separator = " " },
@@ -147,7 +147,7 @@ return {
         winbar = {
           lualine_a = {},
           lualine_b = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype",                   icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
           lualine_c = {
@@ -166,7 +166,7 @@ return {
         },
         inactive_winbar = {
           lualine_a = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype",                   icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
           lualine_b = {},

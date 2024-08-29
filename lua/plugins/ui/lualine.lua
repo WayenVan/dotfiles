@@ -131,11 +131,11 @@ return {
             },
           },
           lualine_y = {
-            { "fileformat", separator = " ",                  padding = { left = 1, right = 0 } },
-            { "encoding",   separator = " ",                  padding = { left = 0, right = 0 } },
-            { "filesize",   padding = { left = 0, right = 1 } },
-            { "progress",   separator = " ",                  padding = { left = 1, right = 0 } },
-            { "location",   padding = { left = 0, right = 1 } },
+            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
+            { "encoding", separator = " ", padding = { left = 0, right = 0 } },
+            { "filesize", padding = { left = 0, right = 1 } },
+            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
             -- { "hostname", separator = " " },
@@ -147,16 +147,29 @@ return {
         winbar = {
           lualine_a = {},
           lualine_b = {
-            { "filetype",                   icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
           lualine_c = {
+            -- {
+            --   function(self)
+            --     return require("nvim-navic").get_location({})
+            --   end,
+            --   cond = function()
+            --     return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+            --   end,
+            -- },
             {
-              function(self)
-                return require("nvim-navic").get_location({})
-              end,
-              cond = function()
-                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+              function()
+                local f, wb = pcall(require, "lspsaga.symbol.winbar")
+                if f then
+                  local stl = wb.get_bar()
+                  if stl then
+                    return stl
+                  else
+                    return ""
+                  end
+                end
               end,
             },
           },
@@ -166,7 +179,7 @@ return {
         },
         inactive_winbar = {
           lualine_a = {
-            { "filetype",                   icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
           lualine_b = {},

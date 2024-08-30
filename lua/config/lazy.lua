@@ -18,8 +18,8 @@ require("lazy").setup({
       -- diable keys
       -- this might not work
       keys = {
-        { "<leader>t", false },
-        { "<leader>T", false },
+        -- { "<leader>t", false },
+        -- { "<leader>T", false },
       },
     },
     -- import any extras modules here

@@ -3,6 +3,7 @@ return {
     "folke/flash.nvim",
     ---@type Flash.Config
     opts = {
+      labels = "sdfghjklqwertyuopzxcvbnm",
       label = {
         rainbow = { enabled = true },
       },
@@ -14,10 +15,10 @@ return {
           },
         },
         char = {
-          jump_labels = false,
+          jump_labels = true,
           highlight = { backdrop = true },
           label = {
-            rainbow = { enabled = false },
+            rainbow = { enabled = true },
           },
         },
         treesitter = {

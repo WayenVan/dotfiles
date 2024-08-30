@@ -164,10 +164,10 @@ return {
                 local f, wb = pcall(require, "lspsaga.symbol.winbar")
                 if f then
                   local stl = wb.get_bar()
-                  if stl then
+                  if stl and stl ~= "" then
                     return stl
                   else
-                    return ""
+                    return "%#SagaSep#..."
                   end
                 end
               end,

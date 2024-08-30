@@ -38,23 +38,23 @@ map("n", "<leader><leader>", function()
 end, {})
 
 -- settings for go to xxxxxx
-map({ "n", "v" }, "gd", function()
+map({ "n" }, "gd", function()
   vs.action("editor.action.peekDefinition")
 end, {})
-map({ "n", "v" }, "gD", function()
+map({ "n" }, "gD", function()
   vs.action("editor.action.peekDeclaration")
 end, {})
-map({ "n", "v" }, "gI", function()
+map({ "n" }, "gI", function()
   vs.action("editor.action.peekImplementation")
 end, {})
-map({ "n", "v" }, "gy", function()
+map({ "n" }, "gy", function()
   vs.action("editor.action.peekTypeDefinition")
 end, {})
-map({ "n", "v" }, "gY", function()
+map({ "n" }, "gY", function()
   vs.action("editor.showTypeHierarchy")
 end, {})
 
-map({ "n", "v" }, "gb", function()
+map({ "n" }, "gb", function()
   vs.action("editor.showTypeHierarchy")
 end, {})
 
@@ -65,35 +65,33 @@ end, {})
 map("v", "<leader>cf", function()
   vs.action("editor.action.formatSelection")
 end, {})
+map("n", "<leader>cs", function()
+  vs.action("outline.focus")
+end, {})
 
 -- sett select all
-map({ "n", "v" }, "vA", function()
+map({ "n" }, "vA", function()
   vs.action("editor.action.selectAll")
 end, {})
 
--- save file
-map({ "n", "v" }, "<c-s>", function()
-  vs.action("workbench.action.files.save")
-end, {})
-
 -- toggle explorer
-map({ "n", "v" }, "<leader>e", function()
+map({ "n" }, "<leader>e", function()
   vs.action("workbench.files.action.focusFilesExplorer")
 end, {})
 
 -- toggle terminal
-map({ "n", "v" }, "<leader>t", function()
+map({ "n" }, "<leader>t", function()
   vs.action("workbench.action.terminal.toggleTerminal")
 end, {})
 
 -- search
-map({ "n", "v" }, "<leader>ss", function()
+map({ "n" }, "<leader>ss", function()
   vs.action("workbench.action.gotoSymbol")
 end, {})
-map({ "n", "v" }, "<leader>sf", function()
+map({ "n" }, "<leader>sf", function()
   vs.action("actions.find")
 end, {})
-map({ "n", "v" }, "<leader>sr", function()
+map({ "n" }, "<leader>sc", function()
   vs.action("editor.action.startFindReplaceAction")
 end, {})
 
@@ -109,30 +107,30 @@ map("v", "<leader>p", '"+p')
 map("n", "<leader>P", '"+P')
 
 -- set for ui, explorer, panel, and bar
-map({ "n", "v" }, "<leader>ue", function()
+map({ "n" }, "<leader>ue", function()
   vs.action("workbench.action.toggleSidebarVisibility")
 end, {})
-map({ "n", "v" }, "<leader>ua", function()
+map({ "n" }, "<leader>ua", function()
   vs.action("workbench.action.toggleAuxiliaryBar")
 end, {})
-map({ "n", "v" }, "<leader>up", function()
+map({ "n" }, "<leader>up", function()
   vs.action("workbench.action.togglePanel")
 end, {})
 -- theme
-map({ "n", "v" }, "<leader>ub", function()
+map({ "n" }, "<leader>ub", function()
   vs.action("workbench.action.toggleLightDarkThemes")
 end, {})
 
 -- set for diagnostics/quickfix
-map({ "n", "v" }, "<leader>xx", function()
+map({ "n" }, "<leader>xx", function()
   vs.action("workbench.panel.markers.view.focus")
 end, {})
 
 -- window settings
-map({ "n", "v" }, "<c-w>q", function()
+map({ "n" }, "<c-w>q", function()
   vs.action("workbench.action.closeEditorsInGroup")
 end, {})
-map({ "n", "v" }, "<c-w>m", function()
+map({ "n" }, "<c-w>m", function()
   vs.action("workbench.action.toggleEditorWidths")
 end, {})
 

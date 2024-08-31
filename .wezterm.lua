@@ -18,7 +18,7 @@ if is_darwin() then
 elseif is_linux() then
 else
   config.default_prog = { "powershell.exe" }
-  config.font = wezterm.font("JetBrainsMono Nerd Font")
+  config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" })
   config.font_size = 11
 end
 
@@ -46,9 +46,10 @@ config.use_fancy_tab_bar = true
 config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 config.adjust_window_size_when_changing_font_size = false
 
+config.underline_position = "-4"
+
 -- opacity
 config.window_background_opacity = 0.95
-
 -- keymap
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {

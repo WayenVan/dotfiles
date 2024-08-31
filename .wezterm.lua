@@ -54,6 +54,58 @@ config.window_background_opacity = 0.95
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {
   {
+    key = "v",
+    mods = "LEADER",
+    action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+  },
+  {
+    key = "s",
+    mods = "LEADER",
+    action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+  },
+  {
+    key = "h",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Left" }),
+  },
+  {
+    key = "j",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Down" }),
+  },
+  {
+    key = "k",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Up" }),
+  },
+  {
+    key = "l",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Right" }),
+  },
+  -- panel sizing
+  {
+    key = "LeftArrow",
+    mods = "CTRL | SHIFT",
+    action = wezterm.action({ AdjustPaneSize = { "Left", 1 } }),
+  },
+  {
+    key = "UpArrow",
+    mods = "CTRL | SHIFT",
+    action = wezterm.action({ AdjustPaneSize = { "Up", 1 } }),
+  },
+  {
+    key = "DownArrow",
+    mods = "CTRL | SHIFT",
+    action = wezterm.action({ AdjustPaneSize = { "Down", 1 } }),
+  },
+  {
+    key = "RightArrow",
+    mods = "CTRL | SHIFT",
+    action = wezterm.action({ AdjustPaneSize = { "Right", 1 } }),
+  },
+  -- mat tab switching
+  {
     key = "1",
     mods = "LEADER",
     action = wezterm.action({

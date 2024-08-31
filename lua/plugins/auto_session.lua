@@ -31,10 +31,10 @@ return {
       },
     },
     keys = {
-      { "<leader>qS", "<cmd>SessionSave<cr>", desc = "Save session" },
+      { "<leader>qS", "<cmd>SessionSave<cr>",            desc = "Save session" },
       { "<leader>qs", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
-      { "<leader>qd", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
-      { "<leader>qD", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
+      { "<leader>qd", "<cmd>Autosession delete<cr>",     desc = "Delete sessions" },
+      { "<leader>qD", "<cmd>SessionDelete<cr>",          desc = "Delete current session" },
     },
   },
   {
@@ -56,19 +56,22 @@ return {
         })
       end
       local function delete_not_good_buffer()
+        -- remove all non-normal buffers
         -- Get a list of all buffer numbers
         local buffers = vim.api.nvim_list_bufs()
-
         -- Iterate over each buffer
         for _, buf in ipairs(buffers) do
           -- Get the buffer type (e.g., "", "help", "quickfix", etc.)
           local buf_type = vim.api.nvim_get_option_value("buftype", { buf = buf })
-
           -- Check if the buffer is not normal (i.e., buf_type is not empty)
           if buf_type ~= "" then
             -- Delete the buffer
-            vim.api.nvim_buf_delete(buf, { force = true })
-            print("Deleted Buffer:", buf, "Type:", buf_type)
+            local s = pcall(vim.api.nvim_buf_delete, buf, { force = true })
+            if s then
+              print("Deleted Buffer:", buf, "Type:", buf_type)
+            else
+              print("Failed to delete Buffer:", buf, "Type:", buf_type)
+            end
           end
         end
       end

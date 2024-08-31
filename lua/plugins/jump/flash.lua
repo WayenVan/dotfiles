@@ -20,7 +20,7 @@ return {
           label = {
             rainbow = { enabled = true },
             -- exclude = "hjkliardc"
-            exclude = "hjklgyprdc"
+            exclude = "hjklvgyprdc"
           },
         },
         treesitter = {

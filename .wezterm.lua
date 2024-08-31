@@ -9,6 +9,7 @@ local is_darwin = function()
   return wezterm.target_triple:find("darwin") ~= nil
 end
 
+-- fong
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.max_fps = 144
 
@@ -21,6 +22,7 @@ else
   config.font_size = 11
 end
 
+-- color scheme
 local date = os.date("*t")
 if (tonumber(date.hour) >= 8) and (tonumber(date.hour) <= 19) then
   -- config.color_scheme = "Everforest Light Soft (Gogh)"
@@ -31,11 +33,111 @@ else
   -- config.color_scheme = "Catppuccin Latte"
 end
 
+-- window layout
 config.window_padding = {
   left = 0,
   right = 0,
   top = 0,
   bottom = 0,
+}
+config.enable_tab_bar = true
+config.tab_bar_at_bottom = true
+config.use_fancy_tab_bar = true
+config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
+config.adjust_window_size_when_changing_font_size = false
+
+-- opacity
+config.window_background_opacity = 0.95
+
+-- keymap
+config.leader = { key = "Space", mods = "SHIFT" }
+config.keys = {
+  {
+    key = "1",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 0,
+    }),
+  },
+  {
+    key = "2",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 1,
+    }),
+  },
+  {
+    key = "3",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 2,
+    }),
+  },
+  {
+    key = "4",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 3,
+    }),
+  },
+  {
+    key = "5",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 4,
+    }),
+  },
+  {
+    key = "6",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 5,
+    }),
+  },
+  {
+    key = "7",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 6,
+    }),
+  },
+  {
+    key = "8",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = 7,
+    }),
+  },
+  {
+    key = "9",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTab = -1,
+    }),
+  },
+  {
+    key = "q",
+    mods = "LEADER",
+    action = wezterm.action({
+      CloseCurrentTab = {
+        confirm = true,
+      },
+    }),
+  },
+  {
+    key = "[",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTabRelative = -1,
+    }),
+  },
+  {
+    key = "]",
+    mods = "LEADER",
+    action = wezterm.action({
+      ActivateTabRelative = 1,
+    }),
+  },
 }
 
 return config

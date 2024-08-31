@@ -9,3 +9,7 @@ for i in range(10):
 
 def test():
     print("test")
+
+
+def test():
+    prpint("test")

@@ -16,12 +16,8 @@ UserState = {
 
 UserStorage = storage.get_storage()
 
--- swiwtching ui by time
-local f = LazyVim.toggle("background", { values = { "light", "dark" }, name = "Background" })
-local date = os.date("*t")
-if (tonumber(date.hour) >= 8) and (tonumber(date.hour) <= 19) then
-  f()
-end
+-- set background
+vim.opt.background = UserStorage.background
 
 -- source .nvim.lu once after startup
 require("utils.file").auto_source()
@@ -29,9 +25,3 @@ require("utils.file").auto_source()
 -- neovide settings
 vim.g.neovide_scale_factor = UserStorage.neovide_scale_factor
 vim.o.guifont = "JetBrainsMono Nerd Font:h14"
--- if LazyVim.is_win() then
---   vim.g.neovide_scale_factor = 0.85
--- elseif misc.isLinux() then
---   vim.g.neovide_scale_factor = 1.15
--- end
---

@@ -6,6 +6,7 @@ local no = require("noice")
 local default_storage = {
   -- name shoulbe be the same as the global variable
   neovide_scale_factor = 1.0,
+  background = "dark",
 }
 
 function M.get_storage()
@@ -19,7 +20,7 @@ function M.get_storage()
       local content = file:read("*a")
       local storage = vim.fn.json_decode(content)
       if storage then
-        storage = vim.tbl_deep_extend('force', default_storage, storage)
+        storage = vim.tbl_deep_extend("force", default_storage, storage)
         no.notify("Storage loaded in " .. storage_file:absolute(), "info")
         return storage
       else
@@ -33,9 +34,8 @@ function M.get_storage()
 end
 
 function M.update_storage(storage)
-  for k, v in pairs(storage) do
-    storage[k] = vim.g[k]
-  end
+  storage.neovide_scale_factor = vim.g.neovide_scale_factor
+  storage.background = vim.opt.background:get()
 end
 
 function M.save_storage(storage)

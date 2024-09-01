@@ -1,6 +1,10 @@
-defaults:
-  link:
-    relink: true
+- defaults:
+    link:
+      relink: true
 
-clean:
-  - ~
+- clean:
+    - ~
+
+- link:
+    ~/.config/nvim: nvim
+    ~/.wezterm.lua: .wezterm.lua

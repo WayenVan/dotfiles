@@ -189,6 +189,14 @@ config.keys = {
 			},
 		}),
 	},
+	-- create new tab
+	{
+		key = "c",
+		mods = "LEADER",
+		action = wezterm.action({
+			SpawnTab = "CurrentPaneDomain",
+		}),
+	},
 	{
 		key = "[",
 		mods = "LEADER",

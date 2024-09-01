@@ -44,6 +44,7 @@ end
 -- 	config.color_scheme = "Tokyo Night Moon"
 -- 	-- config.color_scheme = "Catppuccin Latte"
 -- end
+
 config.color_scheme = "Catppuccin Mocha"
 
 -- window layout

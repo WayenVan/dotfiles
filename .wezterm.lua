@@ -199,6 +199,12 @@ config.keys = {
 			SpawnTab = "CurrentPaneDomain",
 		}),
 	},
+	-- delete curretn pandel
+	{
+		key = "d",
+		mods = "LEADER",
+		action = wezterm.action({ CloseCurrentPane = { confirm = true } }),
+	},
 	{
 		key = "[",
 		mods = "LEADER",

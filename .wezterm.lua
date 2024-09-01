@@ -35,15 +35,16 @@ else
 end
 
 -- color scheme
-local date = os.date("*t")
-if (tonumber(date.hour) >= 8) and (tonumber(date.hour) <= 19) then
-	-- config.color_scheme = "Everforest Light Soft (Gogh)"
-	config.color_scheme = "Catppuccin Latte"
-else
-	-- config.color_scheme = "Everforest Dark Soft (Gogh)"
-	config.color_scheme = "Tokyo Night Moon"
-	-- config.color_scheme = "Catppuccin Latte"
-end
+-- local date = os.date("*t")
+-- if (tonumber(date.hour) >= 8) and (tonumber(date.hour) <= 19) then
+-- 	-- config.color_scheme = "Everforest Light Soft (Gogh)"
+-- 	config.color_scheme = "Catppuccin Latte"
+-- else
+-- 	-- config.color_scheme = "Everforest Dark Soft (Gogh)"
+-- 	config.color_scheme = "Tokyo Night Moon"
+-- 	-- config.color_scheme = "Catppuccin Latte"
+-- end
+config.color_scheme = "Catppuccino Mocha"
 
 -- window layout
 config.window_padding = {

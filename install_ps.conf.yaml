@@ -1,6 +1,12 @@
-defaults:
-  link:
-    relink: true
+- defaults:
+    link:
+      relink: true
 
-clean:
-  - ~
+- clean: ["~", "~/AppData/Local"]
+
+- link:
+    ~/AppData/Local/nvim: nvim
+    ~/.wezterm.lua: .wezterm.lua
+    ~/.config/starship.toml:
+      path: starship/starship.toml
+      create: true

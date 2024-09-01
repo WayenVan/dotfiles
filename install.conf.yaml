@@ -4,9 +4,10 @@
 
 - clean: ["~", "~/AppData/Local"]
 
+- create:
+    - ~/.config
+
 - link:
     ~/.config/nvim: nvim
     ~/.wezterm.lua: .wezterm.lua
-    ~/.config/starship.toml:
-      path: starship/starship.toml
-      create: true
+    ~/.config/starship.toml: starship/starship.toml

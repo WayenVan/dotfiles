@@ -9,6 +9,18 @@ local is_darwin = function()
 	return wezterm.target_triple:find("darwin") ~= nil
 end
 
+-- config for multiplexer
+
+local ssh_domains = {
+	{
+		name = "main.mec",
+		remote_address = "10.192.31.3",
+		username = "jingyan",
+	},
+}
+
+config.ssh_domains = ssh_domains
+
 -- fong
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.max_fps = 144

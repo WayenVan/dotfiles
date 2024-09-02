@@ -54,9 +54,11 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
+-- babbar plugin
 config.enable_tab_bar = true
--- config.tab_bar_at_bottom = true
-config.use_fancy_tab_bar = true
+local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+bar.apply_to_config(config)
+config.tab_bar_at_bottom = false
 config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 config.adjust_window_size_when_changing_font_size = false
 

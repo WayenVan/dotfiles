@@ -68,7 +68,11 @@ config.underline_position = "-4"
 -- config.window_background_opacity = 0.95
 
 -- keymap
-config.leader = { key = "Space", mods = "SHIFT" }
+config.leader = {
+	key = "Space",
+	mods = "SHIFT",
+	timeout_milliseconds = math.maxinteger,
+}
 config.keys = {
 	{
 		key = "v",
@@ -207,6 +211,12 @@ config.keys = {
 		key = "d",
 		mods = "LEADER",
 		action = wezterm.action({ CloseCurrentPane = { confirm = true } }),
+	},
+	-- quirt applicaiton
+	{
+		key = "Q",
+		mods = "LEADER",
+		action = wezterm.action.QuitApplication,
 	},
 	{
 		key = "[",

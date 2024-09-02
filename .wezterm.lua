@@ -63,7 +63,8 @@ config.adjust_window_size_when_changing_font_size = false
 config.underline_position = "-4"
 
 -- opacity
-config.window_background_opacity = 0.95
+-- config.window_background_opacity = 0.95
+
 -- keymap
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {

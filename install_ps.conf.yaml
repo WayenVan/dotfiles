@@ -11,3 +11,4 @@
     ~/AppData/Local/nvim: nvim
     ~/.wezterm.lua: .wezterm.lua
     ~/.config/starship.toml: starship/starship.toml
+    ~/.condarc: conda/.condarc

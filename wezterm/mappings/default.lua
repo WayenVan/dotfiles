@@ -48,6 +48,8 @@ local mappings = {
   { "<C-M-j>", act.ActivatePaneDirection "Down", "mode down" },
   { "<C-M-k>", act.ActivatePaneDirection "Up", "move up" },
   { "<C-M-l>", act.ActivatePaneDirection "Right", "move right" },
+  { "<C-M-[>", act.ActivateTabRelative(-1), "next tab" },
+  { "<C-M-]>", act.ActivateTabRelative(1), "prev tab" },
   -- my mappings for fat
   { "<C-M-1>", wezterm.action { ActivateTab = 0 } },
   { "<C-M-2>", wezterm.action { ActivateTab = 1 } },

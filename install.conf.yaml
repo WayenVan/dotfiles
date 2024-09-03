@@ -2,7 +2,7 @@
     link:
       relink: true
 
-- clean: ["~", "~/AppData/Local"]
+- clean: ["~", "~/.config"]
 
 - create:
     - ~/.config
@@ -11,5 +11,5 @@
     ~/.config/nvim: nvim
     ~/.wezterm.lua: .wezterm.lua
     ~/.config/starship.toml: starship/starship.toml
-    ~/.condarc:
-      path: conda/.condarc
+    ~/.condarc: conda/.condarc
+    ~/.config/wezterm: wezterm

@@ -1,4 +1,4 @@
-local battery_charge = require("wezterm").battery_info()[1].state_of_charge
+local battery_charge = require("utils.battery").get_battery_info()[1].state_of_charge
 
 local Config = {}
 

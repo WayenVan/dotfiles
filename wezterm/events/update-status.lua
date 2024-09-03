@@ -124,7 +124,7 @@ wt.on("update-status", function(window, pane)
   bg = wt.color.parse(bg)
   local colors = { bg:darken(0.15), bg, bg:lighten(0.15), bg:lighten(0.25) }
 
-  local battery = wt.battery_info()[1]
+  local battery = Utils.battery.get_battery_info()[1]
   battery.charge = battery.state_of_charge * 100
   battery.lvl_round = mt.toint(mt.mround(battery.charge, 10))
   battery.ico = Icon.Bat[battery.state][tostring(battery.lvl_round)]

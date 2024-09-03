@@ -126,112 +126,24 @@ config.keys = {
 		action = wezterm.action({ AdjustPaneSize = { "Right", 1 } }),
 	},
 	-- mat tab switching
-	{
-		key = "1",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 0,
-		}),
-	},
-	{
-		key = "2",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 1,
-		}),
-	},
-	{
-		key = "3",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 2,
-		}),
-	},
-	{
-		key = "4",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 3,
-		}),
-	},
-	{
-		key = "5",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 4,
-		}),
-	},
-	{
-		key = "6",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 5,
-		}),
-	},
-	{
-		key = "7",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 6,
-		}),
-	},
-	{
-		key = "8",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = 7,
-		}),
-	},
-	{
-		key = "9",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTab = -1,
-		}),
-	},
-	{
-		key = "q",
-		mods = "LEADER",
-		action = wezterm.action({
-			CloseCurrentTab = {
-				confirm = true,
-			},
-		}),
-	},
+	{ key = "1", mods = "LEADER", action = wezterm.action({ ActivateTab = 0 }) },
+	{ key = "2", mods = "LEADER", action = wezterm.action({ ActivateTab = 1 }) },
+	{ key = "3", mods = "LEADER", action = wezterm.action({ ActivateTab = 2 }) },
+	{ key = "4", mods = "LEADER", action = wezterm.action({ ActivateTab = 3 }) },
+	{ key = "5", mods = "LEADER", action = wezterm.action({ ActivateTab = 4 }) },
+	{ key = "6", mods = "LEADER", action = wezterm.action({ ActivateTab = 5 }) },
+	{ key = "7", mods = "LEADER", action = wezterm.action({ ActivateTab = 6 }) },
+	{ key = "8", mods = "LEADER", action = wezterm.action({ ActivateTab = 7 }) },
+	{ key = "9", mods = "LEADER", action = wezterm.action({ ActivateTab = -1 }) },
+	{ key = "q", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	-- create new tab
-	{
-		key = "c",
-		mods = "LEADER",
-		action = wezterm.action({
-			SpawnTab = "CurrentPaneDomain",
-		}),
-	},
+	{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
 	-- delete curretn pandel
-	{
-		key = "d",
-		mods = "LEADER",
-		action = wezterm.action({ CloseCurrentPane = { confirm = true } }),
-	},
+	{ key = "d", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
 	-- quirt applicaiton
-	{
-		key = "Q",
-		mods = "LEADER",
-		action = wezterm.action.QuitApplication,
-	},
-	{
-		key = "[",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTabRelative = -1,
-		}),
-	},
-	{
-		key = "]",
-		mods = "LEADER",
-		action = wezterm.action({
-			ActivateTabRelative = 1,
-		}),
-	},
+	{ key = "Q", mods = "LEADER", action = wezterm.action.QuitApplication },
+	{ key = "[", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = -1 }) },
+	{ key = "]", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
 }
 
 return config

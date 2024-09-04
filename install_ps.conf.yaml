@@ -9,7 +9,9 @@
 
 - link:
     ~/AppData/Local/nvim: nvim
-    # ~/.wezterm.lua: .wezterm.lua
     ~/.config/wezterm: wezterm
     ~/.config/starship.toml: starship/starship.toml
     ~/.condarc: conda/.condarc
+    ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1:
+      path: powershell/Microsoft.PowerShell_profile.ps1
+      create: true

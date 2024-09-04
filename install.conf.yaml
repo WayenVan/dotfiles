@@ -12,3 +12,4 @@
     ~/.config/starship.toml: starship/starship.toml
     ~/.condarc: conda/.condarc
     ~/.config/wezterm: wezterm
+    ~/.config/fish/: fish

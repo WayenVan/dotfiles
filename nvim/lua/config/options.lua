@@ -5,10 +5,18 @@
 -- using powershell setting
 if LazyVim.is_win() then
   -- Set PowerShell as the default shell
-  vim.o.shell = "pws"
+  vim.o.shell = "pwsh"
   vim.o.shellcmdflag = "-Command"
   vim.o.shellquote = '"'
   vim.o.shellxquote = ""
+else
+  if vim.fn.executable("zsh") then
+    -- using bash setting
+    vim.o.shell = "zsh"
+    vim.o.shellcmdflag = "-c"
+    vim.o.shellquote = "'"
+    vim.o.shellxquote = ""
+  end
 end
 
 -- local misc = require("utils.misc")

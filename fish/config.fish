@@ -1,9 +1,10 @@
 # starship init
 starship init fish | source
-
-alias -s ll "ls -lah"
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
 
 #check local config
 if test -f ~/.fishrc
-  source ~/.fishrc
+    source ~/.fishrc
 end

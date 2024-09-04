@@ -30,6 +30,7 @@ vim.o.guifont = "JetBrainsMono Nerd Font:h14"
 vim.filetype.add({
   filename = {
     [".condarc"] = "yaml", -- Set filetype to 'python' for a file named 'mycustomfile'
+    [".fishrc"] = "fish",
   },
   extension = {},
   pattern = {},

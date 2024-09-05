@@ -2,7 +2,10 @@
     link:
       relink: true
 
-- clean: ["~", "~/.config"]
+- clean:
+    - "~"
+    - "~/.config"
+    - "~/fish/conf.d"
 
 - create:
     - ~/.config
@@ -12,4 +15,8 @@
     ~/.config/starship.toml: starship/starship.toml
     ~/.condarc: conda/.condarc
     ~/.config/wezterm: wezterm
-    ~/.config/fish/config.fish: fish/config.fish
+    # fish setup
+    ~/.config/fish/conf.d:
+      path: fish/conf.d/*.fish
+      create: ture
+      glob: true

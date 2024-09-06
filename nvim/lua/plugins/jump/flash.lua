@@ -17,10 +17,11 @@ return {
         char = {
           jump_labels = true,
           highlight = { backdrop = true },
+          multi_line = false,
           label = {
-            rainbow = { enabled = true },
+            rainbow = { enabled = false },
             -- exclude = "hjkliardc"
-            exclude = "hjklvgyprdc"
+            exclude = "hjklvgyprdc",
           },
         },
         treesitter = {

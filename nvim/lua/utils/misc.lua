@@ -7,7 +7,6 @@ local M = {}
 -- end)
 
 -- Accessing lazy_var:
--- print(lazy_var()) -- Output: Initializing value... 42
 -- print(lazy_var()) -- Output: 42 (Initialization doesn't happen again)
 --- @param init_function function
 function M.create_lazy_var(init_function)
@@ -23,25 +22,9 @@ function M.create_lazy_var(init_function)
   end
 end
 
-function M.error_exist_str(str)
-  if str:lower():find("error") then
-    return true
-  else
-    return false
-  end
-end
-
-function M.remove_first_nlines(str, n)
-  local pattern = ("[^\n]*\n"):rep(n)
-  return str:gsub(pattern, "", 1)
-end
-
-function M.execute_shell_command(cmd)
-  return vim.fn.system(cmd)
-end
-
-function M.isLinux()
-  local sysname = vim.uv.os_uname().sysname
-  return sysname and sysname:lower():find("linux") and true or false
+function M.cleanShareData()
+  local pl = require("plenary.path")
+  local path = pl:new(vim.fn.stdpath("data")):joinpath("shada")
+  path:rmdir()
 end
 return M

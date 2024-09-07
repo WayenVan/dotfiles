@@ -11,8 +11,10 @@ return {
       delete_to_trash = true,
       keymaps = {
         ["<C-h>"] = false,
+        ["<C-l>"] = false,
         ["<C-s>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["<localleader>r"] = "actions.refresh",
         ["q"] = "actions.close",
       },
     },

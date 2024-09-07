@@ -12,8 +12,6 @@ return {
       keymaps = {
         ["<C-h>"] = false,
         ["<C-l>"] = false,
-        ["_"] = "actions.parent",
-        ["-"] = "actions.open_cwd",
         ["<C-s>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
         ["<localleader>r"] = "actions.refresh",

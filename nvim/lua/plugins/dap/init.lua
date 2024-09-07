@@ -47,6 +47,16 @@ return {
         local s = ui.sessions
         ui.cursor_float(s, {})
       end, { desc = "Sessions" })
+      -- set auto command for session window
+      vim.api.nvim_create_augroup("Dap_", { clear = true })
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        group = "Dap_",
+        pattern = { "dap-float" },
+        callback = function()
+          local buf = vim.api.nvim_get_current_buf()
+          vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>q<CR>", { noremap = true, silent = true })
+        end,
+      })
     end,
   },
 }

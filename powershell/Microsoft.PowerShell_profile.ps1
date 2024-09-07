@@ -7,3 +7,5 @@ if (Test-Path -Path $local_profile) {
     & $local_profile
 } else {}
 
+# set alias of command
+Set-Alias ll l

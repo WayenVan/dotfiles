@@ -8,7 +8,7 @@ return {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
-    -- version = false, -- set this if you want to always pull the latest change
+    version = false, -- set this if you want to always pull the latest change
     opts = {
       provider = "copilot",
       -- add any opts here
@@ -34,7 +34,7 @@ return {
         pattern = { "Avante", "AvanteInput" },
         callback = function()
           local buf = vim.api.nvim_get_current_buf()
-          vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>q<CR>", { noremap = true, silent = true })
+          vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>AvanteToggle<CR>", { noremap = true, silent = true })
         end,
       })
     end,

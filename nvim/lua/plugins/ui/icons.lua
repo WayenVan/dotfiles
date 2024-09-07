@@ -9,7 +9,6 @@ return {
   },
   {
     "DaikyXendo/nvim-material-icon",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
     event = "VeryLazy",
     opts = {
       override = {

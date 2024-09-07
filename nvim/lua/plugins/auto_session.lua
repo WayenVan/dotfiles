@@ -77,7 +77,8 @@ return {
           end
         end
       end
-      opts.post_restore_cmds = { restore_neo_tree }
+      -- opts.post_restore_cmds = { restore_neo_tree }
+      opts.post_restore_cmds = {}
 
       -- do the cleaning job before saving so avoid any possible errors
       opts.pre_save_cmds = { hide_tree, delete_not_good_buffer }

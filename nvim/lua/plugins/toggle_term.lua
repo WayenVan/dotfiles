@@ -149,6 +149,7 @@ return {
       insert_mappings = true, -- whether or not the open mapping applies in insert mode
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
+      persist_mode = false,
       direction = "float" or "horizontal" or "vertical" or "window",
       -- direction = "float",
       close_on_exit = false, -- close the terminal window when the process exits

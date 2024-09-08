@@ -1,9 +1,7 @@
-import numpy as np
-import math
-import time
 import sys
-import torch
+import math
 
+print(sys.executable)
 
 for i in range(10):
     a = math.sqrt(i)

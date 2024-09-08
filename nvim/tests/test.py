@@ -3,7 +3,7 @@ import math
 import time
 import sys
 import torch
-import sdfsad
+
 
 for i in range(10):
     a = math.sqrt(i)

@@ -1,6 +1,12 @@
 -- this setting override the default setting from LazyVim
 local function get_python_executable()
-  local result = vim.fn.system("Get-Command python | Select-Object -ExpandProperty Path")
+  local sys, _ = require("utils.os_name").get_os_name()
+  local result = ""
+  if sys == "Windows" then
+    result = vim.fn.system("Get-Command python | Select-Object -ExpandProperty Path")
+  elseif sys == "Linux" or sys == "Mac" then
+    result = vim.fn.system("which python")
+  end
   return vim.fn.substitute(result, "\n", "", "")
 end
 
@@ -11,17 +17,20 @@ return {
     opts = {
       --@type lspconfig.options
       servers = {
-        -- do not use pyright
         pyright = {
-          -- enabled = false,
           settings = {
             pyright = {
               disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true,     -- Using Ruff
             },
             python = {
               analysis = {
-                ignore = { "*" }, -- Using Ruff
-                typeCheckingMode = "off", -- Using mypy
+                -- ignore = { "*" },         -- Using Ruff
+                -- typeCheckingMode = "", -- Using mypy
+                diagnosticSeverityOverrides = {
+                  -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
+                  reportUndefinedVariable = "none",
+                },
               },
             },
           },
@@ -29,62 +38,65 @@ return {
       },
     },
   },
-  {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      local python_executable = get_python_executable()
-      local null = require("null-ls")
-      local h = require("null-ls.helpers")
-      local u = require("null-ls.utils")
-      local mypy = null.builtins.diagnostics.mypy.with({
-        args = function(params)
-          return {
-            "--hide-error-codes",
-            "--hide-error-context",
-            "--no-color-output",
-            "--show-absolute-path",
-            "--show-column-numbers",
-            "--show-error-codes",
-            "--no-error-summary",
-            "--no-pretty",
-            "--shadow-file",
-            params.bufname,
-            params.temp_path,
-            "--python-executable",
-            python_executable,
-            params.bufname,
-          }
-        end,
-        cwd = h.cache.by_bufnr(function(params)
-          return u.root_pattern(
-            -- https://mypy.readthedocs.io/en/stable/config_file.html
-            "mypy.ini",
-            ".mypy.ini",
-            "pyproject.toml",
-            "setup.cfg",
-            "setup.py",
-            ".git/",
-            "neoconf.json",
-            ".neoconf.json"
-          )(params.bufname)
-        end),
-        -- only on save
-        method = null.methods.DIAGNOSTICS_ON_SAVE,
-        diagnostic_config = {
-          underline = false,
-        },
-      })
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        mypy,
-      })
-    end,
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "mypy",
-      },
-    },
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   opts = function(_, opts)
+  --     local python_executable = get_python_executable()
+  --     local null = require("null-ls")
+  --     local h = require("null-ls.helpers")
+  --     local u = require("null-ls.utils")
+  --     local mypy = null.builtins.diagnostics.mypy.with({
+  --       args = function(params)
+  --         return {
+  --           "--hide-error-codes",
+  --           "--hide-error-context",
+  --           "--no-color-output",
+  --           "--show-absolute-path",
+  --           "--show-column-numbers",
+  --           "--show-error-codes",
+  --           "--no-error-summary",
+  --           "--no-pretty",
+  --           -- skip missinng imports
+  --           "--ignore-missing-imports",
+  --           -- "--no-warn-unused-ignores",
+  --           "--shadow-file",
+  --           params.bufname,
+  --           params.temp_path,
+  --           "--python-executable",
+  --           python_executable,
+  --           params.bufname,
+  --         }
+  --       end,
+  --       cwd = h.cache.by_bufnr(function(params)
+  --         return u.root_pattern(
+  --         -- https://mypy.readthedocs.io/en/stable/config_file.html
+  --           "mypy.ini",
+  --           ".mypy.ini",
+  --           "pyproject.toml",
+  --           "setup.cfg",
+  --           "setup.py",
+  --           ".git/",
+  --           "neoconf.json",
+  --           ".neoconf.json"
+  --         )(params.bufname)
+  --       end),
+  --       -- only on save
+  --       method = null.methods.DIAGNOSTICS_ON_SAVE,
+  --       diagnostic_config = {
+  --         underline = false,
+  --       },
+  --     })
+  --     opts.sources = vim.list_extend(opts.sources or {}, {
+  --       mypy,
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "williamboman/mason.nvim",
+  --   opts = {
+  --     ensure_installed = {
+  --       "mypy",
+  --     },
+  --   },
+  -- },
 }

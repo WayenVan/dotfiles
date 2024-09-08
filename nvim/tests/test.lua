@@ -4,12 +4,12 @@
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m
 --
 --
-local result = vim.fn.system("Get-Command python | Select-Object -ExpandProperty Path")
--- print(result)
+-- local result = vim.fn.system("which python3")
+-- print(vim.inspect(result))
 
--- local nls = require("null-ls").builtins.diagnostics.mypy
+local nls = require("null-ls").builtins.diagnostics.mypy
 
-local nls = require("plugins.lsp.servers.none-ls-cfg.mypy-diagnostics")
+-- local nls = require("plugins.lsp.servers.none-ls-cfg.mypy-diagnostics")
 -- print(vim.inspect(nsl._opts._last_args))
 
 for k, v in pairs(nls) do

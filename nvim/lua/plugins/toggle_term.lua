@@ -125,6 +125,9 @@ return {
       -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
       -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
       -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
+      on_open = function(t)
+        vim.cmd("startinsert")
+      end,
       --- @param t Terminal
       on_create = function(t)
         --- check anaconda

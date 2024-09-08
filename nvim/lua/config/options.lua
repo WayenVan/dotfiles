@@ -34,3 +34,9 @@ vim.opt.clipboard = ""
 -- vim.opt.winbar = "%f"
 
 vim.opt.mouse = "a"
+
+-- add errorformat
+vim.opt.errorformat:append({
+  -- for python
+  '%A %#File "%f"\\, line %l\\, in %o,%Z %#%m',
+})

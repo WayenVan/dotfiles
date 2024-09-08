@@ -3,7 +3,6 @@ local function get_python_executable()
   local result = vim.fn.system("Get-Command python | Select-Object -ExpandProperty Path")
   return vim.fn.substitute(result, "\n", "", "")
 end
-local python_executable = get_python_executable()
 
 return {
   {
@@ -33,6 +32,7 @@ return {
   {
     "nvimtools/none-ls.nvim",
     opts = function(_, opts)
+      local python_executable = get_python_executable()
       local null = require("null-ls")
       local h = require("null-ls.helpers")
       local u = require("null-ls.utils")

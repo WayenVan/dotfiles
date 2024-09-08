@@ -12,9 +12,19 @@ return {
       keymaps = {
         ["<C-h>"] = false,
         ["<C-l>"] = false,
-        ["<C-s>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
-        ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-        ["<localleader>r"] = "actions.refresh",
+        ["<C-v>"] = false,
+        ["<C-s>"] = false,
+        ["<localleader>s"] = {
+          "actions.select",
+          opts = { horizontal = true },
+          desc = "Oil: Open horizontal split",
+        },
+        ["<localleader>v"] = {
+          "actions.select",
+          opts = { vertical = true },
+          desc = "Oil: Open vertical split",
+        },
+        ["<localleader>r"] = { "actions.refresh", desc = "Oil: refresh" },
         ["q"] = "actions.close",
       },
     },

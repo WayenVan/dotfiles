@@ -4,7 +4,7 @@ local M = {}
 function M.get_python_lsp(lsp_name)
   lsp_name = lsp_name or "pyright"
 
-  local no = load_noice()
+  local no = require("noice")
   local lsp_clients = vim.lsp.get_clients({ name = lsp_name })
 
   if #lsp_clients < 1 then

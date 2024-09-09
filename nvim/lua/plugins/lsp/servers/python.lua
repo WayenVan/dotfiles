@@ -1,6 +1,6 @@
 -- this setting override the default setting from LazyVim
 -- vim.fn.exepath("pythhon") get python path
-
+-- set pyright to basedpyright
 return {
   {
     "neovim/nvim-lspconfig",

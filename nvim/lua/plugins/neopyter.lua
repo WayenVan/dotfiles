@@ -2,6 +2,7 @@ return {
   {
     "SUSTech-data/neopyter",
     lazy = true,
+    enabled = false,
     cmd = {
       "Neopyter",
     },

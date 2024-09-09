@@ -1,14 +1,5 @@
 -- this setting override the default setting from LazyVim
-local function get_python_executable()
-  local sys, _ = require("utils.os_name").get_os_name()
-  local result = ""
-  if sys == "Windows" then
-    result = vim.fn.system("Get-Command python | Select-Object -ExpandProperty Path")
-  elseif sys == "Linux" or sys == "Mac" then
-    result = vim.fn.system("which python")
-  end
-  return vim.fn.substitute(result, "\n", "", "")
-end
+-- vim.fn.exepath("pythhon") get python path
 
 return {
   {
@@ -17,24 +8,27 @@ return {
     opts = {
       --@type lspconfig.options
       servers = {
-        pyright = {
-          settings = {
-            pyright = {
-              disableOrganizeImports = true, -- Using Ruff
-              disableTaggedHints = true,     -- Using Ruff
-            },
-            python = {
-              analysis = {
-                -- ignore = { "*" },         -- Using Ruff
-                -- typeCheckingMode = "", -- Using mypy
-                diagnosticSeverityOverrides = {
-                  -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
-                  reportUndefinedVariable = "none",
-                },
-              },
-            },
-          },
-        },
+        -- using neoconf for setup
+        -- pyright = {
+        -- byebye pyright
+
+        --   settings = {
+        --     pyright = {
+        --       disableOrganizeImports = true, -- Using Ruff
+        --       disableTaggedHints = true,     -- Using Ruff
+        --     },
+        --     python = {
+        --       analysis = {
+        --         -- ignore = { "*" },         -- Using Ruff
+        --         -- typeCheckingMode = "", -- Using mypy
+        --         diagnosticSeverityOverrides = {
+        --           -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
+        --           reportUndefinedVariable = "none",
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
       },
     },
   },

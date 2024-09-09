@@ -54,3 +54,6 @@ else
   --   -- [[,%C\ %.%#,%A\ \ File\ \"%f\"\\]],
   -- })
 end
+
+-- set pyright to basedpyright
+vim.g.lazyvim_python_lsp = "basedpyright"

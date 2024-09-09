@@ -15,8 +15,10 @@
         "^-"
       ]
     },
-    "pyright": {
-      "python.analysis.typeCheckingMode": "off"
+    "basedpyright": {
+      "basedpyright.analysis.diagnosticSeverityOverrides": {
+        "reportUnusedImport": false
+      }
     }
   }
 }

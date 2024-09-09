@@ -41,7 +41,16 @@ vim.opt.clipboard = ""
 vim.opt.mouse = "a"
 
 -- add errorformat
-vim.opt.errorformat:append({
-  -- for python
-  '%A %#File "%f"\\, line %l\\, in %o,%Z %#%m',
-})
+if LazyVim.is_win() then
+  vim.opt.errorformat:append({
+    -- for python
+    '%A %#File "%f"\\, line %l\\, in %o,%Z %#%m',
+  })
+else
+  -- vim.opt.errorformat:append({
+  --   -- for python
+  --   -- '%C\\ %.%#,%A\\ \\ File\\ \\"%f\\"\\\\,\\ line\\ %l%.%#,%Z%[%^\\ ]%\\\\@=%m'
+  --   [[%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m]],
+  --   -- [[,%C\ %.%#,%A\ \ File\ \"%f\"\\]],
+  -- })
+end

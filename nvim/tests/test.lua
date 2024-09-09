@@ -1,4 +1,5 @@
--- print(vim.inspect(vim.opt.errorformat))
+print(vim.inspect(vim.opt.errorformat))
+print(vim.opt.errorformat._value)
 --
 -- print(vim.inspect(vim.opt.errorformat:get()))
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m
@@ -16,8 +17,8 @@
 --   print(k, vim.inspect(v))
 -- end
 --
-local info, _ = require("utils.python")
-if info == nil then
-  return
-end
-print(vim.inspect(info))
+-- local info, _ = require("utils.python")
+-- if info == nil then
+--   return
+-- end
+-- print(vim.inspect(info))

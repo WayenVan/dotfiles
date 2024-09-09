@@ -1,11 +1,3 @@
-local function load_noice()
-  return require("noice")
-end
-
-local function load_utils()
-  return require("utils.misc")
-end
-
 local M = {}
 
 --- @param lsp_name? string
@@ -27,26 +19,56 @@ function M.get_python_lsp(lsp_name)
   end
 end
 
---- @param lsp_name? string
-function M.get_python_path(lsp_name)
-  lsp_name = lsp_name or "pyright"
-
-  local lsp_client = M.get_python_lsp(lsp_name)
-  if lsp_client == nil then
+function M.get_conda_prefix()
+  local conda_prefix = vim.fn.getenv("CONDA_PREFIX")
+  if conda_prefix == nil or conda_prefix == "" then
+    local no = require("noice")
+    no.notify("CONDA_PREFIX environment variable is not set", "error")
     return nil
   else
-    return lsp_client.config.settings.python.pythonPath
+    return conda_prefix
   end
 end
 
-function M.get_conda_info()
-  local u = load_utils()
-  local cmd_result = vim.fn.system("conda info --json")
-  if u.error_exist_str(cmd_result) then
+function M.resolve_venv()
+  local candidates = {}
+  local conda_prefix = M.get_conda_prefix()
+  if conda_prefix then
+    candidates[#candidates + 1] = "conda"
+  end
+  if #candidates < 1 then
     return nil
+  elseif #candidates == 1 then
+    return candidates[1]
   else
-    return vim.json.decode(cmd_result)
+    error("multiple activated venvs found")
   end
 end
 
-return M
+function M.get_venv_info()
+  local type = M.resolve_venv()
+  if type == nil then
+    return nil
+  end
+  local ret = {
+    type = type,
+  }
+  if type == "conda" then
+    ret.conda_prefix = M.get_conda_prefix()
+    ret.name = vim.fn.getenv("CONDA_DEFAULT_ENV")
+    ret.activate_cmd = "conda activate " .. ret.name
+  end
+  return ret
+end
+
+-- conda example
+-- {
+-- type = "conda",
+-- conda_prefix = "xxxxxxxxx/env/dl"
+-- name = "dl",
+-- activate_cmd = "conda activate dl"
+-- }
+
+local venv_info = M.get_venv_info()
+
+return venv_info, M

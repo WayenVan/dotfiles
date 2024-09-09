@@ -7,9 +7,6 @@ return {
       { "<leader>dn", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over" },
     },
     config = function()
-      -- setup customized adapters
-      require("plugins.dap.python")
-
       -- load mason-nvim-dap here, after all adapters have been setup
       if LazyVim.has("mason-nvim-dap.nvim") then
         require("mason-nvim-dap").setup(LazyVim.opts("mason-nvim-dap.nvim"))
@@ -57,6 +54,14 @@ return {
           vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>q<CR>", { noremap = true, silent = true })
         end,
       })
+
+      -- add custom dap configuration, should run
+      local customized_configuration = {
+        python = "plugins.dap.python",
+      }
+      for name, module in pairs(customized_configuration) do
+        require(module)
+      end
     end,
   },
 }

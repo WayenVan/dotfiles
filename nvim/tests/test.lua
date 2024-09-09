@@ -4,8 +4,8 @@
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m
 --
 --
-local result = vim.fn.system("which python3")
-print(vim.inspect(result))
+-- local result = vim.fn.system("which python3")
+-- print(vim.inspect(result))
 
 -- local nls = require("null-ls").builtins.diagnostics.mypy
 
@@ -15,3 +15,9 @@ print(vim.inspect(result))
 -- for k, v in pairs(nls) do
 --   print(k, vim.inspect(v))
 -- end
+--
+local info, _ = require("utils.python")
+if info == nil then
+  return
+end
+print(vim.inspect(info))

@@ -29,6 +29,7 @@ function M.lazygit_cwd()
       close_on_exit = true,
       hidden = false,
       display_name = "LazyGitCwd",
+      on_create = nil,
     })
   end
   storage.lazygit_cwd:toggle()
@@ -43,6 +44,7 @@ function M.lazygit_root()
       close_on_exit = true,
       hidden = false,
       display_name = "LazyGitRoot",
+      on_create = nil,
     })
   end
   storage.lazygit_root:toggle()
@@ -57,6 +59,7 @@ function M.lazygit_log_cwd()
       close_on_exit = true,
       hidden = false,
       display_name = "LazyGitLog",
+      on_create = nil,
     })
   end
   storage.lazygit_log_cwd:toggle()
@@ -71,6 +74,7 @@ function M.lazygit_log_root()
       close_on_exit = true,
       hidden = false,
       display_name = "LazyGitLog",
+      on_create = nil,
     })
   end
   storage.lazygit_log_root:toggle()

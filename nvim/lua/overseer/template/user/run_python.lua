@@ -10,7 +10,7 @@ return {
     local args = { file }
 
     -- check venv
-    local venv_info, _ = require("utils.python")
+    local venv_info, _ = require("utils.venv")
     if venv_info then
       if venv_info.type == "conda" and venv_info.name ~= "base" then
         cmd = "conda"

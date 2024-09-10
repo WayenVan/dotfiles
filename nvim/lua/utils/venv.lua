@@ -1,5 +1,4 @@
-local M = {
-}
+local M = {}
 
 --- @param lsp_name? string
 function M.get_python_lsp(lsp_name)
@@ -55,7 +54,6 @@ function M.get_venv_info()
   if type == "conda" then
     ret.conda_prefix = M.get_conda_prefix()
     ret.name = tostring(vim.fn.getenv("CONDA_DEFAULT_ENV"))
-    print(ret.name)
     ret.activate_cmd = "conda activate " .. ret.name
   end
   return ret

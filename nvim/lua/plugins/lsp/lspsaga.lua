@@ -11,6 +11,7 @@ return {
         enable = false,
       },
       outline = {
+        enable = false,
         win_width = 40,
         keys = {
           toggle_or_jump = "<cr>",
@@ -22,7 +23,7 @@ return {
       require("lspsaga").setup(opts)
     end,
     keys = {
-      { "<leader>cs", "<cmd>Lspsaga outline<cr>", desc = "Show symbole (Lspsaga)" },
+      -- { "<leader>cs", "<cmd>Lspsaga outline<cr>", desc = "Show symbole (Lspsaga)" },
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional

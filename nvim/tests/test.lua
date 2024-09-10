@@ -1,5 +1,5 @@
-print(vim.inspect(vim.opt.errorformat))
-print(vim.opt.errorformat._value)
+-- print(vim.inspect(vim.opt.errorformat))
+-- print(vim.opt.errorformat._value)
 --
 -- print(vim.inspect(vim.opt.errorformat:get()))
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m
@@ -20,6 +20,7 @@ print(vim.opt.errorformat._value)
 -- local info, _ = require("utils.python")
 -- if info == nil then
 --   return
+--
 -- end
 -- print(vim.inspect(info))
-local t = require("toggleterm")
+print(vim.inspect(LazyVim.config.kind_filter))

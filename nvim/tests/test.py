@@ -3,6 +3,7 @@ import sys
 import torch
 
 print(sys.executable)
+print(sys.version)
 
 for i in range(10):
     a = math.sqrt(i)

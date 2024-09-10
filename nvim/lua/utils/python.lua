@@ -1,4 +1,5 @@
-local M = {}
+local M = {
+}
 
 --- @param lsp_name? string
 function M.get_python_lsp(lsp_name)
@@ -21,9 +22,7 @@ end
 
 function M.get_conda_prefix()
   local conda_prefix = vim.fn.getenv("CONDA_PREFIX")
-  if conda_prefix == nil or conda_prefix == "" then
-    local no = require("noice")
-    no.notify("CONDA_PREFIX environment variable is not set", "error")
+  if conda_prefix == nil or conda_prefix == "" or conda_prefix == vim.NIL then
     return nil
   else
     return conda_prefix
@@ -48,14 +47,15 @@ end
 function M.get_venv_info()
   local type = M.resolve_venv()
   if type == nil then
-    return nil
+    return "none"
   end
   local ret = {
     type = type,
   }
   if type == "conda" then
     ret.conda_prefix = M.get_conda_prefix()
-    ret.name = vim.fn.getenv("CONDA_DEFAULT_ENV")
+    ret.name = tostring(vim.fn.getenv("CONDA_DEFAULT_ENV"))
+    print(ret.name)
     ret.activate_cmd = "conda activate " .. ret.name
   end
   return ret
@@ -69,6 +69,6 @@ end
 -- activate_cmd = "conda activate dl"
 -- }
 
+--- return "none" if no venv is activated other wise return venv_info
 local venv_info = M.get_venv_info()
-
 return venv_info, M

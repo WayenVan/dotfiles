@@ -31,10 +31,10 @@ return {
       },
     },
     keys = {
-      { "<leader>qS", "<cmd>SessionSave<cr>", desc = "Save session" },
+      { "<leader>qS", "<cmd>SessionSave<cr>",            desc = "Save session" },
       { "<leader>qs", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
-      { "<leader>qd", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
-      { "<leader>qD", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
+      { "<leader>qd", "<cmd>Autosession delete<cr>",     desc = "Delete sessions" },
+      { "<leader>qD", "<cmd>SessionDelete<cr>",          desc = "Delete current session" },
     },
   },
   {
@@ -66,20 +66,25 @@ return {
             local buf_type = vim.api.nvim_get_option_value("buftype", { buf = buf })
             -- Check if the buffer is not normal (i.e., buf_type is not empty)
             if buf_type ~= "" then
-              -- Delete the buffer
-              local s = pcall(vim.api.nvim_buf_delete, buf, { force = true })
-              if s then
-                print("Deleted Buffer:", buf, "Type:", buf_type)
-              else
-                print("Failed to delete Buffer:", buf, "Type:", buf_type)
-              end
+              vim.api.nvim_buf_delete(buf, { force = true })
             end
           end
         end
       end
+
+      local function close_outline()
+        if LazyVim.is_loaded("lspsaga") then
+          local outline = require("lspsaga.symbol.outline")
+          if outline.bufnr ~= nil then
+            vim.schedule(function()
+              vim.api.nvim_buf_delete(outline.bufnr, { force = true })
+            end)
+          end
+        end
+      end
+
       -- opts.post_restore_cmds = { restore_neo_tree }
       opts.post_restore_cmds = {}
-
       -- do the cleaning job before saving so avoid any possible errors
       opts.pre_save_cmds = { hide_tree, delete_not_good_buffer }
     end,

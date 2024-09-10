@@ -133,7 +133,7 @@ return {
         --- check python venv
         if t.cmd == nil then
           local venv_info, _ = require("utils.python")
-          if venv_info then
+          if venv_info ~= "none" then
             if venv_info.type == "conda" and venv_info.name == "base" then
               return
             end
@@ -146,7 +146,7 @@ return {
       shade_terminals = true,
       -- shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
       start_in_insert = true,
-      insert_mappings = true, -- whether or not the open mapping applies in insert mode
+      insert_mappings = true,   -- whether or not the open mapping applies in insert mode
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
       persist_mode = false,

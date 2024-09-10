@@ -1,9 +1,8 @@
 -- print(vim.inspect(vim.opt.errorformat))
--- print(vim.opt.errorformat._value)
+print(vim.opt.errorformat._value)
 --
 -- print(vim.inspect(vim.opt.errorformat:get()))
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m
---
 --
 -- local result = vim.fn.system("which python3")
 -- print(vim.inspect(result))
@@ -23,4 +22,4 @@
 --
 -- end
 -- print(vim.inspect(info))
-print(vim.inspect(LazyVim.config.kind_filter))
+-- print(vim.inspect(LazyVim.config.kind_filter))

@@ -7,7 +7,8 @@ if LazyVim.is_win() then
   -- refered from toggleterm.nvim
   local powershell_options = {
     shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
-    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
     shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
     shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
     shellquote = "",
@@ -44,17 +45,18 @@ vim.opt.mouse = "a"
 
 -- add errorformat
 if LazyVim.is_win() then
-  vim.opt.errorformat:append({
-    -- for python
-    '%A %#File "%f"\\, line %l\\, in %o,%Z %#%m',
-  })
+  -- vim.opt.errorformat:append({
+  --   -- for python
+  --   '%A %#File "%f"\\, line %l\\, in %o,%Z %#%m',
+  -- })
 else
   -- vim.opt.errorformat:append({
   --   -- for python
-  --   -- '%C\\ %.%#,%A\\ \\ File\\ \\"%f\\"\\\\,\\ line\\ %l%.%#,%Z%[%^\\ ]%\\\\@=%m'
-  --   [[%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m]],
-  --   -- [[,%C\ %.%#,%A\ \ File\ \"%f\"\\]],
+  --   -- [[.*File\ \"%f\"\,\ line %l\, in %o]]
+  --   -- [[*File\ \"\"\,\ line l\, in o]]
+  --   [[hahha]]
   -- })
+  -- vim.opt.errorformat = '%A%.%#File "%f"\\, line %l\\, in %o,%Z %#%m'
 end
 
 -- set pyright to basedpyright

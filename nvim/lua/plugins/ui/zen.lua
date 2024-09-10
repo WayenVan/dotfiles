@@ -12,7 +12,14 @@ return {
         -- * an absolute number of cells when > 1
         -- * a percentage of the width / height of the editor when <= 1
         -- * a function that returns the width or the height
-        width = 120,
+        -- width = 120,
+        width = function()
+          if vim.api.nvim_get_option_value("filetype", { buf = 0 }) == "qf" then
+            return vim.api.nvim_get_option_value("columns", { scope = 'global' })
+          else
+            return 120
+          end
+        end,
         height = 1, -- height of the Zen window
         -- by default, no options are changed for the Zen window
         -- uncomment any of the options below, or add other vim.wo options you want to apply
@@ -31,7 +38,7 @@ return {
         -- comment the lines to not apply the options
         options = {
           enabled = true,
-          ruler = false, -- disables the ruler text in the cmd line area
+          ruler = false,   -- disables the ruler text in the cmd line area
           showcmd = false, -- disables the command in the last line of the screen
           -- you may turn on/off statusline in zen mode by setting 'laststatus'
           -- statusline will be shown only if 'laststatus' == 3

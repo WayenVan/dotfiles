@@ -1,9 +1,5 @@
 local M = {}
 
-local function misc()
-  return require("utils.misc")
-end
-
 local t = {
   pickers = require("telescope.pickers"),
   finders = require("telescope.finders"),
@@ -66,7 +62,7 @@ M.setup = function()
     local addr = vim.fn.input("Enter the server address")
     if addr ~= nil and addr ~= "" then
       local result = vim.fn.serverstart(addr)
-      noice().notify(string.format("A nvim server start at %s", result), "info")
+      require("noice").notify(string.format("A nvim server start at %s", result), "info")
     end
   end, {})
 

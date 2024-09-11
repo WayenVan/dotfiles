@@ -1,6 +1,14 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+--
+--remove keybindings
+-- vim.keymap.del("n", "<A-j>")
+-- vim.keymap.del("n", "<A-k>")
+-- vim.keymap.del("n", "<C-j>")
+-- vim.keymap.del("n", "<C-k>")
+-- vim.keymap.del("n", "<C-l>")
+-- vim.keymap.del("n", "<C-h>")
 
 local map = vim.keymap.set
 -- -- Yank to the system clipboard by default
@@ -49,7 +57,3 @@ vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 
 -- neovide setting
 vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
-
--- map
--- map("c", "<C-j>", "<C-n>", { noremap = true, silent = true })
--- map("c", "<C-k>", "<C-p>", { noremap = true, silent = true })

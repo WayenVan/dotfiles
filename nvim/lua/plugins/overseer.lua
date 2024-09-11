@@ -19,6 +19,8 @@ return {
     keys = function(_, keys)
       local new_keys = {
         { "<leader>oo", "<cmd>OverseerQuickAction open float<cr>", desc = "Open float" },
+        { "<leader>oh", "<cmd>OverseerQuickAction open hsplit<cr>", desc = "Open Horizontal" },
+        { "<leader>ov", "<cmd>OverseerQuickAction open vsplit<cr>", desc = "Open Vertical" },
         { "<leader>or", "<cmd>OverseerQuickAction restart<cr>", desc = "Restart" },
         { "<leader>od", "<cmd>OverseerQuickAction dispose<cr>", desc = "Dispose" },
         { "<leader>oq", "<cmd>OverseerQuickAction open output in quickfix<cr>", desc = "quickfix" },

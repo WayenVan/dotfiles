@@ -24,4 +24,26 @@ function M.auto_source()
   return true
 end
 
+function M.setup()
+  -- source once during the setup
+  M.auto_source()
+
+  vim.api.nvim_create_augroup("AutoSourceNvimLua", { clear = true })
+  -- Create an autocommand to run when entering a directory
+  vim.api.nvim_create_autocmd({ "DirChanged" }, {
+    group = "AutoSourceNvimLua",
+    callback = function()
+      require("utils.auto_source").auto_source()
+    end,
+  })
+
+  --- auto source the .nvim.lua file
+  vim.api.nvim_create_user_command("AutoSource", function()
+    local result = require("utils.auto_source").auto_source()
+    if result == false then
+      no.notify("No .nvim.lua found", "info")
+    end
+  end, {})
+end
+
 return M

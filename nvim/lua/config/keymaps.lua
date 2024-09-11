@@ -33,12 +33,6 @@ map("n", "<leader>gO", LazyVim.lazygit.browse, { desc = "Git Browse" })
 -- terminal send esc to shell
 map("t", "<c-[>", "<Esc>", { silent = true })
 
--- server settings
-map("n", "<leader>sv", "", { desc = "+nvim server" })
-map("n", "<leader>svv", "<cmd>ServerSelect<cr>", { desc = "Server delete" })
-map("n", "<leader>svc", "<cmd>ServerClear<cr>", { desc = "Server clear" })
-map("n", "<leader>svs", "<cmd>ServerStart<cr>", { desc = "Server start" })
-
 -- cutomized text object
 local function select_above()
   local line = vim.fn.line(".")

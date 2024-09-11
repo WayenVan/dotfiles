@@ -9,6 +9,16 @@ local default_storage = {
   background = "dark",
 }
 
+function M.update_storage(storage)
+  storage.neovide_scale_factor = vim.g.neovide_scale_factor
+  storage.background = vim.opt.background:get()
+end
+
+function M.set_storage(storage)
+  vim.g.neovide_scale_factor = storage.neovide_scale_factor
+  vim.opt.background = storage.background
+end
+
 function M.get_storage()
   local storage_file = p:new(vim.fn.stdpath("data")):joinpath("storage.json")
   local exist = storage_file:exists() and storage_file:is_file()
@@ -33,11 +43,6 @@ function M.get_storage()
   end
 end
 
-function M.update_storage(storage)
-  storage.neovide_scale_factor = vim.g.neovide_scale_factor
-  storage.background = vim.opt.background:get()
-end
-
 function M.save_storage(storage)
   M.update_storage(storage)
   local storage_file = p:new(vim.fn.stdpath("data")):joinpath("storage.json")
@@ -48,6 +53,22 @@ function M.save_storage(storage)
   else
     no.notify("Failed to save storage", "error")
   end
+end
+
+function M.setup()
+  vim.g.user_storage = M.get_storage()
+  M.set_storage(vim.g.user_storage)
+
+  -- regist auto save storage
+  vim.api.nvim_create_augroup("UserStorage", { clear = true })
+  -- save storage when exiting
+  vim.api.nvim_create_autocmd({ "QuitPre" }, {
+    group = "UserStorage",
+    callback = function()
+      M.update_storage(vim.g.user_storage)
+      M.save_storage(vim.g.user_storage)
+    end,
+  })
 end
 
 return M

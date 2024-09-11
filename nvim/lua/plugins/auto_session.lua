@@ -32,6 +32,7 @@ return {
       },
     },
     keys = {
+      { "<leader>S", "", desc = "+session" },
       { "<leader>Ss", "<cmd>SessionSave<cr>", desc = "Save session" },
       { "<leader>SS", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
       { "<leader>SD", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },

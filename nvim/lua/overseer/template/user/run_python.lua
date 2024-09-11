@@ -9,6 +9,12 @@ return {
     local file = vim.fn.expand("%:p")
     local args = { file }
 
+    -- check compilter
+    if vim.api.nvim_get_option_value("makeprg", {}) ~= "python" then
+      vim.cmd("compiler python")
+      require("noice").notify("set compiler to python", "info")
+    end
+
     -- check venv
     local venv_info, _ = require("utils.venv")
     if venv_info then

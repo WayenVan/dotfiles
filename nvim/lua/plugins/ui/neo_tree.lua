@@ -113,7 +113,7 @@ return {
                 vim.fn.setreg('"', result)
                 return
               end
-              vim.notify(("Copied: `%s`"):format(result))
+              vim.notify(("Copied: `%s` to clipboard"):format(result))
               vim.fn.setreg("+", result)
             end
           end)

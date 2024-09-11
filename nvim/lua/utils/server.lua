@@ -50,4 +50,36 @@ M.server_picker = function()
     :find()
 end
 
+M.setup = function()
+  vim.api.nvim_create_user_command("ServerSelect", function()
+    M.server_picker()
+  end, {})
+  local map = vim.keymap.set
+  -- server settings
+  map("n", "<leader>sv", "", { desc = "+nvim server" })
+  map("n", "<leader>svd", "<cmd>ServerSelect<cr>", { desc = "Server delete" })
+  map("n", "<leader>svc", "<cmd>ServerClear<cr>", { desc = "Server clear" })
+  map("n", "<leader>sva", "<cmd>ServerStart<cr>", { desc = "Server start" })
+
+  -- server command settings
+  vim.api.nvim_create_user_command("ServerStart", function()
+    local addr = vim.fn.input("Enter the server address")
+    if addr ~= nil and addr ~= "" then
+      local result = vim.fn.serverstart(addr)
+      noice().notify(string.format("A nvim server start at %s", result), "info")
+    end
+  end, {})
+
+  vim.api.nvim_create_user_command("ServerClear", function()
+    local addrs = vim.fn.serverlist()
+    if #addrs == 0 then
+      require("noice").notify("No server running", "info")
+      return
+    end
+    for _, addr in ipairs(addrs) do
+      vim.fn.serverstop(addr)
+    end
+  end, {})
+end
+
 return M

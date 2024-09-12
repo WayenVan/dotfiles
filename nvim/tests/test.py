@@ -1,6 +1,5 @@
 import math
 import sys
-import torch
 
 print(sys.executable)
 print(sys.version)

@@ -15,13 +15,13 @@ return {
           },
         },
         char = {
-          -- jump_labels = true,
+          jump_labels = true,
           -- highlight = { backdrop = true },
           -- multi_line = false,
           label = {
-            rainbow = { enabled = false },
+            rainbow = { enabled = true },
             -- exclude = "hjkliardc"
-            exclude = "hjklvgyprdc",
+            exclude = "hjklvgyYrdc",
           },
         },
         treesitter = {

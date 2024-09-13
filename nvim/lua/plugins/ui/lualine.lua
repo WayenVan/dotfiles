@@ -145,11 +145,11 @@ return {
           },
         },
         winbar = {
-          lualine_a = {},
-          lualine_b = {
+          lualine_a = {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path() },
           },
+          lualine_b = {},
           lualine_c = {
             -- {
             --   function(self)

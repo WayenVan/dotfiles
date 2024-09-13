@@ -108,12 +108,10 @@ return {
             local result = vals[choice]
             if result then
               if vim.fn.has("clipboard") == 0 then
-                vim.notify('Clipboard is not available, copy to register "')
-                vim.notify(("Copied: `%s`"):format(result))
-                vim.fn.setreg('"', result)
-                return
+                require("noice").notify("Clipboard is not available", "warn")
               end
-              vim.notify(("Copied: `%s` to clipboard"):format(result))
+              vim.notify(("Copied: `%s` to uname and plus register"):format(result))
+              vim.fn.setreg('"', result)
               vim.fn.setreg("+", result)
             end
           end)

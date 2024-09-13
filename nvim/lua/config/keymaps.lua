@@ -16,15 +16,6 @@ local map = vim.keymap.set
 map("n", "<leader>n", "", { desc = "+noice/neoconfig" })
 map("n", "<leader>z", "", { desc = "+zen" })
 
-map("n", "<leader>y", '"+y', { desc = "Yank to clipboard" })
-map("v", "<leader>y", '"+y', { desc = "Yank to clipboard" })
-map("n", "<leader>Y", '"+Y', { desc = "Yank to clipboard" })
-
--- Paste from the system clipboard by default
-map("n", "<leader>p", '"+p', { desc = "paste from clipboard" })
-map("v", "<leader>p", '"+p', { desc = "paste from clipboard" })
-map("n", "<leader>P", '"+P', { desc = "paste from clipboard" })
-
 -- lazyvim extra
 map("n", "<leader>l", "", { desc = "LazyVim" })
 map("n", "<leader>lx", "", { desc = "Lazy" })
@@ -57,3 +48,25 @@ vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 
 -- neovide setting
 vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
+
+-- set
+LazyVim.toggle.map(
+  "<leader>um",
+  LazyVim.toggle.wrap({
+    name = "Mouse",
+    get = function()
+      if vim.opt.mouse._value == "a" then
+        return true
+      else
+        return false
+      end
+    end,
+    set = function(state)
+      if state then
+        vim.opt.mouse = "a"
+      else
+        vim.opt.mouse = ""
+      end
+    end,
+  })
+)

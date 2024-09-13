@@ -36,12 +36,6 @@ end
 -- sessiont setting
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 
--- clipboard
-vim.opt.clipboard = ""
--- vim.opt.winbar = "%f"
-
-vim.opt.mouse = "a"
-
 -- add errorformat
 if LazyVim.is_win() then
   -- vim.opt.errorformat:append({

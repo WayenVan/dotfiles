@@ -15,9 +15,9 @@ return {
           },
         },
         char = {
-          jump_labels = true,
-          highlight = { backdrop = true },
-          multi_line = false,
+          -- jump_labels = true,
+          -- highlight = { backdrop = true },
+          -- multi_line = false,
           label = {
             rainbow = { enabled = false },
             -- exclude = "hjkliardc"

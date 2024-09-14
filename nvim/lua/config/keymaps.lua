@@ -51,7 +51,7 @@ vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler
 
 -- set
 LazyVim.toggle.map(
-  "<leader>um",
+  "<leader>uM",
   LazyVim.toggle.wrap({
     name = "Mouse",
     get = function()

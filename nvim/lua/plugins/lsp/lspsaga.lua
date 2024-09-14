@@ -2,6 +2,7 @@ return {
   {
     "nvimdev/lspsaga.nvim",
     event = "VeryLazy",
+    enabled = false,
     opts = {
       symbol_in_winbar = {
         enable = false,

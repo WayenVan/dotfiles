@@ -173,10 +173,6 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    opts = function(_, opts)
-      local wk = require("which-key")
-      wk.add({ "<leader>t", group = "ToogleTerm", icon = "" })
-    end,
     config = function(_, opts)
       require("toggleterm").setup(opts)
       vim.api.nvim_create_augroup("ToggleTerm", { clear = true })

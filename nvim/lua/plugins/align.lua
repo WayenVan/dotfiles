@@ -37,7 +37,7 @@ return {
     },
     {
       mode = "x",
-      "dar",
+      "gar",
       function()
         require("align").align_to_string({
           preview = true,

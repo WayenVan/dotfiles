@@ -2,6 +2,10 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
+    dependencies = {
+      "meuter/lualine-so-fancy.nvim",
+      "DaikyXendo/nvim-material-icon",
+    },
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
       if vim.fn.argc(-1) > 0 then
@@ -27,23 +31,6 @@ return {
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = {
             statusline = { "dashboard", "alpha", "ministarter", "TelescopePrompt" },
-            winbar = {
-              "dashboard",
-              -- "alpha",
-              -- "ministarter",
-              "TelescopePrompt",
-              "neo-tree",
-              "dap-repl",
-              -- "OverseerList",
-              -- "Outline",
-              -- "trouble",
-              -- "toggleterm",
-              -- "copilot-chat",
-              -- "aerial",
-              -- "NeogitStatus",
-              -- "NeogitPopup",
-              -- "FilePanel",
-            },
           },
         },
         sections = {
@@ -72,7 +59,10 @@ return {
           lualine_b = { "branch" },
 
           lualine_c = {
-            LazyVim.lualine.root_dir(),
+            { "fancy_cwd", substitute_home = true },
+            -- LazyVim.lualine.root_dir(),
+            { "fancy_filetype", ts_icon = "" },
+            -- { "filesize", padding = { left = 0, right = 1 } },
             {
               "diagnostics",
               symbols = {
@@ -85,11 +75,6 @@ return {
             -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             -- { LazyVim.lualine.pretty_path() },
             -- stylua: ignore
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-              color = function() return LazyVim.ui.fg("Special") end,
-            },
             "overseer",
             -- stylua: ignore
             {
@@ -129,64 +114,27 @@ return {
                 end
               end,
             },
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = function()
+                return LazyVim.ui.fg("Special")
+              end,
+            },
+            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
+            { "encoding", padding = { left = 0, right = 1 } },
+            { "fancy_location" },
           },
           lualine_y = {
-            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
-            { "encoding", separator = " ", padding = { left = 0, right = 0 } },
-            { "filesize", padding = { left = 0, right = 1 } },
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
-            { "location", padding = { left = 0, right = 1 } },
+            { "fancy_lsp_servers" },
+            -- { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            -- { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            -- { "hostname", separator = " " },
             function()
               return " " .. os.date("%R")
             end,
           },
-        },
-        winbar = {
-          lualine_a = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { LazyVim.lualine.pretty_path() },
-          },
-          lualine_b = {},
-          lualine_c = {
-            -- {
-            --   function(self)
-            --     return require("nvim-navic").get_location({})
-            --   end,
-            --   cond = function()
-            --     return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-            --   end,
-            -- },
-            {
-              function()
-                local f, wb = pcall(require, "lspsaga.symbol.winbar")
-                if f then
-                  local stl = wb.get_bar()
-                  if stl and stl ~= "" then
-                    return stl
-                  else
-                    return "%#SagaSep#..."
-                  end
-                end
-              end,
-            },
-          },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
-        inactive_winbar = {
-          lualine_a = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { LazyVim.lualine.pretty_path() },
-          },
-          lualine_b = {},
-          lualine_c = {},
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
         },
         extensions = { "neo-tree", "lazy" },
       }

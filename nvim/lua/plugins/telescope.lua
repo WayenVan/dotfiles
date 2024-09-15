@@ -82,6 +82,7 @@ return {
           find_files = {
             find_command = find_command,
             hidden = true,
+            -- theme = "dropdown",
           },
         },
       }

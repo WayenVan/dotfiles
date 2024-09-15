@@ -5,14 +5,17 @@ return {
     lazy = true,
     priority = 1000, -- make sure to load this before all the other start plugins
     -- Optional; default configuration will be used if setup isn't called.
-    config = function()
-      require("everforest").setup({
-        -- don't need to load for dapui
-        on_highlights = function(hl, palette)
-          hl["WinBar"] = { link = "Normal" }
-          hl["WinBarNC"] = { link = "Normal" }
-        end,
-      })
+    opts = {
+      on_highlights = function(hl, palette)
+        local log = require("plenary.log"):new()
+        if LazyVim.has("avante.nvim") then
+          require("utils.ui").setup_hl_vante(hl)
+          log.info("avante is loaded")
+        end
+      end,
+    },
+    config = function(_, opts)
+      require("everforest").setup(opts)
     end,
   },
 }

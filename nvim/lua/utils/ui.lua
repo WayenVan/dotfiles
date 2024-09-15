@@ -1,5 +1,18 @@
 local M = {}
 
+function M.setup_hl_vante(highlights)
+  highlights["AvanteTitle"] = { fg = "#1e222a", bg = "#98c379" }
+  highlights["AvanteReversedTitle"] = { fg = "#98c379" }
+  highlights["AvanteSubtitle"] = { fg = "#1e222a", bg = "#56b6c2" }
+  highlights["AvanteReversedSubtitle"] = { fg = "#56b6c2" }
+  highlights["AvanteThirdTitle"] = { fg = "#1e222a", bg = "#d79921" }
+  highlights["AvanteReversedThirdTitle"] = { fg = "#d79921" }
+  highlights["AvanteSuggestion"] = { link = "Comment" }
+  highlights["AvanteAnnotation"] = { link = "Comment" }
+  highlights["AvantePopupHint"] = { link = "NormalFloat" }
+  highlights["AvanteInlineHint"] = { link = "Keyword" }
+end
+
 function M.setup_hl_dapui(highlights)
   -- need to be bold
   highlights["DapUIWinSelect"] = { link = "@markup.heading.1.markdown" }
@@ -56,4 +69,5 @@ function M.setup_hl_dapui(highlights)
 
   highlights["DapUIVariable"] = { link = "Directory" }
 end
+
 return M

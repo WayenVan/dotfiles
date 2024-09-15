@@ -7,10 +7,8 @@ return {
     -- Optional; default configuration will be used if setup isn't called.
     opts = {
       on_highlights = function(hl, palette)
-        local log = require("plenary.log"):new()
         if LazyVim.has("avante.nvim") then
           require("utils.ui").setup_hl_vante(hl)
-          log.info("avante is loaded")
         end
       end,
     },

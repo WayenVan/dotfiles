@@ -28,6 +28,10 @@ return {
     opts = {
       mappings = {
         go_in_plus = "<CR>",
+        go_in = "L",
+        go_out = "H",
+        go_out_plus = "<BS>",
+        reset = "<localleader><localleader>",
       },
       options = {
         use_as_default_explorer = true,

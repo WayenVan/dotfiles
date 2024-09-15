@@ -4,15 +4,14 @@ return {
     event = "InsertEnter",
     config = function(_, opts)
       local ls = require("luasnip")
-      -- vim.keymap.set({ "i" }, "<C-I>", function()
       --   ls.expand()
       -- end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-L>", function()
+      vim.keymap.set({ "i", "s" }, "<C-k>", function()
         ls.jump(1)
-      end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-H>", function()
+      end, { silent = true, noremap = true, desc = "LusSnip jump to next entry" })
+      vim.keymap.set({ "i", "s" }, "<C-j>", function()
         ls.jump(-1)
-      end, { silent = true })
+      end, { silent = true, noremap = true, desc = "LusSnip jump to prev entry" })
 
       -- vim.keymap.set({ "i", "s" }, "<C-E>", function()
       --   if ls.choice_active() then
@@ -34,5 +33,16 @@ return {
       { "<tab>",   false },
       { "<s-tab>", false },
     },
+  },
+
+  -- LSP keymaps
+  {
+    "neovim/nvim-lspconfig",
+    opts = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      -- change a keymap
+      -- disable a keymap
+      keys[#keys + 1] = { "<c-k>", false, mode = "i" }
+    end,
   },
 }

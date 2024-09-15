@@ -8,6 +8,17 @@ return {
       local cmp = require("cmp")
       local types = require("cmp.types")
 
+      -- modify default sources
+      for _, source in ipairs(opts.sources) do
+        if source.name == "path" then
+          source.option = {
+            get_cwd = function()
+              return vim.fn.getcwd()
+            end,
+          }
+        end
+      end
+
       -- opts.mapping["<C-N>"] = cmp.config.disable
       -- opts.mapping["<C-P>"] = cmp.mapping.complete()
       -- opts.mapping["<C-P>"] = cmp.config.disable

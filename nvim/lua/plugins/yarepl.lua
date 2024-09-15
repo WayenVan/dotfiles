@@ -1,7 +1,7 @@
 return {
   {
     "milanglacier/yarepl.nvim",
-    event = "VeryLazy",
+    ft = { "quarto", "markdown", "markdown.pandoc", "rmd", "python", "sh", "REPL", "r" },
     config = function(_, opts)
       local bufmap = vim.api.nvim_buf_set_keymap
       local auto_cmd = vim.api.nvim_create_autocmd

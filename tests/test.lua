@@ -1,7 +1,6 @@
 -- print(vim.inspect(vim.opt.errorformat))
 -- print(vim.opt.errorformat._value)
 
-require("neotest").run.run("tests/test_demo.py")
 --
 -- print(vim.inspect(vim.opt.errorformat:get()))
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m
@@ -25,3 +24,9 @@ require("neotest").run.run("tests/test_demo.py")
 -- end
 -- print(vim.inspect(info))
 -- print(vim.inspect(LazyVim.config.kind_filter))
+
+local log = require("plenary.log"):new()
+log.level = "debug"
+
+local keys = require("lazyvim.plugins.lsp.keymaps").get()
+log.debug(keys)

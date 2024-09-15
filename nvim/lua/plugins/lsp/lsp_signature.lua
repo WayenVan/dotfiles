@@ -20,11 +20,12 @@ return {
     },
     keys = {
       {
-        "<c-g>",
+        "<C-g>",
         function()
           require("lsp_signature").toggle_float_win()
         end,
         mode = "i",
+        desc = "Toggle lsp signature",
       },
     },
     config = function(_, opts)

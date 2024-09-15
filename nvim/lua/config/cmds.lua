@@ -23,3 +23,11 @@ vim.api.nvim_create_user_command("Http", function()
     cmd = "http-server" .. " -p" .. port,
   })
 end, {})
+
+vim.g.saved_eft = vim.o.errorformat
+vim.g.saved_makeprg = vim.o.makeprg
+vim.api.nvim_create_user_command("RestoreCompiler", function()
+  vim.o.errorformat = vim.g.saved_eft
+  vim.o.makeprg = vim.g.saved_makeprg
+  require("noice").notify("Compiler Restored", "info")
+end, {})

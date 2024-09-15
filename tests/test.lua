@@ -1,5 +1,7 @@
 -- print(vim.inspect(vim.opt.errorformat))
-print(vim.opt.errorformat._value)
+-- print(vim.opt.errorformat._value)
+
+require("neotest").run.run("tests/test_demo.py")
 --
 -- print(vim.inspect(vim.opt.errorformat:get()))
 -- %A %#File "%f"\, line %l\, in %o,%Z %#%m

@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/overseer.nvim",
+    lazy = true,
     opts = {
       strategy = {
         "toggleterm",
@@ -24,6 +25,7 @@ return {
         { "<leader>or", "<cmd>OverseerQuickAction restart<cr>", desc = "Restart" },
         { "<leader>od", "<cmd>OverseerQuickAction dispose<cr>", desc = "Dispose" },
         { "<leader>oq", "<cmd>OverseerQuickAction open output in quickfix<cr>", desc = "quickfix" },
+        { "<leader>oe", "<cmd>OverseerQuickAction edit<cr>", desc = "quickfix" },
         { "<leader>oQ", "<cmd>OverseerQuickAction<cr>", desc = "Quick Action" },
         { "<leader>os", "<cmd>OverseerTaskAction<cr>", desc = "Select task action" },
         { "<leader>ol", "<cmd>OverseerToggle<cr>", desc = "Task list" },

@@ -33,12 +33,6 @@ return {
       end
     end
 
-    -- check compilter
-    if vim.api.nvim_get_option_value("makeprg", {}) ~= "python" then
-      vim.cmd("compiler python")
-      require("noice").notify("set compiler to python", "info")
-    end
-
     -- append running args
     append_running_args(args)
 
@@ -56,6 +50,7 @@ return {
         "display_duration",
         "on_exit_set_status",
         "on_complete_notify",
+        { "on_start_change_compiler", compiler = "python" },
       },
     }
   end,

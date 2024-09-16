@@ -33,7 +33,7 @@ return {
       end
 
       -- opts.mapping["<C-N>"] = cmp.config.disable
-      -- opts.mapping["<C-P>"] = cmp.mapping.complete()
+      opts.mapping["<C-l>"] = cmp.mapping.complete()
       -- opts.mapping["<C-P>"] = cmp.config.disable
       -- opts.mapping["<C-J>"] = cmp.mapping.select_next_item()
       -- opts.mapping["<C-K>"] = cmp.mapping.select_prev_item()

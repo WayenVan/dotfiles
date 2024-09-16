@@ -32,30 +32,23 @@ return {
       },
     },
     keys = {
-      { "<leader>S", "", desc = "+session" },
-      { "<leader>SS", "<cmd>SessionSave<cr>", desc = "Save session" },
-      { "<leader>Ss", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
-      { "<leader>Sd", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
-      { "<leader>SD", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
+      { "<leader>S", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
+      { "<leader>qs", "<cmd>SessionSave<cr>", desc = "Save session" },
+      { "<leader>qd", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
+      { "<leader>qD", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
     },
   },
   {
     "rmagatti/auto-session",
     opts = function(_, opts)
-      local function restore_neo_tree()
-        local tree = require("neo-tree.command")
-        tree.execute({
-          action = "show",
-          position = "left",
-          dir = vim.fn.getcwd(),
-        })
+      local function open_minifile()
+        local minifile = require("mini.files")
+        minifile.open(nil, true)
       end
 
-      local function hide_tree()
-        local tree = require("neo-tree.command")
-        tree.execute({
-          action = "hide",
-        })
+      local function close_minifile()
+        local minifile = require("mini.files")
+        minifile.close()
       end
 
       local function delete_not_good_buffer()
@@ -77,9 +70,9 @@ return {
       end
 
       -- opts.post_restore_cmds = { restore_neo_tree }
-      opts.post_restore_cmds = {}
+      opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
-      opts.pre_save_cmds = { hide_tree, delete_not_good_buffer, noice_dismiss }
+      opts.pre_save_cmds = { close_minifile, delete_not_good_buffer, noice_dismiss }
     end,
   },
 }

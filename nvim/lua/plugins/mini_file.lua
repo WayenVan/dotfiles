@@ -24,6 +24,14 @@ return {
         end,
         desc = "Open mini.files (current file)",
       },
+      {
+        "<leader>D",
+        function()
+          local path = require("plenary.path"):new(vim.fn.stdpath("data")):absolute()
+          require("mini.files").open(path, true, {})
+        end,
+        desc = "Open mini.files (std data)",
+      },
     },
     opts = {
       mappings = {
@@ -57,28 +65,6 @@ return {
         vim.fn.setreg('"', filepath)
         require("noice").notify("Copied " .. filepath .. " to unamed", "info")
       end
-
-      -- local function show_file_info()
-      --   local filepath = require("mini.files").get_fs_entry().path
-      --   local filesize = vim.fn.getfsize(filepath)
-      --   local bufnr = vim.api.nvim_create_buf(false, true)
-      --   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "File Size: " .. filesize .. " bytes" })
-      --   local width = 30
-      --   local height = 1
-      --   local row = vim.fn.line(".") + 1
-      --   local col = vim.fn.col(".")
-      --   vim.api.nvim_open_win(bufnr, true, {
-      --     relative = "editor",
-      --     width = width,
-      --     height = height,
-      --     row = row,
-      --     col = col,
-      --     style = "minimal",
-      --     border = "single",
-      --     focusable = false,
-      --   })
-      --   vim.api.nvim_buf_set_keymap(bufnr, "n", "q", ":q<CR>", { noremap = true, silent = true })
-      -- end
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",

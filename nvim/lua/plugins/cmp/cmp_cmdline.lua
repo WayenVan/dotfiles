@@ -8,8 +8,6 @@ return {
     config = function()
       local cmp = require("cmp")
       local mapping = vim.deepcopy(cmp.mapping.preset.cmdline())
-      local log = require("plenary.log"):new()
-      log.info(mapping)
       -- `:` cmdline setup.
       cmp.setup.cmdline(":", {
         mapping = mapping,

@@ -11,4 +11,3 @@ def test_my():
         a = math.sqrt(i)
         if i == 5:
             raise ValueError("i = 5")
-        print(a)

@@ -8,6 +8,19 @@ return {
       local cmp = require("cmp")
       local types = require("cmp.types")
 
+      -- set window
+      opts.window = {
+        completion = cmp.config.window.bordered({
+          border = "single",
+          -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:NormalFloat",
+          winhighlight = "Normal:NormalFloat,FloatBorder:NormalFloat,CursorLine:PmenuSel,Search:None",
+        }),
+        documentation = cmp.config.window.bordered({
+          border = "single",
+          winhighlight = "Normal:NormalFloat,FloatBorder:NormalFloat,CursorLine:PmenuSel,Search:None",
+        }),
+      }
+
       -- modify default sources
       for _, source in ipairs(opts.sources) do
         if source.name == "path" then

@@ -4,11 +4,10 @@ return {
     event = "LazyFile",
     opts = {
       bind = true,
-      border = "solid",
-      transparency = 20,
       doc_lines = 0,
+      transparency = 1,
       handler_opts = {
-        border = "solid",
+        border = "single",
       },
       hint_enable = false,
       hint_prefix = {

@@ -24,7 +24,6 @@
 -- end
 -- print(vim.inspect(info))
 -- print(vim.inspect(LazyVim.config.kind_filter))
-
 local log = require("plenary.log"):new()
 log.level = "debug"
 

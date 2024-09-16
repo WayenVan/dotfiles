@@ -50,6 +50,11 @@ return {
           layout_config = {
             prompt_position = "top",
           },
+          borderchars = {
+            prompt = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+            results = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+            preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+          },
           sorting_strategy = "ascending",
           prompt_prefix = " ",
           selection_caret = " ",

@@ -56,7 +56,7 @@ return {
             preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
           },
           sorting_strategy = "ascending",
-          prompt_prefix = " ",
+          prompt_prefix = "  ",
           selection_caret = " ",
           -- open files in the first window that is an actual file.
           -- use the current window if no other window is available.

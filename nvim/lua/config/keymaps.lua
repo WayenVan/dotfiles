@@ -11,6 +11,9 @@
 -- vim.keymap.del("n", "<C-h>")
 
 local map = vim.keymap.set
+
+map("n", "<Space>", "<Nop>")
+
 -- -- Yank to the system clipboard by default
 -- groups
 map("n", "<leader>n", "", { desc = "+noice/neoconfig" })

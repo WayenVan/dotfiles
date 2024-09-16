@@ -45,6 +45,7 @@ return {
           return commit_characters
         end,
       }
+      opts.experimental = {}
     end,
   },
 }

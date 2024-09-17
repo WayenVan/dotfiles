@@ -9,7 +9,7 @@ return {
         {
           "<leader>ft",
           function()
-            require("neo-tree.command").execute({ toggle = true, position = "right" })
+            require("neo-tree.command").execute({ toggle = true, position = "right", dir = LazyVim.root() })
           end,
           desc = "Toggle NeoTree explore",
         },
@@ -51,8 +51,8 @@ return {
       opts.window.position = "right"
       opts.window.mappings["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } }
       opts.window.mappings["l"] = "focus_preview"
-      opts.window.mappings["<C-b>"] = { "scroll_preview", config = { direction = 10 } }
-      opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
+      -- opts.window.mappings["<C-b>"] = { "scroll_preview", config = { direction = 10 } }
+      -- opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
       opts.window.mappings["-"] = "open_split"
       opts.window.mappings["_"] = "open_vsplit"
       opts.window.mappings["s"] = "none"

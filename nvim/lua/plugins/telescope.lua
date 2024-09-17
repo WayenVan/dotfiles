@@ -106,6 +106,7 @@ return {
       { "<leader>fR", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       { "<leader>fr", LazyVim.pick("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
       -- search
+      { "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
       { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
       { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
       { "<leader>sW", LazyVim.pick("grep_string", { word_match = "-w" }), desc = "Word (Root Dir)" },
@@ -118,7 +119,7 @@ return {
     "nvim-telescope/telescope-frecency.nvim",
     lazy = true,
     keys = {
-      { "<leader>sf", "<cmd>Telescope frecency<cr>", desc = "Frecency" },
+      { "<leader>ff", "<cmd>Telescope frecency<cr>", desc = "Frecency" },
     },
     config = function()
       require("telescope").load_extension("frecency")

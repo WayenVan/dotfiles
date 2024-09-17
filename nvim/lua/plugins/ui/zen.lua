@@ -15,7 +15,7 @@ return {
         -- width = 120,
         width = function()
           if vim.api.nvim_get_option_value("filetype", { buf = 0 }) == "qf" then
-            return vim.api.nvim_get_option_value("columns", { scope = 'global' })
+            return vim.api.nvim_get_option_value("columns", { scope = "global" })
           else
             return 120
           end
@@ -38,7 +38,7 @@ return {
         -- comment the lines to not apply the options
         options = {
           enabled = true,
-          ruler = false,   -- disables the ruler text in the cmd line area
+          ruler = false, -- disables the ruler text in the cmd line area
           showcmd = false, -- disables the command in the last line of the screen
           -- you may turn on/off statusline in zen mode by setting 'laststatus'
           -- statusline will be shown only if 'laststatus' == 3
@@ -46,9 +46,13 @@ return {
         },
       },
     },
-
-    keys = {
-      { "<leader>zz", "<cmd>ZenMode<CR>", desc = "Zen mode" },
-    },
+    keys = function()
+      require("which-key").add({
+        { "<leader>z", group = "zen", icon = "🧘" },
+      })
+      return {
+        { "<leader>zz", "<cmd>ZenMode<CR>", desc = "Zen mode" },
+      }
+    end,
   },
 }

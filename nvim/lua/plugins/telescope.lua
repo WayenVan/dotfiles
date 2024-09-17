@@ -1,6 +1,9 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-frecency.nvim",
+    },
     opts = function(_, opts)
       local actions = require("telescope.actions")
 
@@ -110,5 +113,15 @@ return {
       { "<leader>sW", LazyVim.pick("grep_string"), mode = "v", desc = "Selection (Root Dir)" },
       { "<leader>sw", LazyVim.pick("grep_string", { root = false }), mode = "v", desc = "Selection (cwd)" },
     },
+  },
+  {
+    "nvim-telescope/telescope-frecency.nvim",
+    lazy = true,
+    keys = {
+      { "<leader>sf", "<cmd>Telescope frecency<cr>", desc = "Frecency" },
+    },
+    config = function()
+      require("telescope").load_extension("frecency")
+    end,
   },
 }

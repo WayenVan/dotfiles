@@ -61,7 +61,8 @@ return {
           lualine_c = {
             { "fancy_cwd", substitute_home = true },
             -- LazyVim.lualine.root_dir(),
-            { "fancy_filetype", ts_icon = "" },
+            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
+            { "encoding", padding = { left = 0, right = 1 } },
             -- { "filesize", padding = { left = 0, right = 1 } },
             {
               "diagnostics",
@@ -121,9 +122,8 @@ return {
                 return LazyVim.ui.fg("Special")
               end,
             },
-            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
-            { "encoding", padding = { left = 0, right = 1 } },
             { "fancy_location" },
+            { "fancy_filetype", ts_icon = "" },
           },
           lualine_y = {
             { "fancy_lsp_servers" },

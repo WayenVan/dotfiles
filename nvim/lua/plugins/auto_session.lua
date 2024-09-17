@@ -69,8 +69,7 @@ return {
         require("noice").cmd("dismiss")
       end
 
-      -- opts.post_restore_cmds = { restore_neo_tree }
-      opts.post_restore_cmds = { open_minifile }
+      -- opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
       opts.pre_save_cmds = { close_minifile, delete_not_good_buffer, noice_dismiss }
     end,

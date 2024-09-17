@@ -16,7 +16,7 @@ map("n", "<Space>", "<Nop>")
 
 -- -- Yank to the system clipboard by default
 -- groups
-map("n", "<leader>n", "", { desc = "+noice/neoconfig" })
+map("n", "<leader>n", "", { desc = "+noice" })
 map("n", "<leader>z", "", { desc = "+zen" })
 
 -- lazyvim extra

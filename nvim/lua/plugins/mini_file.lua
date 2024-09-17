@@ -24,8 +24,9 @@ return {
         end,
         desc = "Open mini.files (current file)",
       },
+      { "<leader>O", "", desc = "+ Open in mini.files" },
       {
-        "<leader>D",
+        "<leader>Od",
         function()
           local path = require("plenary.path"):new(vim.fn.stdpath("data")):absolute()
           require("mini.files").open(path, true, {})

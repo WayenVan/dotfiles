@@ -17,6 +17,10 @@ return {
       -- },
       views = {
         cmdline_popup = {
+          position = {
+            row = 5,
+            col = "50%",
+          },
           border = {
             style = "single",
           },

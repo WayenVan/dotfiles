@@ -13,10 +13,12 @@ return {
       {
         "<leader>E",
         function()
-          require("mini.files").open(LazyVim.root(), true)
+          -- require("mini.files").open(LazyVim.root(), true)
+          require("mini.files").open(MiniFiles.get_latest_path())
         end,
-        desc = "Open mini.files (root)",
+        desc = "Open mini.files (Recent)",
       },
+
       {
         "<leader>fe",
         function()
@@ -32,6 +34,13 @@ return {
           require("mini.files").open(path, true, {})
         end,
         desc = "Open mini.files (std data)",
+      },
+      {
+        "<leader>Or",
+        function()
+          require("mini.files").open(LazyVim.root(), true)
+        end,
+        desc = "Open mini.files (root)",
       },
     },
     opts = {

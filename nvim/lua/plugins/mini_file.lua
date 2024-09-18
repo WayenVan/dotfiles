@@ -10,17 +10,9 @@ return {
         end,
         desc = "Open mini.files (cwd)",
       },
-      {
-        "<leader>E",
-        function()
-          -- require("mini.files").open(LazyVim.root(), true)
-          require("mini.files").open(MiniFiles.get_latest_path())
-        end,
-        desc = "Open mini.files (Recent)",
-      },
 
       {
-        "<leader>fe",
+        "<leader>E",
         function()
           require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
         end,
@@ -37,6 +29,14 @@ return {
       },
       {
         "<leader>Or",
+        function()
+          -- require("mini.files").open(LazyVim.root(), true)
+          require("mini.files").open(MiniFiles.get_latest_path())
+        end,
+        desc = "Open mini.files (Recent)",
+      },
+      {
+        "<leader>Of",
         function()
           require("mini.files").open(LazyVim.root(), true)
         end,

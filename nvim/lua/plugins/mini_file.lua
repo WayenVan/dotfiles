@@ -103,7 +103,7 @@ return {
           )
           vim.keymap.set(
             "n",
-            "yy",
+            "Y",
             yank_filename,
             { buffer = args.data.buf_id, desc = "yank name of current entry" }
           )

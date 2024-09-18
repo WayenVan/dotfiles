@@ -75,6 +75,16 @@ return {
         vim.fn.setreg('"', filepath)
         require("noice").notify("Copied " .. filepath .. " to unamed", "info")
       end
+      local yank_filename = function()
+        local entry = require("mini.files").get_fs_entry()
+        if entry == nil then
+          return
+        end
+        local modify = vim.fn.fnamemodify
+        local filename = modify(entry.path, ":t")
+        vim.fn.setreg('"', filename)
+        require("noice").notify("Copied " .. filename .. " to unamed", "info")
+      end
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
@@ -90,6 +100,12 @@ return {
             "gY",
             yank_absolute,
             { buffer = args.data.buf_id, desc = "yank absolute path of current entry" }
+          )
+          vim.keymap.set(
+            "n",
+            "yy",
+            yank_filename,
+            { buffer = args.data.buf_id, desc = "yank name of current entry" }
           )
           -- vim.keymap.set("n", "gi", show_file_info, { buffer = args.data.buf_id, desc = "show file info" })
         end,

@@ -7,7 +7,7 @@ return {
     keys = function(_, keys)
       return {
         {
-          "<leader>ft",
+          "<leader>r",
           function()
             require("neo-tree.command").execute({ toggle = true, position = "right", dir = LazyVim.root() })
           end,

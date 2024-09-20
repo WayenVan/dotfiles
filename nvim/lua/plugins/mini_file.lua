@@ -49,7 +49,8 @@ return {
         go_in = "L",
         go_out = "H",
         go_out_plus = "<BS>",
-        reset = "<localleader><localleader>",
+        reset = "<Tab>",
+        synchronize = ".",
       },
       options = {
         use_as_default_explorer = true,
@@ -101,12 +102,11 @@ return {
             yank_absolute,
             { buffer = args.data.buf_id, desc = "yank absolute path of current entry" }
           )
-          vim.keymap.set(
-            "n",
-            "Y",
-            yank_filename,
-            { buffer = args.data.buf_id, desc = "yank name of current entry" }
-          )
+          vim.keymap.set("n", "Y", yank_filename, { buffer = args.data.buf_id, desc = "yank name of current entry" })
+          vim.keymap.set("i", "<C-s>", function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+            require("mini.files").synchronize()
+          end, { buffer = args.data.buf_id, desc = "yank name of current entry" })
           -- vim.keymap.set("n", "gi", show_file_info, { buffer = args.data.buf_id, desc = "show file info" })
         end,
       })

@@ -49,8 +49,8 @@ return {
         go_in = "L",
         go_out = "H",
         go_out_plus = "<BS>",
-        reset = "<Tab>",
-        synchronize = ".",
+        reset = ".",
+        synchronize = "<Tab>",
       },
       options = {
         use_as_default_explorer = true,

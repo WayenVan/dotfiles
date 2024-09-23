@@ -30,10 +30,13 @@ end
 
 function M.resolve_venv()
   local candidates = {}
+
+  -- check conda
   local conda_prefix = M.get_conda_prefix()
   if conda_prefix then
     candidates[#candidates + 1] = "conda"
   end
+  -- check resolved environment
   if #candidates < 1 then
     return nil
   elseif #candidates == 1 then

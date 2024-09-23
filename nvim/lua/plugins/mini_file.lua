@@ -87,6 +87,19 @@ return {
         require("noice").notify("Copied " .. filename .. " to unamed", "info")
       end
 
+      local open_in_neotree = function()
+        local entry = require("mini.files").get_fs_entry()
+        if entry == nil then
+          return
+        end
+        require("neo-tree.command").execute({
+          action = "show",
+          toggle = false,
+          position = "right",
+          reveal_file = entry.path,
+        })
+      end
+
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
@@ -103,6 +116,12 @@ return {
             { buffer = args.data.buf_id, desc = "yank absolute path of current entry" }
           )
           vim.keymap.set("n", "Y", yank_filename, { buffer = args.data.buf_id, desc = "yank name of current entry" })
+          vim.keymap.set(
+            "n",
+            "<leader>r",
+            open_in_neotree,
+            { buffer = args.data.buf_id, desc = "open current entry in neotree" }
+          )
           vim.keymap.set("i", "<C-s>", function()
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
             require("mini.files").synchronize()

@@ -97,6 +97,7 @@ return {
           toggle = false,
           position = "right",
           reveal_file = entry.path,
+          dir = vim.fn.getcwd(),
         })
       end
 
@@ -118,9 +119,9 @@ return {
           vim.keymap.set("n", "Y", yank_filename, { buffer = args.data.buf_id, desc = "yank name of current entry" })
           vim.keymap.set(
             "n",
-            "<leader>r",
+            "gr",
             open_in_neotree,
-            { buffer = args.data.buf_id, desc = "open current entry in neotree" }
+            { buffer = args.data.buf_id, desc = "open current entry in neotree", noremap = true }
           )
           vim.keymap.set("i", "<C-s>", function()
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)

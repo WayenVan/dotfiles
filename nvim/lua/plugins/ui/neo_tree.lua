@@ -55,8 +55,8 @@ return {
       -- opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
       opts.window.mappings["-"] = "open_split"
       opts.window.mappings["_"] = "open_vsplit"
-      opts.window.mappings["s"] = "none"
-      opts.window.mappings["S"] = "none"
+      -- opts.window.mappings["s"] = "none"
+      -- opts.window.mappings["S"] = "none"
     end,
   },
   {
@@ -70,6 +70,11 @@ return {
       },
       -- add copy path command
       commands = {
+        open_in_mini_file = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+          require("mini.files").open(filepath)
+        end,
         copy_selector = function(state)
           local node = state.tree:get_node()
           local filepath = node:get_id()
@@ -116,6 +121,7 @@ return {
         title = "",
         mappings = {
           Y = "copy_selector",
+          ["ge"] = "open_in_mini_file",
         },
       },
     },

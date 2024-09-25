@@ -1,7 +1,9 @@
 local Hydra = require("hydra")
--- :▼etlocal ve=all
--- :setlocal ve=none
 local hint_window = nil
+
+require("which-key").add({
+  { "<leader>D", icon = "", name = "Draw Diagram" },
+})
 Hydra({
   name = "Venn Diagram",
   config = {
@@ -18,6 +20,7 @@ Hydra({
         { "L", "→" },
         { "f", "box" },
         { "<C-c>", "exit" },
+        { "q", "exit" },
       })
       hint_window:mount()
     end,
@@ -41,5 +44,6 @@ Hydra({
     { "L", "<C-v>l:VBox<CR>" },
     { "f", ":VBox<CR>", { mode = "v" } },
     { "<C-c>", nil, { exit = true } },
+    { "q", nil, { exit = true } },
   },
 })

@@ -26,19 +26,20 @@ local _M = {}
 -- vim.api.nvim_set_keymap("n", "<leader>v", ":lua Toggle_venn()<CR>", { noremap = true })
 --
 
-local orange_hl = vim.api.nvim_get_hl(0, { name = "Orange", link = false })
+vim.api.nvim_create_autocmd("OptionSet", {
+  pattern = "background",
+  callback = function()
+    local orange_hl = vim.api.nvim_get_hl(0, { name = "Orange", link = false })
+    vim.api.nvim_set_hl(0, "HydraPopupSurround", { link = "Orange" }) -- change bg as needed
+    vim.api.nvim_set_hl(0, "HydraPopupMode", { fg = "#1e222a", bg = orange_hl.fg }) -- change bg as needed
+  end,
+})
 
+local orange_hl = vim.api.nvim_get_hl(0, { name = "Orange", link = false })
 -- Create a new highlight group with the same fg color
 vim.api.nvim_set_hl(0, "HydraPopupSurround", { link = "Orange" }) -- change bg as needed
 vim.api.nvim_set_hl(0, "HydraPopupMode", { fg = "#1e222a", bg = orange_hl.fg }) -- change bg as needed
 --
--- keys exmpale:
--- { "H", "←" },
--- { "J", "↓" },
--- { "K", "↑" },
--- { "L", "→" },
--- { "f", "box" },
--- { "<C-c>", "exit" },
 
 ---@param mode string
 ---@param keys? table

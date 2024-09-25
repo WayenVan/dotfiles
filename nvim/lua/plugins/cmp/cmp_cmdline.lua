@@ -1,7 +1,7 @@
 return {
   {
     "hrsh7th/cmp-cmdline",
-    event = "InsertEnter",
+    event = "CmdlineEnter",
     dependencies = {
       "dmitmel/cmp-cmdline-history",
     },
@@ -29,7 +29,7 @@ return {
   },
   {
     "dmitmel/cmp-cmdline-history",
-    event = "InsertEnter",
+    event = "CmdlineEnter",
     config = function()
       local cmp = require("cmp")
       local mapping = vim.deepcopy(cmp.mapping.preset.cmdline())

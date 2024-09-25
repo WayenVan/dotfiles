@@ -11,11 +11,13 @@ return {
       -- set window
       opts.window = {
         completion = cmp.config.window.bordered({
+          winblend = 0,
           border = "single",
           -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:NormalFloat",
           winhighlight = "Normal:NormalFloat,FloatBorder:NormalFloat,CursorLine:PmenuSel,Search:None",
         }),
         documentation = cmp.config.window.bordered({
+          winblend = 0,
           border = "single",
           winhighlight = "Normal:NormalFloat,FloatBorder:NormalFloat,CursorLine:PmenuSel,Search:None",
         }),

@@ -38,17 +38,17 @@ return {
       })
 
       --automatic refresh
-      -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-      --   group = "Avante_",
-      --   callback = function()
-      --     local pattern = { "Avante", "AvanteInput" }
-      --     if not vim.tbl_contains(pattern, vim.bo.filetype) then
-      --       return
-      --     end
-      --     vim.cmd("AvanteRefresh")
-      --     print("refreshed")
-      --   end,
-      -- })
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+        group = "Avante_",
+        callback = function()
+          local pattern = { "Avante", "AvanteInput" }
+          if not vim.tbl_contains(pattern, vim.bo.filetype) then
+            return
+          end
+          vim.cmd("AvanteRefresh")
+          -- print("refreshed")
+        end,
+      })
     end,
 
     dependencies = {

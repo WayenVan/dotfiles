@@ -6,6 +6,7 @@ return {
       "meuter/lualine-so-fancy.nvim",
       "DaikyXendo/nvim-material-icon",
     },
+    -- enabled = false,
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
       if vim.fn.argc(-1) > 0 then
@@ -18,6 +19,7 @@ return {
     end,
     opts = function()
       -- PERF: we don't need this lualine require madness 🤷
+      local hydra = require("hydra.statusline")
       local lualine_require = require("lualine_require")
       lualine_require.require = require
 
@@ -37,14 +39,6 @@ return {
           lualine_a = {
             "mode",
             {
-              -- function()
-              --   local id = vim.apt.nvim_get_current_buf()
-              --   local term = require("toggleterm.terminal").get(id)
-              --   if term then
-              --     return "yes"
-              --   end
-              --   return "no"
-              -- end,
               LazyVim.lualine.pretty_path(),
               cond = function()
                 local ft = vim.bo.filetype
@@ -56,7 +50,21 @@ return {
               end,
             },
           },
-          lualine_b = { "branch" },
+          lualine_b = {
+            -- {
+            --   function(_, _)
+            --     return vim.g.hydra
+            --   end,
+            --   cond = function()
+            --     if vim.g.hydra then
+            --       return true
+            --     else
+            --       return false
+            --     end
+            --   end,
+            -- },
+            "branch",
+          },
 
           lualine_c = {
             { "fancy_cwd", substitute_home = true },

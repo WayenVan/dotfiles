@@ -24,9 +24,9 @@ vim.api.nvim_create_user_command("Http", function()
   })
 end, {})
 
-vim.api.nvim_create_user_command("VennToggle", function()
-  require("utils.draw").Toggle_venn()
-end, {})
+-- vim.api.nvim_create_user_command("VennToggle", function()
+--   require("utils.draw").Toggle_venn()
+-- end, {})
 
 vim.g.saved_eft = vim.o.errorformat
 vim.g.saved_makeprg = vim.o.makeprg

@@ -1,31 +1,39 @@
--- print(vim.inspect(vim.opt.errorformat))
--- print(vim.opt.errorformat._value)
+local Popup = require("nui.popup")
+local Layout = require("nui.layout")
 
---
--- print(vim.inspect(vim.opt.errorformat:get()))
--- %A %#File "%f"\, line %l\, in %o,%Z %#%m
---
--- local result = vim.fn.system("which python3")
--- print(vim.inspect(result))
+local popup = Popup({
+	position = "50%",
+	size = {
+		width = 80,
+		height = 40,
+	},
+	enter = true,
+	focusable = true,
+	zindex = 50,
+	relative = "editor",
+	border = {
+		padding = {
+			top = 2,
+			bottom = 2,
+			left = 3,
+			right = 3,
+		},
+		style = "single",
+		text = {
+			top = " I am top title ",
+			top_align = "center",
+			bottom = "I am bottom title",
+			bottom_align = "left",
+		},
+	},
+	buf_options = {
+		modifiable = true,
+		readonly = false,
+	},
+	win_options = {
+		winblend = 0,
+		winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+	},
+})
 
--- local nls = require("null-ls").builtins.diagnostics.mypy
-
--- local nls = require("plugins.lsp.servers.none-ls-cfg.mypy-diagnostics")
--- print(vim.inspect(nsl._opts._last_args))
-
--- for k, v in pairs(nls) do
---   print(k, vim.inspect(v))
--- end
---
--- local info, _ = require("utils.python")
--- if info == nil then
---   return
---
--- end
--- print(vim.inspect(info))
--- print(vim.inspect(LazyVim.config.kind_filter))
-local log = require("plenary.log"):new()
-log.level = "debug"
-
-local keys = require("lazyvim.plugins.lsp.keymaps").get()
-log.debug(keys)
+popup:mount()

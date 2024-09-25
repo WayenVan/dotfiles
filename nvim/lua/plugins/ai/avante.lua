@@ -7,7 +7,7 @@ return {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    version = false, -- set this if you want to always pull the latest change
+    -- version = false, -- set this if you want to always pull the latest change
     opts = {
       provider = "copilot",
       -- add any opts here
@@ -36,7 +36,21 @@ return {
           vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>AvanteToggle<CR>", { noremap = true, silent = true })
         end,
       })
+
+      --automatic refresh
+      -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+      --   group = "Avante_",
+      --   callback = function()
+      --     local pattern = { "Avante", "AvanteInput" }
+      --     if not vim.tbl_contains(pattern, vim.bo.filetype) then
+      --       return
+      --     end
+      --     vim.cmd("AvanteRefresh")
+      --     print("refreshed")
+      --   end,
+      -- })
     end,
+
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",

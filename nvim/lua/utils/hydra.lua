@@ -1,4 +1,6 @@
 local _M = {}
+local group = vim.api.nvim_create_augroup("HydraUtil", { clear = true })
+
 -- venn.nvim: enable or disable keymappings
 -- function _M.Toggle_venn()
 --   local venn_enabled = vim.inspect(vim.b.venn_enabled)
@@ -26,36 +28,28 @@ local _M = {}
 -- vim.api.nvim_set_keymap("n", "<leader>v", ":lua Toggle_venn()<CR>", { noremap = true })
 --
 
-vim.api.nvim_create_autocmd("OptionSet", {
-  pattern = "background",
-  callback = function()
-    local orange_hl = vim.api.nvim_get_hl(0, { name = "Orange", link = false })
-    vim.api.nvim_set_hl(0, "HydraPopupSurround", { link = "Orange" }) -- change bg as needed
-    vim.api.nvim_set_hl(0, "HydraPopupMode", { fg = "#1e222a", bg = orange_hl.fg }) -- change bg as needed
-  end,
-})
-
-local orange_hl = vim.api.nvim_get_hl(0, { name = "Orange", link = false })
--- Create a new highlight group with the same fg color
-vim.api.nvim_set_hl(0, "HydraPopupSurround", { link = "Orange" }) -- change bg as needed
-vim.api.nvim_set_hl(0, "HydraPopupMode", { fg = "#1e222a", bg = orange_hl.fg }) -- change bg as needed
 --
 
 ---@param mode string
+---@param hl string
+---@param surround_hl string
 ---@param keys? table
-function _M.hint_popup(mode, keys)
+function _M.hint_popup(mode, hl, surround_hl, keys)
   local Popup = require("nui.popup")
   local NuiLine = require("nui.line")
   local line = NuiLine()
-  line:append(" ", "HydraPopupSurround")
-  line:append(mode, "HydraPopupMode")
-  line:append(" ", "HydraPopupSurround")
+  line:append(" ", surround_hl)
+  line:append(mode, hl)
+  line:append(" ", surround_hl)
   if keys then
-    for _, v in ipairs(keys) do
-      line:append(v[1], "Keyword")
+    for _, key in ipairs(keys) do
+      line:append(key[1], surround_hl)
       line:append(" ", "Normal")
-      line:append(v[2], "Normal")
-      line:append(", ", "Normal")
+      if key[3] and key[3]["desc"] then
+        -- if key[3]["desc"] then
+        line:append(key[3]["desc"], "Normal")
+        line:append(", ", "Normal")
+      end
     end
   end
   local width = line:width()
@@ -111,6 +105,25 @@ function _M.hint_popup(mode, keys)
   end)
   line:render(popup.bufnr, -1, 1)
   return popup
+end
+
+---@param mode_name string
+---@param base_color integer
+function _M.generate_and_set_hl(mode_name, base_color)
+  local surround_name = "HydraSurround-" .. mode_name
+  local mode = "HydraMode-" .. mode_name
+  vim.api.nvim_set_hl(0, surround_name, { fg = base_color }) -- change bg as needed
+  vim.api.nvim_set_hl(0, mode, { fg = "#1e222a", bg = base_color, bold = true }) -- change bg as needed
+
+  -- color setup for autocmd
+  vim.api.nvim_create_autocmd("OptionSet", {
+    pattern = "background",
+    callback = function()
+      vim.api.nvim_set_hl(0, surround_name, { fg = base_color }) -- change bg as needed
+      vim.api.nvim_set_hl(0, mode, { fg = "#1e222a", bg = base_color, bold = true }) -- change bg as needed
+    end,
+  })
+  return mode, surround_name
 end
 
 -- _M.hint_popup({ hello = "this is hello" }):mount()

@@ -1,9 +1,6 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-frecency.nvim",
-    },
     opts = function(_, opts)
       local actions = require("telescope.actions")
 
@@ -102,7 +99,8 @@ return {
       -- find
       { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
       { "<leader>fF", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
-      { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+      -- { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+      { "<leader>ff", false },
       { "<leader>fR", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       { "<leader>fr", LazyVim.pick("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
       -- search
@@ -115,14 +113,32 @@ return {
       { "<leader>sw", LazyVim.pick("grep_string", { root = false }), mode = "v", desc = "Selection (cwd)" },
     },
   },
+  -- {
+  --   "nvim-telescope/telescope-frecency.nvim",
+  --   lazy = true,
+  --   keys = {
+  --     { "<leader>ff", "<cmd>Telescope frecency<cr>", desc = "Frecency" },
+  --   },
+  --   config = function()
+  --     require("telescope").load_extension("frecency")
+  --   end,
+  -- },
   {
-    "nvim-telescope/telescope-frecency.nvim",
-    lazy = true,
+    "danielfalk/smart-open.nvim",
+    branch = "0.2.x",
     keys = {
-      { "<leader>ff", "<cmd>Telescope frecency<cr>", desc = "Frecency" },
+      { "<leader>ff", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
     },
     config = function()
-      require("telescope").load_extension("frecency")
+      require("telescope").load_extension("smart_open")
     end,
+    dependencies = {
+      "kkharji/sqlite.lua",
+      -- Only required if using match_algorithm fzf
+      -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-fzf-native.nvim" },
+      -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+      { "nvim-telescope/telescope-fzy-native.nvim" },
+    },
   },
 }

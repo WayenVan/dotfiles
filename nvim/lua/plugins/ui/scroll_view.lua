@@ -2,7 +2,7 @@ return {
   "dstein64/nvim-scrollview",
   event = "BufEnter",
   opts = {
-    excluded_filetypes = { "neo-tree" },
+    excluded_filetypes = { "neo-tree", "dashboard" },
     current_only = true,
     base = "right",
     column = 1,

@@ -12,7 +12,6 @@ Hydra({
     invoke_on_body = true,
     on_enter = function()
       vim.wo.virtualedit = "all"
-      vim.g.hydra = "draw"
       hint_window = require("utils.hydra").hint_popup(" Draw", {
         { "H", "←" },
         { "J", "↓" },
@@ -25,7 +24,6 @@ Hydra({
       hint_window:mount()
     end,
     on_exit = function()
-      vim.g.hydra = nil
       if hint_window then
         hint_window:unmount()
       end

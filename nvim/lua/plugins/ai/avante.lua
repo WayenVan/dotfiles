@@ -12,7 +12,7 @@ return {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    version = false, -- set this if you want to always pull the latest change
+    version = false, -- set this if you want to always pull the latest changes
     opts = {
       provider = "copilot",
       -- add any opts here
@@ -25,6 +25,14 @@ return {
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
     keys = {
       { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
+      {
+        "<leader>ap",
+        function()
+          local pk = require("avante.pickers")
+          pk.prompt_picker()
+        end,
+        desc = "avante: change prompt",
+      },
     },
     build = build_command,
     config = function(_, opts)
@@ -55,7 +63,6 @@ return {
         end,
       })
     end,
-
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",

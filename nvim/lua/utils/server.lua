@@ -1,18 +1,17 @@
 local M = {}
 
-local t = {
-  pickers = require("telescope.pickers"),
-  finders = require("telescope.finders"),
-  sorters = require("telescope.sorters"),
-  actions = require("telescope.actions"),
-  action_state = require("telescope.actions.state"),
-  themes = require("telescope.themes"),
-  conf = require("telescope.config").values,
-}
-
 local n = require("noice")
 
 M.server_picker = function()
+  local t = {
+    pickers = require("telescope.pickers"),
+    finders = require("telescope.finders"),
+    sorters = require("telescope.sorters"),
+    actions = require("telescope.actions"),
+    action_state = require("telescope.actions.state"),
+    themes = require("telescope.themes"),
+    conf = require("telescope.config").values,
+  }
   local opts = t.themes.get_dropdown({})
   local finder = t.finders.new_dynamic({
     fn = function()

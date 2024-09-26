@@ -1,13 +1,18 @@
-local build_command = "make"
-local os, arch = require("utils.os_name").get_os_name()
-if os == "Windows" then
-  build_command = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+local function get_build_command()
+  local os_name, _ = require("utils.os_name").get_os_name()
+  if os_name == "Windows" then
+    return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+  else
+    return "make"
+  end
 end
+
+local build_command = get_build_command()
 return {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    -- version = false, -- set this if you want to always pull the latest change
+    version = false, -- set this if you want to always pull the latest change
     opts = {
       provider = "copilot",
       -- add any opts here

@@ -9,6 +9,6 @@ vim.filetype.add({
   pattern = {},
 })
 
-require("utils.auto_source").setup()
-require("utils.storage").setup()
 require("utils.server").setup()
+-- require("utils.auto_source").setup()
+-- require("utils.storage").setup()

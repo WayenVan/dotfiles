@@ -1,3 +1,21 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
+
+-- vim.api.nvim_create_autocmd({ "" }, {
+--   callback = function()
+--     vim.filetype.add({
+--       filename = {
+--         [".condarc"] = "yaml", -- Set filetype to 'python' for a file named 'mycustomfile'
+--         [".fishrc"] = "fish",
+--       },
+--       extension = {},
+--       pattern = {},
+--     })
+--     require("utils.auto_source").setup()
+--     require("utils.storage").setup()
+--     require("utils.server").setup()
+--     vim.notify("okkk")
+--   end,
+--   once = true,
+-- })

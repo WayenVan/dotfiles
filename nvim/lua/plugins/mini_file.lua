@@ -69,8 +69,8 @@ return {
           local os_name = require("utils.os_name").get_os_name()
 
           if os_name == "Mac" then
-            -- macOs: open file in default application in the background.
-            vim.fn.jobstart({ "xdg-open", "-g", path }, { detach = true })
+            -- macOS: open Finder at the specified path
+            vim.fn.jobstart({ "open", path }, { detach = true })
           elseif os_name == "Linux" then
             -- Linux: open file in default application
             vim.fn.jobstart({ "xdg-open", path }, { detach = true })

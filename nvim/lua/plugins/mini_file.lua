@@ -93,7 +93,7 @@ return {
           return
         end
         require("neo-tree.command").execute({
-          action = "show",
+          action = "focus",
           toggle = false,
           position = "right",
           reveal_file = entry.path,

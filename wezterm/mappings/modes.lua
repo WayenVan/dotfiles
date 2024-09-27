@@ -78,9 +78,10 @@ local key_tables = {
   -- {{{1 WINDOW MODE (window_mode)
   window_mode = {
     { "<ESC>", "PopKeyTable", "exit" },
+    { "q", "PopKeyTable", "exit" },
     { "d", act.CloseCurrentPane { confirm = true }, "delete panel" },
     { "D", act.CloseCurrentTab { confirm = true }, "delete tab" },
-    { "q", act.QuitApplication, "quit application" },
+    { "w", act.QuitApplication, "quit application" },
     { "h", act.ActivatePaneDirection "Left", "left" },
     { "j", act.ActivatePaneDirection "Down", "down" },
     { "k", act.ActivatePaneDirection "Up", "up" },
@@ -98,8 +99,10 @@ local key_tables = {
     { "<S->>", act.AdjustPaneSize { "Right", 2 }, "resize right" },
     { "+", act.AdjustPaneSize { "Up", 2 }, "resize top" },
     { "-", act.AdjustPaneSize { "Down", 2 }, "resize bot" },
-    { "L", act.ActivateTabRelative(1), "next tab" },
-    { "H", act.ActivateTabRelative(-1), "prev tab" },
+    -- { "L", act.ActivateTabRelative(1), "next tab" },
+    -- { "H", act.ActivateTabRelative(-1), "prev tab" },
+    { "L", act.MoveTabRelative(1), "next tab" },
+    { "H", act.MoveTabRelative(-1), "prev tab" },
   }, -- }}}
 
   -- {{{1 HELP MODE (help_mode)

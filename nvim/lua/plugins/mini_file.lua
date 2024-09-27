@@ -60,6 +60,41 @@ return {
     config = function(_, opts)
       require("mini.files").setup(opts)
 
+      local open_in_system = function()
+        local Path = require("plenary.path")
+        local path = Path:new(MiniFiles.get_fs_entry().path)
+        if path:is_dir() then
+          path = path:absolute()
+          -- is dir, oepn with system viewer
+          local os_name = require("utils.os_name").get_os_name()
+
+          if os_name == "Mac" then
+            -- macOs: open file in default application in the background.
+            vim.fn.jobstart({ "xdg-open", "-g", path }, { detach = true })
+          elseif os_name == "Linux" then
+            -- Linux: open file in default application
+            vim.fn.jobstart({ "xdg-open", path }, { detach = true })
+          elseif os_name == "Windows" then
+            -- Windows: Without removing the file from the path, it opens in code.exe instead of explorer.exe
+            local p
+            local lastSlashIndex = path:match("^.+()\\[^\\]*$") -- Match the last slash and everything before it
+            if lastSlashIndex then
+              p = path:sub(1, lastSlashIndex - 1) -- Extract substring before the last slash
+            else
+              p = path -- If no slash found, return original path
+            end
+            vim.notify(p)
+            vim.cmd("silent !start " .. p)
+          else
+            vim.notify("Unsupported OS", "error", { title = "Error" })
+          end
+          return
+        end
+        -- no a dir, open with system application
+        local uri = vim.uri_from_fname(path:absolute())
+        require("lazy.util").open(uri, { system = true })
+      end
+
       -- set up y to copy
       local yank_relative_path = function()
         local path = MiniFiles.get_fs_entry().path
@@ -128,6 +163,12 @@ return {
             require("mini.files").synchronize()
           end, { buffer = args.data.buf_id, desc = "yank name of current entry" })
           -- vim.keymap.set("n", "gi", show_file_info, { buffer = args.data.buf_id, desc = "show file info" })
+          vim.keymap.set(
+            "n",
+            "O",
+            open_in_system,
+            { buffer = args.data.buf_id, desc = "open in system", noremap = true }
+          )
         end,
       })
     end,

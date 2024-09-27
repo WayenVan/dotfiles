@@ -50,16 +50,16 @@ return {
         end,
       })
 
-      --automatic refresh
-      vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+      --automatic refresh when enter thing in
+      vim.api.nvim_create_autocmd({ "InsertEnter" }, {
         group = "Avante_",
         callback = function()
-          local pattern = { "Avante", "AvanteInput" }
+          local pattern = { "AvanteInput" }
           if not vim.tbl_contains(pattern, vim.bo.filetype) then
             return
           end
           vim.cmd("AvanteRefresh")
-          -- print("refreshed")
+          -- vim.notify("refresh")
         end,
       })
     end,

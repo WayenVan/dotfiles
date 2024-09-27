@@ -124,7 +124,7 @@ return {
   --   end,
   -- },
   {
-    "danielfalk/smart-open.nvim",
+    "wayenvan/smart-open.nvim",
     branch = "0.2.x",
     keys = {
       { "<leader>ff", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },

@@ -7,8 +7,9 @@
 
 local M = {}
 
-function M.get_os_name()
-  -- Return two strings describing the OS name and OS architecture.
+local cached_os_name = nil
+local cached_arch_name = nil
+function M.get_os_name() -- Return two strings describing the OS name and OS architecture.
   -- For Windows, the OS identification is based on environment variables
   -- On unix, a call to uname is used.
   --
@@ -18,6 +19,11 @@ function M.get_os_name()
   -- On Windows, detection based on environment variable is limited
   -- to what Windows is willing to tell through environement variables. In particular
   -- 64bits is not always indicated so do not rely hardly on this value.
+  --
+
+  if cached_os_name and cached_arch_name then
+    return cached_os_name, cached_arch_name
+  end
 
   local raw_os_name, raw_arch_name = "", ""
 
@@ -85,6 +91,8 @@ function M.get_os_name()
       break
     end
   end
+  cached_os_name = os_name
+  cached_arch_name = arch_name
   return os_name, arch_name
 end
 

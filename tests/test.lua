@@ -1,3 +1,1 @@
-package.loaded["avante.pickers"] = nil
-local pk = require("avante.pickers")
-pk.prompt_picker()
+local os, _ = require("utils.os_name").get_os_name()

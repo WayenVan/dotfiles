@@ -2,5 +2,6 @@ import numpy as np
 import pandas as pd
 
 
-def f(x):
+def ffunc(x):
+    """ """
     return x**2

@@ -10,23 +10,26 @@ return {
           multi_window = false,
           highlight = { backdrop = true },
           label = {
-            rainbow = { enabled = true }
-          }
+            rainbow = { enabled = true },
+          },
         },
         char = {
           jump_labels = true,
-          highlight = { backdrop = true },
+          -- highlight = { backdrop = true },
+          -- multi_line = false,
           label = {
-            rainbow = { enabled = true }
-          }
+            rainbow = { enabled = true },
+            -- exclude = "hjkliardc"
+            exclude = "hjklvgyYrdc",
+          },
         },
         treesitter = {
           label = {
             style = "overlay",
-            rainbow = { enabled = true }
-          }
-        }
-      }
+            rainbow = { enabled = true },
+          },
+        },
+      },
     },
     -- stylua: ignore
     keys = {
@@ -56,5 +59,5 @@ return {
       { "R",     mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" },      function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
-  }
+  },
 }

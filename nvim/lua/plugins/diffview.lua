@@ -15,7 +15,7 @@ return {
       },
     },
     keys = {
-      { "<leader>gD", "<CMD>DiffviewFileHistory<CR>", desc = "Diffview file history" },
+      { "<leader>gD", "<CMD>DiffviewFileHistory %<CR>", desc = "Diffview file history" },
     },
   },
 }

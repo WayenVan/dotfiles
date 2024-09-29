@@ -2,6 +2,7 @@ return {
   {
     "utilyre/barbecue.nvim",
     event = "LazyFile",
+    enabled = false,
     name = "barbecue",
     version = "*",
     dependencies = {

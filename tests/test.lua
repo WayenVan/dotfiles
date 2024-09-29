@@ -1,3 +1,2 @@
-local os, _ = require("utils.os_name").get_os_name()
-
-vim.notify(vim.inspect(vim.o.shada))
+package.loaded["avante.pickers"] = nil
+require("avante.pickers").prompt_picker_fzf()

@@ -2,6 +2,29 @@ local M = {}
 
 local n = require("noice")
 
+M.server_picker_fzf = function()
+  local stop_server = function(selected, opts)
+    vim.notify(vim.inspect(selected[1]))
+    local server = selected[1]
+    if vim.fn.serverstop(server) then
+      n.notify("Server stopped", "info")
+    else
+      n.notify("Server not stopped or not found", "error")
+    end
+  end
+  require("fzf-lua").fzf_exec(function(fzf_cb)
+    local server_list = vim.fn.serverlist()
+    for i, addr in ipairs(server_list) do
+      fzf_cb(addr)
+    end
+    fzf_cb()
+  end, {
+    actions = {
+      ["default"] = stop_server,
+    },
+  })
+end
+
 M.server_picker = function()
   local t = {
     pickers = require("telescope.pickers"),
@@ -47,7 +70,7 @@ end
 
 M.setup = function()
   vim.api.nvim_create_user_command("ServerSelect", function()
-    M.server_picker()
+    M.server_picker_fzf()
   end, {})
   local map = vim.keymap.set
   -- server settings

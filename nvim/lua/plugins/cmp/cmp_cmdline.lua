@@ -24,8 +24,8 @@ return {
         }),
       })
     end,
-    vim.keymap.set("c", "<C-U>", "<Up>", { desc = "Navigate cmdline history up" }),
-    vim.keymap.set("c", "<C-D>", "<Down>", { desc = "Navigate cmdline history down" }),
+    vim.keymap.set("c", "<C-k>", "<Up>", { desc = "Navigate cmdline history up" }),
+    vim.keymap.set("c", "<C-j>", "<Down>", { desc = "Navigate cmdline history down" }),
   },
   {
     "dmitmel/cmp-cmdline-history",

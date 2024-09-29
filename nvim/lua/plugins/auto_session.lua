@@ -21,7 +21,7 @@ return {
       log_level = "error",
       session_lens = {
         -- If load_on_setup is false, make sure you use `:SessionSearch` to open the picker as it will initialize everything first
-        load_on_setup = true,
+        load_on_setup = false,
         theme_conf = { border = true },
         previewer = true,
         mappings = {
@@ -32,10 +32,11 @@ return {
       },
     },
     keys = {
-      { "<leader>S", "<cmd>Telescope session-lens<cr>", desc = "Search sessions" },
-      { "<leader>qs", "<cmd>SessionSave<cr>", desc = "Save session" },
-      { "<leader>qd", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
-      { "<leader>qD", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
+      { "<leader>-", "", desc = "+session" },
+      { "<leader>--", "<cmd>SessionSearch<cr>", desc = "Search sessions" },
+      { "<leader>-s", "<cmd>SessionSave<cr>", desc = "Save session" },
+      { "<leader>-d", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
+      { "<leader>-D", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
     },
   },
   {

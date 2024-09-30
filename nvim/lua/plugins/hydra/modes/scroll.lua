@@ -17,7 +17,7 @@ local heads = {
 Hydra({
   name = "Side scroll",
   mode = "n",
-  body = "Z",
+  body = "<leader>Z",
   heads = heads,
   config = {
     hint = false,

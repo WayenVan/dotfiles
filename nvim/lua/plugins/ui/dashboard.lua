@@ -34,7 +34,7 @@ return {
           { action = 'lua LazyVim.pick("live_grep")()',                desc = " Find Text",       icon = " ", key = "g" },
           { action = 'lua LazyVim.pick.config_files()()',              desc = " Config",          icon = " ", key = "c" },
           -- { action = 'lua require("persistence").select()',              desc = " Restore Session", icon = " ", key = "s" },
-          { action = 'lua vim.cmd("SessionSearch")',                   desc = " Restore Session", icon = " ", key = "-" },
+          { action = 'lua vim.cmd("Autosession search")',                   desc = " Restore Session", icon = " ", key = "-" },
           { action = "LazyExtras",                                     desc = " Lazy Extras",     icon = " ", key = "x" },
           { action = "Lazy",                                           desc = " Lazy",            icon = "󰒲 ", key = "l" },
           { action = function() vim.api.nvim_input("<cmd>qa<cr>") end, desc = " Quit",            icon = " ", key = "q" },

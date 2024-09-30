@@ -32,11 +32,11 @@ return {
       },
     },
     keys = {
-      { "<leader>-", "", desc = "+session" },
-      { "<leader>--", "<cmd>SessionSearch<cr>", desc = "Search sessions" },
-      { "<leader>-s", "<cmd>SessionSave<cr>", desc = "Save session" },
-      { "<leader>-d", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
-      { "<leader>-D", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
+      { "-", "", desc = "+session" },
+      { "--", "<cmd>Autosession search<cr>", desc = "Search sessions" },
+      { "-s", "<cmd>SessionSave<cr>", desc = "Save session" },
+      { "-d", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
+      { "-D", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
     },
   },
   {

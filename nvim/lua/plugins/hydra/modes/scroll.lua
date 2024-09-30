@@ -1,9 +1,7 @@
 local Hydra = require("hydra")
 local utils = require("utils.hydra")
 local blue_hl = vim.api.nvim_get_hl(0, { name = "Blue", link = false })
-
 local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Scroll", blue_hl.fg)
-
 local hint_window = nil
 local heads = {
   { "h", "5zh" },
@@ -14,6 +12,10 @@ local heads = {
   { "k", "3<c-y>", { desc = "↓/↑" } },
   { "q", nil, { exit = true } },
 }
+
+require("which-key").add({
+  { "<leader>Z", icon = "", name = "Scroll mode" },
+})
 Hydra({
   name = "Side scroll",
   mode = "n",

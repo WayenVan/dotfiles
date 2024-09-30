@@ -22,6 +22,10 @@ M.server_picker_fzf = function()
     actions = {
       ["default"] = stop_server,
     },
+    winopts = {
+      height = 0.33,
+      width = 0.33,
+    },
   })
 end
 

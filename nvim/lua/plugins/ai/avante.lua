@@ -29,7 +29,7 @@ return {
         "<leader>ap",
         function()
           local pk = require("avante.pickers")
-          pk.prompt_picker()
+          pk.prompt_picker_fzf()
         end,
         desc = "avante: change prompt",
       },

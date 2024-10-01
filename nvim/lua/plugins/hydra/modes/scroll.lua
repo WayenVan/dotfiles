@@ -8,8 +8,12 @@ local heads = {
   { "l", "5zl", { desc = "←/→" } },
   { "H", "zH" },
   { "L", "zL", { desc = "half screen ←/→" } },
-  { "j", "3<c-e>" },
-  { "k", "3<c-y>", { desc = "↓/↑" } },
+  { "j", "3<c-e>M" },
+  { "k", "3<c-y>M", { desc = "↓/↑" } },
+  { "J", "6<c-e>M" },
+  { "K", "6<c-y>M", { desc = "longer ↓/↑" } },
+  -- { "j", "3jzz" },
+  -- { "k", "3kzz", { desc = "↓/↑" } },
   { "q", nil, { exit = true } },
 }
 
@@ -37,6 +41,7 @@ Hydra({
       -- })
       hint_window = require("utils.hydra").hint_popup(" Scroll", hl_mode_name, hl_surround_name, heads)
       hint_window:mount()
+      vim.cmd([[normal! M]])
     end,
     on_exit = function()
       vim.g.hydra = nil

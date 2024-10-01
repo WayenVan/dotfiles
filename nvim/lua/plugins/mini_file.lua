@@ -60,6 +60,20 @@ return {
     config = function(_, opts)
       require("mini.files").setup(opts)
 
+      local go_to_directory = function()
+        local entry = MiniFiles.get_fs_entry()
+        if entry == nil then
+          return
+        end
+        local Path = require("plenary.path")
+        local path = Path:new(entry.path)
+        if path:is_dir() then
+          vim.cmd("tcd " .. path:absolute())
+        else
+          vim.nodify("Not a directory")
+        end
+      end
+
       local open_in_system = function()
         local Path = require("plenary.path")
         local path = Path:new(MiniFiles.get_fs_entry().path)
@@ -168,6 +182,12 @@ return {
             "O",
             open_in_system,
             { buffer = args.data.buf_id, desc = "open in system", noremap = true }
+          )
+          vim.keymap.set(
+            "n",
+            "gD",
+            go_to_directory,
+            { buffer = args.data.buf_id, desc = "go to directory", noremap = true }
           )
         end,
       })

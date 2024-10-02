@@ -2,14 +2,6 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
--- save the backgournd
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-  -- pattern = "background",
-  callback = function()
-    vim.g.BACKGROUND = vim.opt.background:get()
-  end,
-})
-
 -- save the color scheme and its background
 vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
   -- pattern = "background",

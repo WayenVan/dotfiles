@@ -62,10 +62,11 @@ if require("utils.os_name").get_os_name() == "Windows" then
 else
   vim.o.shada = "!,'100,<50,s10,h"
 end
--- vim.g.TESTS = "test"
 
+-- auto cmds before and in LazyVim
 -- for setting up custmozed command in vim enter
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "VeryLazy",
   callback = function()
     vim.filetype.add({
       filename = {
@@ -80,14 +81,11 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   once = true,
 })
 
--- set color scheme
--- vim.api.nvim_create_autocmd({ "User" }, {
---   pattern = "AutoRun",
---   callback = function()
---     print("triggered")
---     if vim.g.COLORSCHEME then
---       vim.cmd("colorscheme " .. vim.g.COLORSCHEME)
---     end
---   end,
---   -- once = true,
--- })
+-- load customized cmds
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "VeryLazy",
+  callback = function()
+    require("config.cmds")
+  end,
+  once = true,
+})

@@ -14,6 +14,16 @@ require("lazy").setup({
       import = "lazyvim.plugins",
       opts = {
         colorscheme = "everforest",
+        -- colorscheme = false,
+        -- default coloshceme is everforest
+        -- colorscheme = function()
+        --   local default = "everforest"
+        --   if vim.g.COLORSCHEME then
+        --     return vim.g.COLORSCHEME
+        --   else
+        --     return default
+        --   end
+        -- end,
       },
       -- diable keys
       -- this might not work

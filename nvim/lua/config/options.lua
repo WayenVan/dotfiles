@@ -56,3 +56,38 @@ end
 vim.g.lazyvim_python_lsp = "basedpyright"
 -- guifont
 vim.o.guifont = "JetBrainsMono Nerd Font:h14"
+
+if require("utils.os_name").get_os_name() == "Windows" then
+  vim.o.shada = "!,'100,<50,s10,h,rA:,rB:"
+else
+  vim.o.shada = "!,'100,<50,s10,h"
+end
+-- vim.g.TESTS = "test"
+
+-- for setting up custmozed command in vim enter
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function()
+    vim.filetype.add({
+      filename = {
+        [".condarc"] = "yaml", -- Set filetype to 'python' for a file named 'mycustomfile'
+        [".fishrc"] = "fish",
+      },
+      extension = {},
+      pattern = {},
+    })
+    require("utils.server").setup()
+  end,
+  once = true,
+})
+
+-- set color scheme
+-- vim.api.nvim_create_autocmd({ "User" }, {
+--   pattern = "AutoRun",
+--   callback = function()
+--     print("triggered")
+--     if vim.g.COLORSCHEME then
+--       vim.cmd("colorscheme " .. vim.g.COLORSCHEME)
+--     end
+--   end,
+--   -- once = true,
+-- })

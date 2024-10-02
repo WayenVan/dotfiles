@@ -2,20 +2,19 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
--- vim.api.nvim_create_autocmd({ "" }, {
---   callback = function()
---     vim.filetype.add({
---       filename = {
---         [".condarc"] = "yaml", -- Set filetype to 'python' for a file named 'mycustomfile'
---         [".fishrc"] = "fish",
---       },
---       extension = {},
---       pattern = {},
---     })
---     require("utils.auto_source").setup()
---     require("utils.storage").setup()
---     require("utils.server").setup()
---     vim.notify("okkk")
---   end,
---   once = true,
--- })
+-- save the backgournd
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+  -- pattern = "background",
+  callback = function()
+    vim.g.BACKGROUND = vim.opt.background:get()
+  end,
+})
+
+-- save the color scheme and its background
+vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
+  -- pattern = "background",
+  callback = function()
+    vim.g.BACKGROUND = vim.opt.background:get()
+    vim.g.COLORSCHEME = vim.g.colors_name
+  end,
+})

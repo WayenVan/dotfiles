@@ -3,7 +3,9 @@
 
 
 def ffunc(x):
-    """ """
+    """
+    hello
+    """
     return x**2
 
 

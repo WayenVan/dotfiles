@@ -6,5 +6,5 @@ else
   -- add new cmds
   require("config.cmds")
   -- auto run
-  require("config.autorun")
+  -- vim.api.nvim_exec_autocmds("User", { pattern = "AutoRun" })
 end

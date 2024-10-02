@@ -2,7 +2,7 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 --
--- using powershell setting
+-- setting the powershell settings
 if LazyVim.is_win() then
   -- refered from toggleterm.nvim
   local powershell_options = {
@@ -31,26 +31,8 @@ else
   end
 end
 
--- local misc = require("utils.misc")
-
 -- sessiont setting
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
-
--- add errorformat
-if LazyVim.is_win() then
-  -- vim.opt.errorformat:append({
-  --   -- for python
-  --   '%A %#File "%f"\\, line %l\\, in %o,%Z %#%m',
-  -- })
-else
-  -- vim.opt.errorformat:append({
-  --   -- for python
-  --   -- [[.*File\ \"%f\"\,\ line %l\, in %o]]
-  --   -- [[*File\ \"\"\,\ line l\, in o]]
-  --   [[hahha]]
-  -- })
-  -- vim.opt.errorformat = '%A%.%#File "%f"\\, line %l\\, in %o,%Z %#%m'
-end
 
 -- set pyright to basedpyright
 vim.g.lazyvim_python_lsp = "basedpyright"
@@ -89,3 +71,11 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
   once = true,
 })
+
+-- vim.api.nvim_create_autocmd({ "User" }, {
+--   pattern = "LazyFile",
+--   callback = function()
+--     vim.opt.background = "light"
+--   end,
+--   once = true,
+-- })

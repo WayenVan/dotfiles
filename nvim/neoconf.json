@@ -20,6 +20,11 @@
         "reportUnusedImport": false
       },
       "basedpyright.analysis.typeCheckingMode": "basic"
+    },
+    "clangd": {
+      "clangd.arguments": [
+        "--ignore-unknown-compiler-flags"
+      ]
     }
   }
 }

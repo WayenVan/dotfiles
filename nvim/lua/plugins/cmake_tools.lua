@@ -1,6 +1,9 @@
 return {
   {
     "Civitasv/cmake-tools.nvim",
+    opts = {
+      cmake_regenerate_on_save = false,
+    },
     config = function(_, opts)
       require("cmake-tools").setup(opts)
       local set = vim.keymap.set

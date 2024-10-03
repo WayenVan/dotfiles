@@ -14,7 +14,7 @@ local heads = {
   { "K", "6<c-y>M", { desc = "longer ↓/↑" } },
   -- { "j", "3jzz" },
   -- { "k", "3kzz", { desc = "↓/↑" } },
-  { "<C-c>", nil, { exit = true }, { desc = "exit" } },
+  { "<C-c>", nil, { exit = true, desc = "exit" } },
 }
 
 require("which-key").add({

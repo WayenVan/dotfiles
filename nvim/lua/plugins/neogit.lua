@@ -24,7 +24,7 @@ return {
 
       vim.list_extend(keys, {
         { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit", noremap = true },
-        { "<leader>gd", "<cmd>Neogit diff<cr>", desc = "Neogit Different", noremap = true },
+        { "<leader>gD", "<cmd>Neogit diff<cr>", desc = "Neogit Different", noremap = true },
         { "<leader>gP", "<cmd>Neogit push<cr>", desc = "Neogit push", noremap = true },
         { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit pull", noremap = true },
         { "<leader>gt", "<cmd>Neogit tag<cr>", desc = "Neogit tag", noremap = true },

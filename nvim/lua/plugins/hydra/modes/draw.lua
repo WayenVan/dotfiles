@@ -16,7 +16,7 @@ local heads = {
   { "<C-l>", "xi<C-v>u25ba<Esc>", { desc = "►" } },
   { "f", ":VBox<CR>", { mode = "v", desc = "box" } },
   { "<C-c>", nil, { exit = true, desc = "exit" } },
-  { "q", nil, { exit = true, desc = "exit" } },
+  -- { "q", nil, { exit = true, desc = "exit" } },
 }
 
 require("which-key").add({

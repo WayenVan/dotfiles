@@ -5,3 +5,4 @@ Invoke-Expression (&starship init powershell)
 Set-Alias ll ls
 Set-Alias python3 python
 
+

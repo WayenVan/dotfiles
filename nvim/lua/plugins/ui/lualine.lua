@@ -131,8 +131,8 @@ return {
             -- },
             { "fancy_location" },
             { "fancy_filetype", ts_icon = "" },
-            { "fileformat", separator = " ", padding = { left = 1, right = 0 } },
-            { "encoding", padding = { left = 0, right = 1 } },
+            { "fileformat", separator = " ", padding = { left = 1, right = 1 } },
+            { "encoding", padding = { left = -1, right = 1 } },
           },
           lualine_y = {
             { "fancy_lsp_servers" },

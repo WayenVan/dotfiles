@@ -13,8 +13,8 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "everforest",
-        -- colorscheme = "tokyonight",
+        -- colorscheme = "everforest",
+        colorscheme = "tokyonight",
         -- colorscheme = false,
         -- default coloshceme is everforest
         -- colorscheme = function()

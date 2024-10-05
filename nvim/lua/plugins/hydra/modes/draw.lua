@@ -3,7 +3,7 @@ local hint_window = nil
 local utils = require("utils.hydra")
 
 -- color setup
-local orange_hl = vim.api.nvim_get_hl(0, { name = "Orange", link = false })
+local orange_hl = vim.api.nvim_get_hl(0, { name = "Debug", link = false })
 local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Draw", orange_hl.fg)
 local heads = {
   { "H", "<C-v>h:VBox<CR>", { desc = "←" } },

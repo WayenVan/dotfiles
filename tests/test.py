@@ -9,4 +9,5 @@ def ffunc(x):
     return x**2
 
 
+a = 1
 print("hello")

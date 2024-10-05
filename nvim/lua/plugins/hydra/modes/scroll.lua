@@ -1,6 +1,6 @@
 local Hydra = require("hydra")
 local utils = require("utils.hydra")
-local blue_hl = vim.api.nvim_get_hl(0, { name = "Blue", link = false })
+local blue_hl = vim.api.nvim_get_hl(0, { name = "Type", link = false })
 local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Scroll", blue_hl.fg)
 local hint_window = nil
 local heads = {

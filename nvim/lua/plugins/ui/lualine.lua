@@ -63,6 +63,7 @@ return {
             --     end
             --   end,
             -- },
+            -- "git_prompt_string",
             "branch",
           },
 

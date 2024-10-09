@@ -9,7 +9,26 @@ return {
         {
           "<leader>r",
           function()
-            require("neo-tree.command").execute({ toggle = true, position = "right", dir = LazyVim.root() })
+            require("neo-tree.command").execute({
+              action = "show",
+              toggle = true,
+              position = "right",
+              dir = LazyVim.root(),
+              reveal = false,
+            })
+          end,
+          desc = "Toggle NeoTree explore",
+        },
+        {
+          "<leader>R",
+          function()
+            require("neo-tree.command").execute({
+              action = "show",
+              toggle = false,
+              position = "right",
+              dir = LazyVim.root(),
+              reveal = true,
+            })
           end,
           desc = "Toggle NeoTree explore",
         },
@@ -57,6 +76,7 @@ return {
       opts.window.mappings["_"] = "open_vsplit"
       -- opts.window.mappings["s"] = "none"
       -- opts.window.mappings["S"] = "none"
+      opts.filesystem.follow_current_file = false
     end,
   },
   {

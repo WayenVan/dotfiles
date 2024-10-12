@@ -6,14 +6,14 @@ return {
       {
         "<localleader><localleader>",
         function()
-          require("menu").open("default", { border = true })
+          require("menu").open("common", { border = true })
         end,
         desc = "open menu",
       },
       {
         "<RightMouse>",
         function()
-          require("menu").open("default", { border = true })
+          require("menu").open("common", { border = true })
         end,
         desc = "open menu",
       },

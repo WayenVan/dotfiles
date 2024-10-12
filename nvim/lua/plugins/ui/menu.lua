@@ -6,14 +6,19 @@ return {
       {
         "<localleader><localleader>",
         function()
-          require("menu").open("common", { border = true })
+          if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "" then
+            require("menu").open("common", { border = true })
+          end
         end,
         desc = "open menu",
       },
       {
         "<RightMouse>",
         function()
-          require("menu").open("common", { border = true })
+          -- only if buffer is a file buffer
+          if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "" then
+            require("menu").open("common", { border = true })
+          end
         end,
         desc = "open menu",
       },

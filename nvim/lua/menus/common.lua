@@ -22,11 +22,11 @@ return {
     rtxt = "gy",
   },
   {
-    name = "Copy Relative Path",
+    name = "Copy Absolute Path",
     cmd = function()
       local old_buf = require("menu.state").old_data.buf
       local full_path = vim.api.nvim_buf_get_name(old_buf)
-      local absolute_path = vim.fn.fnamemodify(full_path, ":.")
+      local absolute_path = full_path
       vim.fn.setreg('"', absolute_path)
       vim.notify("Copied " .. absolute_path .. " to unamed", "info")
     end,

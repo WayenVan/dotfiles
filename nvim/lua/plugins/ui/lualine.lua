@@ -68,7 +68,7 @@ return {
           },
 
           lualine_c = {
-            { "fancy_cwd", substitute_home = true },
+            { "fancy_cwd", substitute_home = true, separator = "|" },
             -- LazyVim.lualine.root_dir(),
             -- { "filesize", padding = { left = 0, right = 1 } },
             {
@@ -79,6 +79,7 @@ return {
                 info = icons.diagnostics.Info,
                 hint = icons.diagnostics.Hint,
               },
+              separator = "|",
             },
             -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             -- { LazyVim.lualine.pretty_path() },
@@ -89,6 +90,7 @@ return {
               function() return require("noice").api.status.command.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
               color = function() return LazyVim.ui.fg("Statement") end,
+              separator = "|",
             },
           },
           lualine_x = {
@@ -97,12 +99,14 @@ return {
               function() return require("noice").api.status.mode.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
               color = function() return LazyVim.ui.fg("Constant") end,
+              separator = "|",
             },
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
               cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
               color = function() return LazyVim.ui.fg("Debug") end,
+              separator = "|",
             },
             {
               "diff",
@@ -121,6 +125,7 @@ return {
                   }
                 end
               end,
+              separator = "|",
             },
             -- lazy updates
             -- {
@@ -130,20 +135,23 @@ return {
             --     return LazyVim.ui.fg("Special")
             --   end,
             -- },
-            { "fancy_location" },
-            { "fancy_filetype", ts_icon = "" },
+            { "fancy_location", separator = "|" },
+            { "fancy_filetype", ts_icon = "", separator = "|" },
             { "fileformat", separator = " ", padding = { left = 1, right = 1 } },
-            { "encoding", padding = { left = -1, right = 1 } },
+            { "encoding", padding = { left = -1, right = 1 }, separator = "|" },
           },
           lualine_y = {
-            { "fancy_lsp_servers" },
+            { "fancy_lsp_servers", separator = "|" },
             -- { "progress", separator = " ", padding = { left = 1, right = 0 } },
             -- { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            function()
-              return " " .. os.date("%R")
-            end,
+            {
+              function()
+                return " " .. os.date("%R")
+              end,
+              separator = "|",
+            },
           },
         },
         extensions = { "neo-tree", "lazy" },

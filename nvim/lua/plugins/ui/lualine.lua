@@ -102,8 +102,6 @@ return {
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
               color = function() return LazyVim.ui.fg("Constant") end,
             },
-            -- stylua: ignore
-            { "filename" },
             {
               function()
                 return "  " .. require("dap").status()
@@ -144,6 +142,8 @@ return {
             { "fancy_filetype", ts_icon = "" },
             { "fileformat", padding = { left = 1, right = 1 } },
             { "encoding", padding = { left = -1, right = 1 } },
+            -- stylua: ignore
+            { "filename" },
           },
           lualine_y = {
             { "fancy_lsp_servers" },

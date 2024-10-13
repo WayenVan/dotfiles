@@ -1,6 +1,9 @@
 return {
   {
     "mfussenegger/nvim-dap",
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
+    },
     keys = {
       { "<leader>dR", "<cmd>lua require('dap').restart()<cr>", desc = "Restart" },
       { "<leader>da", "<cmd>DapNew<cr>", desc = "Create a new dap session" },

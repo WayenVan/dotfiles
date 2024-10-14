@@ -72,7 +72,7 @@ return {
           },
 
           lualine_c = {
-            { "fancy_cwd", substitute_home = true },
+            { "fancy_cwd", substitute_home = true, separator = "" },
             -- LazyVim.lualine.root_dir(),
             -- { "filesize", padding = { left = 0, right = 1 } },
             {
@@ -140,18 +140,19 @@ return {
             --   end,
             -- },
             { "fancy_filetype", ts_icon = "" },
-            { "fileformat", padding = { left = 1, right = 1 } },
-            { "encoding", padding = { left = -1, right = 1 } },
             -- stylua: ignore
             { "filename" },
+            { "_location" },
+            { "_lsp_servers" },
           },
           lualine_y = {
-            { "fancy_lsp_servers" },
             -- { "progress", separator = " ", padding = { left = 1, right = 0 } },
             -- { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            { "fancy_location" },
+            { "fileformat", padding = { left = 1, right = 1 } },
+            { "encoding", padding = { left = -1, right = 1 } },
+            -- { "fancy_location" },
             -- {
             --   function()
             --     return " " .. os.date("%R")

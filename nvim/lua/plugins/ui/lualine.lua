@@ -42,17 +42,17 @@ return {
         sections = {
           lualine_a = {
             "mode",
-            {
-              LazyVim.lualine.pretty_path(),
-              cond = function()
-                local ft = vim.bo.filetype
-                if ft == "toggleterm" then
-                  return true
-                else
-                  return false
-                end
-              end,
-            },
+            -- {
+            --   LazyVim.lualine.pretty_path(),
+            --   cond = function()
+            --     local ft = vim.bo.filetype
+            --     if ft == "toggleterm" then
+            --       return true
+            --     else
+            --       return false
+            --     end
+            --   end,
+            -- },
           },
           lualine_b = {
             -- {

@@ -33,7 +33,7 @@ function M:update_status()
   if server_string == "" then
     return ""
   end
-  server_string = "%#lualine_b" .. suffix .. "# " .. server_string
+  server_string = "%#lualine_b" .. suffix .. "# " .. server_string .. " %#lualine_c_normal#"
   return icon .. server_string
 end
 

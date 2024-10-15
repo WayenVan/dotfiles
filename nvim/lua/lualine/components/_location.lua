@@ -6,8 +6,8 @@ function M:update_status()
   local line = vim.fn.line(".")
   local col = vim.fn.virtcol(".")
   local icon = "%#lualine_a" .. suffix .. "#󰍒 "
-  local ret = string.format(" %d:%d", line, col)
-  ret = icon .. "%#lualine_b" .. suffix .. "#" .. ret
+  local ret = string.format(" [%d:%d]", line, col)
+  ret = icon .. "%#lualine_b" .. suffix .. "#" .. ret .. " %#lualine_c_normal#"
   return ret
 end
 

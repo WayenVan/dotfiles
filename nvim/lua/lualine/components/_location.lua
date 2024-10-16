@@ -5,9 +5,9 @@ function M:update_status()
   local suffix = hl.get_mode_suffix()
   local line = vim.fn.line(".")
   local col = vim.fn.virtcol(".")
-  local icon = "%#lualine_a" .. suffix .. "#󰍒 "
-  local ret = string.format(" [%d:%d]", line, col)
-  ret = icon .. "%#lualine_b" .. suffix .. "#" .. ret .. " %#lualine_c_normal#"
+  local icon = "%#lualine_a" .. suffix .. "# 󰍒 "
+  local ret = string.format("[%d:%d] ", line, col)
+  ret = "%#lualine_b" .. suffix .. "#" .. ret .. icon .. "%#lualine_c_normal#"
   return ret
 end
 

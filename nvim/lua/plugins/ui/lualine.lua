@@ -140,10 +140,10 @@ return {
             --   end,
             -- },
             { "fancy_filetype", ts_icon = "" },
-            { "fancy_lsp_servers" },
+            -- { "fancy_lsp_servers" },
+            { "_lsp_servers" },
             -- stylua: ignore
             { "_location" },
-            -- { "_lsp_servers" },
           },
           lualine_y = {
             -- { "progress", separator = " ", padding = { left = 1, right = 0 } },

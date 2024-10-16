@@ -1,14 +1,13 @@
 local M = require("lualine.component"):extend()
-local hl = require("lualine.highlight")
 
 function M:init(options)
+  options.icon = options.icon or { "󰌘", color = { fg = "#fca644" } }
   options.split = options.split or ","
   M.super.init(self, options)
 end
 
 function M:update_status()
   local buf_clients = nil
-  local suffix = hl.get_mode_suffix()
   if vim.lsp.get_clients ~= nil then
     -- buf_get_client is deprecated in nvim >=0.10.0
     buf_clients = vim.lsp.get_clients({ bufnr = 0 })
@@ -28,13 +27,7 @@ function M:update_status()
       table.insert(buf_client_names, client.name)
     end
   end
-  local icon = "%#lualine_a" .. suffix .. "#󰌘 "
-  local server_string = table.concat(buf_client_names, self.options.split)
-  if server_string == "" then
-    return ""
-  end
-  server_string = "%#lualine_b" .. suffix .. "# " .. server_string .. " %#lualine_c_normal#"
-  return icon .. server_string
+  return table.concat(buf_client_names, self.options.split)
 end
 
 return M

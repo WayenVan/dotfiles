@@ -17,7 +17,13 @@ if LazyVim.is_win() then
     vim.opt[option] = value
   end
 else
-  vim.o.shell = vim.fn.getenv("SHELL")
+  local shell = vim.fn.getenv("SHELL")
+  if shell then
+    vim.opt.shell = shell
+  else
+    vim.notify("SHELL environment variable is not set", vim.log.levels.WARN)
+  end
+
   vim.o.shellcmdflag = "-c"
   vim.o.shellquote = ""
   vim.o.shellxquote = ""

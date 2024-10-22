@@ -17,18 +17,22 @@ if LazyVim.is_win() then
     vim.opt[option] = value
   end
 else
-  if vim.fn.executable("fish") then
-    vim.o.shell = "fish"
-    vim.o.shellcmdflag = "-c"
-    vim.o.shellquote = ""
-    vim.o.shellxquote = ""
-  elseif vim.fn.executable("zsh") then
-    -- fallback to zshell
-    vim.o.shell = "zsh"
-    vim.o.shellcmdflag = "-c"
-    vim.o.shellquote = "'"
-    vim.o.shellxquote = ""
-  end
+  vim.o.shell = vim.fn.getenv("SHELL")
+  vim.o.shellcmdflag = "-c"
+  vim.o.shellquote = ""
+  vim.o.shellxquote = ""
+  -- if vim.fn.executable("fish") then
+  --   vim.o.shell = "fish"
+  --   vim.o.shellcmdflag = "-c"
+  --   vim.o.shellquote = ""
+  --   vim.o.shellxquote = ""
+  -- elseif vim.fn.executable("zsh") then
+  --   -- fallback to zshell
+  --   vim.o.shell = "zsh"
+  --   vim.o.shellcmdflag = "-c"
+  --   vim.o.shellquote = "'"
+  --   vim.o.shellxquote = ""
+  -- end
 end
 
 -- sessiont setting

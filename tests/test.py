@@ -1,11 +1,12 @@
 from typing_extensions import assert_type
 import numpy as np
-import pandas as pd
+from collections import namedtuple
 
 a = 0
 for i in range(10):
     a = a + 1
     print(i)
+
 
 a = 1
 b = 2

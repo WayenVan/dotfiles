@@ -1,6 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    url = "https://github.com/iguanacucumber/magazine.nvim",
     dependencies = {
       { "hrsh7th/cmp-emoji" },
     },

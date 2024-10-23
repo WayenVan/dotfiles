@@ -21,6 +21,7 @@ else
   if shell then
     vim.opt.shell = shell
   else
+    vim.opt.shell = "/bin/sh"
     vim.notify("SHELL environment variable is not set", vim.log.levels.WARN)
   end
 

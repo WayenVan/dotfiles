@@ -25,11 +25,11 @@ RUN pip install --no-cache-dir uv==0.4.25 && \
   lmdb==1.5.1                                \
   openmim==0.3.9                             \
   xformers==0.0.27                           \
-  mmcv==2.1.0                                \
+  torchtext==0.18.0                          \
   matplotlib==3.9.2
 
 # install mmseries would comppile so it will be a long time
-RUN mim install --no-cache-dir mmengine==0.10.5 && \
+RUN mim install --no-cache-dir mmengine==0.10.5 mmcv==2.1.0 && \
   mim install --no-cache-dir "mmdet==3.2.0" "mmpose==1.3.2" "mmpretrain==1.2.0"
 # mim install --no-cache-dir "mmpose==1.3.2" 
 # mmdet>=3.1.0 mmpose>=1.1.0 mmpretrain

@@ -40,13 +40,7 @@ end
 Config.default_cwd = fs.home()
 
 -- ref: https://wezfurlong.org/wezterm/config/lua/SshDomain.html
-Config.ssh_domains = {
-  {
-    name = "main.mec",
-    remote_address = "10.192.31.3",
-    username = "jingyan",
-  },
-}
+Config.ssh_domains = require "domains/ssh"
 
 -- ref: https://wezfurlong.org/wezterm/multiplexing.html#unix-domains
 Config.unix_domains = {}

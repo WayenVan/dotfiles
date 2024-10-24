@@ -1,0 +1,20 @@
+services:
+  slr:
+    container_name: slr
+    image: slr
+    ports:
+      - "1211:1211"
+    volumes:
+      - share_data:/workspace/share_data
+      - wang_data:/workspace/wang_data
+    command: ["tail", "-f", "/dev/null"] # Keep the container running
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu] # Specify that this service requires GPU resources
+volumes:
+  share_data:
+  wang_data:

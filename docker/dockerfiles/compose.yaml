@@ -1,3 +1,4 @@
+name: wang
 services:
   slr:
     container_name: slr
@@ -6,7 +7,7 @@ services:
       - "1211:1211"
     volumes:
       - share_data:/workspace/share_data
-      - wang_data:/workspace/wang_data
+      - data:/workspace/data
     command: ["tail", "-f", "/dev/null"] # Keep the container running
     deploy:
       resources:
@@ -17,4 +18,5 @@ services:
               capabilities: [gpu] # Specify that this service requires GPU resources
 volumes:
   share_data:
-  wang_data:
+    external: true
+  data:

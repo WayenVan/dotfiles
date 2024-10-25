@@ -8,5 +8,6 @@ return {
     name = "main.lambda",
     remote_address = "209.20.159.69",
     username = "ubuntu",
+    local_echo_threshold_ms = 300,
   },
 }

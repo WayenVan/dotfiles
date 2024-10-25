@@ -9,7 +9,7 @@ ENV MAKEFLAGS="-j$(nproc)"
 
 # Run apt update at the very beginning
 RUN apt-get update && \
-  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 && \
+  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs && \
   rm -rf /var/lib/apt/lists/*
 
 #setup shells
@@ -78,7 +78,7 @@ RUN uv pip install --no-cache-dir gdown neptune --system
 
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \
-  cd dotfiles &&  bash install
+  cd dotfiles && git lfs pull && bash install
 
 
 # add the color prompt configuration to .bashrc

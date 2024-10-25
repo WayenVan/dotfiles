@@ -43,7 +43,7 @@ RUN git clone --recursive https://github.com/WayenVan/ctcdecode.git && \
 
 # install x command and its tools
 RUN eval "$(curl https://get.x-cmd.com)" && \
-  x env use fzf yazi eza node
+  x env use fzf yazi eza node fd
 ENV PATH="/root/.x-cmd.root/local/data/pkg/sphere/X/l/j/h/bin:/root/.x-cmd.root/bin:${PATH}"
 # alias for command line tools
 RUN echo "alias fzf='fzf'" >> ~/.bashrc && \

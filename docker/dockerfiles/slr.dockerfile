@@ -68,8 +68,8 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
   rm nvim-linux64.tar.gz
 ENV PATH="$PATH:/opt/nvim-linux64/bin"
 
-# google download tool
-RUN uv pip install --no-cache-dir gdown
+# google download tool and neptune
+RUN uv pip install --no-cache-dir gdown neptune --system
 
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \

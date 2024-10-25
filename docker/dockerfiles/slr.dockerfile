@@ -40,6 +40,15 @@ RUN git clone --recursive https://github.com/WayenVan/ctcdecode.git && \
   cd ctcdecode && pip install --no-cache-dir . && \
   cd .. && rm -rf /workspace/ctcdecode
 
+# install sclit
+RUN git clone --recursive https://github.com/usnistgov/SCTK.git && \
+  cd SCTK &&  \
+  make config && \
+  make all -j4 && \
+  make install && \
+  make doc
+ENV PATH="/workspace/SCTK/bin:${PATH}"
+
 
 # install x command and its tools
 RUN eval "$(curl https://get.x-cmd.com)" && \
@@ -58,6 +67,9 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
   tar -C /opt -xzf nvim-linux64.tar.gz && \
   rm nvim-linux64.tar.gz
 ENV PATH="$PATH:/opt/nvim-linux64/bin"
+
+# google download tool
+RUN uv pip install --no-cache-dir gdown
 
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \

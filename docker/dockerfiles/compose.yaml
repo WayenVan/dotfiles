@@ -1,6 +1,7 @@
 name: wang
 services:
   slr:
+    shm_size: "32gb"
     container_name: slr
     image: slr
     ports:

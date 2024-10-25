@@ -2,6 +2,11 @@ FROM pytorch/pytorch:2.3.1-cuda12.1-cudnn8-devel
 
 WORKDIR /workspace
 
+#setup compile flags, using multi-threading when compiling
+ENV CFLAGS="-O3 -march=native -fopenmp"
+ENV NVCCFLAGS="-Xcompiler -fopenmp -O3 -Xcompiler -march=native"
+ENV MAKEFLAGS="-j$(nproc)"
+
 # Run apt update at the very beginning
 RUN apt-get update && \
   apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 && \
@@ -44,7 +49,7 @@ RUN git clone --recursive https://github.com/WayenVan/ctcdecode.git && \
 RUN git clone --recursive https://github.com/usnistgov/SCTK.git && \
   cd SCTK &&  \
   make config && \
-  make all -j4 && \
+  make all && \
   make install && \
   make doc
 ENV PATH="/workspace/SCTK/bin:${PATH}"

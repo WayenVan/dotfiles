@@ -8,28 +8,28 @@ return {
     },
     keys = {
       {
-        "<A-j>",
+        "<C-A-j>",
         function()
           require("smart-splits").resize_down()
         end,
         desc = "Resize Down",
       },
       {
-        "<A-k>",
+        "<C-A-k>",
         function()
           require("smart-splits").resize_up()
         end,
         desc = "Resize Up",
       },
       {
-        "<A-h>",
+        "<C-A-h>",
         function()
           require("smart-splits").resize_left()
         end,
         desc = "Resize Left",
       },
       {
-        "<A-l>",
+        "<C-A-l>",
         function()
           require("smart-splits").resize_right()
         end,

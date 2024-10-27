@@ -16,6 +16,13 @@ RUN apt-get update && \
 SHELL ["/bin/bash", "-c"]
 ENV SHELL="/bin/bash"
 
+#install oh-my-bash
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+# Set the default theme (e.g., 'agnoster')
+RUN sed -i 's/OSH_THEME="font"/OSH_THEME="edsonarios"/g' ~/.bashrc 
+# Enable Oh My Bash plugins (handle multi-line OSH_PLUGINS definition)
+RUN sed -z -i 's/OSH_PLUGINS=(\n[^)]*)/OSH_PLUGINS=(git sudo alias-finder)/' ~/.bashrc 
+
 # install general python packages
 RUN pip install --no-cache-dir uv==0.4.25 && \
   # install unsloth and other python package
@@ -42,7 +49,7 @@ RUN mim install --no-cache-dir mmengine==0.10.5 mmcv==2.1.0 && \
 #
 # install ctcdecoder
 RUN git clone --recursive https://github.com/WayenVan/ctcdecode.git && \
-  cd ctcdecode && pip install --no-cache-dir . && \
+  cd ctcdecode && uv pip install --no-cache-dir --system --no-build-isolation . && \
   cd .. && rm -rf /workspace/ctcdecode
 
 # install sclit
@@ -81,16 +88,16 @@ RUN git clone https://github.com/WayenVan/dotfiles.git && \
   cd dotfiles && git lfs pull && bash install
 
 
-# add the color prompt configuration to .bashrc
-RUN printf "\n\
-  # Enable color prompt\n\
-  if [ -n \"\$TERM\" ] && [[ \"\$TERM\" != \"dumb\" ]]; then\n\
-  color_prompt=yes\n\
-  fi\n\
-  \n\
-  if [ \"\$color_prompt\" = yes ]; then\n\
-  PS1=\"\\[\\e[01;32m\\]\\u@\\h \\[\\e[01;34m\\]\\w\\[\\e[00m\\] \\$ \"\n\
-  else\n\
-  PS1=\"\\u@\\h \\w \\$ \"\n\
-  fi\n\
-  " >> /root/.bashrc
+# # add the color prompt configuration to .bashrc
+# RUN printf "\n\
+#   # Enable color prompt\n\
+#   if [ -n \"\$TERM\" ] && [[ \"\$TERM\" != \"dumb\" ]]; then\n\
+#   color_prompt=yes\n\
+#   fi\n\
+#   \n\
+#   if [ \"\$color_prompt\" = yes ]; then\n\
+#   PS1=\"\\[\\e[01;32m\\]\\u@\\h \\[\\e[01;34m\\]\\w\\[\\e[00m\\] \\$ \"\n\
+#   else\n\
+#   PS1=\"\\u@\\h \\w \\$ \"\n\
+#   fi\n\
+#   " >> /root/.bashrc

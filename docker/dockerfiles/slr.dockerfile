@@ -64,12 +64,13 @@ ENV PATH="/workspace/SCTK/bin:${PATH}"
 
 # install x command and its tools
 RUN eval "$(curl https://get.x-cmd.com)" && \
-  x env use fzf yazi eza node fd zellij
+  x env use fzf yazi eza node fd zellij zoxide
 ENV PATH="/root/.x-cmd.root/local/data/pkg/sphere/X/l/j/h/bin:/root/.x-cmd.root/bin:${PATH}"
 # alias for command line tools
 RUN echo "alias fzf='fzf'" >> ~/.bashrc && \
   echo "alias ls='eza'" >> ~/.bashrc && \
-  echo "alias ll='eza -al'" >> ~/.bashrc
+  echo "alias ll='eza -al'" >> ~/.bashrc && \
+  echo "eval $(zone init bash)" >> ~/.bashrc
 # add source file
 RUN echo "source ~/.bashrc" >> ~/.bash_profile
 
@@ -88,16 +89,3 @@ RUN git clone https://github.com/WayenVan/dotfiles.git && \
   cd dotfiles && git lfs pull && bash install
 
 
-# # add the color prompt configuration to .bashrc
-# RUN printf "\n\
-#   # Enable color prompt\n\
-#   if [ -n \"\$TERM\" ] && [[ \"\$TERM\" != \"dumb\" ]]; then\n\
-#   color_prompt=yes\n\
-#   fi\n\
-#   \n\
-#   if [ \"\$color_prompt\" = yes ]; then\n\
-#   PS1=\"\\[\\e[01;32m\\]\\u@\\h \\[\\e[01;34m\\]\\w\\[\\e[00m\\] \\$ \"\n\
-#   else\n\
-#   PS1=\"\\u@\\h \\w \\$ \"\n\
-#   fi\n\
-#   " >> /root/.bashrc

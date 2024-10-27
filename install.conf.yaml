@@ -15,6 +15,9 @@
     ~/.config/starship.toml: starship/starship.toml
     ~/.condarc: conda/.condarc
     ~/.config/wezterm: wezterm
+    ~/.config/zellij:
+      path: zellij
+      create: true
     # fish setup
     ~/.config/fish/conf.d:
       path: fish/conf.d/*.fish

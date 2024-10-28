@@ -60,6 +60,7 @@ RUN git clone --recursive https://github.com/usnistgov/SCTK.git && \
   make install && \
   make doc
 ENV PATH="/workspace/SCTK/bin:${PATH}"
+ENV PATH="/root/.npm/bin:${PATH}"
 
 
 # install x command and its tools

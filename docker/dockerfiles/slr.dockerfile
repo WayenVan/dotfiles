@@ -70,7 +70,7 @@ ENV PATH="/root/.x-cmd.root/local/data/pkg/sphere/X/l/j/h/bin:/root/.x-cmd.root/
 RUN echo "alias fzf='fzf'" >> ~/.bashrc && \
   echo "alias ls='eza'" >> ~/.bashrc && \
   echo "alias ll='eza -al'" >> ~/.bashrc && \
-  echo "eval $(zoxide init bash)" >> ~/.bashrc
+  echo "eval \$(zoxide init bash)" >> ~/.bashrc
 # add source file
 RUN echo "source ~/.bashrc" >> ~/.bash_profile
 

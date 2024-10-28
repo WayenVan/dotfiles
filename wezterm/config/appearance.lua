@@ -5,7 +5,7 @@ local fs = Utils.fn.fs
 local Config = {}
 
 Config.color_schemes = color.get_schemes()
-Config.color_scheme = "catppuccin-mocha"
+Config.color_scheme = "tokyonight-night"
 -- wz.log_error(Config.color_schemes)
 
 local theme = Config.color_schemes[Config.color_scheme]

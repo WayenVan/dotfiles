@@ -16,12 +16,9 @@ RUN apt-get update && \
 SHELL ["/bin/bash", "-c"]
 ENV SHELL="/bin/bash"
 
-#install oh-my-bash
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
-# Set the default theme (e.g., 'agnoster')
-RUN sed -i 's/OSH_THEME="font"/OSH_THEME="edsonarios"/g' ~/.bashrc 
-# Enable Oh My Bash plugins (handle multi-line OSH_PLUGINS definition)
-RUN sed -z -i 's/OSH_PLUGINS=(\n[^)]*)/OSH_PLUGINS=(git sudo alias-finder)/' ~/.bashrc 
+#install starship
+RUN curl -sS https://starship.rs/install.sh | sh && \
+  echo 'eval "\$(starship init bash)"' >> ~/.bashrc
 
 # install general python packages
 RUN pip install --no-cache-dir uv==0.4.25 && \

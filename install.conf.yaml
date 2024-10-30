@@ -23,3 +23,6 @@
       path: fish/conf.d/*.fish
       create: ture
       glob: true
+    ~/.config/kitty/kitty.conf:
+      path: kitty/kitty.conf
+      create: true

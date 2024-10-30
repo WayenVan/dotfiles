@@ -1,9 +1,9 @@
 $ErrorActionPreference = "Stop"
 
-$CONFIG = "install.conf.yaml"
-$DOTBOT_DIR = "dotbot"
+$CONFIG = "install_ps.conf.yaml"
+$DOTBOT_DIR = "."
 
-$DOTBOT_BIN = "bin/dotbot"
+$DOTBOT_BIN = "dotbot/bin/dotbot"
 $BASEDIR = $PSScriptRoot
 
 Set-Location $BASEDIR

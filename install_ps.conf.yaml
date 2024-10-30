@@ -15,3 +15,4 @@
     ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1:
       path: powershell/Microsoft.PowerShell_profile.ps1
       create: true
+    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: windows_terminal/settings.json

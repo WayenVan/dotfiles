@@ -145,6 +145,7 @@ keybinds clear-defaults=true {
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
     }
     shared {
+        bind "Alt M" {ToggleMouseMode;}
         bind "Alt [" { GoToPreviousTab; }
         bind "Alt ]" { GoToNextTab; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
@@ -311,7 +312,7 @@ default_layout "compact"
 //   - true (default)
 //   - false
 //
-mouse_mode false
+mouse_mode true
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back

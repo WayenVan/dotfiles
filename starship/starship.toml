@@ -1,6 +1,5 @@
 # Which is equivalent to
 format = """
-$time\
 $username\
 $hostname\
 $localip\
@@ -82,6 +81,7 @@ $crystal\
 $custom\
 $sudo\
 $cmd_duration\
+$time\
 $line_break\
 $jobs\
 $battery\
@@ -110,7 +110,6 @@ symbol = " "
 symbol = " "
 
 [directory]
-format = 'at [$path]($style)[$read_only]($read_only_style) '
 read_only = " 󰌾"
 
 [docker_context]
@@ -265,4 +264,3 @@ symbol = " "
 
 [time]
 disabled = false
-format = '[$time]($style) '

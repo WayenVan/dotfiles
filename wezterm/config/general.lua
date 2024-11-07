@@ -45,4 +45,6 @@ Config.ssh_domains = require "domains/ssh"
 -- ref: https://wezfurlong.org/wezterm/multiplexing.html#unix-domains
 Config.unix_domains = {}
 
+Config.max_fps = 120
+
 return Config

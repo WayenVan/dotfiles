@@ -10,3 +10,13 @@ vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
     vim.g.COLORSCHEME = vim.g.colors_name
   end,
 })
+
+-- save the neovide value
+vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
+  -- pattern = "background",
+  callback = function()
+    if vim.g.neovid_loaded then
+      vim.g.NEOVIDE_SCALE_FACTOR = vim.g.neovide_scale_factor
+    end
+  end,
+})

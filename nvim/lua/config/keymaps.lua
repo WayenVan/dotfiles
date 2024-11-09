@@ -30,7 +30,9 @@ map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })
 
 -- diable git mappping from LazyVim
 vim.keymap.del("n", "<leader>gB", {})
-map("n", "<leader>gO", LazyVim.lazygit.browse, { desc = "Git Browse" })
+map("n", "<leader>gO", function()
+  Snacks.gitbrowse()
+end, { desc = "Git Browse" })
 
 -- terminal send esc to shell
 map("t", "<c-[>", "<Esc>", { silent = true })
@@ -53,16 +55,12 @@ vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
 
 -- set
-LazyVim.toggle.map(
-  "<leader>uM",
-  LazyVim.toggle.wrap({
+Snacks.toggle.option("mouse", { off = nil, on = "a", name = "Mouse" }):map("<leader>uM")
+Snacks.toggle
+  .new({
     name = "Mouse",
     get = function()
-      if vim.opt.mouse._value == "a" then
-        return true
-      else
-        return false
-      end
+      return vim.opt.mouse._value == "a"
     end,
     set = function(state)
       if state then
@@ -72,7 +70,27 @@ LazyVim.toggle.map(
       end
     end,
   })
-)
+  :map("<leader>uM")
+-- Snacks.toggle.map(
+--   "<leader>uM",
+--   Snacks.toggle.wrap({
+--     name = "Mouse",
+--     get = function()
+--       if vim.opt.mouse._value == "a" then
+--         return true
+--       else
+--         return false
+--       end
+--     end,
+--     set = function(state)
+--       if state then
+--         vim.opt.mouse = "a"
+--       else
+--         vim.opt.mouse = ""
+--       end
+--     end,
+--   })
+-- )
 
 -- tab
 vim.keymap.set("n", "<leader>]", "<CMD>tabnext<cr>", { desc = "next tab" })

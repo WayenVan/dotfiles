@@ -51,6 +51,7 @@ return {
       opts.experimental = {}
       opts.performance = {
         debounce = 0,
+        throttle = 0,
       }
     end,
   },

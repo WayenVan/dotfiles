@@ -1,5 +1,4 @@
 from typing_extensions import assert_type
-import numpy as np
 from collections import namedtuple
 
 a = 0

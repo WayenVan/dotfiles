@@ -29,7 +29,7 @@ end, { desc = "LazyVim Changelog" })
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })
 
 -- diable git mappping from LazyVim
-vim.keymap.del("n", "<leader>gB", {})
+-- vim.keymap.del("n", "<leader>gB", {})
 map("n", "<leader>gO", function()
   Snacks.gitbrowse()
 end, { desc = "Git Browse" })

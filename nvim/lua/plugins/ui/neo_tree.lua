@@ -76,7 +76,7 @@ return {
       opts.window.mappings["_"] = "open_vsplit"
       -- opts.window.mappings["s"] = "none"
       -- opts.window.mappings["S"] = "none"
-      opts.filesystem.follow_current_file = false
+      opts.filesystem.follow_current_file.enable = false
     end,
   },
   {

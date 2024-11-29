@@ -13,6 +13,12 @@ return {
         ls.jump(1)
       end, { silent = true, noremap = true, desc = "" })
 
+      -- remove the snippet_forward action when tap <tab> in nvim.cmp
+      -- reference https://www.lazyvim.org/plugins/coding
+      LazyVim.cmp.actions.snippet_forward = function()
+        return false
+      end
+
       -- vim.keymap.set({ "i", "s" }, "<C-E>", function()
       --   if ls.choice_active() then
       --     ls.change_choice(1)
@@ -30,11 +36,9 @@ return {
     -- stylua: ignore
     keys = {
       { "<tab>",   false },
-      { "<tab>",   false },
       { "<s-tab>", false },
     },
   },
-
   -- LSP keymaps
   {
     "neovim/nvim-lspconfig",

@@ -47,6 +47,7 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 -- set pyright to basedpyright
 vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.ai_cmp = false
 -- guifont
 vim.o.guifont = "JetBrainsMono Nerd Font:h14"
 

@@ -5,5 +5,6 @@ return {
       timeout = 1500,
       top_down = false,
     },
+    -- dashboard = { enabled = false },
   },
 }

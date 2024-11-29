@@ -6,10 +6,12 @@ for i in range(10):
     a = a + 1
     print(i)
 
-
 a = 1
 b = 2
 c = 3
 d = 4
 e = 5
 print("hello")
+for i in range(10):
+    a = a + 1
+    print(i)

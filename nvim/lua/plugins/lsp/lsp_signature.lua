@@ -2,6 +2,7 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "LazyFile",
+    enabled = false,
     opts = {
       bind = true,
       doc_lines = 0,

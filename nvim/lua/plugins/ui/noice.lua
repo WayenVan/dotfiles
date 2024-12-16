@@ -9,7 +9,7 @@ return {
       },
       lsp = {
         signature = {
-          enabled = false,
+          enabled = true,
         },
       },
       -- popupmenu = {

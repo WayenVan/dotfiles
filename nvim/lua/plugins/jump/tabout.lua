@@ -28,7 +28,6 @@ return {
     dependencies = { -- These are optional
       "nvim-treesitter/nvim-treesitter",
       "L3MON4D3/LuaSnip",
-      "nvim-cmp",
     },
     opt = true, -- Set this to true if the plugin is optional
     event = "InsertEnter", -- Set the event to 'InsertCharPre' for better compatibility

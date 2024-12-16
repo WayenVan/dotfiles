@@ -8,10 +8,10 @@ return {
       -- end, { silent = true })
       vim.keymap.set({ "i", "s" }, "<C-k>", function()
         ls.jump(-1)
-      end, { silent = true, noremap = true, desc = "LusSnip jump to next entry" })
+      end, { silent = true, noremap = true, desc = "LusSnip jump to previous entry" })
       vim.keymap.set({ "i", "s" }, "<C-j>", function()
         ls.jump(1)
-      end, { silent = true, noremap = true, desc = "" })
+      end, { silent = true, noremap = true, desc = "LuaSnip jump to next entry" })
 
       -- remove the snippet_forward action when tap <tab> in nvim.cmp
       -- reference https://www.lazyvim.org/plugins/coding
@@ -28,25 +28,6 @@ return {
 
       -- import snipets
       require("plugins.cmp.snippets.lua")
-    end,
-  },
-  -- disable lazynvim cmp key settings
-  {
-    "nvim-cmp",
-    -- stylua: ignore
-    keys = {
-      { "<tab>",   false },
-      { "<s-tab>", false },
-    },
-  },
-  -- LSP keymaps
-  {
-    "neovim/nvim-lspconfig",
-    opts = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- change a keymap
-      -- disable a keymap
-      keys[#keys + 1] = { "<c-k>", false, mode = "i" }
     end,
   },
 }

@@ -1,4 +1,5 @@
 from typing import List, Tuple, Dict, Any, Union
+from numpy import array, ndarray
 
 a = 0
 for i in range(10):

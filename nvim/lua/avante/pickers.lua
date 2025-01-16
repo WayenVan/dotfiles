@@ -25,7 +25,7 @@ M.prompt_picker_fzf = function()
     --   string.format("SELECTED FILE: %s", entry_str),
     -- })
     self:set_preview_buf(tmpbuf)
-    self.win:update_scrollbar()
+    -- self.win:update_scrollbar()
   end
 
   -- Disable line numbering and word wrap

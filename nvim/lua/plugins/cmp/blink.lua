@@ -6,8 +6,8 @@ return {
         preset = "default",
         ["<C-x>"] = { "show", "show_documentation", "hide_documentation" },
       },
-      sources = {
-        cmdline = { "cmdline" },
+      cmdline = {
+        enabled = true,
       },
     },
   },

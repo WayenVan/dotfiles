@@ -1,6 +1,8 @@
+-- this file has been deprecated in favor of the snacks-dashboard plugin
 return {
   {
     "nvimdev/dashboard-nvim",
+    enabled = false,
     lazy = false, -- As https://github.com/nvimdev/dashboard-nvim/pull/450, dashboard-nvim shouldn't be lazy-loaded to properly handle stdin.
     opts = function()
       local logo = [[

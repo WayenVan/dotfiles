@@ -23,22 +23,3 @@ for _, config in pairs(dap.configurations.python) do
   end
 end
 vim.list_extend(dap.configurations.python, extra_cfgs)
-
--- dap.adapters.mypy = function(cb, config)
---   cb({
---     type = "executable",
---     command = "debugpy",
---     args = { "-m", "debugpy.adapter" },
---   })
--- end
---
--- local configs = dap.configurations.python
--- table.insert(configs, {
---   type = "mypy",
---   request = "launch",
---   name = "Launch mmmmmmmm file",
---   program = "${file}",
---   pythonPath = function()
---     return vim.fn.exepath("python")
---   end,
--- })

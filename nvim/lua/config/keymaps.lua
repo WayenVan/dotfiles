@@ -35,7 +35,8 @@ map("n", "<leader>gO", function()
 end, { desc = "Git Browse" })
 
 -- terminal send esc to shell
-map("t", "<c-[>", "<Esc>", { silent = true })
+map("t", "\\\\", [[<C-\><C-n>]], { silent = true })
+-- map("t", "<c-[>", [[<Esc>]], { silent = true })
 
 -- cutomized text object
 local function select_above()
@@ -71,27 +72,6 @@ Snacks.toggle
     end,
   })
   :map("<leader>uM")
--- Snacks.toggle.map(
---   "<leader>uM",
---   Snacks.toggle.wrap({
---     name = "Mouse",
---     get = function()
---       if vim.opt.mouse._value == "a" then
---         return true
---       else
---         return false
---       end
---     end,
---     set = function(state)
---       if state then
---         vim.opt.mouse = "a"
---       else
---         vim.opt.mouse = ""
---       end
---     end,
---   })
--- )
-
 -- tab
 vim.keymap.set("n", "<leader>]", "<CMD>tabnext<cr>", { desc = "next tab" })
 vim.keymap.set("n", "<leader>[", "<CMD>tabprevious<CR>", { desc = "previous tab" })

@@ -55,7 +55,7 @@ vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 -- neovide setting
 vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
 
--- set
+-- set toggle mouse setup
 Snacks.toggle.option("mouse", { off = nil, on = "a", name = "Mouse" }):map("<leader>uM")
 Snacks.toggle
   .new({
@@ -72,6 +72,11 @@ Snacks.toggle
     end,
   })
   :map("<leader>uM")
+
 -- tab
 vim.keymap.set("n", "<leader>]", "<CMD>tabnext<cr>", { desc = "next tab" })
 vim.keymap.set("n", "<leader>[", "<CMD>tabprevious<CR>", { desc = "previous tab" })
+
+-- map cmdline up and down
+map("c", "<C-d>", "<Down>", {})
+map("c", "<C-u>", "<Up>", {})

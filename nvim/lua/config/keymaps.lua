@@ -80,3 +80,6 @@ vim.keymap.set("n", "<leader>[", "<CMD>tabprevious<CR>", { desc = "previous tab"
 -- map cmdline up and down
 map("c", "<C-d>", "<Down>", {})
 map("c", "<C-u>", "<Up>", {})
+
+-- setting up folder
+map("n", "<tab>", "za", { desc = "toggle folder", noremap = true, silent = true })

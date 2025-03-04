@@ -12,7 +12,7 @@ function M:update_status()
     -- buf_get_client is deprecated in nvim >=0.10.0
     buf_clients = vim.lsp.get_clients({ bufnr = 0 })
   else
-    buf_clients = vim.lsp.buf_get_clients()
+    buf_clients = vim.lsp.get_clients()
   end
   local null_ls_installed, null_ls = pcall(require, "null-ls")
   local buf_client_names = {}

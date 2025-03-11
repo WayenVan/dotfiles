@@ -16,6 +16,16 @@ return {
         end,
       },
     },
+
+    opts = function()
+      -- require custom configuration
+      local customized_configuration = {
+        python = "plugins.dap.configs.python",
+      }
+      for name, module in pairs(customized_configuration) do
+        require(module)
+      end
+    end,
     --   config = function()
     --     -- load mason-nvim-dap here, after all adapters have been setup
     --     if LazyVim.has("mason-nvim-dap.nvim") then

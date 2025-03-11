@@ -8,7 +8,7 @@ return {
   keys = {
     -- Global Minimap Controls
     { "<leader>m", "<Nop>", desc = "+MiniMap" },
-    { "<leader>mt", "<cmd>Neominimap toggle<cr>", desc = "Toggle global minimap" },
+    { "<leader>mm", "<cmd>Neominimap toggle<cr>", desc = "Toggle global minimap" },
     { "<leader>mo", "<cmd>Neominimap on<cr>", desc = "Enable global minimap" },
     { "<leader>mc", "<cmd>Neominimap off<cr>", desc = "Disable global minimap" },
     { "<leader>mr", "<cmd>Neominimap refresh<cr>", desc = "Refresh global minimap" },
@@ -32,9 +32,9 @@ return {
     -- { "<leader>nbc", "<cmd>Neominimap bufOff<cr>", desc = "Disable minimap for current buffer" },
     --
     -- ---Focus Controls
-    { "<leader>mf", "<cmd>Neominimap focus<cr>", desc = "Focus on minimap" },
+    { "<leader>mF", "<cmd>Neominimap focus<cr>", desc = "Focus on minimap" },
     { "<leader>mu", "<cmd>Neominimap unfocus<cr>", desc = "Unfocus minimap" },
-    { "<leader>mm", "<cmd>Neominimap toggleFocus<cr>", desc = "Switch focus on minimap" },
+    { "<leader>mf", "<cmd>Neominimap toggleFocus<cr>", desc = "Switch focus on minimap" },
   },
   init = function()
     -- The following options are recommended when layout == "float"

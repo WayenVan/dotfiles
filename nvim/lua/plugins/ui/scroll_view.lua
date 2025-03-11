@@ -1,6 +1,8 @@
+-- being replaced by mini_map
 return {
   "dstein64/nvim-scrollview",
   event = "BufEnter",
+  enabled = false,
   opts = {
     excluded_filetypes = { "neo-tree", "dashboard" },
     current_only = true,

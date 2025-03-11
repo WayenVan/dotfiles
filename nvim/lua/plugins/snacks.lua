@@ -1,5 +1,20 @@
 return {
   "folke/snacks.nvim",
+  keys = function(_, keys)
+    -- NOTE: Connot override these???
+
+    vim.list_extend(keys, {
+      {
+        "<leader>ff",
+        function()
+          Snacks.picker.smart()
+        end,
+        desc = "Smart Find Files",
+        noremap = true,
+      },
+    })
+    return keys
+  end,
   opts = {
     notifier = {
       timeout = 1500,

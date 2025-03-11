@@ -11,8 +11,8 @@ return {
               id = "scopes",
               size = 0.25, -- Can be float or integer > 1
             },
-            { id = "watches",     size = 0.25 },
-            { id = "stacks",      size = 0.25 },
+            { id = "watches", size = 0.25 },
+            { id = "stacks", size = 0.25 },
             { id = "breakpoints", size = 0.25 },
           },
           size = 50,
@@ -20,7 +20,7 @@ return {
         },
         {
           elements = {
-            { id = "repl",    size = 0.4 },
+            { id = "repl", size = 0.4 },
             { id = "console", size = 0.6 },
             -- "repl",
             -- "console",

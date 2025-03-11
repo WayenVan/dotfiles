@@ -2,6 +2,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     -- lazy = true,
+    enabled = false,
     opts = function(_, opts)
       local actions = require("telescope.actions")
 
@@ -130,6 +131,7 @@ return {
   -- },
   {
     "wayenvan/smart-open.nvim",
+    enabled = false,
     branch = "0.2.x",
     keys = {
       { "<leader>ff", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },

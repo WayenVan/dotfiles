@@ -1,9 +1,11 @@
+-- NOTE: deprecated goodbye to  the telescope
 return {
   {
     "nvim-telescope/telescope-fzf-native.nvim",
     -- build = have_make and "make"
     --   or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     -- enabled = have_make or have_cmake,
+    enabled = false,
     build = "make",
     config = function(plugin)
       LazyVim.on_load("telescope.nvim", function()

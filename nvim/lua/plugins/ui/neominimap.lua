@@ -48,7 +48,7 @@ return {
       minimap_width = 1,
       auto_enable = true,
       float = {
-        z_index = 2,
+        z_index = 3,
         window_border = "none",
       },
       mark = {
@@ -57,6 +57,17 @@ return {
       click = {
         enabled = true,
       },
+      win_filter = function(winid)
+        return winid == vim.api.nvim_get_current_win()
+      end,
     }
+
+    vim.api.nvim_create_autocmd("WinEnter", {
+      group = vim.api.nvim_create_augroup("minimap", { clear = true }),
+      pattern = "*",
+      callback = function()
+        require("neominimap").tabRefresh({}, {})
+      end,
+    })
   end,
 }

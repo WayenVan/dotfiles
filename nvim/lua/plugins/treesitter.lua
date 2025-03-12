@@ -69,4 +69,10 @@ return {
       "TSPlaygroundToggle",
     },
   },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = {
+      zindex = 2,
+    },
+  },
 }

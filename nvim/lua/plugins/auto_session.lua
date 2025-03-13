@@ -60,7 +60,7 @@ return {
         for _, buf in ipairs(buffers) do
           local buf_type = vim.api.nvim_get_option_value("buftype", { buf = buf })
           -- Check if the buffer is not normal (i.e., buf_type is not empty)
-          if buf_type == "nofile" then
+          if buf_type == "nofile" or buf_type == "terminal" then
             vim.api.nvim_buf_delete(buf, { force = true })
           end
         end

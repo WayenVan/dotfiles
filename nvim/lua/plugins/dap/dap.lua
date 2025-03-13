@@ -3,7 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
-      -- { "igorlfs/nvim-dap-view" },
+      { "igorlfs/nvim-dap-view" },
     },
     keys = {
       { "<leader>dR", "<cmd>lua require('dap').restart()<cr>", desc = "Restart" },
@@ -32,7 +32,7 @@ return {
         function()
           require("dap.ui.widgets").hover(nil, { border = "single" })
         end,
-        desc = "Dap Scopes",
+        desc = "Dap Evaluate",
       },
     },
 

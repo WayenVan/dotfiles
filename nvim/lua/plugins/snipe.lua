@@ -1,10 +1,12 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/snipe.lua
+-- WARN: replaced by rabbit.nvim, so deprecated
+--
 -- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/snipe.lua
 --
 -- https://github.com/leath-dub/snipe.nvim
 return {
   -- "linkarzu/snipe.nvim",
   "leath-dub/snipe.nvim",
+  enabled = false,
   keys = {
     {
       "<leader>`",

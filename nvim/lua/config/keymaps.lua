@@ -83,3 +83,6 @@ map("c", "<C-u>", "<Up>", {})
 
 -- setting up folder
 map("n", "<tab>", "za", { desc = "toggle folder", noremap = true, silent = true })
+
+-- set c-i back
+vim.keymap.set("n", "<C-i>", "<C-i>")

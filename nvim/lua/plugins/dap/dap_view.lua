@@ -4,7 +4,8 @@ return {
     enabled = true,
     opts = {},
     keys = {
-      { "<leader>du", "<cmd>lua require('dap-view').toggle()<CR>" },
+      { "<leader>du", "<cmd>lua require('dap-view').toggle()<CR>", desc = "Toggle dap view" },
+      { "<leader>dE", "<cmd>lua require('dap-view').add_expr()<CR>", desc = "Add expression" },
     },
     config = function(_, opts)
       -- require("dap-view").setup(opts)

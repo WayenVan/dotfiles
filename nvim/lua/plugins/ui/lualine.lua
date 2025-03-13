@@ -19,7 +19,6 @@ return {
     end,
     opts = function()
       -- PERF: we don't need this lualine require madness 🤷
-      local hydra = require("hydra.statusline")
       local lualine_require = require("lualine_require")
       lualine_require.require = require
 

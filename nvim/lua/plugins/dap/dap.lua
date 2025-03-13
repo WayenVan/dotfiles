@@ -27,6 +27,13 @@ return {
         end,
         desc = "Dap Scopes",
       },
+      {
+        "<leader>de",
+        function()
+          require("dap.ui.widgets").hover(nil, { border = "single" })
+        end,
+        desc = "Dap Scopes",
+      },
     },
 
     opts = function()

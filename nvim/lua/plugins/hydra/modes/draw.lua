@@ -24,8 +24,8 @@ require("which-key").add({
 })
 Hydra({
   name = "Venn Diagram",
+  -- hint = " Draw",
   config = {
-    hint = false,
     color = "pink",
     invoke_on_body = true,
     on_enter = function()

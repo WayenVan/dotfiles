@@ -1,8 +1,11 @@
 return {
   {
     "igorlfs/nvim-dap-view",
-    enabled = false,
+    enabled = true,
     opts = {},
+    keys = {
+      { "<leader>du", "<cmd>lua require('dap-view').toggle()<CR>" },
+    },
     config = function(_, opts)
       -- require("dap-view").setup(opts)
       local dap, dv = require("dap"), require("dap-view")
@@ -18,6 +21,12 @@ return {
       dap.listeners.before.event_exited["dap-view-config"] = function()
         dv.close()
       end
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
+        callback = function(evt)
+          vim.keymap.set("n", "q", "<C-w>q", { silent = true, buffer = evt.buf })
+        end,
+      })
     end,
   },
 }

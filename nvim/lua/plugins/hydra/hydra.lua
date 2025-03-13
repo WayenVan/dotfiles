@@ -1,6 +1,11 @@
 return {
   {
     "nvimtools/hydra.nvim",
+    enabled = false,
+    dependencies = {
+      -- "folke/snacks.nvim",
+      -- "folke/lazy.nvim",
+    },
     config = function()
       require("plugins.hydra.modes.draw")
       require("plugins.hydra.modes.scroll")

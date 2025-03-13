@@ -3,17 +3,29 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
+      -- { "igorlfs/nvim-dap-view" },
     },
     keys = {
       { "<leader>dR", "<cmd>lua require('dap').restart()<cr>", desc = "Restart" },
       { "<leader>da", "<cmd>DapNew<cr>", desc = "Create a new dap session" },
       { "<leader>dn", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over" },
       {
+        "<leader>dS",
+        function()
+          local w = require("dap.ui.widgets")
+          -- w.sidebar(w.sessions, {}, "5 sp | setl winfixheight").toggle()
+          w.centered_float(w.sessions)
+        end,
+        desc = "Dap Sessions",
+      },
+      {
         "<leader>ds",
         function()
           local w = require("dap.ui.widgets")
-          w.sidebar(w.sessions, {}, "5 sp | setl winfixheight").toggle()
+          -- w.sidebar(w.sessions, {}, "5 sp | setl winfixheight").toggle()
+          w.centered_float(w.scopes)
         end,
+        desc = "Dap Scopes",
       },
     },
 
@@ -25,6 +37,17 @@ return {
       for name, module in pairs(customized_configuration) do
         require(module)
       end
+
+      -- auto command for filetype dap-float
+      vim.api.nvim_create_augroup("Dap_", { clear = true })
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        group = "Dap_",
+        pattern = { "dap-float" },
+        callback = function()
+          local buf = vim.api.nvim_get_current_buf()
+          vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>q<CR>", { noremap = true, silent = true })
+        end,
+      })
     end,
     --   config = function()
     --     -- load mason-nvim-dap here, after all adapters have been setup

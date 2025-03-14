@@ -1,11 +1,25 @@
 return {
   {
     "bloznelis/before.nvim",
+    event = "BufEnter",
+
     keys = {
       {
         "<leader>'",
         function()
           require("before").show_edits_in_quickfix()
+        end,
+      },
+      {
+        "<c-n>",
+        function()
+          require("before").jump_to_next_edit()
+        end,
+      },
+      {
+        "<c-p>",
+        function()
+          require("before").jump_to_last_edit()
         end,
       },
     },

@@ -1,6 +1,7 @@
 return {
   {
     "nvimtools/hydra.nvim",
+    event = "VeryLazy",
     enabled = true,
     url = "https://github.com/cathyprime/hydra.nvim",
     dependencies = {

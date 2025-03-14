@@ -1,7 +1,7 @@
 return {
   {
     "kkharji/sqlite.lua",
-    lazy = true,
+    enabled = false,
     init = function()
       if require("utils.os_name").get_os_name() == "Windows" then
         local clib_path = require("plenary.path"):new(vim.fn.stdpath("data")):joinpath("sqlite3.dll")

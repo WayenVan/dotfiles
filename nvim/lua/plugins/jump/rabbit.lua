@@ -1,7 +1,10 @@
 return {
   {
     "voxelprismatic/rabbit.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>`", "<cmd>Rabbit<cr>", desc = "Jump to definition" },
+    },
     config = function()
       require("rabbit").setup({
         window = {

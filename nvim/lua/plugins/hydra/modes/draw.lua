@@ -24,9 +24,9 @@ require("which-key").add({
 })
 Hydra({
   name = "Venn Diagram",
-  -- hint = " Draw",
   config = {
     color = "pink",
+    hint = false,
     invoke_on_body = true,
     on_enter = function()
       vim.wo.virtualedit = "all"

@@ -1,7 +1,8 @@
 return {
   {
     "nvimtools/hydra.nvim",
-    enabled = false,
+    enabled = true,
+    url = "https://github.com/cathyprime/hydra.nvim",
     dependencies = {
       -- "folke/snacks.nvim",
       -- "folke/lazy.nvim",

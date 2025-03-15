@@ -45,6 +45,11 @@ return {
     ---@type Neominimap.UserConfig
     vim.g.neominimap = {
       -- layout = "split",
+      exclude_filetypes = {
+        "help",
+        "bigfile", -- For Snacks.nvim
+        "gitcommit",
+      },
       minimap_width = 1,
       auto_enable = true,
       float = {

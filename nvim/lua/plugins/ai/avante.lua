@@ -64,11 +64,10 @@ return {
       })
     end,
     dependencies = {
-      "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "DaikyXendo/nvim-material-icon",
       "zbirenbaum/copilot.lua", -- for providers='copilot'
       {
         -- support for image pasting

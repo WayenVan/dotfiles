@@ -7,9 +7,10 @@ return {
     cmd = "Leet",
     build = ":TSUpdate html",
     dependencies = {
-      "nvim-telescope/telescope.nvim",
+      -- "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim", -- required by telescope
       "MunifTanjim/nui.nvim",
+      "ibhagwan/fzf-lua",
 
       -- optional
       "nvim-treesitter/nvim-treesitter",

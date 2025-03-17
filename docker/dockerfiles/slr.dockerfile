@@ -17,8 +17,8 @@ SHELL ["/bin/bash", "-c"]
 ENV SHELL="/bin/bash"
 
 #install starship
-RUN curl -sS https://starship.rs/install.sh | sh && \
-  echo 'eval "\$(starship init bash)"' >> ~/.bashrc
+RUN curl -sS https://starship.rs/install.sh | sh -s -- -y && \
+  echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
 # install general python packages
 RUN pip install --no-cache-dir uv==0.4.25 && \
@@ -82,7 +82,7 @@ RUN echo "source ~/.bashrc" >> ~/.bash_profile
 RUN curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz && \
   rm -rf /opt/nvim && \
   tar -C /opt -xzf nvim-linux-x86_64.tar.gz && \
-  rm nvim-linux64.tar.gz
+  rm nvim-linux-x86_64.tar.gz
 ENV PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # google download tool and neptune

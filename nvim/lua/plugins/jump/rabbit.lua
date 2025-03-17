@@ -1,7 +1,7 @@
 return {
   {
     "voxelprismatic/rabbit.nvim",
-    event = "VeryLazy",
+    lazy = false,
     keys = {
       { "<leader>`", "<cmd>Rabbit<cr>", desc = "Jump to definition" },
     },

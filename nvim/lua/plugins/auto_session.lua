@@ -42,11 +42,6 @@ return {
   {
     "rmagatti/auto-session",
     opts = function(_, opts)
-      local function open_minifile()
-        local minifile = require("mini.files")
-        minifile.open(nil, true)
-      end
-
       local function close_minifile()
         local minifile = require("mini.files")
         minifile.close()
@@ -66,13 +61,34 @@ return {
         end
       end
 
+      local function disable_bqf()
+        if require("lazy.core.config").plugins["nvim-bqf"] then
+          require("bqf").hidePreviewWindow()
+        end
+      end
+
+      local function reload_plugins()
+        local plugins = { "rabbit.nvim", "before.nvim" }
+        local reload_plugins = {}
+        for _, plugin in ipairs(plugins) do
+          if require("lazy.core.config").plugins[plugin] then
+            table.insert(reload_plugins, plugin)
+          end
+        end
+        for _, plugin in ipairs(reload_plugins) do
+          require("lazy.core.loader").reload(plugin)
+          vim.notify("Reloaded " .. plugin)
+        end
+      end
+
       local function noice_dismiss()
         require("noice").cmd("dismiss")
       end
 
       -- opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
-      opts.pre_save_cmds = { close_minifile, delete_not_good_buffer, noice_dismiss }
+      opts.pre_save_cmds = { disable_bqf, close_minifile, delete_not_good_buffer }
+      opts.post_restore_cmds = { reload_plugins }
     end,
   },
 }

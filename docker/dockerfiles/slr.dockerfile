@@ -72,10 +72,16 @@ RUN echo "alias fzf='fzf'" >> ~/.bashrc && \
 # add source file
 RUN echo "source ~/.bashrc" >> ~/.bash_profile
 
-# install nvim here
-RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz && \
+# install release
+# RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz && \
+#   rm -rf /opt/nvim && \
+#   tar -C /opt -xzf nvim-linux64.tar.gz && \
+#   rm nvim-linux64.tar.gz
+# ENV PATH="$PATH:/opt/nvim-linux64/bin"
+# install nightly
+RUN curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz && \
   rm -rf /opt/nvim && \
-  tar -C /opt -xzf nvim-linux64.tar.gz && \
+  tar -C /opt -xzf nvim-linux-x86_64.tar.gz && \
   rm nvim-linux64.tar.gz
 ENV PATH="$PATH:/opt/nvim-linux64/bin"
 

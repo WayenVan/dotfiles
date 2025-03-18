@@ -27,25 +27,8 @@ if fs.platform().is_win then
     { label = "Command Prompt", args = { "cmd.exe" }, cwd = "~" },
     { label = Icons.Progs["git"] .. " Git bash", args = { "sh", "-l" }, cwd = "~" },
   }
-
-  -- ref: https://wezfurlong.org/wezterm/config/lua/WslDomain.html
-  Config.wsl_domains = {
-    {
-      name = "ubuntu.wsl",
-      distribution = "Ubuntu",
-    },
-  }
 end
 
 Config.default_cwd = fs.home()
-
--- ref: https://wezfurlong.org/wezterm/config/lua/SshDomain.html
-Config.ssh_domains = require "domains/ssh"
-
--- ref: https://wezfurlong.org/wezterm/multiplexing.html#unix-domains
-Config.unix_domains = {}
-
-Config.max_fps = 120
-Config.animation_fps = 120
 
 return Config

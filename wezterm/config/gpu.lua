@@ -14,4 +14,7 @@ Config.webgpu_force_fallback_adapter = false
 Config.webgpu_power_preference = "HighPerformance"
 Config.webgpu_preferred_adapter = require("utils.gpu_adapter"):pick_best()
 
+Config.max_fps = 165
+Config.animation_fps = 165
+
 return Config

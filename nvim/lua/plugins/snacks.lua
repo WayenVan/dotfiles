@@ -1,20 +1,16 @@
 return {
   "folke/snacks.nvim",
-  keys = function(_, keys)
-    -- NOTE: Connot override these???
-
-    vim.list_extend(keys, {
-      {
-        "<leader>ff",
-        function()
-          Snacks.picker.smart()
-        end,
-        desc = "Smart Find Files",
-        noremap = true,
-      },
-    })
-    return keys
-  end,
+  keys = {
+    {
+      "<leader>ff",
+      function()
+        Snacks.picker.smart()
+      end,
+      desc = "Smart find files (cwd)",
+    },
+    { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+    { "<leader>/", LazyVim.pick("grep", { root = false }), desc = "Grep (cwd)" },
+  },
   opts = {
     notifier = {
       timeout = 1500,

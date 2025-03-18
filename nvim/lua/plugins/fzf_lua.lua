@@ -1,6 +1,8 @@
+-- WARN: deprecated replace by snacks.picker
 return {
   {
     "ibhagwan/fzf-lua",
+    enabled = false,
     keys = {
       {
         "<leader>,",

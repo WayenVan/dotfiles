@@ -35,7 +35,14 @@ return {
           theme = "auto",
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = {
-            statusline = { "dashboard", "snacks_dashboard", "alpha", "ministarter", "TelescopePrompt" },
+            statusline = {
+              "dashboard",
+              "snacks_dashboard",
+              "alpha",
+              "ministarter",
+              "TelescopePrompt",
+              "snacks_picker_input",
+            },
           },
         },
         sections = {

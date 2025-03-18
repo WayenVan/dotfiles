@@ -10,7 +10,7 @@ return {
       -- "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim", -- required by telescope
       "MunifTanjim/nui.nvim",
-      "ibhagwan/fzf-lua",
+      -- "ibhagwan/fzf-lua",
 
       -- optional
       "nvim-treesitter/nvim-treesitter",

@@ -60,7 +60,7 @@ Config.visual_bell = {
 }
 
 ---window appearance
-Config.window_padding = { left = 2, right = 2, top = 2, bottom = 1 }
+Config.window_padding = { left = 2, right = 2, top = 10, bottom = 0 }
 if fs.platform().is_win then
   Config.window_decorations = "RESIZE"
 end

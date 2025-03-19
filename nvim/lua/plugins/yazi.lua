@@ -4,24 +4,24 @@ return {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     -- not enough benetits to enable this plugin by default
-    enabled = false,
+    enabled = true,
     dependencies = { "folke/snacks.nvim" },
     keys = {
       -- 👇 in this section, choose your own keymappings!
+      -- {
+      --   "<leader>-",
+      --   mode = { "n", "v" },
+      --   "<cmd>Yazi<cr>",
+      --   desc = "Open yazi at the current file",
+      -- },
+      -- {
+      --   -- Open in the current working directory
+      --   "<leader>_",
+      --   "<cmd>Yazi cwd<cr>",
+      --   desc = "Open the file manager in nvim's working directory",
+      -- },
       {
         "<leader>-",
-        mode = { "n", "v" },
-        "<cmd>Yazi<cr>",
-        desc = "Open yazi at the current file",
-      },
-      {
-        -- Open in the current working directory
-        "<leader>_",
-        "<cmd>Yazi cwd<cr>",
-        desc = "Open the file manager in nvim's working directory",
-      },
-      {
-        "<c-up>",
         "<cmd>Yazi toggle<cr>",
         desc = "Resume the last yazi session",
       },

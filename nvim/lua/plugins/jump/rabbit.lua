@@ -3,7 +3,7 @@ return {
     "voxelprismatic/rabbit.nvim",
     lazy = false,
     keys = {
-      { "<leader>`", "<cmd>Rabbit<cr>", desc = "Jump to definition" },
+      { "<leader>-", "<cmd>Rabbit<cr>", desc = "Jump to definition" },
     },
     config = function()
       require("rabbit").setup({
@@ -12,7 +12,7 @@ return {
           float = "center",
         },
         default_keys = {
-          open = { "<leader>`" },
+          open = { "<leader>-" },
         },
       }) -- Detailed below
     end,

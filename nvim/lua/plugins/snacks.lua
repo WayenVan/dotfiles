@@ -17,6 +17,13 @@ return {
       end,
       desc = "Toggle Scratch Buffer",
     },
+    {
+      "<leader>?",
+      function()
+        Snacks.picker.lines()
+      end,
+      desc = "Buffer Lines",
+    },
   },
   opts = {
     notifier = {

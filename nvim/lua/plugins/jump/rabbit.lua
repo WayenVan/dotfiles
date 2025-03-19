@@ -2,6 +2,7 @@ return {
   {
     "voxelprismatic/rabbit.nvim",
     lazy = false,
+    enabled = false,
     keys = {
       { "<leader>.", "<cmd>Rabbit<cr>", desc = "Jump to definition" },
     },

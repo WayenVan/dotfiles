@@ -3,8 +3,8 @@ return {
   {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
-    -- not enough benetits to enable this plugin by default
-    enabled = true,
+    -- still buggy
+    enabled = false,
     dependencies = { "folke/snacks.nvim" },
     keys = {
       -- 👇 in this section, choose your own keymappings!
@@ -14,12 +14,12 @@ return {
       --   "<cmd>Yazi<cr>",
       --   desc = "Open yazi at the current file",
       -- },
-      -- {
-      --   -- Open in the current working directory
-      --   "<leader>_",
-      --   "<cmd>Yazi cwd<cr>",
-      --   desc = "Open the file manager in nvim's working directory",
-      -- },
+      {
+        -- Open in the current working directory
+        "<leader>_",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
+      },
       {
         "<leader>-",
         "<cmd>Yazi toggle<cr>",

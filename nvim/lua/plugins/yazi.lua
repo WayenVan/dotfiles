@@ -4,7 +4,7 @@ return {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     -- not enough benetits to enable this plugin by default
-    enabled = false,
+    enabled = true,
     dependencies = { "folke/snacks.nvim" },
     keys = {
       -- 👇 in this section, choose your own keymappings!

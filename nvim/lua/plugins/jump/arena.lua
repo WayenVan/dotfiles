@@ -1,5 +1,7 @@
 return {
   {
+    -- conflict with auto_session.nvim in storing sessions
+    enabled = false,
     "dzfrias/arena.nvim",
     event = "BufWinEnter",
     -- Calls `.setup()` automatically

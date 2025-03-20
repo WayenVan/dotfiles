@@ -24,6 +24,13 @@ return {
       end,
       desc = "Buffer Lines",
     },
+    {
+      "<leader><",
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = "Buffer Lines",
+    },
   },
   opts = {
     notifier = {

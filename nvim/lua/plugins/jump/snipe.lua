@@ -4,7 +4,7 @@ return {
     event = "BufRead",
     keys = {
       {
-        "<leader>.",
+        "<leader>,",
         function()
           require("snipe").open_buffer_menu()
         end,

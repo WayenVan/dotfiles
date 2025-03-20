@@ -9,6 +9,7 @@ return {
         function()
           require("before").show_edits_in_quickfix()
         end,
+        desc = "Show edits in quickfix",
       },
       {
         "<c-n>",

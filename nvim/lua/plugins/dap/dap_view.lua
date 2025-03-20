@@ -2,13 +2,20 @@ return {
   {
     "igorlfs/nvim-dap-view",
     enabled = true,
-    opts = {},
+    opts = {
+      windows = {
+        height = 16,
+        terminal = {
+          position = "right",
+        },
+      },
+    },
     keys = {
       { "<leader>du", "<cmd>lua require('dap-view').toggle()<CR>", desc = "Toggle dap view" },
       { "<leader>de", "<cmd>lua require('dap-view').add_expr()<CR>", desc = "Add expression" },
     },
     config = function(_, opts)
-      -- require("dap-view").setup(opts)
+      require("dap-view").setup(opts)
       local dap, dv = require("dap"), require("dap-view")
       dap.listeners.before.attach["dap-view-config"] = function()
         dv.open()

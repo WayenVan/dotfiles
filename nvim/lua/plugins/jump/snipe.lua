@@ -1,6 +1,7 @@
 return {
   {
     "leath-dub/snipe.nvim",
+    event = "BufRead",
     keys = {
       {
         "<leader>.",
@@ -18,6 +19,15 @@ return {
         cancel_snipe = "q",
       },
       sort = "last",
+    },
+  },
+  {
+    "kungfusheep/snipe-spell.nvim",
+    dependencies = "leath-dub/snipe.nvim",
+    event = "BufEnter",
+    config = true,
+    keys = {
+      { "z=", "<cmd>SnipeSpell <cr>", desc = "Snipe Spellchecker" },
     },
   },
 }

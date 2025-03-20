@@ -24,6 +24,7 @@ return {
   {
     "kungfusheep/snipe-spell.nvim",
     dependencies = "leath-dub/snipe.nvim",
+    enabled = false,
     event = "BufEnter",
     config = true,
     keys = {

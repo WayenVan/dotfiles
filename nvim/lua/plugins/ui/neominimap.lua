@@ -32,9 +32,9 @@ return {
     -- { "<leader>nbc", "<cmd>Neominimap bufOff<cr>", desc = "Disable minimap for current buffer" },
     --
     -- ---Focus Controls
-    { "<leader>mF", "<cmd>Neominimap focus<cr>", desc = "Focus on minimap" },
-    { "<leader>mu", "<cmd>Neominimap unfocus<cr>", desc = "Unfocus minimap" },
-    { "<leader>mf", "<cmd>Neominimap toggleFocus<cr>", desc = "Switch focus on minimap" },
+    { "<leader>MF", "<cmd>Neominimap focus<cr>", desc = "Focus on minimap" },
+    { "<leader>Mu", "<cmd>Neominimap unfocus<cr>", desc = "Unfocus minimap" },
+    { "<leader>Mf", "<cmd>Neominimap toggleFocus<cr>", desc = "Switch focus on minimap" },
   },
   init = function()
     -- The following options are recommended when layout == "float"

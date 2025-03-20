@@ -1,9 +1,11 @@
+-- avoid missing curor
 return {
   {
     "mrjones2014/smart-splits.nvim",
     event = "VeryLazy",
+    enabled = true,
     opts = {
-      at_edge = "warp",
+      at_edge = "stop",
       multiplexer_integration = false,
     },
     keys = {

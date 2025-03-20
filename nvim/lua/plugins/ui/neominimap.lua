@@ -7,11 +7,11 @@ return {
   -- Optional
   keys = {
     -- Global Minimap Controls
-    { "<leader>m", "<Nop>", desc = "+MiniMap" },
-    { "<leader>mm", "<cmd>Neominimap toggle<cr>", desc = "Toggle global minimap" },
-    { "<leader>mo", "<cmd>Neominimap on<cr>", desc = "Enable global minimap" },
-    { "<leader>mc", "<cmd>Neominimap off<cr>", desc = "Disable global minimap" },
-    { "<leader>mr", "<cmd>Neominimap refresh<cr>", desc = "Refresh global minimap" },
+    { "<leader>M", "<Nop>", desc = "+MiniMap" },
+    { "<leader>Mm", "<cmd>Neominimap toggle<cr>", desc = "Toggle global minimap" },
+    { "<leader>Mo", "<cmd>Neominimap on<cr>", desc = "Enable global minimap" },
+    { "<leader>Mc", "<cmd>Neominimap off<cr>", desc = "Disable global minimap" },
+    { "<leader>Mr", "<cmd>Neominimap refresh<cr>", desc = "Refresh global minimap" },
 
     -- -- Window-Specific Minimap Controls
     -- { "<leader>nwt", "<cmd>Neominimap winToggle<cr>", desc = "Toggle minimap for current window" },

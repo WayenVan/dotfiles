@@ -16,10 +16,19 @@ return {
         position = "center",
       },
       navigate = {
-        cancel_snipe = "q",
+        -- cancel_snipe = "q",
       },
       sort = "last",
     },
+    config = function(_, opts)
+      require("snipe").setup(opts)
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
+        pattern = { "snipe-menu" },
+        callback = function(ev)
+          vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = ev.buffer, nowait = true })
+        end,
+      })
+    end,
   },
   {
     "kungfusheep/snipe-spell.nvim",
@@ -29,6 +38,26 @@ return {
     config = true,
     keys = {
       { "z=", "<cmd>SnipeSpell <cr>", desc = "Snipe Spellchecker" },
+    },
+  },
+  {
+    "nicholasxjy/snipe-marks.nvim",
+    dependencies = { "leath-dub/snipe.nvim" },
+    keys = {
+      {
+        "<leader>mm",
+        function()
+          require("snipe-marks").open_marks_menu()
+        end,
+        desc = "Find local marks",
+      },
+      {
+        "<leader>ma",
+        function()
+          require("snipe-marks").open_marks_menu("all")
+        end,
+        desc = "Find all marks",
+      },
     },
   },
 }

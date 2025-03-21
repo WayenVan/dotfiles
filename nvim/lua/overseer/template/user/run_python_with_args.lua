@@ -22,14 +22,11 @@ return {
     local venv_info, _ = require("utils.venv")
     if venv_info then
       if venv_info.type == "conda" and venv_info.name ~= "base" then
-        cmd = "conda"
-        args = {
-          "run",
-          "-n",
-          venv_info.name,
-          python_cmd,
-          file,
-        }
+        if system == "Windows" then
+          cmd = Path:new(venv_info.conda_prefix):joinpath("python.exe"):absolute()
+        else
+          cmd = Path:new(venv_info.conda_prefix):joinpath("bin", "python"):absolute()
+        end
       end
     end
 

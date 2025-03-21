@@ -37,6 +37,14 @@ return {
       timeout = 1500,
       top_down = false,
     },
+    scroll = {
+      filter = function(buf)
+        return vim.g.neovide == nil
+          and vim.g.snacks_scroll ~= false
+          and vim.b[buf].snacks_scroll ~= false
+          and vim.bo[buf].buftype ~= "terminal"
+      end,
+    },
     dashboard = {
       preset = {
         header = [[

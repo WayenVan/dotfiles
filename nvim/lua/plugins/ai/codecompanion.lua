@@ -72,7 +72,9 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "codecompanion",
         callback = function(ev)
-          vim.keymap.set("n", "q", "<cmd>q<CR>", { buffer = true })
+          vim.keymap.set("n", "q", function()
+            require("codecompanion").toggle()
+          end, { buffer = true })
         end,
       })
     end,

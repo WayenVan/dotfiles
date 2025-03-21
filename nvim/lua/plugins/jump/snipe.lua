@@ -25,7 +25,7 @@ return {
       vim.api.nvim_create_autocmd({ "Filetype" }, {
         pattern = { "snipe-menu" },
         callback = function(ev)
-          vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = ev.buffer, nowait = true })
+          vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = ev.buf, nowait = true })
         end,
       })
     end,
@@ -45,14 +45,14 @@ return {
     dependencies = { "leath-dub/snipe.nvim" },
     keys = {
       {
-        "<leader>mm",
+        "<leader>m",
         function()
           require("snipe-marks").open_marks_menu()
         end,
         desc = "Find local marks",
       },
       {
-        "<leader>ma",
+        "<leader>M",
         function()
           require("snipe-marks").open_marks_menu("all")
         end,

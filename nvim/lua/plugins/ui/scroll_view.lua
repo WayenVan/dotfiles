@@ -5,7 +5,7 @@ return {
   enabled = false,
   opts = {
     excluded_filetypes = { "neo-tree", "dashboard" },
-    current_only = true,
+    current_only = false,
     base = "right",
     column = 1,
     signs_on_startup = { "all" },

@@ -2,7 +2,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     -- lazy = true,
-    enabled = false,
+    -- enabled = false,
     opts = function(_, opts)
       local actions = require("telescope.actions")
 
@@ -97,7 +97,7 @@ return {
         },
       }
     end,
-    -- disable all keys for using fzf instea
+    -- disable all keys for using snacks.pickers
     keys = function(_, keys)
       return {}
     end,

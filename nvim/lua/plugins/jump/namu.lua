@@ -5,7 +5,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>;",
+        "<leader>'",
         function()
           require("namu.namu_symbols").show()
         end,

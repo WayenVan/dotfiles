@@ -155,22 +155,17 @@ return {
         callback = function(args)
           vim.keymap.set(
             "n",
-            "<localleader>y",
+            "gy",
             yank_relative_path,
             { buffer = args.data.buf_id, desc = "yank relative path of current entry" }
           )
           vim.keymap.set(
             "n",
-            "<localleader>Y",
+            "gY",
             yank_absolute,
             { buffer = args.data.buf_id, desc = "yank absolute path of current entry" }
           )
-          vim.keymap.set(
-            "n",
-            "<localleader>n",
-            yank_filename,
-            { buffer = args.data.buf_id, desc = "yank name of current entry" }
-          )
+          vim.keymap.set("n", "Y", yank_filename, { buffer = args.data.buf_id, desc = "yank name of current entry" })
           vim.keymap.set(
             "n",
             "gr",

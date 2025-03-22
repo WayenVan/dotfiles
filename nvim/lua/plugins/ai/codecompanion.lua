@@ -6,7 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    cmds = { "Codecompanion" },
+    cmd = { "CodeCompanion" },
     keys = {
       { "<leader>a", "", desc = "+ai" },
       {

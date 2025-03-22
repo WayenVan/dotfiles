@@ -68,7 +68,7 @@ return {
       end
 
       local function reload_plugins()
-        local plugins = { "before.nvim", "codecompanion.nvim", "satellite.nvim" }
+        local plugins = { "before.nvim", "codecompanion.nvim" }
         local reload_plugins = {}
         for _, plugin in ipairs(plugins) do
           if require("lazy.core.config").plugins[plugin] then

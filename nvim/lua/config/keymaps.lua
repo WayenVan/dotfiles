@@ -53,7 +53,15 @@ vim.keymap.set("n", "gA", select_above, { desc = "select above" })
 vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 
 -- neovide setting
-vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
+if vim.g.neovide then
+  vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
+  vim.keymap.set(
+    "n",
+    "<leader>uV",
+    ":let g:neovide_fullscreen = !g:neovide_fullscreen<CR>",
+    { desc = "Neovide toggle fullscreen" }
+  )
+end
 
 -- set toggle mouse setup
 Snacks.toggle.option("mouse", { off = nil, on = "a", name = "Mouse" }):map("<leader>uM")

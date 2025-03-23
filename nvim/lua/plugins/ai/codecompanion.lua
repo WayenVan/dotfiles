@@ -23,12 +23,22 @@ return {
         end,
         desc = "Create new chat",
       },
-      -- {
-      --   "<leader>ai",
-      --   "<cmd>'<,'>CodeCompanion<CR>",
-      --   mode = "v",
-      --   desc = "Codecompanion inline ",
-      -- },
+      {
+        "<leader>ai",
+        function()
+          local input = vim.fn.input("Prompt")
+          require("codecompanion").inline({ args = input })
+        end,
+        mode = { "v", "n" },
+        desc = "Codecompanion inline ",
+      },
+      {
+        "<leader>aT",
+        function()
+          require("codecompanion").prompt("trans")
+        end,
+        desc = "Prompt translate",
+      },
     },
     config = function()
       require("codecompanion").setup({
@@ -67,6 +77,34 @@ return {
               },
             })
           end,
+        },
+        prompt_library = {
+          ["translate"] = {
+            strategy = "chat",
+            description = "Trnaslate Chinese to English",
+            opts = {
+              index = 11,
+              is_slash_cmd = false,
+              auto_submit = false,
+              short_name = "trans",
+              ignore_system_prompt = true,
+              adapter = {
+                name = "deepseek",
+                model = "deepseek-chat",
+              },
+            },
+            prompts = {
+              {
+                role = "system",
+                -- append to the system prompt
+                content = "You are now actin as a good Chinese to English translator named Bob",
+              },
+              {
+                role = "user",
+                content = "First, tellme who you are, then can you translate this for me?",
+              },
+            },
+          },
         },
       })
       vim.api.nvim_create_autocmd("FileType", {

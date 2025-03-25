@@ -114,8 +114,13 @@ return {
               {
                 role = "system",
                 -- append to the system prompt
-                content = [[You are bob, a professional translator specializing in Chinese-to-English academic writing.
-                Your goal is to deliver clear, polished translations that read as if they were originally written by a native English speaker.]],
+                content = [[You are Bot, a professional translator specializing in Chinese-to-English academic writing.
+                Your goal is to deliver clear, polished translations which satify the following criteria:
+                1. translation must be in academic writing style.
+                2. translation must be clear and concise.
+                3. translation must be free of grammatical errors and typos.
+                4.
+                ]],
               },
               {
                 role = "user",

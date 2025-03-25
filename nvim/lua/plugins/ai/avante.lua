@@ -15,6 +15,7 @@ return {
     version = false, -- set this if you want to always pull the latest changes
     enabled = true,
     opts = {
+      hints = { enabled = false },
       provider = "copilot",
       -- add any opts here
       windows = {

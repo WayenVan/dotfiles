@@ -32,40 +32,40 @@ return {
     end,
     rtxt = "gY",
   },
+  --
+  -- { name = "separator" },
+  --
+  -- {
+  --   name = "  Lsp Actions",
+  --   hl = "Define",
+  --   items = "lsp",
+  -- },
 
   { name = "separator" },
 
-  {
-    name = "  Lsp Actions",
-    hl = "Define",
-    items = "lsp",
-  },
-
-  { name = "separator" },
-
-  {
-    name = "Edit Config",
-    cmd = function()
-      vim.cmd("tabnew")
-      local conf = vim.fn.stdpath("config")
-      vim.cmd("tcd " .. conf .. " | e init.lua")
-    end,
-    rtxt = "ed",
-  },
-
-  {
-    name = "Copy Content",
-    cmd = "%y+",
-    rtxt = "<C-c>",
-  },
-
-  {
-    name = "Delete Content",
-    cmd = "%d",
-    rtxt = "dc",
-  },
-
-  { name = "separator" },
+  -- {
+  --   name = "Edit Config",
+  --   cmd = function()
+  --     vim.cmd("tabnew")
+  --     local conf = vim.fn.stdpath("config")
+  --     vim.cmd("tcd " .. conf .. " | e init.lua")
+  --   end,
+  --   rtxt = "ed",
+  -- },
+  --
+  -- {
+  --   name = "Copy Content",
+  --   cmd = "%y+",
+  --   rtxt = "<C-c>",
+  -- },
+  --
+  -- {
+  --   name = "Delete Content",
+  --   cmd = "%d",
+  --   rtxt = "dc",
+  -- },
+  --
+  -- { name = "separator" },
 
   {
     name = "  Open in terminal",

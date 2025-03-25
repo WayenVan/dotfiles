@@ -71,10 +71,17 @@ return {
             -- stylua: ignore
             "overseer",
             -- stylua: ignore
+            -- "harpoon2",
             {
-              function() return require("noice").api.status.command.get() end,
-              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-              color = function() return { fg = Snacks.util.color("Statement") } end,
+              function()
+                return require("noice").api.status.command.get()
+              end,
+              cond = function()
+                return package.loaded["noice"] and require("noice").api.status.command.has()
+              end,
+              color = function()
+                return { fg = Snacks.util.color("Statement") }
+              end,
             },
           },
           lualine_x = {

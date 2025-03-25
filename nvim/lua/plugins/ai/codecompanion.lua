@@ -27,19 +27,36 @@ return {
         "<leader>ai",
         function()
           local input = vim.fn.input("Prompt")
+          if input == "" then
+            return
+          end
           require("codecompanion").inline({ args = input })
         end,
         mode = { "v", "n" },
         desc = "Codecompanion inline ",
       },
       {
-        "<leader>aT",
+        "<leader>ap",
         function()
-          require("codecompanion").prompt("trans")
+          local cfg = require("codecompanion.config")
+          local item = {}
+          for k, v in pairs(cfg.prompt_library) do
+            table.insert(item, v.opts.short_name)
+          end
+          table.sort(item) -- Sort the item alphabetically
+          vim.ui.select(item, {
+            prompt = "Select prompt",
+          }, function(selection)
+            if selection == nil then
+              return
+            end
+            require("codecompanion").prompt(selection)
+          end)
         end,
         desc = "Prompt translate",
       },
     },
+
     config = function()
       require("codecompanion").setup({
         strategies = {
@@ -97,16 +114,18 @@ return {
               {
                 role = "system",
                 -- append to the system prompt
-                content = "You are now actin as a good Chinese to English translator named Bob",
+                content = [[You are bob, a professional translator specializing in Chinese-to-English academic writing.
+                Your goal is to deliver clear, polished translations that read as if they were originally written by a native English speaker.]],
               },
               {
                 role = "user",
-                content = "First, tellme who you are, then can you translate this for me?",
+                content = "First, tell me who you are, Then translate the following content",
               },
             },
           },
         },
       })
+
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "codecompanion",
         callback = function(ev)

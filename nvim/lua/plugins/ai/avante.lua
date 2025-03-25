@@ -11,28 +11,31 @@ local build_command = get_build_command()
 return {
   {
     "yetone/avante.nvim",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     version = false, -- set this if you want to always pull the latest changes
-    enabled = false,
+    enabled = true,
     opts = {
       provider = "copilot",
       -- add any opts here
       windows = {
         width = 35,
+        ask = {
+          start_insert = false,
+        },
+      },
+
+      behaviour = {
+        auto_set_keymaps = false,
       },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     -- build = "make",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
     keys = {
-      { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
       {
-        "<leader>ap",
-        function()
-          local pk = require("avante.pickers")
-          pk.prompt_picker_fzf()
-        end,
-        desc = "avante: change prompt",
+        "<leader>A",
+        "<CMD>AvanteToggle<CR>",
+        desc = "Toggle Avante",
       },
     },
     build = build_command,

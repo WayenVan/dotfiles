@@ -11,6 +11,9 @@ return {
       -- Only one of these is needed, not both.
       "ibhagwan/fzf-lua", -- optional
     },
+    opts = {
+      disable_signs = true,
+    },
     keys = function(_, keys)
       -- NOTE: Connot override these???
       --

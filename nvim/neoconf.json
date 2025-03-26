@@ -19,7 +19,7 @@
       "basedpyright.analysis.diagnosticSeverityOverrides": {
         "reportUnusedImport": false
       },
-      "basedpyright.analysis.typeCheckingMode": "basic"
+      "basedpyright.analysis.typeCheckingMode": "off"
     },
     "clangd": {
       "clangd.arguments": [

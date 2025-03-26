@@ -6,7 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    cmd = { "CodeCompanion" },
+    cmd = { "CodeCompanion", "CodeCompanionAction" },
     keys = {
       { "<leader>a", "", desc = "+ai" },
       {
@@ -34,6 +34,11 @@ return {
         end,
         mode = { "v", "n" },
         desc = "Codecompanion inline ",
+      },
+      {
+        "<leader>ac",
+        "<cmd>CodeCompanionAction<cr>",
+        desc = "Toggle codecompanion",
       },
       {
         "<leader>ap",
@@ -96,11 +101,11 @@ return {
           end,
         },
         prompt_library = {
-          ["translate"] = {
+          ["Translate"] = {
             strategy = "chat",
             description = "Trnaslate Chinese to English",
             opts = {
-              index = 11,
+              index = 1,
               is_slash_cmd = false,
               auto_submit = false,
               short_name = "trans",
@@ -125,6 +130,27 @@ return {
               {
                 role = "user",
                 content = "First, tell me who you are, Then translate the following content",
+              },
+            },
+          },
+          ["General ask"] = {
+            strategy = "chat",
+            description = "Asking genral questions",
+            opts = {
+              index = 0,
+              is_slash_cmd = false,
+              auto_submit = false,
+              short_name = "ask",
+              ignore_system_prompt = true,
+              adapter = {
+                name = "deepseek",
+                model = "deepseek-chat",
+              },
+            },
+            prompts = {
+              {
+                role = "user",
+                content = [[]],
               },
             },
           },

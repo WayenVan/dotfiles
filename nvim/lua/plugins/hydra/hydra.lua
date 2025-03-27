@@ -10,9 +10,9 @@ return {
       vim.g.hydra_mode = nil
     end,
     keys = {
-      { "<leader>Q", "<cmd>lua _Hydra.spawn.debug()<CR>" },
-      { "<leader>D", "<cmd>lua _Hydra.spawn.draw()<CR>" },
-      { "<leader>W", "<cmd>lua _Hydra.spawn.window()<CR>" },
+      { "<leader>Q", "<cmd>lua _Hydra.spawn.debug()<CR>", desc = "Debug mode" },
+      { "<leader>D", "<cmd>lua _Hydra.spawn.draw()<CR>", desc = "Draw mode" },
+      { "<leader>W", "<cmd>lua _Hydra.spawn.window()<CR>", desc = "Window mode" },
     },
     -- url = "https://github.com/cathyprime/hydra.nvim",
     dependencies = {

@@ -60,5 +60,5 @@ _G._Hydra.spawn["window"] = function()
     mode = "n",
     body = "<leader>W",
     heads = heads,
-  })
+  }):activate()
 end

@@ -3,8 +3,8 @@ local hint_window = nil
 local utils = require("utils.hydra")
 
 -- color setup
-local green_hl = vim.api.nvim_get_hl(0, { name = "Character", link = false })
-local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Window", green_hl.fg)
+-- local green_hl = vim.api.nvim_get_hl(0, { name = "Character", link = false })
+local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Window", "#63b892")
 local heads = {
   {
     "h",
@@ -38,27 +38,27 @@ local heads = {
   { "q", nil, { exit = true, desc = "exit" } },
 }
 
-require("which-key").add({
-  { "<leader>W", icon = " ", name = "Window mode" },
-})
-Hydra({
-  name = "Window",
-  config = {
-    hint = false,
-    color = "pink",
-    invoke_on_body = true,
-    on_enter = function()
-      vim.wo.virtualedit = "all"
-      hint_window = utils.hint_popup(" Win", hl_mode_name, hl_surround_name, heads)
-      hint_window:mount()
-    end,
-    on_exit = function()
-      if hint_window then
-        hint_window:unmount()
-      end
-    end,
-  },
-  mode = "n",
-  body = "<leader>W",
-  heads = heads,
-})
+_G._Hydra.spawn["window"] = function()
+  Hydra({
+    name = "Window",
+    config = {
+      hint = false,
+      color = "pink",
+      invoke_on_body = true,
+      on_enter = function()
+        vim.g.hydra_mode = "window"
+        hint_window = utils.hint_popup(" Win", hl_mode_name, hl_surround_name, heads)
+        hint_window:mount()
+      end,
+      on_exit = function()
+        vim.g.hydra_mode = nil
+        if hint_window then
+          hint_window:unmount()
+        end
+      end,
+    },
+    mode = "n",
+    body = "<leader>W",
+    heads = heads,
+  })
+end

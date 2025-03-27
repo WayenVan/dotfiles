@@ -20,8 +20,8 @@ local heads = {
   },
   { "<localleader>R", "<cmd>lua require('dap').restart()<cr>", { desc = "Restart" } },
   { "<localleader>n", "<cmd>lua require('dap').step_over()<cr>", { desc = "Step Over" } },
-  { "<C-c>", nil, { exit = true, desc = "exit" } },
-  { "q", nil, { exit = true, desc = "exit" } },
+  { "<C-q>", nil, { exit = true, desc = "exit" } },
+  -- { "q", nil, { exit = true, desc = "exit" } },
 }
 
 -- require("which-key").add({
@@ -29,22 +29,23 @@ local heads = {
 -- })
 
 _G._Hydra.spawn["debug"] = function()
-  Hydra({
+  local h = Hydra({
     name = "Debug",
     config = {
       hint = false,
       color = "pink",
       invoke_on_body = true,
       on_enter = function()
-        _Hydra.mode = "debug"
+        vim.g.hydra_mode = "debug"
         vim.wo.virtualedit = "all"
       end,
       on_exit = function()
-        _Hydra.mode = nil
+        vim.g.hydra_mode = nil
       end,
     },
     mode = "n",
     body = "<leader>Q",
     heads = heads,
-  }):activate()
+  })
+  h:activate()
 end

@@ -3,6 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
+      "nvimtools/hydra.nvim",
       { "igorlfs/nvim-dap-view" },
     },
     keys = {
@@ -55,6 +56,26 @@ return {
           vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>q<CR>", { noremap = true, silent = true })
         end,
       })
+
+      -- setting the start of hydra dap mode
+      local dap = require("dap")
+      dap.listeners.before.attach["hydra"] = function()
+        _G._Hydra.spawn["debug"]()
+      end
+      dap.listeners.before.launch["hydra"] = function()
+        _G._Hydra.spawn["debug"]()
+      end
+      dap.listeners.before.event_terminated["hydra"] = function()
+        --send key to exit hydra
+        if vim.g.hydra_mode == "debug" then
+          vim.api.nvim_input("<C-Q>")
+        end
+      end
+      dap.listeners.before.event_exited["hydra"] = function()
+        if vim.g.hydra_mode == "debug" then
+          vim.api.nvim_input("<C-Q>")
+        end
+      end
     end,
     --   config = function()
     --     -- load mason-nvim-dap here, after all adapters have been setup

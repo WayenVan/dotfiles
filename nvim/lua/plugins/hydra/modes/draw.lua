@@ -3,8 +3,8 @@ local hint_window = nil
 local utils = require("utils.hydra")
 
 -- color setup
-local orange_hl = vim.api.nvim_get_hl(0, { name = "Debug", link = false })
-local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Draw", orange_hl.fg)
+-- local orange_hl = vim.api.nvim_get_hl(0, { name = "Debug", link = false })
+local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Draw", "#4c87ba")
 
 local heads = {
   { "H", "<C-v>h:VBox<CR>", { desc = "←" } },
@@ -19,30 +19,28 @@ local heads = {
   { "<C-c>", nil, { exit = true, desc = "exit" } },
   -- { "q", nil, { exit = true, desc = "exit" } },
 }
-
-require("which-key").add({
-  { "<leader>D", icon = "", name = "Draw Diagram" },
-})
-Hydra({
-  name = "Venn Diagram",
-  config = {
-    color = "pink",
-    hint = false,
-    invoke_on_body = true,
-    on_enter = function()
-      _G._Hydra.mode = "Draw"
-      vim.wo.virtualedit = "all"
-      hint_window = utils.hint_popup(" Draw", hl_mode_name, hl_surround_name, heads)
-      hint_window:mount()
-    end,
-    on_exit = function()
-      _G._Hydra.mode = nil
-      if hint_window then
-        hint_window:unmount()
-      end
-    end,
-  },
-  mode = "n",
-  body = "<leader>D",
-  heads = heads,
-})
+_G._Hydra.spawn["draw"] = function()
+  Hydra({
+    name = "Venn Diagram",
+    config = {
+      color = "pink",
+      hint = false,
+      invoke_on_body = true,
+      on_enter = function()
+        vim.g.hydra_mode = "draw"
+        vim.wo.virtualedit = "all"
+        hint_window = utils.hint_popup(" Draw", hl_mode_name, hl_surround_name, heads)
+        hint_window:mount()
+      end,
+      on_exit = function()
+        vim.g.hydra_mode = nil
+        if hint_window then
+          hint_window:unmount()
+        end
+      end,
+    },
+    mode = "n",
+    body = "<leader>D",
+    heads = heads,
+  }):activate()
+end

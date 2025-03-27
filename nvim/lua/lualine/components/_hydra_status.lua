@@ -6,11 +6,7 @@ function M:init(options)
 end
 
 function M:update_status()
-  local mode = _Hydra.mode
-  if mode then
-    return mode
-  end
-  return nil
+  return vim.g.hydra_mode
 end
 
 return M

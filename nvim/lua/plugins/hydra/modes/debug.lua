@@ -19,7 +19,7 @@ local heads = {
     { desc = "Dap Scopes" },
   },
   { "<localleader>R", "<cmd>lua require('dap').restart()<cr>", { desc = "Restart" } },
-  { "<localleader>n", "<cmd>lua require('dap').step_over()<cr>", { desc = "Step Over" } },
+  { "<localleader><leader>", "<cmd>lua require('dap').step_over()<cr>", { desc = "Step Over" } },
   { "<C-q>", nil, { exit = true, desc = "exit" } },
   -- { "q", nil, { exit = true, desc = "exit" } },
 }

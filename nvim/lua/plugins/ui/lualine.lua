@@ -48,6 +48,15 @@ return {
         sections = {
           lualine_a = {
             "mode",
+            -- {
+            --   "_submode",
+            --   cond = function()
+            --     return require("submode").mode() ~= nil
+            --   end,
+            -- },
+            {
+              "_hydra_status",
+            },
           },
           lualine_b = {
             "branch",

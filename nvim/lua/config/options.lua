@@ -2,6 +2,10 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 --
+--
+-- local leader
+
+vim.g.maplocalleader = ","
 -- setting the powershell settings
 if LazyVim.is_win() then
   -- refered from toggleterm.nvim

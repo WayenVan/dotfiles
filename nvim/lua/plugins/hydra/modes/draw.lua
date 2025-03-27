@@ -5,6 +5,7 @@ local utils = require("utils.hydra")
 -- color setup
 local orange_hl = vim.api.nvim_get_hl(0, { name = "Debug", link = false })
 local hl_mode_name, hl_surround_name = utils.generate_and_set_hl("Draw", orange_hl.fg)
+
 local heads = {
   { "H", "<C-v>h:VBox<CR>", { desc = "←" } },
   { "J", "<C-v>j:VBox<CR>", { desc = "↓" } },
@@ -29,11 +30,13 @@ Hydra({
     hint = false,
     invoke_on_body = true,
     on_enter = function()
+      _G._Hydra.mode = "Draw"
       vim.wo.virtualedit = "all"
       hint_window = utils.hint_popup(" Draw", hl_mode_name, hl_surround_name, heads)
       hint_window:mount()
     end,
     on_exit = function()
+      _G._Hydra.mode = nil
       if hint_window then
         hint_window:unmount()
       end

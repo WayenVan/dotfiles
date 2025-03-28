@@ -26,3 +26,5 @@
     ~/.config/kitty/kitty.conf:
       path: kitty/kitty.conf
       create: true
+    ~/.tmux.conf:
+      path: tmux/.tmux.conf

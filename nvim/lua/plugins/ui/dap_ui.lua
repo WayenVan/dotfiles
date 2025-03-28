@@ -1,28 +1,28 @@
 return {
   {
     "rcarriga/nvim-dap-ui",
-    enabled = false,
+    enabled = true,
     opts = {
       layouts = {
         {
           -- You can change the order of elements in the sidebar
           elements = {
             -- Provide IDs as strings or tables with "id" and "size" keys
-            {
-              id = "scopes",
-              size = 0.25, -- Can be float or integer > 1
-            },
-            { id = "watches", size = 0.25 },
-            { id = "stacks", size = 0.25 },
-            { id = "breakpoints", size = 0.25 },
+            -- {
+            --   id = "scopes",
+            --   size = 0.25, -- Can be float or integer > 1
+            -- },
+            { id = "stacks", size = 0.35 },
+            { id = "watches", size = 0.35 },
+            { id = "breakpoints", size = 0.3 },
           },
           size = 50,
           position = "left", -- Can be "left" or "right"
         },
         {
           elements = {
-            { id = "repl", size = 0.4 },
-            { id = "console", size = 0.6 },
+            { id = "console", size = 0.85 },
+            { id = "repl", size = 0.15 },
             -- "repl",
             -- "console",
           },
@@ -32,17 +32,23 @@ return {
       },
     },
     config = function(_, opts)
-      local dap = require("dap")
-      local dapui = require("dapui")
-      dapui.setup(opts)
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open({})
+      require("dapui").setup(opts)
+      local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
       end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close({})
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
       end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close({})
+      dap.listeners.after.event_terminated.dapui_config = function()
+        if require("dap").session() == nil then
+          dapui.close()
+        end
+      end
+      dap.listeners.after.event_exited.dapui_config = function()
+        if require("dap").session() == nil then
+          dapui.close()
+        end
       end
 
       -- set hgith light group

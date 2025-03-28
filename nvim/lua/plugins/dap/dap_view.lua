@@ -1,7 +1,7 @@
 return {
   {
     "igorlfs/nvim-dap-view",
-    enabled = true,
+    enabled = false,
     opts = {
       windows = {
         height = 16,

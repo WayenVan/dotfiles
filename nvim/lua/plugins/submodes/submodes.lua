@@ -7,7 +7,7 @@ return {
     init = function()
       local submode = require("submode")
       -- debug submode
-      submode.create("DEBUG", {
+      submode.create("Debug", {
         mode = "n",
         enter = "<leader>Q",
         leave = { "<C-c>", "q" },
@@ -18,38 +18,29 @@ return {
             -- w.sidebar(w.sessions, {}, "5 sp | setl winfixheight").toggle()
             w.centered_float(w.scopes)
           end, { desc = "Dap Scopes" })
-
           -- scope
           register("<localleader>S", function()
             require("dap.ui.widgets").hover(nil, { border = "single" })
           end, { desc = "Dap Evaluate" })
-        end,
-      })
-
-      submode.create("DRAW", {
-        mode = "n",
-        enter = "<leader>D",
-        leave = { "<C-c>", "q" },
-        hooks = {
-          on_enter = function()
-            vim.keymap.set("v", "f", ":VBox<CR>", { noremap = true, silent = true })
-          end,
-          on_exit = function()
-            vim.keumap.del("v", "f")
-          end,
-        },
-
-        default = function(register)
-          -- scope
-          register("H", "<C-v>h:VBox<CR>", { desc = "←" })
-          register("J", "<C-v>j:VBox<CR>", { desc = "↓" })
-          register("K", "<C-v>k:VBox<CR>", { desc = "↑" })
-          register("L", "<C-v>l:VBox<CR>", { desc = "→" })
-          register("<C-h>", "xi<C-v>u25c4<Esc>", { desc = "◄" }) -- mode = 'v' somehow breaks
-          register("<C-j>", "xi<C-v>u25bc<Esc>", { desc = "▼" })
-          register("<C-k>", "xi<C-v>u25b2<Esc>", { desc = "▲" })
-          register("<C-l>", "xi<C-v>u25ba<Esc>", { desc = "►" })
-          register("f", ":VBox<CR>", { desc = "box" })
+          register("<localleader>t", function()
+            require("dap").terminate()
+          end, { desc = "Toggle Breakpoint" })
+          register("<localleader>r", function()
+            require("dap").restart()
+          end, { desc = "Restart" })
+          register("<localleader>c", function()
+            require("dap").continue()
+          end, { desc = "Continue" })
+          register("<localleader><localleader>", function()
+            require("dap").step_over()
+          end, { desc = "Step Over" })
+          register("<localleader>o", function()
+            require("dap").step_over()
+          end, { desc = "Step Over" })
+          register("<localleader>e", function()
+            require("dap.ui.widgets").hover(nil, { border = "single" })
+          end, { desc = "Evaluate" })
+          -- register("<C-q>", nil, {  desc = "exit" })
         end,
       })
     end,

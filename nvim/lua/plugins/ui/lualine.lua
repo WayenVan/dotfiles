@@ -55,7 +55,7 @@ return {
             --   end,
             -- },
             {
-              "_hydra_status",
+              "_submode_status",
             },
           },
           lualine_b = {

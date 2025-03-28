@@ -10,7 +10,7 @@ return {
       vim.g.hydra_mode = nil
     end,
     keys = {
-      { "<leader>Q", "<cmd>lua _Hydra.spawn.debug()<CR>", desc = "Debug mode" },
+      -- { "<leader>Q", "<cmd>lua _Hydra.spawn.debug()<CR>", desc = "Debug mode" },
       { "<leader>D", "<cmd>lua _Hydra.spawn.draw()<CR>", desc = "Draw mode" },
       { "<leader>W", "<cmd>lua _Hydra.spawn.window()<CR>", desc = "Window mode" },
     },
@@ -24,7 +24,7 @@ return {
       require("plugins.hydra.modes.draw")
       -- require("plugins.hydra.modes.scroll")
       require("plugins.hydra.modes.window")
-      require("plugins.hydra.modes.debug")
+      -- require("plugins.hydra.modes.debug")
     end,
   },
 }

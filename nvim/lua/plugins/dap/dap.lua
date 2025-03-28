@@ -3,7 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
-      "nvimtools/hydra.nvim",
+      -- "nvimtools/hydra.nvim",
       { "igorlfs/nvim-dap-view" },
     },
     keys = {
@@ -59,22 +59,65 @@ return {
 
       -- setting the start of hydra dap mode
       local dap = require("dap")
-      dap.listeners.before.attach["hydra"] = function()
-        _G._Hydra.spawn["debug"]()
+      dap.listeners.before.attach["submode"] = function()
+        require("submode").enter("Debug")
       end
-      dap.listeners.before.launch["hydra"] = function()
-        _G._Hydra.spawn["debug"]()
+      dap.listeners.before.launch["submode"] = function()
+        require("submode").enter("Debug")
       end
-      dap.listeners.before.event_terminated["hydra"] = function()
+      dap.listeners.after.event_terminated["submode"] = function()
         --send key to exit hydra
-        if vim.g.hydra_mode == "debug" then
-          vim.api.nvim_input("<C-Q>")
+        if require("dap").session() == nil then
+          require("submode").leave()
         end
       end
-      dap.listeners.before.event_exited["hydra"] = function()
-        if vim.g.hydra_mode == "debug" then
-          vim.api.nvim_input("<C-Q>")
+
+      dap.listeners.after.event_exited["submode"] = function()
+        if require("dap").session() == nil then
+          require("submode").leave()
         end
+      end
+
+      --jump to the window if
+
+      -- 监听 DAP 断点事件
+      dap.listeners.before.event_stopped["jump_to_existing_buffer"] = function(session, body)
+        if not body.threadId then
+          return
+        end
+
+        session:request("stackTrace", { threadId = body.threadId }, function(err, response)
+          if err then
+            vim.notify("Error getting stack: " .. vim.inspect(err), vim.log.levels.ERROR)
+            return
+          end
+
+          if response and response.stackFrames and #response.stackFrames > 0 then
+            local top_frame = response.stackFrames[1]
+            if top_frame.source and top_frame.line then
+              local filepath = top_frame.source.path or top_frame.source.name
+              local target_line = top_frame.line
+
+              -- 标准化路径（避免因路径格式不同导致匹配失败）
+              filepath = vim.fn.fnamemodify(filepath, ":p")
+
+              -- 检查文件是否已在当前 Tab 的窗口中打开
+              for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                local buf_path = vim.api.nvim_buf_get_name(buf)
+                buf_path = vim.fn.fnamemodify(buf_path, ":p")
+
+                -- 如果找到已打开的窗口
+                if buf_path == filepath then
+                  print(string.format("Open file founded, stop at %s:%d", filepath, target_line))
+                  vim.api.nvim_set_current_win(win) -- 跳转到该窗口
+                  vim.api.nvim_win_set_cursor(win, { target_line, 0 }) -- 定位到断点行
+                  return -- 结束处理
+                end
+              end
+            end
+          end
+        end)
       end
     end,
     --   config = function()

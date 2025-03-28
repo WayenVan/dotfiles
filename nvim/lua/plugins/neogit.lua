@@ -12,7 +12,7 @@ return {
       "ibhagwan/fzf-lua", -- optional
     },
     opts = {
-      disable_signs = true,
+      -- disable_signs = true,
     },
     keys = function(_, keys)
       -- NOTE: Connot override these???

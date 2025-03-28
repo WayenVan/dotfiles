@@ -58,7 +58,7 @@ function _M.hint_popup(mode, hl, surround_hl, keys)
     -- anchor = "SE",
     position = {
       row = vim.o.lines - 3,
-      col = "100%",
+      col = "50%",
       -- row ▲ 0,
       -- col = 0,
     },
@@ -99,7 +99,7 @@ function _M.hint_popup(mode, hl, surround_hl, keys)
     popup:update_layout({
       position = {
         row = vim.o.lines - 3,
-        col = "100%",
+        col = "50%",
       },
     })
   end)

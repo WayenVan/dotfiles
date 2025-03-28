@@ -8,7 +8,9 @@ local Config = {}
 Config.adjust_window_size_when_changing_font_size = false
 Config.allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace"
 Config.anti_alias_custom_block_glyphs = true
-
+-- Config.freetype_load_flags = "NO_BITMAP"
+-- config.freetype_load_target = "Light"
+-- config.freetype_render_target = "HorizontalLcd"
 Config.font = wt.font_with_fallback {
   {
     family = "Maple Mono NF CN",
@@ -60,42 +62,8 @@ else
   Config.font_size = 10.5
 end
 
-Config.underline_position = -2.5
-Config.underline_thickness = "2px"
+-- Config.underline_position = -2.5
+-- Config.underline_thickness = "2px"
 Config.warn_about_missing_glyphs = false
-
--- local monaspace_features =
---   { "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08" }
-
--- Config.font_rules = {
---   {
---     intensity = "Normal",
---     italic = true,
---     font = wt.font_with_fallback {
---       {
---         family = "Monaspace Radon Var",
---         style = "Normal",
---         weight = "Regular",
---         stretch = "Normal",
---         harfbuzz_features = monaspace_features,
---       },
---       { family = "Symbols Nerd Font" },
---     },
---   },
---   {
---     intensity = "Bold",
---     italic = true,
---     font = wt.font_with_fallback {
---       {
---         family = "Monaspace Krypton Var",
---         style = "Italic",
---         weight = "Black",
---         harfbuzz_features = monaspace_features,
---         scale = 1.1,
---       },
---       { family = "Symbols Nerd Font" },
---     },
---   },
--- }
 
 return Config

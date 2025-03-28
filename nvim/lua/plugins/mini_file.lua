@@ -112,7 +112,8 @@ return {
       -- set up y to copy
       local yank_relative_path = function()
         local path = MiniFiles.get_fs_entry().path
-        vim.fn.setreg('"', vim.fn.fnamemodify(path, ":."))
+        path = vim.fn.fnamemodify(path, ":.")
+        vim.fn.setreg('"', path)
         require("noice").notify("Copied " .. path .. " to unamed", "info")
       end
       local yank_absolute = function()
@@ -175,7 +176,7 @@ return {
           vim.keymap.set("i", "<C-s>", function()
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
             require("mini.files").synchronize()
-          end, { buffer = args.data.buf_id, desc = "yank name of current entry" })
+          end, { buffer = args.data.buf_id, desc = "synchronize " })
           -- vim.keymap.set("n", "gi", show_file_info, { buffer = args.data.buf_id, desc = "show file info" })
           vim.keymap.set(
             "n",

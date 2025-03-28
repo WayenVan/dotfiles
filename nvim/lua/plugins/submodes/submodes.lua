@@ -10,7 +10,7 @@ return {
       submode.create("Debug", {
         mode = "n",
         enter = "<leader>Q",
-        leave = { "<C-c>", "q" },
+        leave = { "<C-q>" },
         default = function(register)
           -- scope
           register("<localleader>s", function()

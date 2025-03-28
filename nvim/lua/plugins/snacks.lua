@@ -33,6 +33,14 @@ return {
     },
   },
   opts = {
+    zen = {
+      win = {
+        backdrop = {
+          transparent = false,
+          -- blend = 10,
+        },
+      },
+    },
     notifier = {
       timeout = 1500,
       top_down = false,

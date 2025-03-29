@@ -119,6 +119,8 @@ return {
           end
         end)
       end
+
+      -- submode needed
     end,
     --   config = function()
     --     -- load mason-nvim-dap here, after all adapters have been setup

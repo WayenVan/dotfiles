@@ -28,57 +28,57 @@ return {
       end, {})
 
       -- Example usage: Delete all buffers with filetype 'REPL'
-      delete_buffers_by_filetype("REPL")
-      vim.api.nvim_create_augroup("REPL", { clear = true })
-      auto_cmd("FileType", {
-        pattern = { "quarto", "markdown", "markdown.pandoc", "rmd", "python", "sh", "REPL", "r" },
-        group = "REPL",
-        desc = "set up REPL keymap",
-        callback = function()
-          bufmap(0, "n", "<localleader>r", "", {
-            desc = "+ REPL",
-          })
-          bufmap(0, "n", "<localleader>rf", "<CMD>REPLFocus<CR>", {
-            desc = "Focus on REPL",
-          })
-          bufmap(0, "n", "<localleader>rs", "<CMD>Telescope REPLShow<CR>", {
-            desc = "View REPLs in telescope",
-          })
-          bufmap(0, "n", "<localleader>rh", "<CMD>REPLHide<CR>", {
-            desc = "Hide REPL",
-          })
-          bufmap(0, "v", "<localleader>rr", "<CMD>REPLSendVisual<CR>", {
-            desc = "Send visual region to REPL",
-          })
-          bufmap(0, "n", "<localleader>rr", "<CMD>REPLSendLine<CR>", {
-            desc = "Send line to REPL",
-          })
-          bufmap(0, "n", "<localleader>ro", "<CMD>REPLSendOperator<CR>", {
-            desc = "Send current line to REPL",
-          })
-          bufmap(0, "n", "<localleader>rq", "<CMD>REPLClose<CR>", {
-            desc = "Quit REPL",
-          })
-          bufmap(0, "n", "<localleader>rQ", "<CMD>REPLDeleteALL<CR>", {
-            desc = "Forcequit all REPLs",
-          })
-          bufmap(0, "n", "<localleader>rc", "<CMD>REPLCleanup<CR>", {
-            desc = "Clear REPLs.",
-          })
-          bufmap(0, "n", "<localleader>rS", "<CMD>REPLSwap<CR>", {
-            desc = "Swap REPLs.",
-          })
-          bufmap(0, "n", "<localleader>ra", "<CMD>REPLStart<CR>", {
-            desc = "Start an REPL from available REPL metas",
-          })
-          bufmap(0, "n", "<localleader>rA", "<CMD>REPLAttachBufferToREPL<CR>", {
-            desc = "Attach current buffer to a REPL",
-          })
-          bufmap(0, "n", "<localleader>rd", "<CMD>REPLDetachBufferToREPL<CR>", {
-            desc = "Detach current buffer to any REPL",
-          })
-        end,
-      })
+      -- delete_buffers_by_filetype("REPL")
+      -- vim.api.nvim_create_augroup("REPL", { clear = true })
+      -- auto_cmd("FileType", {
+      --   pattern = { "quarto", "markdown", "markdown.pandoc", "rmd", "python", "sh", "REPL", "r" },
+      --   group = "REPL",
+      --   desc = "set up REPL keymap",
+      --   callback = function()
+      --     bufmap(0, "n", "<localleader>r", "", {
+      --       desc = "+ REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>rf", "<CMD>REPLFocus<CR>", {
+      --       desc = "Focus on REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>rs", "<CMD>Telescope REPLShow<CR>", {
+      --       desc = "View REPLs in telescope",
+      --     })
+      --     bufmap(0, "n", "<localleader>rh", "<CMD>REPLHide<CR>", {
+      --       desc = "Hide REPL",
+      --     })
+      --     bufmap(0, "v", "<localleader>rr", "<CMD>REPLSendVisual<CR>", {
+      --       desc = "Send visual region to REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>rr", "<CMD>REPLSendLine<CR>", {
+      --       desc = "Send line to REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>ro", "<CMD>REPLSendOperator<CR>", {
+      --       desc = "Send current line to REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>rq", "<CMD>REPLClose<CR>", {
+      --       desc = "Quit REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>rQ", "<CMD>REPLDeleteALL<CR>", {
+      --       desc = "Forcequit all REPLs",
+      --     })
+      --     bufmap(0, "n", "<localleader>rc", "<CMD>REPLCleanup<CR>", {
+      --       desc = "Clear REPLs.",
+      --     })
+      --     bufmap(0, "n", "<localleader>rS", "<CMD>REPLSwap<CR>", {
+      --       desc = "Swap REPLs.",
+      --     })
+      --     bufmap(0, "n", "<localleader>ra", "<CMD>REPLStart<CR>", {
+      --       desc = "Start an REPL from available REPL metas",
+      --     })
+      --     bufmap(0, "n", "<localleader>rA", "<CMD>REPLAttachBufferToREPL<CR>", {
+      --       desc = "Attach current buffer to a REPL",
+      --     })
+      --     bufmap(0, "n", "<localleader>rd", "<CMD>REPLDetachBufferToREPL<CR>", {
+      --       desc = "Detach current buffer to any REPL",
+      --     })
+      --   end,
+      -- })
       require("yarepl").setup(opts)
     end,
   },

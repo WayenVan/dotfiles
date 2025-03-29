@@ -1,8 +1,11 @@
 local submode = require("submode")
 -- debug submode
+vim.keymap.set("n", "<leader>!", function()
+  submode.enter("Debug")
+end, { desc = "Enter debug mode" })
 submode.create("Debug", {
   mode = "n",
-  enter = "<leader>!",
+  enter = nil,
   leave = { "<C-q>" },
   default = function(register)
     -- scope

@@ -22,9 +22,9 @@ local mappings = {
   { "<C-S-k>", act.ClearScrollback "ScrollbackOnly", "clear scrollback" },
   { "<C-S-p>", act.ActivateCommandPalette, "command palette" },
   { "<C-S-r>", act.ReloadConfiguration, "reload config" },
-  { "<leader>t", act.SpawnTab "CurrentPaneDomain", "new pane" },
+  { "<leader>c", act.SpawnTab "CurrentPaneDomain", "new pane" },
   { "<leader>n", act.SpawnWindow, "new window" },
-  { "<leader>l", act.ShowDebugOverlay, "debug overlay" },
+  { "<leader>D", act.ShowDebugOverlay, "debug overlay" },
   { "<leader>d", act.CloseCurrentPane { confirm = true }, "delete panel" },
   { "<leader>q", act.QuitApplication, "quit application" },
   {
@@ -44,8 +44,8 @@ local mappings = {
   { "<C-S-Space>", act.QuickSelect, "quick select" },
 
   ---quick split and nav
-  { '<C-S-">', act.SplitHorizontal { domain = "CurrentPaneDomain" }, "vsplit" },
-  { "<C-S-%>", act.SplitVertical { domain = "CurrentPaneDomain" }, "hsplit" },
+  { '<leader>"', act.SplitHorizontal { domain = "CurrentPaneDomain" }, "vsplit" },
+  { "<leader>%", act.SplitVertical { domain = "CurrentPaneDomain" }, "hsplit" },
   { "<leader>v", act.SplitHorizontal { domain = "CurrentPaneDomain" }, "vsplit" },
   { "<leader>s", act.SplitVertical { domain = "CurrentPaneDomain" }, "hsplit" },
   { "<C-S-h>", act.ActivatePaneDirection "Left", "move left" },
@@ -79,9 +79,9 @@ local mappings = {
   { "<leader>9", wezterm.action { ActivateTab = -1 } },
 
   ---key tables
-  { "<leader>h", act.ActivateKeyTable { name = "help_mode", one_shot = true }, "help" },
+  { "<leader>H", act.ActivateKeyTable { name = "help_mode", one_shot = true }, "help" },
   {
-    "<leader>w",
+    "<leader>W",
     act.ActivateKeyTable { name = "window_mode", one_shot = false },
     "window mode",
   },
@@ -90,7 +90,7 @@ local mappings = {
     act.ActivateKeyTable { name = "font_mode", one_shot = false },
     "font mode",
   },
-  { "<leader>c", act.ActivateCopyMode, "copy mode" },
+  { "<leader>C", act.ActivateCopyMode, "copy mode" },
   { "<leader>/", act.Search "CurrentSelectionOrEmptyString", "search mode" },
   { "<leader>p", act.ActivateKeyTable { name = "pick_mode" }, "pick mode" },
 }

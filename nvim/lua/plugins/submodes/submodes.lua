@@ -7,6 +7,7 @@ return {
     init = function()
       require("plugins.submodes.modes.debug")
       require("plugins.submodes.modes.repl")
+      require("plugins.submodes.modes.tex")
     end,
     -- (recommended) specify version to prevent unexpected change.
     -- version = "6.0.0",

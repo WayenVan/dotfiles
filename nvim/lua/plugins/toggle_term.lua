@@ -1,3 +1,10 @@
+function CheckCount()
+  if vim.v.count > 0 then
+    return vim.v.count
+  else
+    return nil
+  end
+end
 return {
   {
     "akinsho/toggleterm.nvim",
@@ -9,7 +16,7 @@ return {
       {
         "<c-_>",
         function()
-          local count = vim.v.count1
+          local count = CheckCount()
           require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
         desc = "ToggleTerm",
@@ -18,7 +25,7 @@ return {
       {
         "<c-/>",
         function()
-          local count = vim.v.count1
+          local count = CheckCount()
           require("toggleterm").toggle(count, 0, LazyVim.root.get())
         end,
         noremap = true,

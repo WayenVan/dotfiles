@@ -24,6 +24,13 @@ return {
         desc = "Create new chat",
       },
       {
+        "<leader>as",
+        function()
+          require("codecompanion").prompt("ask")
+        end,
+        desc = "Create new chat",
+      },
+      {
         "<leader>ai",
         function()
           local input = vim.fn.input("Prompt")

@@ -17,7 +17,8 @@
     },
     "basedpyright": {
       "basedpyright.analysis.diagnosticSeverityOverrides": {
-        "reportUnusedImport": false
+        "reportUnusedImport": false,
+        "reportUnusedVariable": false
       },
       "basedpyright.analysis.typeCheckingMode": "off"
     },

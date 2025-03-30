@@ -6,11 +6,17 @@ for i in range(10):
     a = a + 1
     print(i)
 
-a = 1
+
+def add(x: int, y: int) -> int:
+    c: int = 0
+    return y
+
+
 b = 2
 c = 3
 d = 4
 e = 5
+
 arr = array([1, 2, 3, 4, 5])
 
 

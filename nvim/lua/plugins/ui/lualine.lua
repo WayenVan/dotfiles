@@ -64,6 +64,7 @@ return {
 
           lualine_c = {
             { "fancy_cwd", substitute_home = true, separator = "" },
+            { "_layers_status" },
             -- LazyVim.lualine.root_dir(),
             -- { "filesize", padding = { left = 0, right = 1 } },
             {

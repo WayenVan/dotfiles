@@ -8,7 +8,7 @@ return {
       require("plugins.submodes.modes.debug")
       -- require("plugins.submodes.modes.repl")
       require("plugins.submodes.modes.tex")
-      require("plugins.submodes.modes.window")
+      -- require("plugins.submodes.modes.window")
     end,
     -- (recommended) specify version to prevent unexpected change.
     -- version = "6.0.0",

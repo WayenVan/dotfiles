@@ -6,7 +6,7 @@ end, { desc = "Enter tex mode " })
 submode.create("Tex", {
   mode = "n",
   enter = nil,
-  leave = { "<C-q>" },
+  leave = { "Q" },
   default = function(register)
     register("<localleader>i", "<plug>(vimtex-info)        ", { desc = "vimtex-info" })
     register("<localleader>I", "<plug>(vimtex-info-full)   ", { desc = "vimtex-info-full" })

@@ -1,3 +1,4 @@
+-- WARN: deprecated due to change to runs
 local submode = require("submode")
 -- a cross-mode layers for REPL
 _G.submode_repl = {

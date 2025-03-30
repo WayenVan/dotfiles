@@ -54,9 +54,8 @@ return {
             --     return require("submode").mode() ~= nil
             --   end,
             -- },
-            {
-              "_submode_status",
-            },
+            { "_submode_status" },
+            { "_layers_status" },
           },
           lualine_b = {
             "branch",
@@ -64,7 +63,6 @@ return {
 
           lualine_c = {
             { "fancy_cwd", substitute_home = true, separator = "" },
-            { "_layers_status" },
             -- LazyVim.lualine.root_dir(),
             -- { "filesize", padding = { left = 0, right = 1 } },
             {

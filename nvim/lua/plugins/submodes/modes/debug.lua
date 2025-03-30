@@ -6,7 +6,7 @@ end, { desc = "Enter debug mode" })
 submode.create("Debug", {
   mode = "n",
   enter = nil,
-  leave = { "<C-q>" },
+  leave = { "Q" },
   default = function(register)
     -- scope
     register("<localleader>s", function()

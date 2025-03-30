@@ -25,7 +25,7 @@ draw_layer:keymaps({
     { "<C-k>", "xi<C-v>u25b2<Esc>", { desc = "▲" } },
     { "<C-l>", "xi<C-v>u25ba<Esc>", { desc = "►" } },
     {
-      "<C-c>",
+      "<C-q>",
       function()
         LayersManager.layers.DRAW:deactivate()
       end,

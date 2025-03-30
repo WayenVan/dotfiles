@@ -23,11 +23,19 @@ return {
         end,
         { desc = "Activate REPL layer" },
       },
+      {
+        "<leader>W",
+        function()
+          LayersManager.layers["WINDOW"]:activate()
+        end,
+        { desc = "Activate REPL layer" },
+      },
     },
     config = function()
       require("layers").setup({})
       require("plugins.layers.sublayers.draw")
       require("plugins.layers.sublayers.repl")
+      require("plugins.layers.sublayers.window")
     end,
   },
 }

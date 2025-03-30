@@ -86,7 +86,7 @@ repl_layer:keymaps({
       },
     },
     {
-      "<C-c>",
+      "<C-q>",
       function()
         repl_layer:deactivate()
       end,

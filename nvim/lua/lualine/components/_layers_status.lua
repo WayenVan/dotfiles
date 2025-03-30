@@ -12,7 +12,7 @@ function M:update_status()
     return nil
   end
   local layers_string = table.concat(layers, ", ")
-  local ret = "%#lualine_x_diff_removed_normal#" .. icon .. " " .. layers_string .. "%#lualine_c_normal#"
+  local ret = icon .. " " .. layers_string
   return ret
 end
 

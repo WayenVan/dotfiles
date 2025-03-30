@@ -27,7 +27,7 @@ end, { desc = "Enter REPL Mode" })
 local repl_submod_cmd_group = vim.api.nvim_create_augroup("repl_submod_cmd_group", { clear = true })
 vim.api.nvim_create_autocmd("ModeChanged", {
   group = repl_submod_cmd_group,
-  pattern = "*:v",
+  pattern = "*:*[vV]",
   callback = function()
     if _G.submode_repl.activated then
       submode.enter("V-Repl")
@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 })
 vim.api.nvim_create_autocmd("ModeChanged", {
   group = repl_submod_cmd_group,
-  pattern = "*:n",
+  pattern = "*:*n",
   callback = function()
     if _G.submode_repl.activated then
       submode.enter("Repl")

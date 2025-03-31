@@ -3,7 +3,7 @@ return {
   {
     "bassamsdata/namu.nvim",
     event = "VeryLazy",
-    enalbed = false,
+    enabled = false,
     keys = {
       {
         "<leader>'",

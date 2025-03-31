@@ -71,6 +71,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+    enabled = false,
     opts = {
       zindex = 2,
     },

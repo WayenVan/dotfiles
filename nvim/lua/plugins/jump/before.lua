@@ -4,7 +4,7 @@ return {
     event = "BufEnter",
     keys = {
       {
-        "<leader>;",
+        "<leader>'",
         function()
           require("before").show_edits_in_quickfix()
         end,

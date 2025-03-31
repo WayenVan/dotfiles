@@ -28,6 +28,9 @@ return {
         local minifile = require("mini.files")
         minifile.close()
       end
+      local function close_minimap()
+        require("neominimap").off()
+      end
 
       local function delete_not_good_buffer()
         -- remove all non-normal buffers
@@ -69,7 +72,7 @@ return {
 
       -- opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
-      opts.pre_save_cmds = { disable_bqf, close_minifile, delete_not_good_buffer }
+      opts.pre_save_cmds = { disable_bqf, close_minifile, close_minimap, delete_not_good_buffer }
       opts.post_restore_cmds = { reload_plugins }
     end,
   },

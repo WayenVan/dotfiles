@@ -35,7 +35,7 @@ return {
       -- { "<leader>nf", "<cmd>Neominimap focus<cr>", desc = "Focus on minimap" },
       -- { "<leader>nu", "<cmd>Neominimap unfocus<cr>", desc = "Unfocus minimap" },
       {
-        "<leader>;;",
+        "<leader>mm",
         function()
           local m = require("neominimap")
           m.toggle()
@@ -43,7 +43,7 @@ return {
         desc = "Switch focus on minimap",
       },
       {
-        "<leader>;f",
+        "<leader>mf",
         function()
           local m = require("neominimap")
           m.toggleFocus()
@@ -83,6 +83,12 @@ return {
         layout = "split",
         sync_cursor = true,
         auto_enable = false,
+
+        exclude_filetypes = {
+          "help",
+          "bigfile", -- For Snacks.nvim
+          "snacks_picker_input", -- For Snacks.nvim
+        },
         split = {
           minimap_width = 40,
         },

@@ -69,11 +69,13 @@ return {
         group = minimap_autogroup,
         pattern = "neominimap",
         callback = function(env)
-          vim.keymap.set("n", "q", function()
+          local function toggle()
             local m = require("neominimap")
             m.toggleFocus()
-            m.off()
-          end, { noremap = true, silent = true, buffer = env.buf })
+            m.toggle()
+          end
+          vim.keymap.set("n", "q", toggle, { noremap = true, silent = true, buffer = env.buf })
+          vim.keymap.set("n", "<CR>", toggle, { noremap = true, silent = true, buffer = env.buf })
         end,
       })
 

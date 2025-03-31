@@ -47,7 +47,7 @@ else
 end
 
 -- sessiont setting
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- set pyright to basedpyright
 vim.g.lazyvim_python_lsp = "basedpyright"

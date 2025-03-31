@@ -10,7 +10,7 @@ local wezterm = require "wezterm"
 local Config = {}
 
 Config.disable_default_key_bindings = true
-Config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = math.maxinteger }
+Config.leader = { key = "z", mods = "CTRL", timeout_milliseconds = math.maxinteger }
 
 local mappings = {
   { "<C-Tab>", act.ActivateTabRelative(1), "next tab" },

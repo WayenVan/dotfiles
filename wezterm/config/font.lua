@@ -7,10 +7,8 @@ local Config = {}
 
 Config.adjust_window_size_when_changing_font_size = false
 Config.allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace"
-Config.anti_alias_custom_block_glyphs = true
--- Config.freetype_load_flags = "NO_BITMAP"
--- config.freetype_load_target = "Light"
--- config.freetype_render_target = "HorizontalLcd"
+-- Config.anti_alias_custom_block_glyphs = true
+
 Config.font = wt.font_with_fallback {
   {
     family = "Maple Mono NF CN",

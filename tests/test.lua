@@ -1,2 +1,0 @@
-MiniMap.refresh()
-MiniMap.open()

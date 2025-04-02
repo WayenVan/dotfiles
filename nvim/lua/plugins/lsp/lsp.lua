@@ -2,7 +2,7 @@ return {
   -- change lsp keymaps
   {
     "neovim/nvim-lspconfig",
-    opts = function()
+    opts = function(_, opts)
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       -- change a keymap
       --
@@ -24,10 +24,10 @@ return {
         desc = "open lsp signature help",
         mode = "i",
       }
-      -- disable a keymap
-      -- keys[#keys + 1] = { "<leader>ca", false }
-      -- add a keymap
-      -- keys[#keys + 1] = { "H", "<cmd>echo 'hello'<cr>" }
+
+      -- disable diagnostic virtual text, using the virtual lines
+      opts.diagnostics.virtual_text = false
+      vim.diagnostic.config({ virtual_lines = true })
     end,
   },
 }

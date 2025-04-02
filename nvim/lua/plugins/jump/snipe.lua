@@ -13,6 +13,7 @@ return {
     },
     opts = {
       ui = {
+        preselect_current = true,
         position = "center",
       },
       navigate = {

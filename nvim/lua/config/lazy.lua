@@ -30,7 +30,7 @@ require("lazy").setup({
       -- this might not work
       keys = {
         -- { "<leader>t", false },
-        -- { "<leader>T", false },
+        -- { "<leader>-", false },
       },
     },
     -- import any extras modules here

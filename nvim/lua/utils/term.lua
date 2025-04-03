@@ -1,99 +1,57 @@
 local M = {}
 
-local function load_toggleterm()
-  local t = require("toggleterm.terminal")
-  return t
+local t = require("toggleterm.terminal")
+local storage = {}
+
+local function create_term(cmd, dir, name)
+  return t.Terminal:new({
+    cmd = cmd,
+    dir = dir,
+    direction = "float",
+    close_on_exit = true,
+    hidden = false,
+    display_name = name,
+  })
 end
 
 ---@param config TermCreateArgs
 function M.create_terminal(config)
-  -- set defualt values
-  local t = load_toggleterm()
   t.Terminal:new(config):toggle()
 end
 
--- cutomized local terminal
-local storage = {
-  lazygit_cwd = nil,
-  lazygit_root = nil,
-  lazygit_log_cwd = nil,
-  lazygit_log_root = nil,
+function M.create_aider()
+  local mode_arg = vim.opt.background:get() == "dark" and "--dark-mode" or "--light-mode"
+  create_term("aider --no-auto-commits " .. mode_arg, vim.fn.getcwd(), "Aider"):toggle()
+end
+
+local lazygit_terms = {
+  cwd = { cmd = "lazygit", dir = vim.fn.getcwd(), name = "LazyGitCwd" },
+  root = { cmd = "lazygit", dir = LazyVim.root(), name = "LazyGitRoot" },
+  log_cwd = { cmd = "lazygit log", dir = vim.fn.getcwd(), name = "LazyGitLog" },
+  log_root = { cmd = "lazygit log", dir = LazyVim.root(), name = "LazyGitLog" },
 }
 
-function M.lazygit_cwd()
-  if not storage.lazygit_cwd then
-    storage.lazygit_cwd = load_toggleterm().Terminal:new({
-      cmd = "lazygit",
-      dir = vim.fn.getcwd(),
-      direction = "float",
-      close_on_exit = true,
-      hidden = false,
-      display_name = "LazyGitCwd",
-      on_create = nil,
-    })
+for key, spec in pairs(lazygit_terms) do
+  M["lazygit_" .. key] = function()
+    if not storage[key] then
+      storage[key] = create_term(spec.cmd, spec.dir, spec.name)
+    end
+    storage[key]:toggle()
   end
-  storage.lazygit_cwd:toggle()
 end
 
-function M.lazygit_root()
-  if not storage.lazygit_root then
-    storage.lazygit_root = load_toggleterm().Terminal:new({
-      cmd = "lazygit",
-      dir = LazyVim.root(),
-      direction = "float",
-      close_on_exit = true,
-      hidden = false,
-      display_name = "LazyGitRoot",
-      on_create = nil,
-    })
-  end
-  storage.lazygit_root:toggle()
-end
-
-function M.lazygit_log_cwd()
-  if not storage.lazygit_log_cwd then
-    storage.lazygit_log_cwd = load_toggleterm().Terminal:new({
-      cmd = "lazygit log",
-      dir = vim.fn.getcwd(),
-      direction = "float",
-      close_on_exit = true,
-      hidden = false,
-      display_name = "LazyGitLog",
-      on_create = nil,
-    })
-  end
-  storage.lazygit_log_cwd:toggle()
-end
-
-function M.lazygit_log_root()
-  if not storage.lazygit_log_root then
-    storage.lazygit_log_root = load_toggleterm().Terminal:new({
-      cmd = "lazygit log",
-      dir = LazyVim.root(),
-      direction = "float",
-      close_on_exit = true,
-      hidden = false,
-      display_name = "LazyGitLog",
-      on_create = nil,
-    })
-  end
-  storage.lazygit_log_root:toggle()
-end
-
--- clear all stored terminal
 function M.clear_storage()
-  for key, value in pairs(storage) do
-    if value ~= nil then
-      value:shutdown()
+  for key, term in pairs(storage) do
+    if term then
+      term:shutdown()
       storage[key] = nil
     end
   end
 end
 
 function M.clear_all()
-  local t = load_toggleterm()
-  for _, v in pairs(t.get_all()) do
-    v:shutdown()
+  for _, term in pairs(t.get_all()) do
+    term:shutdown()
   end
 end
 

@@ -5,7 +5,9 @@ return {
     opts = {
       strategy = {
         "toggleterm",
-        open_on_start = false,
+        direction = "horizontal",
+        open_on_start = true,
+        hidden = false,
       },
       templates = { "shell", "user.run_python", "user.run_python_with_args" },
       default_detail = 3,

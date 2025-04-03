@@ -12,7 +12,7 @@ return {
     dependencies = { { "folke/which-key.nvim" } },
     cmd = { "ToggleTerm" },
     keys = {
-      { "<leader>T", "", desc = "toggle terminal" },
+      { "<leader>-", "", desc = "toggle terminal" },
       {
         "<c-_>",
         function()
@@ -33,7 +33,7 @@ return {
         mode = { "n", "i" },
       },
       {
-        "<leader>Tf",
+        "<leader>-f",
         function()
           local count = vim.v.count1
           require("toggleterm").toggle(count, 15, LazyVim.root.get(), "float")
@@ -41,7 +41,7 @@ return {
         desc = "ToggleTerm (float root_dir)",
       },
       {
-        "<leader>Ts",
+        "<leader>-s",
         function()
           local count = vim.v.count1
           require("toggleterm").toggle(count, 15, LazyVim.root.get(), "horizontal")
@@ -49,7 +49,7 @@ return {
         desc = "ToggleTerm (horizontal root_dir)",
       },
       {
-        "<leader>Tv",
+        "<leader>-v",
         function()
           local count = vim.v.count1
           require("toggleterm").toggle(count, vim.o.columns * 0.4, LazyVim.root.get(), "vertical")
@@ -57,17 +57,17 @@ return {
         desc = "ToggleTerm (vertical root_dir)",
       },
       {
-        "<leader>Tn",
+        "<leader>-n",
         "<cmd>ToggleTermSetName<cr>",
         desc = "Set term name",
       },
       {
-        "<leader>Tt",
+        "<leader>--",
         "<cmd>TermSelect<cr>",
         desc = "Select term",
       },
       {
-        "<leader>Tc",
+        "<leader>-c",
         function()
           require("utils.term").clear_all()
         end,
@@ -88,6 +88,13 @@ return {
         end,
         desc = "lazygit (root)",
       },
+      {
+        "<leader>a/",
+        function()
+          require("utils.term").create_aider()
+        end,
+        desc = "aider (cwd>)",
+      },
       -- {
       --   "<leader>gl",
       --   function()
@@ -103,14 +110,14 @@ return {
       --   desc = "lazygit log (root)",
       -- },
       -- {
-      --   "<leader>Tt",
+      --   "<leader>-t",
       --   function()
       --     require("toggleterm").toggle(1, 100, LazyVim.root.get(), "tab")
       --   end,
       --   desc = "ToggleTerm (tab root_dir)",
       -- },
       -- {
-      --   "<leader>TT",
+      --   "<leader>-T",
       --   function()
       --     require("toggleterm").toggle(1, 100, vim.loop.cwd(), "tab")
       --   end,
@@ -123,7 +130,7 @@ return {
         if term.direction == "horizontal" then
           return 15
         elseif term.direction == "vertical" then
-          return vim.o.columns * 0.4
+          return vim.o.columns * 0.5
         end
       end,
       highlights = {

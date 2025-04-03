@@ -1,6 +1,29 @@
+local bright_theme = {
+  user_input_color = "#000fff",
+  tool_output_color = "FF6600",
+  tool_error_color = "#ed8796",
+  tool_warning_color = "#eed49f",
+  assistant_output_color = "#c6a0f6",
+  completion_menu_color = "#cad3f5",
+  completion_menu_bg_color = "#24273a",
+  completion_menu_current_color = "#181926",
+  completion_menu_current_bg_color = "#f4dbd6",
+}
+local default_theme = {
+  user_input_color = "#a6da95",
+  tool_output_color = "#8aadf4",
+  tool_error_color = "#ed8796",
+  tool_warning_color = "#eed49f",
+  assistant_output_color = "#c6a0f6",
+  completion_menu_color = "#cad3f5",
+  completion_menu_bg_color = "#24273a",
+  completion_menu_current_color = "#181926",
+  completion_menu_current_bg_color = "#f4dbd6",
+}
 return {
   {
     "GeorgesAlkhouri/nvim-aider",
+    enabled = false,
     cmd = {
       "AiderTerminalToggle",
       "AiderHealth",
@@ -17,6 +40,11 @@ return {
       { "<leader>a+", "<cmd>AiderTreeAddFile<cr>", desc = "Add File from Tree to Aider", ft = "NvimTree" },
       { "<leader>a-", "<cmd>AiderTreeDropFile<cr>", desc = "Drop File from Tree from Aider", ft = "NvimTree" },
     },
+    opts = function(_, opts)
+      if vim.o.background == "light" then
+        opts.theme = vim.deepcopy(bright_theme)
+      end
+    end,
     dependencies = {
       "folke/snacks.nvim",
       --- Neo-tree integration
@@ -34,6 +62,25 @@ return {
         end,
       },
     },
-    config = true,
+    config = function(_, opts)
+      require("nvim_aider").setup(opts)
+      -- local aider_group = vim.api.nvim_create_augroup("Aider", { clear = true })
+      -- vim.api.nvim_create_autocmd("OptionSet", {
+      --   group = aider_group,
+      --   pattern = "background",
+      --   callback = function()
+      --     local cfg = require("nvim_aider.config")
+      --     if vim.o.background == "light" then
+      --       cfg.theme = bright_theme
+      --     else
+      --       cfg.theme = default_theme
+      --     end
+      --     vim.notify(vim.inspect(cfg.theme), vim.log.levels.INFO, {
+      --       title = "Aider Theme",
+      --       timeout = 2000,
+      --     })
+      --   end,
+      -- })
+    end,
   },
 }

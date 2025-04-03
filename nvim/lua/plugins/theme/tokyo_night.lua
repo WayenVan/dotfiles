@@ -3,7 +3,7 @@ return {
     "folke/tokyonight.nvim",
     lazy = false,
     opts = {
-      on_highlights = function(highlights, colors)
+      on_highlights = function(highlights, _)
         -- NOTE: LSP diagnostics viitual line
         --
         -- highlights["DiagnosticWarn"] = { link = "DiagnosticVirtualTextWarn" }

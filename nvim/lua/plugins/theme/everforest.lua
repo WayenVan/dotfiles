@@ -8,11 +8,7 @@ return {
     opts = {
       background = "hard",
       diagnostic_text_highlight = false,
-      on_highlights = function(hl, palette)
-        if LazyVim.has("avante.nvim") then
-          require("utils.ui").setup_hl_vante(hl)
-        end
-      end,
+      on_highlights = function(hl, palette) end,
     },
     config = function(_, opts)
       require("everforest").setup(opts)

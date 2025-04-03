@@ -1,4 +1,5 @@
 from numpy import array, ndarray
+from numpy import d
 
 a = 0
 for i in range(10):
@@ -16,6 +17,7 @@ c = 3
 d = 4
 e = 5
 
+sd
 arr = array([1, 2, 3, 4, 5])
 
 

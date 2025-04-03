@@ -19,7 +19,7 @@ return {
         mode = "i",
       }
       keys[#keys + 1] = {
-        "<C-g>",
+        "<M-s>",
         "<cmd>lua vim.lsp.buf.signature_help()<cr>",
         desc = "open lsp signature help",
         mode = "i",

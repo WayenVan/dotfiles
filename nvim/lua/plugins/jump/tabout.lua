@@ -4,8 +4,10 @@ return {
     "abecodes/tabout.nvim",
     config = function()
       require("tabout").setup({
-        tabkey = "<c-l>", -- key to trigger tabout, set to an empty string to disable
-        backwards_tabkey = "<c-h>", -- key to trigger backwards tabout, set to an empty string to disable
+        -- tabkey = "<c-l>", -- key to trigger tabout, set to an empty string to disable
+        -- backwards_tabkey = "<c-h>", -- key to trigger backwards tabout, set to an empty string to disable
+        tabkey = "<M-j>",
+        backwards_tabkey = "<M-k>",
         act_as_tab = true, -- shift content if tab out is not possible
         act_as_shift_tab = true, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
         -- default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)

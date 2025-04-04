@@ -35,7 +35,7 @@ map("n", "<leader>gO", function()
 end, { desc = "Git Browse" })
 
 -- terminal send esc to shell
-map("t", "\\\\", [[<C-\><C-n>]], { silent = true })
+-- map("t", "\\\\", [[<C-\><C-n>]], { silent = true })
 -- map("t", "<c-[>", [[<Esc>]], { silent = true })
 
 -- cutomized text object

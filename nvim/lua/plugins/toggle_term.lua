@@ -1,10 +1,14 @@
-function CheckCount()
-  if vim.v.count > 0 then
-    return vim.v.count
-  else
-    return nil
+_G.Last_toggle_term_id = nil
+
+local function toggle_with_prevous(dir, direction, size)
+  size = size or 0
+  if vim.v.count == 0 and Last_toggle_term_id ~= nil then
+    require("toggleterm").toggle(Last_toggle_term_id, size, dir, direction)
+    return
   end
+  require("toggleterm").toggle(vim.v.count, size, dir, direction)
 end
+
 return {
   {
     "akinsho/toggleterm.nvim",
@@ -16,8 +20,7 @@ return {
       {
         "<c-_>",
         function()
-          local count = CheckCount()
-          require("toggleterm").toggle(count, 0, LazyVim.root.get())
+          toggle_with_prevous(LazyVim.root.get())
         end,
         desc = "ToggleTerm",
         mode = { "n", "i" },
@@ -25,8 +28,7 @@ return {
       {
         "<c-/>",
         function()
-          local count = CheckCount()
-          require("toggleterm").toggle(count, 0, LazyVim.root.get())
+          toggle_with_prevous(LazyVim.root.get())
         end,
         noremap = true,
         desc = "ToggleTerm",
@@ -35,24 +37,21 @@ return {
       {
         "<leader>-f",
         function()
-          local count = vim.v.count1
-          require("toggleterm").toggle(count, 15, LazyVim.root.get(), "float")
+          toggle_with_prevous(LazyVim.root.get(), "float")
         end,
         desc = "ToggleTerm (float root_dir)",
       },
       {
         "<leader>-s",
         function()
-          local count = vim.v.count1
-          require("toggleterm").toggle(count, 15, LazyVim.root.get(), "horizontal")
+          toggle_with_prevous(LazyVim.root.get(), "horizontal")
         end,
         desc = "ToggleTerm (horizontal root_dir)",
       },
       {
         "<leader>-v",
         function()
-          local count = vim.v.count1
-          require("toggleterm").toggle(count, vim.o.columns * 0.4, LazyVim.root.get(), "vertical")
+          toggle_with_prevous(LazyVim.root.get(), "vertical", vim.o.columns * 0.5)
         end,
         desc = "ToggleTerm (vertical root_dir)",
       },
@@ -145,7 +144,13 @@ return {
       -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
       -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
       on_open = function(t)
-        vim.cmd("startinsert")
+        -- remember the laast opened terminal
+        -- vim.notify(t.id)
+        if Last_toggle_term_id ~= nil and Last_toggle_term_id ~= t.id then
+          Last_toggle_term_id = t.id
+          return
+        end
+        Last_toggle_term_id = t.id
       end,
       --- @param t Terminal
       on_create = function(t)
@@ -158,6 +163,12 @@ return {
             end
             require("toggleterm").exec(venv_info.activate_cmd, t.id)
           end
+        end
+      end,
+      on_exit = function(t)
+        -- remove the last opened terminal
+        if Last_toggle_term_id == t.id then
+          Last_toggle_term_id = nil
         end
       end,
       hide_numbers = true, -- hide the number column in toggleterm buffers
@@ -190,11 +201,27 @@ return {
     config = function(_, opts)
       require("toggleterm").setup(opts)
       vim.api.nvim_create_augroup("ToggleTerm", { clear = true })
+
       -- Close all git terminals when session closes
       vim.api.nvim_create_autocmd({ "DirChanged" }, {
         group = "ToggleTerm",
         callback = function()
           require("utils.term").clear_storage()
+        end,
+      })
+
+      -- Setup keymaps for all terminal
+      vim.api.nvim_create_autocmd("TermOpen", {
+        pattern = "*",
+        group = "ToggleTerm",
+        callback = function()
+          -- Set terminal-local keymaps
+          -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
+          vim.keymap.set("t", "\\\\", [[<C-\><C-n>]], { buffer = 0 })
+          vim.keymap.set("t", "<C-h>", "<Cmd>wincmd h<CR>", { buffer = 0 }) -- Move left
+          vim.keymap.set("t", "<C-j>", "<Cmd>wincmd j<CR>", { buffer = 0 }) -- Move down
+          vim.keymap.set("t", "<C-k>", "<Cmd>wincmd k<CR>", { buffer = 0 }) -- Move up
+          vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { buffer = 0 }) -- Move right
         end,
       })
     end,

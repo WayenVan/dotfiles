@@ -79,6 +79,7 @@ return {
         local path = Path:new(MiniFiles.get_fs_entry().path)
         if path:is_dir() then
           path = path:absolute()
+          path = vim.fn.shellescape(path) -- Shorten the path to avoid long paths in Windows
           -- is dir, oepn with system viewer
           local os_name = require("utils.os_name").get_os_name()
 

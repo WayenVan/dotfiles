@@ -9,6 +9,8 @@ return {
       keymap = {
         preset = "default",
         ["<C-x>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<Tab>"] = { "fallback" },
+        ["<S-Tab>"] = { "fallback" },
       },
       cmdline = {
         enabled = true,

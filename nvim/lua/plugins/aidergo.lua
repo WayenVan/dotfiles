@@ -42,8 +42,9 @@ return {
         desc = "AiderGo",
       },
     },
+    ---@type AiderGoOpt
     opts = {
-      default_direction = "vertical",
+      position = "right", -- The position of the terminal, defaults to bottom
     },
     config = function(_, opts)
       require("aidergo").setup(opts)

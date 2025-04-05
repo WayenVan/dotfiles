@@ -90,7 +90,7 @@ return {
             return require("codecompanion.adapters").extend("copilot", {
               schema = {
                 model = {
-                  default = "gpt-4o",
+                  default = "claude-3.7-sonnet",
                 },
               },
             })

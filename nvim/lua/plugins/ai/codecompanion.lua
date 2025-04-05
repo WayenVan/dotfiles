@@ -74,7 +74,7 @@ return {
       require("codecompanion").setup({
         strategies = {
           chat = {
-            adapter = "copilot",
+            adapter = "deepseek",
             keymaps = {
               close = {
                 modes = { n = "Q", i = "<C-q>" },

@@ -87,13 +87,13 @@ return {
         end,
         desc = "lazygit (root)",
       },
-      {
-        "<leader>a/",
-        function()
-          require("utils.term").create_aider()
-        end,
-        desc = "aider (cwd>)",
-      },
+      -- {
+      --   "<leader>a/",
+      --   function()
+      --     require("utils.term").create_aider()
+      --   end,
+      --   desc = "aider (cwd>)",
+      -- },
       -- {
       --   "<leader>gl",
       --   function()

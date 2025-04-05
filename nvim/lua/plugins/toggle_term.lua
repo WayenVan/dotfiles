@@ -2,6 +2,7 @@ _G.Last_toggle_term_id = nil
 
 local function toggle_with_prevous(dir, direction, size)
   size = size or 0
+  -- vim.notify(Last_toggle_term_id)
   if vim.v.count == 0 and Last_toggle_term_id ~= nil then
     require("toggleterm").toggle(Last_toggle_term_id, size, dir, direction)
     return

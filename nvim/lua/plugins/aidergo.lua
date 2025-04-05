@@ -12,7 +12,13 @@ return {
   -- },
   --
   {
+    -- "aidergo",
     "WayenVan/aidergo.nvim",
+    dependencies = {
+      "folke/snacks.nvim",
+    },
+    -- lazy = false,
+    -- dir = "~/Desktop/aidergo.nvim",
     keys = {
       {
         "<leader>a/",

@@ -6,7 +6,7 @@ return {
       strategy = {
         "toggleterm",
         direction = "horizontal",
-        open_on_start = true,
+        open_on_start = false,
         hidden = false,
       },
       templates = { "shell", "user.run_python", "user.run_python_with_args" },
@@ -21,7 +21,8 @@ return {
     },
     keys = function(_, keys)
       local new_keys = {
-        { "<leader>oo", "<cmd>OverseerQuickAction open hsplit<cr>", desc = "Open float" },
+        { "<leader>oo", "<cmd>OverseerQuickAction open hsplit<cr>", desc = "Open hsplit" },
+        { "<leader>of", "<cmd>OverseerQuickAction open float<cr>", desc = "Open float" },
         { "<leader>oh", "<cmd>OverseerQuickAction open hsplit<cr>", desc = "Open Horizontal" },
         { "<leader>ov", "<cmd>OverseerQuickAction open vsplit<cr>", desc = "Open Vertical" },
         { "<leader>or", "<cmd>OverseerQuickAction restart<cr>", desc = "Restart" },

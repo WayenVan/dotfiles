@@ -1,7 +1,7 @@
 return {
   {
     "milanglacier/minuet-ai.nvim",
-    enalbed = false,
+    enabled = false,
     config = function()
       require("minuet").setup({
         provider = "openai_fim_compatible",

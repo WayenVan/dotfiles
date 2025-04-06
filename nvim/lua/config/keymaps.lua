@@ -94,3 +94,23 @@ map("n", "<tab>", "za", { desc = "toggle folder", noremap = true, silent = true 
 
 -- set c-i back
 vim.keymap.set("n", "<C-i>", "<C-i>", { noremap = true })
+
+local terminal_keymap_autocmd = vim.api.nvim_create_augroup("TerminalKeymap", { clear = true })
+-- Setup keymaps for all terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  group = terminal_keymap_autocmd,
+  -- group = "ToggleTerm",
+  callback = function()
+    -- Set terminal-local keymaps
+    -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
+    -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
+    vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>]], { buffer = 0 })
+    vim.keymap.set("t", "<C-<localleader>>", [[<C-\><C-n>]], { buffer = 0 })
+    vim.keymap.set("t", "<C-h>", "<Cmd>wincmd h<CR>", { buffer = 0 }) -- Move left
+    vim.keymap.set("t", "<C-j>", "<Cmd>wincmd j<CR>", { buffer = 0 }) -- Move down
+    vim.keymap.set("t", "<C-k>", "<Cmd>wincmd k<CR>", { buffer = 0 }) -- Move up
+    vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { buffer = 0 }) -- Move right
+  end,
+})
+-- setup keymaps ihnside the terminal

@@ -3,16 +3,15 @@ return {
     "stevearc/overseer.nvim",
     lazy = true,
     opts = {
-      strategy = {
-        "toggleterm",
-        direction = "horizontal",
-        open_on_start = false,
-        hidden = false,
-      },
+      -- strategy = {
+      -- "jobstart",
+      -- use_terminal = false,
+      -- preserve_output = true,
+      -- },
       templates = { "shell", "user.run_python", "user.run_python_with_args" },
       default_detail = 3,
       task_list = {
-        direction = "right",
+        -- direction = "right",
         bindings = {
           ["o"] = "OpenFloat",
           ["O"] = "Open",

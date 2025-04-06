@@ -61,7 +61,7 @@ else
   vim.o.shada = "!,'100,<50,s10,h"
 end
 
--- auto cmds before and in LazyVim
+-- auto cmds before the VeryLazy event so it will be triggered
 -- for setting up custmozed command in vim enter
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = "VeryLazy",

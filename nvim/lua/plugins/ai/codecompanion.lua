@@ -1,4 +1,4 @@
-local deepseek_api_key = vim.env.LLM_KEY
+local deepseek_api_key = vim.env.DEEPSEEK_API_KEY
 return {
   {
     "olimorris/codecompanion.nvim",

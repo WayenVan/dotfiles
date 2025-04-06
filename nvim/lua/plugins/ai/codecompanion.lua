@@ -34,14 +34,22 @@ return {
       {
         "<leader>ai",
         function()
-          local input = vim.fn.input("Prompt")
-          if input == "" then
-            return
-          end
-          require("codecompanion").inline({ args = input })
+          vim.ui.input({ prompt = "Prompt: " }, function(input)
+            if not input or input == "" then
+              return
+            end
+            vim.cmd("normal! gv")
+            require("codecompanion").inline({ args = input })
+          end)
         end,
-        mode = { "v", "n" },
+        mode = { "v" },
         desc = "Codecompanion inline ",
+      },
+      {
+        "<leader>ai",
+        "<cmd>CodeCompanion<cr>",
+        mode = { "n" },
+        desc = "Codecompanion inline",
       },
       {
         "<leader>ac",

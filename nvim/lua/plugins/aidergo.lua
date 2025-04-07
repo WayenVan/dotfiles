@@ -47,6 +47,12 @@ return {
       position = "right", -- The position of the terminal, defaults to bottom
       args = {
         "--watch",
+        -- "--no-prompt",
+        "--architect",
+        "--model",
+        "r1",
+        "--editor-model",
+        "deepseek/deepseek-chat",
       },
     },
     config = function(_, opts)

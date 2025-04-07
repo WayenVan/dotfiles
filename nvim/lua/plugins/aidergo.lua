@@ -47,8 +47,12 @@ return {
       position = "right",
       width = 0.4, -- 40% of window width for vertical split
       args = {
+        "--pretty",
+        "--stream",
+        "--no-auto-commits",
         "--watch",
         "--architect",
+        "--no-auto-accept-architect",
         "--model",
         "r1",
         "--editor-model",

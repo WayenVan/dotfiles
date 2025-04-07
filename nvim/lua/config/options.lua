@@ -5,6 +5,7 @@
 --
 -- local leader
 
+vim.o.clipboard = "unnamed,unnamedplus"
 vim.g.maplocalleader = ","
 -- setting the powershell settings
 if LazyVim.is_win() then

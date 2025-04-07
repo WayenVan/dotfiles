@@ -45,19 +45,15 @@ return {
     ---@type AiderGoOpt
     opts = {
       position = "right",
-      width = 0.4,  -- 40% of window width for vertical split
+      width = 0.4, -- 40% of window width for vertical split
       args = {
         "--watch",
         "--architect",
-        "--model", "r1",
-        "--editor-model", "deepseek/deepseek-chat",
+        "--model",
+        "r1",
+        "--editor-model",
+        "deepseek/deepseek-chat",
       },
-      auto_start = false,  -- Don't start automatically
-      notification_timeout = 3000,  -- 3 second timeout for notifications
-      on_attach = function(term)
-        -- Optional: Custom terminal buffer mappings
-        vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { buffer = term.bufnr })
-      end,
     },
     config = function(_, opts)
       require("aidergo").setup(opts)

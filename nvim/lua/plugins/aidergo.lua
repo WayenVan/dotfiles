@@ -45,6 +45,9 @@ return {
     ---@type AiderGoOpt
     opts = {
       position = "right", -- The position of the terminal, defaults to bottom
+      args = {
+        "--watch",
+      },
     },
     config = function(_, opts)
       require("aidergo").setup(opts)

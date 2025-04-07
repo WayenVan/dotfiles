@@ -82,8 +82,8 @@ Snacks.toggle
   :map("<leader>uM")
 
 -- tab
-vim.keymap.set("n", "<leader>]", "<CMD>tabnext<cr>", { desc = "next tab" })
-vim.keymap.set("n", "<leader>[", "<CMD>tabprevious<CR>", { desc = "previous tab" })
+vim.keymap.set("n", "<M-]>", "<CMD>tabnext<cr>", { desc = "next tab" })
+vim.keymap.set("n", "<M-[>", "<CMD>tabprevious<CR>", { desc = "previous tab" })
 
 -- map cmdline up and down
 map("c", "<C-d>", "<Down>", {})

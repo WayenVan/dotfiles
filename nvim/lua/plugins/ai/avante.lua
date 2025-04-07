@@ -15,6 +15,12 @@ return {
     version = false, -- set this if you want to always pull the latest changes
     enabled = true,
     opts = {
+      mappings = {
+        files = {
+          add_current = "<leader>A+",
+          add_all_buffers = "<leader>AB",
+        },
+      },
       hints = { enabled = false },
       provider = "copilot",
       -- add any opts here
@@ -34,9 +40,14 @@ return {
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
     keys = {
       {
-        "<leader>A",
+        "<leader>Aa",
         "<CMD>AvanteToggle<CR>",
         desc = "Toggle Avante",
+      },
+      {
+        "<leader>A",
+        "",
+        desc = "+ Avante",
       },
     },
     build = build_command,

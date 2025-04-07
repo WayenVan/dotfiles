@@ -114,7 +114,7 @@ return {
       local yank_relative_path = function()
         local path = MiniFiles.get_fs_entry().path
         path = vim.fn.fnamemodify(path, ":.")
-        vim.fn.setreg('"', path)
+        vim.fn.setreg("", path)
         require("noice").notify("Copied " .. path .. " to unamed", "info")
       end
       local yank_absolute = function()
@@ -124,7 +124,7 @@ return {
         end
         local modify = vim.fn.fnamemodify
         local filepath = entry.path
-        vim.fn.setreg('"', filepath)
+        vim.fn.setreg("", filepath)
         require("noice").notify("Copied " .. filepath .. " to unamed", "info")
       end
       local yank_filename = function()
@@ -134,7 +134,7 @@ return {
         end
         local modify = vim.fn.fnamemodify
         local filename = modify(entry.path, ":t")
-        vim.fn.setreg('"', filename)
+        vim.fn.setreg("", filename)
         require("noice").notify("Copied " .. filename .. " to unamed", "info")
       end
 

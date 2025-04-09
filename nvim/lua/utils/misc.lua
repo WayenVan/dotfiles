@@ -27,4 +27,18 @@ function M.cleanShareData()
   local path = pl:new(vim.fn.stdpath("data")):joinpath("shada")
   path:rmdir()
 end
+
+function M.shellescape_dir(path)
+  local is_windows = vim.fn.has("win32") == 1
+  if is_windows then
+    -- Windows: Use double quotes and escape existing quotes with double quotes
+    local escaped = path:gsub('"', '""')
+    return '"' .. escaped .. '"'
+  else
+    -- Linux/macOS: Use single quotes and escape existing single quotes
+    local escaped = path:gsub("'", "'\\''")
+    return "'" .. escaped .. "'"
+  end
+end
+
 return M

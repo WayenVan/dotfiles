@@ -104,10 +104,9 @@ return {
         local path = Path:new(MiniFiles.get_fs_entry().path)
         if path:is_dir() then
           path = path:absolute()
-          path = vim.fn.shellescape(path) -- Shorten the path to avoid long paths in Windows
+          path = require("utils.misc").shellescape_dir(path)
           -- is dir, oepn with system viewer
           local os_name = require("utils.os_name").get_os_name()
-
           if os_name == "Mac" then
             -- macOS: open Finder at the specified path
             vim.fn.jobstart({ "open", path }, { detach = true })
@@ -116,17 +115,9 @@ return {
             vim.fn.jobstart({ "xdg-open", path }, { detach = true })
           elseif os_name == "Windows" then
             -- Windows: Without removing the file from the path, it opens in code.exe instead of explorer.exe
-            local p
-            local lastSlashIndex = path:match("^.+()\\[^\\]*$") -- Match the last slash and everything before it
-            if lastSlashIndex then
-              p = path:sub(1, lastSlashIndex - 1) -- Extract substring before the last slash
-            else
-              p = path -- If no slash found, return original path
-            end
-            vim.notify(p)
-            vim.cmd("silent !start " .. p)
+            -- vim.cmd("silent !start " .. path)
+            vim.cmd("silent !start " .. path)
           else
-            vim.notify("Unsupported OS", "error", { title = "Error" })
           end
           return
         end

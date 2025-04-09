@@ -1,18 +1,70 @@
+# OS generated files
 .DS_Store
-tt.*
-.tests
-doc/tags
-debug
-.repro
-foo.*
-*.log
-data
-lazy-lock.json
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
+# Editor/IDE
 *.code-workspace
+.idea/
+.vscode/
+*.swp
+*.swo
 
-**/__pycache__
-**/.mypy_cache
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
 
-**/.pytest_cache
+# Testing
+.tests
+.repro
+
+# Logs and databases
+*.log
+*.sqlite
+*.sql
+*.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+.tt.*
+foo.*
+debug
+
+# Documentation
+doc/tags
+
+# Data files
+data/
+*.csv
+*.json
+*.pickle
+*.pkl
+
+# Package files
+*.egg
+*.egg-info/
+dist/
+build/
+*.mo
+*.pot
+
+# Project specific
+lazy-lock.json
 .aider*

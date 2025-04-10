@@ -28,6 +28,9 @@ return {
       -- disable diagnostic virtual text configured by lspconfig, using the tiny one
       opts.diagnostics.virtual_text = false
       vim.diagnostic.config({ virtual_lines = true })
+
+      -- disalbe vim log
+      vim.lsp.set_log_level("off")
     end,
   },
 }

@@ -1,8 +1,36 @@
 return {
   {
     "Bekaboo/dropbar.nvim",
+    -- enabled = false,
+    -- dropbar only provide source for lualine
     opts = {
+      bar = {
+        enabled = false,
+        sources = function(buf, _)
+          local sources = require("dropbar.sources")
+          local utils = require("dropbar.utils")
+          if vim.bo[buf].ft == "markdown" then
+            return {
+              sources.path,
+              sources.markdown,
+            }
+          end
+          if vim.bo[buf].buftype == "terminal" then
+            return {
+              sources.terminal,
+            }
+          end
+          return {
+            -- sources.path,
+            utils.source.fallback({
+              sources.lsp,
+              sources.treesitter,
+            }),
+          }
+        end,
+      },
       menu = {
+        enabled = false,
         preview = false,
         win_configs = {
           border = "none",

@@ -3,6 +3,7 @@ return {
     "Bekaboo/dropbar.nvim",
     -- enabled = false,
     -- dropbar only provide source for lualine
+    event = "VeryLazy",
     opts = {
       bar = {
         enabled = false,

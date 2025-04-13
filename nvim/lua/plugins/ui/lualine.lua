@@ -5,6 +5,7 @@ return {
     dependencies = {
       "meuter/lualine-so-fancy.nvim",
       "DaikyXendo/nvim-material-icon",
+      "Bekaboo/dropbar.nvim",
     },
     -- enabled = false,
     init = function()

@@ -1,7 +1,7 @@
 return {
   {
     "rcarriga/nvim-dap-ui",
-    enabled = true,
+    enabled = false,
     opts = {
       layouts = {
         {

@@ -5,6 +5,7 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       -- "nvimtools/hydra.nvim",
       -- { "igorlfs/nvim-dap-ui" },
+      "igorlfs/nvim-dap-view",
       "rcarriga/nvim-dap-ui",
     },
     keys = {

@@ -4,7 +4,8 @@ return {
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
       -- "nvimtools/hydra.nvim",
-      { "igorlfs/nvim-dap-view" },
+      -- { "igorlfs/nvim-dap-ui" },
+      "rcarriga/nvim-dap-ui",
     },
     keys = {
       { "<leader>dR", "<cmd>lua require('dap').restart()<cr>", desc = "Restart" },
@@ -99,13 +100,25 @@ return {
               local target_line = top_frame.line
 
               -- 标准化路径（避免因路径格式不同导致匹配失败）
-              filepath = vim.fn.fnamemodify(filepath, ":p")
+              filepath = vim.fn.fnamemodify(filepath, ":p"):gsub("\\", "/")
+              -- vim.notify("File path: " .. filepath, vim.log.levels.INFO)
 
               -- 检查文件是否已在当前 Tab 的窗口中打开
               for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
                 local buf = vim.api.nvim_win_get_buf(win)
+                if vim.api.nvim_get_option_value("buftype", { buf = buf }) ~= "" then
+                  goto continue -- 跳过非文件类型的 buffer
+                  -- vim.notify(
+                  --   "Buffer type: " .. vim.api.nvim_get_option_value("buftype", { buf = buf }),
+                  --   vim.log.levels.INFO
+                  -- )
+                end
+
+                -- 统一标准化路径
                 local buf_path = vim.api.nvim_buf_get_name(buf)
-                buf_path = vim.fn.fnamemodify(buf_path, ":p")
+                -- vim.notify("Buffer path: " .. buf_path, vim.log.levels.INFO)
+                buf_path = vim.fn.fnamemodify(buf_path, ":p"):gsub("\\", "/")
+                -- vim.notify("Buffer path: " .. buf_path, vim.log.levels.INFO)
 
                 -- 如果找到已打开的窗口
                 if buf_path == filepath then
@@ -114,6 +127,7 @@ return {
                   vim.api.nvim_win_set_cursor(win, { target_line, 0 }) -- 定位到断点行
                   return -- 结束处理
                 end
+                ::continue::
               end
             end
           end

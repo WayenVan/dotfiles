@@ -1,6 +1,7 @@
 return {
   {
     "Dan7h3x/LazyDo",
+    enabled = false,
     branch = "main",
     cmd = { "LazyDoToggle", "LazyDoPin", "LazyDoToggleStorage" },
     keys = { -- recommended keymap for easy toggle LazyDo in normal and insert modes (arbitrary)

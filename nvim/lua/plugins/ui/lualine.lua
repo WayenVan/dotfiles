@@ -44,6 +44,13 @@ return {
               "TelescopePrompt",
               "snacks_picker_input",
             },
+            winbar = {
+              "dashboard",
+              "snacks_dashboard",
+              "dap-view",
+              "noice",
+              "dap-repl",
+            },
           },
         },
         sections = {
@@ -166,7 +173,14 @@ return {
           lualine_a = {},
           lualine_b = {},
           lualine_c = {
-            { "%{%v:lua.dropbar()%}", separator = { left = "", right = "" }, color = "nil" },
+            {
+              "%{%v:lua.dropbar()%}",
+              cond = function()
+                return _G.dropbar ~= nil
+              end,
+              separator = { left = "", right = "" },
+              color = "nil",
+            },
           },
           lualine_x = {},
           lualine_y = {

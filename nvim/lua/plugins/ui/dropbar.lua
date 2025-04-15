@@ -4,7 +4,7 @@ return {
     -- enabled = false,
     -- dropbar only provide source for lualine
     -- event = "VeryLazy",
-    lazy = true,
+    lazy = false,
     opts = {
       bar = {
         enabled = false,

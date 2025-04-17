@@ -26,11 +26,29 @@ return {
       }
 
       -- disable diagnostic virtual text configured by lspconfig, using the tiny one
-      opts.diagnostics.virtual_text = false
-      vim.diagnostic.config({ virtual_lines = true })
+      -- opts.diagnostics.virtual_text = false
+      -- vim.diagnostic.config({ virtual_lines = true })
 
       -- disalbe vim log
       vim.lsp.set_log_level("off")
+
+      -- toggle diagnostic virtual text
+      vim.keymap.set("", "<leader>bl", function()
+        vim.diagnostic.config({
+          virtual_lines = not vim.diagnostic.config().virtual_lines,
+          virtual_text = not vim.diagnostic.config().virtual_text,
+        })
+      end, { desc = "Toggle diagnostic [l]ines" })
+
+      vim.api.nvim_create_autocmd("InsertEnter", {
+        group = vim.api.nvim_create_augroup("LspInsertEnter", { clear = true }),
+        callback = function()
+          vim.diagnostic.config({
+            virtual_lines = false,
+            virtual_text = true,
+          })
+        end,
+      })
     end,
   },
 }

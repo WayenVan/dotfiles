@@ -33,7 +33,7 @@ return {
       vim.lsp.set_log_level("off")
 
       -- toggle diagnostic virtual text
-      vim.keymap.set("", "<leader>bl", function()
+      vim.keymap.set("", "<leader>k", function()
         vim.diagnostic.config({
           virtual_lines = not vim.diagnostic.config().virtual_lines,
           virtual_text = not vim.diagnostic.config().virtual_text,

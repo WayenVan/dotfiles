@@ -35,7 +35,7 @@ return {
         require("submode").leave()
         if #LayersManager.activated_layers > 0 then
           for _, layer in ipairs(LayersManager.activated_layers) do
-            LayersManager.layers[layer]:deactivate()
+            LayersManager:deactivate(layer)
           end
         end
       end

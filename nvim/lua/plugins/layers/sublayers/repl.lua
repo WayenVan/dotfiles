@@ -2,21 +2,6 @@ LayersManager.layers.REPL = Layers.mode.new("REPL Layer")
 local repl_layer = LayersManager.layers.REPL
 repl_layer:auto_show_help()
 -- repl_layer.window.config.width = nil
-repl_layer:add_hook(function(activate)
-  local idx = nil
-  if activate then
-    --manaully load the package
-    require("yarepl")
-    table.insert(LayersManager.activated_layers, "REPL")
-    idx = #LayersManager.activated_layers
-    return
-  end
-
-  if not activate then
-    table.remove(LayersManager.activated_layers, idx)
-    idx = nil
-  end
-end)
 repl_layer:keymaps({
   n = {
     -- scope
@@ -60,7 +45,7 @@ repl_layer:keymaps({
       "<localleader>Q",
       function()
         vim.cmd("REPLDeleteALL")
-        repl_layer:deactivate()
+        LayersManager:deactivate("REPL")
       end,
       {
         desc = "Forcequit all REPLs",
@@ -88,7 +73,7 @@ repl_layer:keymaps({
     {
       "<C-q>",
       function()
-        repl_layer:deactivate()
+        LayersManager:deactivate("REPL")
       end,
       {
         desc = "Exit REPL",

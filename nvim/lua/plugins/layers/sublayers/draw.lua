@@ -1,19 +1,6 @@
 LayersManager.layers.DRAW = Layers.mode.new("Draw Layer")
 local draw_layer = LayersManager.layers.DRAW
 draw_layer:auto_show_help()
-draw_layer:add_hook(function(activate)
-  local idx = nil
-  if activate then
-    table.insert(LayersManager.activated_layers, "DRAW")
-    idx = #LayersManager.activated_layers
-    return
-  end
-
-  if not activate then
-    table.remove(LayersManager.activated_layers, idx)
-    idx = nil
-  end
-end)
 draw_layer:keymaps({
   n = {
     { "H", "<C-v>h:VBox<CR>", { desc = "←" } },
@@ -27,14 +14,14 @@ draw_layer:keymaps({
     {
       "<C-q>",
       function()
-        LayersManager.layers.DRAW:deactivate()
+        LayersManager:deactivate("DRAW")
       end,
       { desc = "exit" },
     },
     {
       "q",
       function()
-        LayersManager.layers.DRAW:deactivate()
+        LayersManager:deactivate("DRAW")
       end,
       { desc = "exit" },
     },

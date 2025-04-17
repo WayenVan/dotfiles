@@ -31,6 +31,14 @@ return {
       local function close_minimap()
         require("neominimap").off()
       end
+      local function exit_mode()
+        require("submode").leave()
+        if #LayersManager.activated_layers > 0 then
+          for _, layer in ipairs(LayersManager.activated_layers) do
+            LayersManager.layers[layer]:deactivate()
+          end
+        end
+      end
 
       local function delete_not_good_buffer()
         -- remove all non-normal buffers
@@ -72,7 +80,7 @@ return {
 
       -- opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
-      opts.pre_save_cmds = { disable_bqf, close_minifile, close_minimap, delete_not_good_buffer }
+      opts.pre_save_cmds = { disable_bqf, close_minifile, close_minimap, exit_mode, delete_not_good_buffer }
       opts.post_restore_cmds = { reload_plugins }
     end,
   },

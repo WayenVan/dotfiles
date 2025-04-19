@@ -3,22 +3,30 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
     -- enabled = false,
+    branch = "v3.x",
     lazy = true,
     keys = function(_, keys)
       return {
         {
           "<leader>R",
           function()
-            require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root(), reveal = false })
+            require("neo-tree.command").execute({ action = "show", toggle = true, dir = LazyVim.root(), reveal = false })
           end,
           desc = "Explorer NeoTree (Root Dir)",
         },
         {
           "<leader>r",
           function()
-            require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+            require("neo-tree.command").execute({ action = "show", toggle = true, dir = vim.uv.cwd(), reveal = false })
           end,
           desc = "Explorer NeoTree (cwd)",
+        },
+        {
+          "<leader>f.",
+          function()
+            require("neo-tree.command").execute({ action = "show", toggle = false, dir = LazyVim.root(), reveal = true })
+          end,
+          desc = "Open in NeoTree (cwd)",
         },
         {
           "<leader>ge",
@@ -38,8 +46,8 @@ return {
     end,
 
     opts = function(_, opts)
-      opts.window.position = "right"
-      opts.window.mappings["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } }
+      -- opts.window.position = "right"
+      opts.window.mappings["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } }
       opts.window.mappings["l"] = "focus_preview"
       -- opts.window.mappings["<C-b>"] = { "scroll_preview", config = { direction = 10 } }
       -- opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
@@ -48,25 +56,18 @@ return {
       opts.window.mappings["s"] = "none"
       -- opts.window.mappings["s"] = "none"
       -- opts.window.mappings["S"] = "none"
+      vim.notify(vim.inspect(opts.filesystem))
       opts.filesystem.follow_current_file.enabled = false
+      opts.filesystem.follow_current_file.leave_dirs_open = true
+      opts.filesystem.filtered_items = {
+        hide_dotfiles = false,
+      }
     end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
     --
     opts = {
-      -- show hide_files
-      filesystem = {
-        follow_current_file = {
-          enabled = false, -- This will find and focus the file in the active buffer every time
-          --               -- the current file is changed while the tree is open.
-          leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
-        },
-
-        filtered_items = {
-          hide_dotfiles = false,
-        },
-      },
       -- add copy path command
       commands = {
         open_in_mini_file = function(state)

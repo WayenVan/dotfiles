@@ -1,38 +1,70 @@
 return {
   "folke/snacks.nvim",
-  keys = {
-    {
-      "<leader>ff",
-      function()
-        Snacks.picker.smart()
-      end,
-      desc = "Smart find files (cwd)",
-    },
-    { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
-    { "<leader>/", LazyVim.pick("grep", { root = false }), desc = "Grep (cwd)" },
-    {
-      "<leader>=",
-      function()
-        Snacks.scratch()
-      end,
-      desc = "Toggle Scratch Buffer",
-    },
-    {
-      "<leader>?",
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = "Buffer Lines",
-    },
-    {
-      "<leader><",
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = "Buffer Lines",
-    },
-  },
+  keys = function(_, keys)
+    -- override the default keymaps
+    local filtered = vim.tbl_filter(function(value)
+      local k = value[1]
+      if k == "<leader>e" or k == "<leader>E" or k == "<leader>fe" or k == "<leader>fE" then
+        return false
+      else
+        return true
+      end
+    end, keys)
+
+    local my_keys = {
+      -- snacks.explorer
+      -- {
+      --   "<leader>R",
+      --   function()
+      --     Snacks.explorer({ cwd = LazyVim.root() })
+      --   end,
+      --   desc = "Explorer Snacks (root dir)",
+      -- },
+      -- {
+      --   "<leader>r",
+      --   function()
+      --     Snacks.explorer()
+      --   end,
+      --   desc = "Explorer Snacks (cwd)",
+      -- },
+      -- snacks.picker
+      {
+        "<leader>ff",
+        function()
+          Snacks.picker.smart()
+        end,
+        desc = "Smart find files (cwd)",
+      },
+      { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+      { "<leader>/", LazyVim.pick("grep", { root = false }), desc = "Grep (cwd)" },
+      {
+        "<leader>=",
+        function()
+          Snacks.scratch()
+        end,
+        desc = "Toggle Scratch Buffer",
+      },
+      {
+        "<leader>?",
+        function()
+          Snacks.picker.lines()
+        end,
+        desc = "Buffer Lines",
+      },
+      {
+        "<leader><",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Buffer Lines",
+      },
+    }
+    return vim.list_extend(filtered, my_keys)
+  end,
   opts = {
+    explorer = {
+      follow_file = false,
+    },
     zen = {
       win = {
         backdrop = {

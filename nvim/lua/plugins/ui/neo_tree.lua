@@ -7,65 +7,36 @@ return {
     keys = function(_, keys)
       return {
         {
-          "<leader>r",
-          function()
-            require("neo-tree.command").execute({
-              action = "show",
-              toggle = true,
-              position = "right",
-              dir = LazyVim.root(),
-              reveal = false,
-            })
-          end,
-          desc = "Toggle NeoTree explore",
-        },
-        {
           "<leader>R",
           function()
-            require("neo-tree.command").execute({
-              action = "show",
-              toggle = false,
-              position = "right",
-              dir = LazyVim.root(),
-              reveal = true,
-            })
+            require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root(), reveal = false })
           end,
-          desc = "Toggle NeoTree explore",
+          desc = "Explorer NeoTree (Root Dir)",
+        },
+        {
+          "<leader>r",
+          function()
+            require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+          end,
+          desc = "Explorer NeoTree (cwd)",
+        },
+        {
+          "<leader>ge",
+          function()
+            require("neo-tree.command").execute({ source = "git_status", toggle = true })
+          end,
+          desc = "Git Explorer",
+        },
+        {
+          "<leader>be",
+          function()
+            require("neo-tree.command").execute({ source = "buffers", toggle = true })
+          end,
+          desc = "Buffer Explorer",
         },
       }
     end,
 
-    -- keys = {
-    -- {
-    --   "<leader>fE",
-    --   function()
-    --     require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
-    --   end,
-    --   desc = "Explorer NeoTree (Root Dir)",
-    -- },
-    -- {
-    --   "<leader>fe",
-    --   function()
-    --     require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
-    --   end,
-    --   desc = "Explorer NeoTree (cwd)",
-    -- },
-    -- { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (Root Dir)", remap = true },
-    -- { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (cwd)", remap = true },
-    -- {
-    --   "<leader>ge",
-    --   function()
-    --     require("neo-tree.command").execute({ source = "git_status", toggle = true })
-    --   end,
-    --   desc = "Git Explorer",
-    -- },
-    -- {
-    --   "<leader>be",
-    --   function()
-    --     require("neo-tree.command").execute({ source = "buffers", toggle = true })
-    --   end,
-    --   desc = "Buffer Explorer",
-    -- },
     opts = function(_, opts)
       opts.window.position = "right"
       opts.window.mappings["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } }
@@ -74,16 +45,24 @@ return {
       -- opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
       opts.window.mappings["-"] = "open_split"
       opts.window.mappings["_"] = "open_vsplit"
+      opts.window.mappings["s"] = "none"
       -- opts.window.mappings["s"] = "none"
       -- opts.window.mappings["S"] = "none"
-      opts.filesystem.follow_current_file.enable = false
+      opts.filesystem.follow_current_file.enabled = false
     end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
+    --
     opts = {
       -- show hide_files
       filesystem = {
+        follow_current_file = {
+          enabled = false, -- This will find and focus the file in the active buffer every time
+          --               -- the current file is changed while the tree is open.
+          leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+        },
+
         filtered_items = {
           hide_dotfiles = false,
         },

@@ -12,7 +12,7 @@ draw_layer:keymaps({
     { "<C-k>", "xi<C-v>u25b2<Esc>", { desc = "▲" } },
     { "<C-l>", "xi<C-v>u25ba<Esc>", { desc = "►" } },
     {
-      "<C-q>",
+      "<M-q>",
       function()
         LayersManager:deactivate("DRAW")
       end,

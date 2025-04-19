@@ -25,7 +25,7 @@ vimtex_layer:keymaps({
     { "<localleader>s", "<plug>(vimtex-toggle-main) ", { desc = "vimtex-toggle-main" } },
     { "<localleader>a", "<plug>(vimtex-context-menu)", { desc = "vimtex-context-menu" } },
     {
-      "<C-q>",
+      "<M-q>",
       function()
         LayersManager:deactivate("VIMTEX")
       end,

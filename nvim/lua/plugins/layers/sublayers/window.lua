@@ -48,7 +48,7 @@ window:keymaps({
       { desc = "Exit" },
     },
     {
-      "<C-q>",
+      "<M-q>",
       function()
         LayersManager:deactivate("WINDOW")
       end,

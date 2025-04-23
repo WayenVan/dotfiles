@@ -14,7 +14,7 @@ return {
             -- ["ac"] = "@class.outer",
             -- You can optionally set descriptions to the mappings (used in the desc parameter of
             -- nvim_buf_set_keymap) which plugins like which-key display
-            ["iC"] = { query = "@cell.outer", desc = "Select cells" },
+            -- ["iC"] = { query = "@cell.outer", desc = "Select cells" },
             -- You can also use captures from other query groups like `locals.scm`
             -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
           },
@@ -27,7 +27,7 @@ return {
           -- mapping query_strings to modes.
           selection_modes = {
             -- ["@parameter.outer"] = "v", -- charwise
-            ["@cell.outer"] = "V", -- linewise
+            -- ["@cell.outer"] = "V", -- linewise
             -- ["@class.outer"] = "<c-v>", -- blockwise
           },
           -- If you set this to `true` (default is `false`) then any textobject is

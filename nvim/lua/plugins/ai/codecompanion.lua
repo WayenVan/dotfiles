@@ -117,6 +117,48 @@ return {
           end,
         },
         prompt_library = {
+          ["Pharaphrase"] = {
+            strategy = "chat",
+            description = "Trnaslate Chinese to English",
+            opts = {
+              index = 1,
+              is_slash_cmd = false,
+              auto_submit = false,
+              short_name = "trans",
+              ignore_system_prompt = true,
+              adapter = {
+                name = "deepseek",
+                model = "deepseek-chat",
+              },
+            },
+            prompts = {
+              {
+                role = "system",
+                -- append to the system prompt
+                content = [[
+                **Task:**  
+                1. **Paraphrase** the following academic text while preserving its original meaning, formal tone, and key terminology.  
+                2. **Analyze and suggest improvements** for:  
+                  - Clarity & conciseness (wordiness, ambiguity, readability).  
+                  - Logical flow (gaps in reasoning, weak transitions, unsupported claims).  
+                  - Argument strength (evidence linkage, premise-conclusion coherence, counterarguments).  
+                  - Structural coherence (paragraph organization, thesis alignment).  
+              **Instructions:**  
+              - **Paraphrased Version:** Provide a polished rewrite that avoids plagiarism but retains scholarly precision. Highlight major changes.  
+              - **Critical Feedback:**  
+                - **Logic & Reasoning:** Identify leaps in logic, circular arguments, or underdeveloped points. Suggest fixes (e.g., stronger evidence, clearer causality).  
+                - **Structure:** Flag disjointed transitions or misaligned ideas. Recommend reordering or connective phrases.  
+                - **Clarity:** Note jargon, passive voice overuse, or convoluted sentences. Offer simpler alternatives.  
+                - **Other Improvements:** Redundancies, citation issues, or tone inconsistencies.  
+                ]],
+              },
+              {
+                role = "user",
+                content = "First, tell me who you are, Then do the job of the following content",
+                auto_submit = true,
+              },
+            },
+          },
           ["Translate"] = {
             strategy = "chat",
             description = "Trnaslate Chinese to English",

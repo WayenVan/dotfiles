@@ -119,12 +119,12 @@ return {
         prompt_library = {
           ["Pharaphrase"] = {
             strategy = "chat",
-            description = "Trnaslate Chinese to English",
+            description = "paraphrase academic text",
             opts = {
               index = 1,
               is_slash_cmd = false,
-              auto_submit = false,
-              short_name = "trans",
+              auto_submit = true,
+              short_name = "phrase",
               ignore_system_prompt = true,
               adapter = {
                 name = "deepseek",
@@ -137,12 +137,13 @@ return {
                 -- append to the system prompt
                 content = [[
                 **Task:**  
-                1. **Paraphrase** the following academic text while preserving its original meaning, formal tone, and key terminology.  
+                1. **Paraphrase** the following academic text in a paper while preserving its original meaning, formal tone, and key terminology.  
                 2. **Analyze and suggest improvements** for:  
                   - Clarity & conciseness (wordiness, ambiguity, readability).  
                   - Logical flow (gaps in reasoning, weak transitions, unsupported claims).  
                   - Argument strength (evidence linkage, premise-conclusion coherence, counterarguments).  
                   - Structural coherence (paragraph organization, thesis alignment).  
+                  - Avoid using too much listing format.
               **Instructions:**  
               - **Paraphrased Version:** Provide a polished rewrite that avoids plagiarism but retains scholarly precision. Highlight major changes.  
               - **Critical Feedback:**  
@@ -155,7 +156,6 @@ return {
               {
                 role = "user",
                 content = "First, tell me who you are, Then do the job of the following content",
-                auto_submit = true,
               },
             },
           },

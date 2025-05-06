@@ -54,7 +54,7 @@ return {
     init = function()
       -- The following options are recommended when layout == "float"
       vim.opt.wrap = false
-      vim.opt.sidescrolloff = 5 -- Set a large value
+      vim.opt.sidescrolloff = 5
 
       local minimap_autogroup = vim.api.nvim_create_augroup("minimap", { clear = true })
       vim.api.nvim_create_autocmd("WinEnter", {

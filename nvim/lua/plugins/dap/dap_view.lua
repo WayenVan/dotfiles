@@ -2,7 +2,7 @@ return {
   {
     "igorlfs/nvim-dap-view",
     enabled = true,
-    branch = "feat/expand-variables",
+    -- branch = "feat/expand-variables",
     opts = {
       windows = {
         height = 16,

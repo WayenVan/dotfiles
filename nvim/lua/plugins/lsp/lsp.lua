@@ -39,16 +39,6 @@ return {
           virtual_text = not vim.diagnostic.config().virtual_text,
         })
       end, { desc = "Toggle diagnostic [l]ines" })
-
-      vim.api.nvim_create_autocmd("InsertEnter", {
-        group = vim.api.nvim_create_augroup("LspInsertEnter", { clear = true }),
-        callback = function()
-          vim.diagnostic.config({
-            virtual_lines = false,
-            virtual_text = true,
-          })
-        end,
-      })
     end,
   },
 }

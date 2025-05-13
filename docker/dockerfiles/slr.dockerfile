@@ -79,7 +79,7 @@ RUN echo "source ~/.bashrc" >> ~/.bash_profile
 #   rm nvim-linux64.tar.gz
 # ENV PATH="$PATH:/opt/nvim-linux64/bin"
 # install nightly
-RUN curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz && \
+RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && \
   rm -rf /opt/nvim && \
   tar -C /opt -xzf nvim-linux-x86_64.tar.gz && \
   rm nvim-linux-x86_64.tar.gz

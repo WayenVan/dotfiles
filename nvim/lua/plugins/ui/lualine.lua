@@ -199,7 +199,16 @@ return {
         inactive_winbar = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {},
+          lualine_c = {
+            {
+              "%{%v:lua.dropbar()%}",
+              cond = function()
+                return _G.dropbar ~= nil
+              end,
+              separator = { left = "", right = "" },
+              color = "nil",
+            },
+          },
           lualine_x = {},
           lualine_y = {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },

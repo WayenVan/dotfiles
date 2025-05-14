@@ -9,7 +9,6 @@ return {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
       -- Only one of these is needed, not both.
-      "ibhagwan/fzf-lua", -- optional
     },
     opts = {
       -- disable_signs = true,
@@ -32,6 +31,7 @@ return {
         { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit pull", noremap = true },
         { "<leader>gt", "<cmd>Neogit tag<cr>", desc = "Neogit tag", noremap = true },
         { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Neogit branch", noremap = true },
+        { "<leader>gl", "<cmd>Neogit log<cr>", desc = "Neogit branch", noremap = true },
       })
       return keys
     end,

@@ -37,7 +37,7 @@ return {
       {
         "<leader>mm",
         function()
-          local m = require("neominimap")
+          local m = require("neominimap.api")
           m.toggle()
         end,
         desc = "Switch focus on minimap",
@@ -45,8 +45,8 @@ return {
       {
         "<leader>mf",
         function()
-          local m = require("neominimap")
-          m.toggleFocus()
+          local m = require("neominimap.api")
+          m.focus.toggle()
         end,
         desc = "Switch focus on minimap",
       },
@@ -61,7 +61,7 @@ return {
         group = minimap_autogroup,
         pattern = "*",
         callback = function()
-          require("neominimap").tabRefresh({}, {})
+          require("neominimap.api").tab.refresh()
         end,
       })
 
@@ -70,7 +70,7 @@ return {
         pattern = "neominimap",
         callback = function(env)
           local function toggle()
-            local m = require("neominimap")
+            local m = require("neominimap.api")
             m.toggleFocus()
             m.toggle()
           end
@@ -82,7 +82,7 @@ return {
       --- Put your configuration here
       ---@type Neominimap.UserConfig
       vim.g.neominimap = {
-        layout = "split",
+        layout = "float",
         sync_cursor = true,
         auto_enable = false,
 

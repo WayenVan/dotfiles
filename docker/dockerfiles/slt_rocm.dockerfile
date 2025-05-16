@@ -1,4 +1,4 @@
-FROM rocm/pytorch:rocm6.4_ubuntu24.04_py3.12_pytorch_release_2.3.0
+FROM rocm/pytorch:rocm6.4_ubuntu24.04_py3.12_pytorch_release_2.6.0
 
 WORKDIR /workspace
 
@@ -34,7 +34,7 @@ RUN pip install --no-cache-dir uv && \
   lmdb                                       \
   xformers                                   \
   matplotlib                                 \
-  piloars                                    \
+  polars                                    \
   transformers                               
 
 #

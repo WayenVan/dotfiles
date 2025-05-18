@@ -1,4 +1,4 @@
-FROM rocm/pytorch:rocm6.4_ubuntu24.04_py3.12_pytorch_release_2.6.0
+FROM rocm/pytorch:rocm6.4_ubuntu24.04_py3.12_pytorch_release_2.3.0
 
 WORKDIR /workspace
 
@@ -9,7 +9,7 @@ ENV MAKEFLAGS="-j$(nproc)"
 
 # Run apt update at the very beginning
 RUN apt-get update && \
-  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs && \
+  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs openssh-client && \
   rm -rf /var/lib/apt/lists/*
 
 #setup shells
@@ -26,13 +26,12 @@ RUN pip install --no-cache-dir uv && \
   uv pip install --no-cache-dir --system     \
   hydra-core                                 \
   omegaconf                                  \
-  timm                                       \
+  # timm                                       \
   tqdm                                       \
   click                                      \
   einops                                     \
   lightning                                  \
   lmdb                                       \
-  xformers                                   \
   matplotlib                                 \
   polars                                    \
   transformers                               
@@ -80,7 +79,7 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
 ENV PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # google download tool and neptune
-RUN uv pip install --no-cache-dir gdown neptune wandb --system
+RUN uv pip install --no-cache-dir gdown wandb --system
 
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \

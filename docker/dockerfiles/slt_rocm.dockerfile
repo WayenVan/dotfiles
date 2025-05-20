@@ -23,17 +23,22 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- -y && \
 # install general python packages
 RUN pip install --no-cache-dir uv && \
   # install unsloth and other python package
-  uv pip install --no-cache-dir --system     \
-  hydra-core                                 \
-  omegaconf                                  \
-  # timm                                       \
-  tqdm                                       \
-  click                                      \
-  einops                                     \
-  lightning                                  \
-  lmdb                                       \
-  matplotlib                                 \
-  polars                                    \
+  uv pip install --no-cache-dir --system        \
+  hydra-core                                    \
+  omegaconf                                     \
+  tqdm                                          \
+  click                                         \
+  einops                                        \
+  lightning                                     \
+  lmdb                                          \
+  matplotlib                                    \
+  polars                                        \
+  accelerate                                    \
+  albumentations                                \
+  timm                                          \
+  # update old packages for transformers to run
+  boto3==1.38.0                             \
+  botocore==1.38.0                             \
   transformers                               
 
 #

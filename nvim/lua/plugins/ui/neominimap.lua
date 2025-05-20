@@ -82,7 +82,7 @@ return {
       --- Put your configuration here
       ---@type Neominimap.UserConfig
       vim.g.neominimap = {
-        layout = "float",
+        layout = "split",
         sync_cursor = true,
         auto_enable = false,
 

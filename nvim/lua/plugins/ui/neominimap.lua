@@ -71,7 +71,7 @@ return {
         callback = function(env)
           local function toggle()
             local m = require("neominimap.api")
-            m.toggleFocus()
+            m.focus.toggle()
             m.toggle()
           end
           vim.keymap.set("n", "q", toggle, { noremap = true, silent = true, buffer = env.buf })

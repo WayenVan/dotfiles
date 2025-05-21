@@ -28,3 +28,8 @@
       create: true
     ~/.tmux.conf:
       path: tmux/.tmux.conf
+    ~/Library/Rime:
+      path: rime/*
+      # if: "[[ $(uname) = Darwin ]]"
+      create: true
+      glob: true

@@ -1,4 +1,4 @@
-# starship init
+# starship init, after event fish_postconfig
 function starship_post_config_func --on-event fish_postconfig
     # 这里放置你的函数代码
     starship init fish | source

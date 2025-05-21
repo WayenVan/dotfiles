@@ -1,6 +1,7 @@
 return {
   {
     "zbirenbaum/copilot.lua",
+    event = "VeryLazy",
     opts = {
       copilot_model = "gpt-4o-copilot",
       suggestion = {

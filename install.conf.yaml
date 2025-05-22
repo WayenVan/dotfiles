@@ -30,6 +30,10 @@
       path: tmux/.tmux.conf
     ~/Library/Rime:
       path: rime/*
-      # if: "[[ $(uname) = Darwin ]]"
+      if: "[ $(uname) = Darwin ]"
+      create: true
+      glob: true
+    ~/.config/ibus/rime:
+      path: rime/*
       create: true
       glob: true

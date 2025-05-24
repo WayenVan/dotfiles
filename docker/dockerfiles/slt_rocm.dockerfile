@@ -21,6 +21,7 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- -y && \
   echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
 # install general python packages
+# WARN: uv behaviour is different from pip, expecially in rocm build, may influence the package dependency
 RUN pip install --no-cache-dir uv && \
   # install unsloth and other python package
   uv pip install --no-cache-dir --system        \
@@ -35,7 +36,6 @@ RUN pip install --no-cache-dir uv && \
   polars                                        \
   accelerate                                    \
   albumentations                                \
-  timm                                          \
   # update old packages for transformers to run
   boto3==1.38.0                             \
   botocore==1.38.0                             \
@@ -83,8 +83,8 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
   rm nvim-linux-x86_64.tar.gz
 ENV PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
-# google download tool and neptune
-RUN uv pip install --no-cache-dir gdown wandb --system
+# install other thins with pip
+RUN  pip install --no-cache-dir gdown wandb timm opencv-python albumentations accelerate
 
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \

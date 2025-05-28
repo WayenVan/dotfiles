@@ -39,7 +39,10 @@ RUN pip install --no-cache-dir uv && \
   timm                                          \
   opencv-python-headless                        \
   accelerate                                    \
-  transformers                               
+  transformers                                \
+  pandas \
+  numpy==1.26.4 
+# NOTE: downgrading numpy to 1.26.4, because of the issue with mmcv
 
 #install mmlab using my own cloned repo
 RUN git clone --recursive https://github.com/WayenVan/sapiens.git && \

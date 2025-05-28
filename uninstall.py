@@ -13,7 +13,7 @@ import os
 CONFIG = "install.conf.yaml"
 
 stream = open(CONFIG, "r")
-conf = yaml.load(stream)
+conf = yaml.load(stream, Loader=yaml.FullLoader)
 
 for section in conf:
     if "link" in section:

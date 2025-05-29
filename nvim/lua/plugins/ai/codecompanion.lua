@@ -128,7 +128,7 @@ return {
               ignore_system_prompt = true,
               adapter = {
                 name = "deepseek",
-                model = "deepseek-chat",
+                model = "deepseek-reasoner",
               },
             },
             prompts = {

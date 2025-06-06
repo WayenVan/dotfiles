@@ -1,5 +1,6 @@
 return {
   "folke/neoconf.nvim",
+  enabled = false, -- disable by default
   keys = {
     { "<leader>N", "", desc = "+neoconfig" },
     { "<leader>Nc", "<cmd>Neoconf show<cr>", desc = "Show neoconf merge config" },

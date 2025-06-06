@@ -3,6 +3,7 @@ return {
     "sontungexpt/url-open",
     event = "VeryLazy",
     cmd = "URLOpenUnderCursor",
+    enabled = false,
     config = function()
       local status_ok, url_open = pcall(require, "url-open")
       if not status_ok then

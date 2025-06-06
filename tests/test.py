@@ -1,5 +1,6 @@
 from tarfile import data_filter
 import numpy as np
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 
 for i in range(10):

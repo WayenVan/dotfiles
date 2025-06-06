@@ -7,13 +7,37 @@ return {
     ---@class PluginLspOpts
     opts = {
       --@type lspconfig.options
+      setup = {
+        ty = function(_, opts)
+          return true
+        end,
+      },
       servers = {
+        -- ty = {
+        --   enabled = true,
+        -- },
+        pyright = {
+          settings = {
+            pyright = {
+              disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true, -- Using Ruff
+              analysis = {
+                typeCheckingMode = "off", -- Disable type checking
+                useLibraryCodeForTypes = true, -- Use library code for types
+              },
+            },
+          },
+        },
         basedpyright = {
+          -- enabled = false, -- Disable basedpyright by default
           settings = {
             basedpyright = {
               disableOrganizeImports = true, -- Using Ruff
               disableTaggedHints = true, -- Using Ruff
               analysis = {
+                inlayHints = {
+                  functionReturnTypes = false, -- Enable function return types in inlay hints
+                },
                 typeCheckingMode = "off", -- Disable type checking
                 useLibraryCodeForTypes = true, -- Use library code for types
               },

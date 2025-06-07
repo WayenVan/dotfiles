@@ -38,6 +38,7 @@ return {
       --     virtual_text = not vim.diagnostic.config().virtual_text,
       --   })
       -- end, { desc = "Toggle diagnostic [l]ines" })
+      vim.diagnostic.config({ float = { source = true } })
     end,
   },
 }

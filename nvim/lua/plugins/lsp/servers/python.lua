@@ -13,11 +13,13 @@ return {
           vim.lsp.config("ty", opts)
 
           LazyVim.lsp.on_attach(function(client, bufnr)
-            -- Disable default LSP keymaps for ty
-            -- client.server_capabilities.diagnosticProvider = nil
+            -- Disable some feature becuase it is provided by
+            client.server_capabilities.hoverProvider = false
+            -- client:stop()
           end, "ty")
 
           vim.lsp.enable("ty")
+          -- NOTE: we stop the setting from the lspconfig by this
           return true
         end,
       },
@@ -37,21 +39,21 @@ return {
               },
             },
           },
-          enabled = false,
+          enabled = true,
           mason = false,
         },
         pyright = {
-          enabled = false, -- Disable pyright by default
-          init_options = {
-            settings = {
-              pyright = {
-                disableOrganizeImports = true, -- Using Ruff
-                disableTaggedHints = true, -- Using Ruff
-                analysis = {
-                  typeCheckingMode = "off", -- Disable type checking
-                  useLibraryCodeForTypes = true, -- Use library code for types
-                },
+          enabled = true, -- Disable pyright by default
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "off", -- Disable type checking
+                useLibraryCodeForTypes = true, -- Use library code for types
               },
+            },
+            pyright = {
+              disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true, -- Using Ruff
             },
           },
         },

@@ -14,21 +14,12 @@ return {
     end
 
     local python_cmd = LazyVim.is_win() and "python" or "python3"
-    local cmd = python_cmd
     local file = vim.fn.expand("%:p")
     local args = { file }
 
-    -- check venv
-    local venv_info, _ = require("utils.venv")
-    if venv_info then
-      if venv_info.type == "conda" and venv_info.name ~= "base" then
-        if system == "Windows" then
-          cmd = Path:new(venv_info.conda_prefix):joinpath("python.exe"):absolute()
-        else
-          cmd = Path:new(venv_info.conda_prefix):joinpath("bin", "python"):absolute()
-        end
-      end
-    end
+    local python_path_abs = vim.system({ python_cmd, "-c", "import sys; print(sys.executable)" }):wait()
+    local python_path = python_path_abs.stdout:gsub("\n", "")
+    local cmd = python_path
 
     -- append running args
     append_running_args(args)

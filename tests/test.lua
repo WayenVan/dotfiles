@@ -1,6 +1,6 @@
-local misc = require("utils.misc")
+local all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
 
--- vim.notify(misc.shellescape_dir("this directory \\\\ tto"))
---
---
-print(vim.inspect(vim.lsp.get_active_clients()))
+vim.notify(vim.inspect(all_mslp_servers))
+
+local is_in = vim.tbl_contains(all_mslp_servers, "ty")
+vim.notify(is_in)

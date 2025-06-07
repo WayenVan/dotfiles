@@ -29,7 +29,7 @@ return {
       opts.diagnostics.virtual_text = false
       -- vim.diagnostic.config({ virtual_lines = true })
       -- disalbe vim log
-      vim.lsp.set_log_level("off")
+      -- vim.lsp.set_log_level("off")
 
       -- toggle diagnostic virtual text
       -- vim.keymap.set("", "<leader>k", function()

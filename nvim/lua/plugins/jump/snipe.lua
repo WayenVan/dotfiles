@@ -12,6 +12,9 @@ return {
       },
     },
     opts = {
+      hints = {
+        dictionary = "adflewcmpghio",
+      },
       ui = {
         preselect_current = true,
         position = "center",
@@ -30,16 +33,6 @@ return {
         end,
       })
     end,
-  },
-  {
-    "kungfusheep/snipe-spell.nvim",
-    dependencies = "leath-dub/snipe.nvim",
-    enabled = false,
-    event = "BufEnter",
-    config = true,
-    keys = {
-      { "z=", "<cmd>SnipeSpell <cr>", desc = "Snipe Spellchecker" },
-    },
   },
   {
     "nicholasxjy/snipe-marks.nvim",

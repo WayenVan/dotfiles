@@ -2,6 +2,7 @@ return {
   {
     "bloznelis/before.nvim",
     event = "BufEnter",
+    enabled = false,
     keys = {
       {
         "<leader>;",

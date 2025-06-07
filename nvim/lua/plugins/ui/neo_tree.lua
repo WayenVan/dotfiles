@@ -51,8 +51,8 @@ return {
       opts.window.mappings["l"] = "focus_preview"
       -- opts.window.mappings["<C-b>"] = { "scroll_preview", config = { direction = 10 } }
       -- opts.window.mappings["<C-f>"] = { "scroll_preview", config = { direction = -10 } }
-      opts.window.mappings["-"] = "open_split"
-      opts.window.mappings["_"] = "open_vsplit"
+      opts.window.mappings["S"] = "open_split"
+      opts.window.mappings["V"] = "open_vsplit"
       opts.window.mappings["s"] = "none"
       -- opts.window.mappings["s"] = "none"
       -- opts.window.mappings["S"] = "none"
@@ -78,49 +78,25 @@ return {
         copy_selector = function(state)
           local node = state.tree:get_node()
           local filepath = node:get_id()
-          local filename = node.name
-          local modify = vim.fn.fnamemodify
-
-          local vals = {
-            ["BASENAME"] = modify(filename, ":r"),
-            ["EXTENSION"] = modify(filename, ":e"),
-            ["FILENAME"] = filename,
-            ["PATH (CWD)"] = modify(filepath, ":."),
-            ["PATH (HOME)"] = modify(filepath, ":~"),
-            ["PATH"] = filepath,
-            ["URI"] = vim.uri_from_fname(filepath),
-          }
-
-          local options = vim.tbl_filter(function(val)
-            return vals[val] ~= ""
-          end, vim.tbl_keys(vals))
-          if vim.tbl_isempty(options) then
-            vim.notify("No values to copy", vim.log.levels.WARN)
-            return
-          end
-          table.sort(options)
-          vim.ui.select(options, {
-            prompt = "Choose to copy to clipboard:",
-            format_item = function(item)
-              return ("%s: %s"):format(item, vals[item])
-            end,
-          }, function(choice)
-            local result = vals[choice]
-            if result then
-              if vim.fn.has("clipboard") == 0 then
-                require("noice").notify("Clipboard is not available", "warn")
-              end
-              vim.notify(("Copied: `%s` to uname and plus register"):format(result))
-              vim.fn.setreg('"', result)
-              vim.fn.setreg("+", result)
-            end
-          end)
+          require("utils.yank_path").yank_path_picker(filepath)
+        end,
+        copy_relative_path = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+          require("utils.yank_path").yank_path(":t", filepath)
+        end,
+        copy_absolute_path = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+          require("utils.yank_path").yank_path(":p", filepath)
         end,
       },
       window = {
         title = "",
         mappings = {
           Y = "copy_selector",
+          ["gy"] = "copy_relative_path",
+          ["gY"] = "copy_absolute_path",
           ["ge"] = "open_in_mini_file",
         },
       },

@@ -70,21 +70,7 @@ return {
         return entry and entry.path or nil
       end
 
-      local function yank_path(modifier, msg)
-        local path = get_entry_path()
-        if not path then
-          return
-        end
-        local modified = vim.fn.fnamemodify(path, modifier)
-        local os_name = require("utils.os_name").get_os_name()
-
-        if os_name == "Windows" then
-          vim.fn.setreg("+", modified)
-        else
-          vim.fn.setreg("", modified)
-        end
-        notify(msg:format(modified), "info")
-      end
+      local yank_path = require("utils.yank_path").yank_path
 
       --- Action implementations ---
       local function go_to_directory()
@@ -132,7 +118,7 @@ return {
           "n",
           "gy",
           function()
-            yank_path(":.", "Copied %s to unnamed")
+            yank_path(":t", get_entry_path())
           end,
           { desc = "Yank relative path" },
         },
@@ -141,7 +127,7 @@ return {
           "n",
           "gY",
           function()
-            yank_path(":p", "Copied %s to unnamed")
+            yank_path(":p", get_entry_path())
           end,
           { desc = "Yank absolute path" },
         },
@@ -150,7 +136,9 @@ return {
           "n",
           "Y",
           function()
-            yank_path(":t", "Copied %s to unnamed")
+            local path = get_entry_path()
+            MiniFiles.close()
+            require("utils.yank_path").yank_path_picker(path)
           end,
           { desc = "Yank filename" },
         },
@@ -161,7 +149,7 @@ return {
           function()
             require("neo-tree.command").execute({
               action = "focus",
-              position = "right",
+              position = "left",
               reveal_file = get_entry_path(),
               dir = vim.fn.getcwd(),
             })

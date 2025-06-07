@@ -3,17 +3,16 @@ return {
     "voxelprismatic/rabbit.nvim",
     lazy = false,
     enabled = false,
-    keys = {
-      { "<leader>.", "<cmd>Rabbit<cr>", desc = "Jump to definition" },
-    },
+    branch = "rewrite",
     config = function()
       require("rabbit").setup({
-        window = {
-          -- float = { "top", "left" },
-          float = "center",
+        keys = {
+          switch = "<leader>,",
         },
-        default_keys = {
-          open = { "<leader>." },
+        window = {
+          spawn = {
+            side = "c",
+          },
         },
       }) -- Detailed below
     end,

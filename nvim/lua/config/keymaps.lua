@@ -105,7 +105,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     -- Set terminal-local keymaps
     -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
     -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
-    vim.keymap.set("t", "<C-[>", [[<C-\><C-n>]], { buffer = 0 })
+    vim.keymap.set("t", "<M-q>", [[<C-\><C-n>]], { buffer = 0 })
     vim.keymap.set("t", "<C-<localleader>>", [[<C-\><C-n>]], { buffer = 0 })
     vim.keymap.set("t", "<C-h>", "<Cmd>wincmd h<CR>", { buffer = 0 }) -- Move left
     vim.keymap.set("t", "<C-j>", "<Cmd>wincmd j<CR>", { buffer = 0 }) -- Move down

@@ -4,7 +4,7 @@ return {
     -- override the default keymaps
     local filtered = vim.tbl_filter(function(value)
       local k = value[1]
-      if k == "<leader>e" or k == "<leader>E" or k == "<leader>fe" or k == "<leader>fE" then
+      if k == "<leader>e" or k == "<leader>E" or k == "<leader>fe" or k == "<leader>fE" or k == "<leader>." then
         return false
       else
         return true

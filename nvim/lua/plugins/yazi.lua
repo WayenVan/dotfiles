@@ -17,9 +17,23 @@ return {
       {
         "<leader>-",
         function()
+          require("snacks")
+
           Snacks.terminal("yazi", {
             win = {
+
               border = "single",
+              keys = {
+                term_normal = {
+                  "<esc>",
+                  function(self)
+                    return "<esc>"
+                  end,
+                  mode = "t",
+                  expr = true,
+                  desc = "Double escape to normal mode",
+                },
+              },
             },
           })
         end,

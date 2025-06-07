@@ -37,7 +37,7 @@ return {
     dependencies = { { "folke/which-key.nvim" } },
     cmd = { "ToggleTerm" },
     keys = {
-      { "<leader>-", "", desc = "toggle terminal" },
+      { "<leader>.", "", desc = "toggle terminal" },
       {
         "<c-_>",
         toggle_terminal,
@@ -52,38 +52,38 @@ return {
         mode = { "n", "i" },
       },
       {
-        "<leader>-f",
+        "<leader>.f",
         function()
           toggle_with_previous(LazyVim.root.get(), "float")
         end,
         desc = "ToggleTerm (float root_dir)",
       },
       {
-        "<leader>-s",
+        "<leader>.s",
         function()
           toggle_with_previous(LazyVim.root.get(), "horizontal")
         end,
         desc = "ToggleTerm (horizontal root_dir)",
       },
       {
-        "<leader>-v",
+        "<leader>.v",
         function()
           toggle_with_previous(LazyVim.root.get(), "vertical", vim.o.columns * 0.5)
         end,
         desc = "ToggleTerm (vertical root_dir)",
       },
       {
-        "<leader>-n",
+        "<leader>.n",
         "<cmd>ToggleTermSetName<cr>",
         desc = "Set term name",
       },
       {
-        "<leader>--",
+        "<leader>..",
         "<cmd>TermSelect<cr>",
         desc = "Select term",
       },
       {
-        "<leader>-c",
+        "<leader>.c",
         function()
           require("utils.term").clear_all()
         end,

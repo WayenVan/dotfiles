@@ -29,12 +29,10 @@ return {
           filetypes = { "python" },
           root_markers = { "pyproject.toml", "ty.toml", ".git" },
           init_options = {
-            settings = {
-              ty = {
-                experimental = {
-                  completions = {
-                    enable = true, -- Enable completions
-                  },
+            ty = {
+              experimental = {
+                completions = {
+                  enable = true, -- Enable completions
                 },
               },
             },

@@ -15,9 +15,9 @@ local snippets = {
   {
     s("var", {
       t("local "),
-      i(1),
+      i(1, "name"),
       t(" = "),
-      i(2),
+      i(2, "value"),
       t(""),
     }),
   },

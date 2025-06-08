@@ -101,12 +101,3 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
   once = true,
 })
-
--- vim.api.nvim_create_autocmd({ "User" }, {
---   pattern = "LazyFile",
---   callback = function()
---     vim.opt.background = "light"
---   end,
---   once = true,
--- })
---

@@ -2,6 +2,7 @@
 return {
   {
     "abecodes/tabout.nvim",
+    enabled = false, -- Set to false to disable the plugin
     config = function()
       require("tabout").setup({
         -- tabkey = "<c-l>", -- key to trigger tabout, set to an empty string to disable

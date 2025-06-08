@@ -36,6 +36,22 @@ return {
         desc = "Open mini.files (Recent)",
       },
       {
+        "<leader>Oc",
+        function()
+          local path = require("plenary.path"):new(vim.fn.stdpath("cache")):absolute()
+          require("mini.files").open(path, true, {})
+        end,
+        desc = "Open mini.files (cache)",
+      },
+      {
+        "<leader>Os",
+        function()
+          local path = require("plenary.path"):new(vim.fn.stdpath("state")):absolute()
+          require("mini.files").open(path, true, {})
+        end,
+        desc = "Open mini.files (state)",
+      },
+      {
         "<leader>Of",
         function()
           require("mini.files").open(LazyVim.root(), true)

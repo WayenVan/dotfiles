@@ -9,8 +9,8 @@ return {
       keymap = {
         preset = "default",
         ["<C-x>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<Tab>"] = { "fallback" },
-        ["<S-Tab>"] = { "fallback" },
+        ["<Tab>"] = { LazyVim.cmp.map({ "snippet_forward" }), "fallback" },
+        ["<S-Tab>"] = { LazyVim.cmp.map({ "snippet_backward" }), "fallback" },
       },
       cmdline = {
         enabled = true,

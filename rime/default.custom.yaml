@@ -1,5 +1,5 @@
 patch:
-  "menu/page_size": 10
+  "menu/page_size": 7
   "key_binder/bindings/+":
     - { accept: "Control+p", send: Up, when: composing }
     - { accept: "Control+n", send: Down, when: composing }

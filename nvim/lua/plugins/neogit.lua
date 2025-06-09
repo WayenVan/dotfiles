@@ -11,6 +11,9 @@ return {
       -- Only one of these is needed, not both.
     },
     opts = {
+      commit_editor = {
+        show_staged_diff = false,
+      },
       -- disable_signs = true,
     },
     keys = function(_, keys)

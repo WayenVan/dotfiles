@@ -84,9 +84,7 @@ return {
     cmd = function()
       local old_buf = require("menu.state").old_data.buf
       local full_path = vim.api.nvim_buf_get_name(old_buf)
-      local relative_path = vim.fn.fnamemodify(full_path, ":.")
-      vim.fn.setreg('"', relative_path)
-      vim.notify("Copied " .. relative_path .. " to unamed", "info")
+      require("utils.yank_path").yank_path(":.", full_path)
     end,
     rtxt = "gy",
   },
@@ -95,9 +93,7 @@ return {
     cmd = function()
       local old_buf = require("menu.state").old_data.buf
       local full_path = vim.api.nvim_buf_get_name(old_buf)
-      local absolute_path = full_path
-      vim.fn.setreg('"', absolute_path)
-      vim.notify("Copied " .. absolute_path .. " to unamed", "info")
+      require("utils.yank_path").yank_path("", full_path)
     end,
     rtxt = "gY",
   },
@@ -152,6 +148,6 @@ return {
         })
         :toggle()
     end,
-    rtxt = "gt",
+    rtxt = "t",
   },
 }

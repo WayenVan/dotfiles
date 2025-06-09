@@ -5,7 +5,15 @@ return {
   lazy = false,
   enabled = true,
   opts = {
-    excluded_filetypes = { "neo-tree", "dashboard" },
+    excluded_filetypes = {
+      "neo-tree",
+      "dashboard",
+      "snacks_dashboard",
+      "alpha",
+      "ministarter",
+      "TelescopePrompt",
+      "snacks_picker_input",
+    },
     current_only = true,
     base = "right",
     column = 1,

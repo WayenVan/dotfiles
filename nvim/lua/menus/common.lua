@@ -71,13 +71,11 @@ return {
   },
   { name = "separator" },
   {
-    name = "Copy Filename",
+    name = "Copy Picker",
     cmd = function()
       local old_buf = require("menu.state").old_data.buf
       local full_path = vim.api.nvim_buf_get_name(old_buf)
-      local filename = vim.fn.fnamemodify(full_path, ":t")
-      vim.fn.setreg('"', filename)
-      vim.notify("Copied " .. filename .. " to unamed", "info")
+      require("utils.yank_path").yank_path_picker(full_path)
     end,
     rtxt = "Y",
   },

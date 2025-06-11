@@ -2,6 +2,7 @@ return {
   {
     "lervag/vimtex",
     lazy = false, -- lazy-loading will disable inverse search
+    -- enabled = false,
     keys = function(_, keys)
       return {}
     end,

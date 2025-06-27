@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:2.4.0-cuda11.8-cudnn9-devel
+FROM huggingface/accelerate:gpu-deepspeed-nightly-2025-06-27
 
 WORKDIR /workspace
 
@@ -38,32 +38,8 @@ RUN pip install --no-cache-dir uv && \
   albumentations                                \
   timm                                          \
   opencv-python-headless                        \
-  accelerate                                    \
-  transformers                                \
-  pandas \
-  diskcache\
-  numpy==1.26.4 
-# NOTE: downgrading numpy to 1.26.4, because of the issue with mmcv
+  pandas 
 
-#install mmlab using my own cloned repo
-RUN git clone --recursive https://github.com/WayenVan/sapiens.git && \
-  cd sapiens && git lfs pull && \
-  bash ./my_install.sh
-#
-# install ctcdecoder
-RUN git clone --recursive https://github.com/WayenVan/ctcdecode.git && \
-  cd ctcdecode && uv pip install --no-cache-dir --system --no-build-isolation . && \
-  cd .. && rm -rf /workspace/ctcdecode
-
-# install sclit
-RUN git clone --recursive https://github.com/usnistgov/SCTK.git && \
-  cd SCTK &&  \
-  make config && \
-  make all && \
-  make install && \
-  make doc
-ENV PATH="/workspace/SCTK/bin:${PATH}"
-ENV PATH="/root/.npm/bin:${PATH}"
 
 
 # install x command and its tools

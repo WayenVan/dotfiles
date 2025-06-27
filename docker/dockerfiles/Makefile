@@ -1,3 +1,6 @@
+accelerate:
+	docker build -t accelerate -f accelerate.dockerfile .
+
 deeplearning_general:
 	docker build -t deeplearning_general -f deeplearning_general.dockerfile .
 

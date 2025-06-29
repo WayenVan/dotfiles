@@ -15,10 +15,13 @@ return {
           LazyVim.lsp.on_attach(function(client, bufnr)
             -- Disable some feature becuase it is provided by
             client.server_capabilities.hoverProvider = false
+            -- disable complement for ty becasue of conflict with pyright
+            client.server_capabilities.completionProvider = nil
             -- client:stop()
           end, "ty")
 
           vim.lsp.enable("ty")
+
           -- NOTE: we stop the setting from the lspconfig by this
           return true
         end,
@@ -28,15 +31,6 @@ return {
           cmd = { "ty", "server" },
           filetypes = { "python" },
           root_markers = { "pyproject.toml", "ty.toml", ".git" },
-          init_options = {
-            ty = {
-              experimental = {
-                completions = {
-                  enable = true, -- Enable completions
-                },
-              },
-            },
-          },
           enabled = true,
           mason = false,
         },

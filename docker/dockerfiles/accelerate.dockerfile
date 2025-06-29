@@ -36,6 +36,8 @@ RUN pip install --no-cache-dir uv && \
   polars                                        \
   accelerate                                    \
   albumentations                                \
+  transformers                                \
+  datasets                                \
   timm                                          \
   opencv-python-headless                        \
   pandas 

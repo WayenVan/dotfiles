@@ -1,9 +1,10 @@
 return {
   {
     "sphamba/smear-cursor.nvim",
-    enabled = function()
-      return vim.g.neovide == nil
-    end,
+    enabled = false,
+    -- enabled = function()
+    --   return vim.g.neovide == nil
+    -- end,
     opts = {
       -- Smear cursor when switching buffers or windows.
       smear_between_buffers = true,

@@ -30,3 +30,10 @@ draw_layer:keymaps({
     { "f", ":VBox<CR>", { desc = "box" } },
   },
 })
+draw_layer:add_hook(function(active)
+  if active then
+    vim.wo.virtualedit = "all"
+    return
+  end
+  vim.wo.virtualedit = nil
+end)

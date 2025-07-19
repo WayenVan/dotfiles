@@ -1,6 +1,7 @@
 return {
   "Vonr/align.nvim",
   lazy = true,
+  enabled = false,
   keys = {
     { mode = "x", "ga", "", desc = "go align" },
     {

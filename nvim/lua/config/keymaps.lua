@@ -39,18 +39,18 @@ end, { desc = "Git Browse" })
 -- map("t", "<c-[>", [[<Esc>]], { silent = true })
 
 -- cutomized text object
-local function select_above()
-  local line = vim.fn.line(".")
-  local cmd = string.format("normal! ggV%dgg", line)
-  vim.cmd(cmd)
-end
-local function select_below()
-  local line = vim.fn.line(".")
-  local cmd = string.format("normal! GV%dgg", line)
-  vim.cmd(cmd)
-end
-vim.keymap.set("n", "gA", select_above, { desc = "select above" })
-vim.keymap.set("n", "gB", select_below, { desc = "select below" })
+-- local function select_above()
+--   local line = vim.fn.line(".")
+--   local cmd = string.format("normal! ggV%dgg", line)
+--   vim.cmd(cmd)
+-- end
+-- local function select_below()
+--   local line = vim.fn.line(".")
+--   local cmd = string.format("normal! GV%dgg", line)
+--   vim.cmd(cmd)
+-- end
+-- vim.keymap.set("n", "gA", select_above, { desc = "select above" })
+-- vim.keymap.set("n", "gB", select_below, { desc = "select below" })
 
 -- neovide setting
 if vim.g.neovide then

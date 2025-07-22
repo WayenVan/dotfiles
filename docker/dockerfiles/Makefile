@@ -10,3 +10,5 @@ slr:
 slt_rocm:
 	docker build -t slt_rocm -f slt_rocm.dockerfile .
 
+llamafactory:
+	docker build -t llamafactory -f llama_factory.dockerfile .

@@ -40,6 +40,9 @@ RUN pip install --no-cache-dir uv && \
   opencv-python-headless                        \
   accelerate                                    \
   transformers                                \
+  datasets                                \
+  tensordict \
+  nlpaug \
   pandas \
   diskcache\
   numpy==1.26.4 

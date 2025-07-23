@@ -9,7 +9,7 @@ services:
     volumes:
       - share_data:/workspace/share_data
       - data:/workspace/data
-    command: ["tail", "-f", "/dev/null"] # Keep the container running
+    command: tail -f /dev/null
     deploy:
       resources:
         reservations:

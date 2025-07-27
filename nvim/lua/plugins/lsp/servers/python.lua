@@ -15,12 +15,31 @@ return {
           LazyVim.lsp.on_attach(function(client, bufnr)
             -- Disable some feature becuase it is provided by
             client.server_capabilities.hoverProvider = false
+            -- client.server_capabilities.inlayHintProvider = nil
             -- disable complement for ty becasue of conflict with pyright
             client.server_capabilities.completionProvider = nil
             -- client:stop()
           end, "ty")
 
           vim.lsp.enable("ty")
+
+          -- NOTE: we stop the setting from the lspconfig by this
+          return true
+        end,
+        pyrefly = function(_, opts)
+          vim.lsp.config("pyrefly", opts)
+
+          LazyVim.lsp.on_attach(function(client, bufnr)
+            client.server_capabilities.definitionProvider = false
+            -- Disable some feature becuase it is provided by
+            -- client.server_capabilities.hoverProvider = false
+            -- disable complement for tyrefly becasue of conflict with pyright
+            client.server_capabilities.inlayHintProvider = nil
+            -- client.server_capabilities.completionProvider = nil
+            -- client:stop()
+          end, "pyrefly")
+
+          vim.lsp.enable("pyrefly")
 
           -- NOTE: we stop the setting from the lspconfig by this
           return true
@@ -34,8 +53,23 @@ return {
           enabled = true,
           mason = false,
         },
+        pyrefly = {
+          cmd = { "pyrefly", "lsp" },
+          filetypes = { "python" },
+          root_markers = {
+            "pyrefly.toml",
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+            "Pipfile",
+            ".git",
+          },
+          enabled = true,
+          mason = false,
+        },
         pyright = {
-          enabled = true, -- Disable pyright by default
+          enabled = false, -- Disable pyright by default
           settings = {
             python = {
               analysis = {

@@ -35,6 +35,7 @@ return {
             -- client.server_capabilities.hoverProvider = false
             -- disable complement for tyrefly becasue of conflict with pyright
             client.server_capabilities.inlayHintProvider = nil
+            -- client.server_capabilities.diagnosticProvider = nil
             -- client.server_capabilities.completionProvider = nil
             -- client:stop()
           end, "pyrefly")
@@ -64,6 +65,14 @@ return {
             "requirements.txt",
             "Pipfile",
             ".git",
+          },
+          settings = {
+            -- python.pyrefly.disableTypeErrors
+            python = {
+              pyrefly = {
+                disableTypeErrors = true, -- Disable type errors
+              },
+            },
           },
           enabled = true,
           mason = false,

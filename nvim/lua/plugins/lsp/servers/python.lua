@@ -74,11 +74,11 @@ return {
               },
             },
           },
-          enabled = true,
+          enabled = false,
           mason = false,
         },
         pyright = {
-          enabled = false, -- Disable pyright by default
+          enabled = true, -- Disable pyright by default
           settings = {
             python = {
               analysis = {

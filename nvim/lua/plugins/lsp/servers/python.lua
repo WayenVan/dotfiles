@@ -45,6 +45,18 @@ return {
           -- NOTE: we stop the setting from the lspconfig by this
           return true
         end,
+        pyright = function(_, opts)
+          LazyVim.lsp.on_attach(function(client, bufnr)
+            -- Disable some feature becuase it is provided by
+            -- client.server_capabilities.hoverProvider = false
+            -- client.server_capabilities.inlayHintProvider = nil
+            -- client.server_capabilities.diagnosticProvider = nil
+            -- client.server_capabilities.completionProvider = nil
+            print("pyright on_attach")
+            client.server_capabilities.documentHighlightProvider = false
+          end, "pyright")
+          return false
+        end,
       },
       servers = {
         ty = {

@@ -11,6 +11,7 @@ return {
       vim.g.vimtex_quickfix_method = vim.fn.executable("pplatex") == 1 and "pplatex" or "latexlog"
       vim.g.vimtex_mappings_enabled = false
       vim.g.vimtex_syntax_conceal_disable = true
+      vim.g.vimtex_format_enabled = true
     end,
   },
 }

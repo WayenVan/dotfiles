@@ -97,6 +97,16 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
   rm nvim-linux-x86_64.tar.gz
 ENV PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
+#install web tool file browser and ngrok
+RUN curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+  | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+  && echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" \
+  | tee /etc/apt/sources.list.d/ngrok.list \
+  && apt update \
+  && apt install ngrok \
+  && rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+
 # install other thins with pip
 RUN  pip install --no-cache-dir gdown wandb
 

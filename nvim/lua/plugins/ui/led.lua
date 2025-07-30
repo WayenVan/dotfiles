@@ -8,9 +8,9 @@ return {
     -- You can use opts or the normal config function with `require("led").setup(opts)`
     opts = {
       -- Default LED configuration (always present, shows when buffer is modified)
-      char = "", -- Character to display
+      char = "*", -- Character to display
       position = "top-right", -- Position: "top-right", "top-left", "bottom-right", "bottom-left", "top-center", "bottom-center"
-      order = 1, -- Order within same position (lower = closer to edge/center)
+      order = 3, -- Order within same position (lower = closer to edge/center)
       highlight = { link = "WarningMsg" }, -- Color configuration
       ignore = { -- Buffer/file types to ignore
         "help",
@@ -43,6 +43,7 @@ return {
         {
           position = "top-right",
           highlight = { link = "NormalFloat" },
+          order = 1,
           handler = function(winnr, bufnr)
             local full_path = vim.api.nvim_buf_get_name(bufnr)
             if full_path == "" then

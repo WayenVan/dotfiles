@@ -18,6 +18,9 @@ return {
         },
         min_height = 18,
       },
+      task_win = {
+        zindex = 1001,
+      },
     },
     keys = function(_, keys)
       local new_keys = {

@@ -211,6 +211,7 @@ return {
         -- the 'curved' border is a custom border type
         -- not natively supported but implemented in this plugin.
         -- number = 1,
+        zindex = 1001, -- set the zindex of the floating terminal
       },
     },
   },

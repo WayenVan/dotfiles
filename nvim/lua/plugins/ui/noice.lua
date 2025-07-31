@@ -3,6 +3,7 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     -- tag = "v4.4.7",
+    enabled = true,
     opts = {
       cmdline = {
         enabled = true,

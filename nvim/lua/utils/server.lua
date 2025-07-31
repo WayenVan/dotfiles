@@ -1,15 +1,13 @@
 local M = {}
 
-local n = require("noice")
-
 M.server_picker_fzf = function()
   local stop_server = function(selected, opts)
     vim.notify(vim.inspect(selected[1]))
     local server = selected[1]
     if vim.fn.serverstop(server) then
-      n.notify("Server stopped", "info")
+      vim.notify("Server stopped", "info")
     else
-      n.notify("Server not stopped or not found", "error")
+      vim.notify("Server not stopped or not found", "error")
     end
   end
   require("fzf-lua").fzf_exec(function(fzf_cb)
@@ -55,10 +53,10 @@ M.server_picker = function()
         local stop_server = function()
           local selection = t.action_state.get_selected_entry()
           if vim.fn.serverstop(selection.value) then
-            n.notify("Server stopped", "info")
+            vim.notify("Server stopped", "info")
             t.actions.remove_selection(prompt_bufnr)
           else
-            n.notify("Server not stopped or not found", "error")
+            vim.notify("Server not stopped or not found", "error")
           end
 
           local current_picker = t.action_state.get_current_picker(prompt_bufnr)

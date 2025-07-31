@@ -105,7 +105,11 @@ RUN curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
   && apt update \
   && apt install ngrok \
   && rm -rf /var/lib/apt/lists/*
-RUN curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+# RUN curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+RUN wget -P filebrowser https://github.com/gtsteffaniak/filebrowser/releases/download/v0.7.18-beta/linux-amd64-filebrowser && \
+  chmod +x filebrowser/linux-amd64-filebrowser && \
+  mv filebrowser/linux-amd64-filebrowser filebrowser/filebrowser
+ENV PATH="/workspace/filebrowser:${PATH}"
 
 # install other thins with pip
 RUN  pip install --no-cache-dir gdown wandb

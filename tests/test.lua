@@ -1,5 +1,25 @@
-local logger = require("logger")
+-- require("multinput").setup()
+-- vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
+-- 	vim.o.shiftwidth = tonumber(input)
+-- end)
 
-local all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+-- Example of using vim.ui.input for prompting user input
+local function ask_user_for_filename()
+	vim.ui.input({
+		prompt = "Enter a filename: ",
+		default = "new_file.txt",
+		completion = "file",
+	}, function(input)
+		if input then
+			-- User provided a filename
+			vim.cmd("edit " .. input)
+			print("Opening file: " .. input)
+		else
+			-- User cancelled the input
+			print("File creation cancelled")
+		end
+	end)
+end
 
-local is_in = vim.tbl_contains(all_mslp_servers, "ty")
+-- Call the function
+ask_user_for_filename()

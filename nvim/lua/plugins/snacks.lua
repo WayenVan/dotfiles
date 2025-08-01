@@ -28,6 +28,7 @@ return {
       --   desc = "Explorer Snacks (cwd)",
       -- },
       -- snacks.picker
+
       {
         "<leader>ff",
         function()
@@ -62,6 +63,11 @@ return {
     return vim.list_extend(filtered, my_keys)
   end,
   opts = {
+    input = {
+      win = {
+        relative = "cursor",
+      },
+    },
     explorer = {
       follow_file = false,
     },

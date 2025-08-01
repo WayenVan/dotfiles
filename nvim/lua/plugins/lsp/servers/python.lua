@@ -18,6 +18,7 @@ return {
             -- client.server_capabilities.inlayHintProvider = nil
             -- disable complement for ty becasue of conflict with pyright
             client.server_capabilities.completionProvider = nil
+            client.server_capabilities.signatureHelpProvider = nil
             -- client:stop()
           end, "ty")
 
@@ -52,8 +53,6 @@ return {
             -- client.server_capabilities.inlayHintProvider = nil
             -- client.server_capabilities.diagnosticProvider = nil
             -- client.server_capabilities.completionProvider = nil
-            print("pyright on_attach")
-            client.server_capabilities.documentHighlightProvider = false
           end, "pyright")
           return false
         end,
@@ -63,15 +62,15 @@ return {
           cmd = { "ty", "server" },
           filetypes = { "python" },
           root_markers = { "pyproject.toml", "ty.toml", ".git" },
-          init_options = {
-            settings = {
-              python = {
-                ty = {
-                  disableLanguageServices = true, -- Disable type errors
-                },
-              },
-            },
-          },
+          -- init_options = {
+          --   settings = {
+          --     python = {
+          --       ty = {
+          --         disableLanguageServices = true, -- Disable type errors
+          --       },
+          --     },
+          --   },
+          -- },
           enabled = true, -- Disable ty by default
           mason = false,
         },
@@ -95,11 +94,11 @@ return {
               },
             },
           },
-          enabled = true,
+          enabled = false,
           mason = false,
         },
         pyright = {
-          enabled = false, -- Disable pyright by default
+          enabled = true, -- Disable pyright by default
           settings = {
             python = {
               analysis = {

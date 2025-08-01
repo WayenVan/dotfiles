@@ -63,7 +63,16 @@ return {
           cmd = { "ty", "server" },
           filetypes = { "python" },
           root_markers = { "pyproject.toml", "ty.toml", ".git" },
-          enabled = true,
+          init_options = {
+            settings = {
+              python = {
+                ty = {
+                  disableLanguageServices = true, -- Disable type errors
+                },
+              },
+            },
+          },
+          enabled = true, -- Disable ty by default
           mason = false,
         },
         pyrefly = {
@@ -86,11 +95,11 @@ return {
               },
             },
           },
-          enabled = false,
+          enabled = true,
           mason = false,
         },
         pyright = {
-          enabled = true, -- Disable pyright by default
+          enabled = false, -- Disable pyright by default
           settings = {
             python = {
               analysis = {

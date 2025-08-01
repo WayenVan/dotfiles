@@ -30,11 +30,11 @@ return {
           vim.lsp.config("pyrefly", opts)
 
           LazyVim.lsp.on_attach(function(client, bufnr)
-            client.server_capabilities.definitionProvider = false
+            -- client.server_capabilities.definitionProvider = false
             -- Disable some feature becuase it is provided by
             -- client.server_capabilities.hoverProvider = false
             -- disable complement for tyrefly becasue of conflict with pyright
-            client.server_capabilities.inlayHintProvider = nil
+            -- client.server_capabilities.inlayHintProvider = nil
             -- client.server_capabilities.diagnosticProvider = nil
             -- client.server_capabilities.completionProvider = nil
             -- client:stop()

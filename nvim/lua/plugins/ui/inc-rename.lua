@@ -1,6 +1,6 @@
 return {
   {
-    "stevearc/inc-rename.nvim",
+    "smjonas/inc-rename.nvim",
     opts = {
       -- input_buffer_type = "snacks",
     },

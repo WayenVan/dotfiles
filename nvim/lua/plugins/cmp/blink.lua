@@ -48,4 +48,25 @@ return {
       },
     },
   },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-avante",
+    },
+    opts = function(_, opts)
+      -- You can modify the options here
+      opts.sources.default = vim.list_extend({
+        "avante",
+      }, opts.sources.default)
+      opts.sources.providers.avante = {
+        module = "blink-cmp-avante",
+        name = "Avante",
+        opts = {
+          -- options for blink-cmp-avante
+        },
+      }
+
+      return opts
+    end,
+  },
 }

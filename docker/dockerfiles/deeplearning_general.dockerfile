@@ -9,7 +9,7 @@ ENV MAKEFLAGS="-j$(nproc)"
 
 # Run apt update at the very beginning
 RUN apt-get update && \
-  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs openssh-client && \
+  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs openssh-client openssh-server && \
   rm -rf /var/lib/apt/lists/*
 
 #setup shells
@@ -113,6 +113,14 @@ ENV PATH="/workspace/filebrowser:${PATH}"
 
 # install other thins with pip
 RUN  pip install --no-cache-dir gdown wandb
+
+# install ssh server
+RUN mkdir -p /var/run/sshd \
+  && chmod 0755 /var/run/sshd
+
+RUN echo "root:root" | chpasswd \
+  && sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config
+# && sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \

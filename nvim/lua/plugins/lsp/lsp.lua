@@ -24,9 +24,33 @@ return {
         desc = "open lsp signature help",
         mode = "i",
       }
+      -- 模拟“按住显示 200 ms 后自动隐藏”的脚本 hack
+      keys[#keys + 1] = {
+        "<M-h>",
+        function()
+          print("Momentarily show inlay hints via Alt‑h")
+          local bufnr = vim.api.nvim_get_current_buf()
+          local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+          if not enabled then
+            vim.lsp.inlay_hint.enable(true, {
+              bufnr = bufnr,
+            })
+          else
+            vim.lsp.inlay_hint.enable(false, {
+              bufnr = bufnr,
+            })
+          end
+        end,
+        desc = "Momentarily show inlay hints via Alt‑h",
+        mode = "n",
+      }
 
       -- disable diagnostic virtual text configured by lspconfig, using the tiny one
       opts.diagnostics.virtual_text = false
+      opts.inlay_hints = {
+        enabled = false,
+      }
+
       -- vim.diagnostic.config({ virtual_lines = true })
       -- disalbe vim log
       -- vim.lsp.set_log_level("off")

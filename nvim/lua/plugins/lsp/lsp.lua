@@ -26,7 +26,7 @@ return {
       }
       -- 模拟“按住显示 200 ms 后自动隐藏”的脚本 hack
       keys[#keys + 1] = {
-        "<M-h>",
+        "gh",
         function()
           print("Momentarily show inlay hints via Alt‑h")
           local bufnr = vim.api.nvim_get_current_buf()

@@ -98,13 +98,41 @@ return {
     rtxt = "gY",
   },
   --
-  -- { name = "separator" },
+  { name = "separator" },
   --
   -- {
   --   name = "  Lsp Actions",
   --   hl = "Define",
   --   items = "lsp",
   -- },
+  {
+    name = "Peek definition",
+    cmd = function()
+      require("overlook.api").peek_definition()
+    end,
+    rtxt = "d",
+  },
+  {
+    name = "Peek cursor",
+    cmd = function()
+      require("overlook.api").peek_cursor()
+    end,
+    rtxt = "c",
+  },
+  {
+    name = "Restore peek window",
+    cmd = function()
+      require("overlook.api").restore_popup()
+    end,
+    rtxt = "r",
+  },
+  {
+    name = "Close all peek windows",
+    cmd = function()
+      require("overlook.api").close_all()
+    end,
+    rtxt = "x",
+  },
 
   { name = "separator" },
 

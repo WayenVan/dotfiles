@@ -1,6 +1,6 @@
 return {
   "lewis6991/satellite.nvim",
-  enabled = false,
+  enabled = true,
   opts = {
     current_only = true,
     excluded_fioletypes = {

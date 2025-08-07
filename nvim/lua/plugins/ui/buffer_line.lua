@@ -5,9 +5,9 @@ return {
       options = {
         diagnostics = false,
         indicator = {
-          style = "underline",
+          -- style = "underline",
         },
-        separator_style = "slope",
+        separator_style = "thin",
         groups = {
           items = {
             require("bufferline.groups").builtin.pinned:with({ icon = "📌" }), -- Group for pinned buffers

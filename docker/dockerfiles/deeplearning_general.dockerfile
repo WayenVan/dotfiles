@@ -126,4 +126,9 @@ RUN echo "root:root" | chpasswd \
 RUN git clone https://github.com/WayenVan/dotfiles.git && \
   cd dotfiles && git lfs pull && bash install
 
+# git setup
+RUN git config --global credential.helper store
+RUN git config --global pull.rebase true
+
+ENV CONDA_PREFIX=/opt/conda
 

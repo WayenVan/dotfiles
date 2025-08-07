@@ -9,7 +9,7 @@ ENV MAKEFLAGS="-j$(nproc)"
 
 # Run apt update at the very beginning
 RUN apt-get update && \
-  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs openssh-client && \
+  apt-get install -y wget curl git unzip build-essential ffmpeg libsm6 libxext6 git-lfs openssh-client openssh-server && \
   rm -rf /var/lib/apt/lists/*
 
 #setup shells
@@ -61,5 +61,35 @@ RUN  pip install --no-cache-dir gdown wandb
 # finally put my personal dotfiles in the container
 RUN git clone https://github.com/WayenVan/dotfiles.git && \
   cd dotfiles && git lfs pull && bash install
+
+
+# install ssh server
+RUN mkdir -p /var/run/sshd \
+  && chmod 0755 /var/run/sshd
+
+RUN echo "root:root" | chpasswd \
+  && sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config
+# && sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+#install web tool file browser and ngrok
+RUN curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+  | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+  && echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" \
+  | tee /etc/apt/sources.list.d/ngrok.list \
+  && apt update \
+  && apt install ngrok \
+  && rm -rf /var/lib/apt/lists/*
+# RUN curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+RUN wget -P filebrowser https://github.com/gtsteffaniak/filebrowser/releases/download/v0.7.18-beta/linux-amd64-filebrowser && \
+  chmod +x filebrowser/linux-amd64-filebrowser && \
+  mv filebrowser/linux-amd64-filebrowser filebrowser/filebrowser
+ENV PATH="/workspace/filebrowser:${PATH}"
+
+# git setup
+RUN git config --global credential.helper store
+RUN git config --global pull.rebase true
+
+ENV CONDA_PREFIX=/opt/conda
+
 
 

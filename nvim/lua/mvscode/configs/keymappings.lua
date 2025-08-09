@@ -165,3 +165,8 @@ end, {})
 map("n", "<leader>zz", function()
   vs.action("workbench.action.toggleZenMode")
 end, {})
+
+-- lsp settings
+map("n", "<leader>cr", function()
+  vs.action("editor.action.rename")
+end, {})

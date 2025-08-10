@@ -46,7 +46,6 @@ RUN pip install --no-cache-dir uv && \
   tensordict \
   nlpaug \
   pandas \
-  geoloss \
   diskcache\
   numpy==1.26.4 
 # NOTE: downgrading numpy to 1.26.4, because of the issue with mmcv

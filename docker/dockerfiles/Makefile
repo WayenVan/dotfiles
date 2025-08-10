@@ -12,3 +12,7 @@ slt_rocm:
 
 llamafactory:
 	docker build -t llamafactory -f llama_factory.dockerfile .
+
+axolotl:
+	docker build -t axolotl -f axotolt.dockerfile .
+

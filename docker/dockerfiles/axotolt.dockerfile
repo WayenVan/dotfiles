@@ -107,5 +107,5 @@ RUN git clone https://github.com/WayenVan/dotfiles.git && \
 RUN git config --global credential.helper store
 RUN git config --global pull.rebase true
 
-ENV CONDA_PREFIX=/opt/conda
+ENV CONDA_PREFIX="/opt/miniconda3/envs/py3.11"
 

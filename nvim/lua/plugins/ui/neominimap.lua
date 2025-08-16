@@ -74,16 +74,33 @@ return {
             m.focus.toggle()
             m.toggle()
           end
+          local function jump_to()
+            local anchor = vim.fn.bufnr("#") -- 遍历所有窗口，找到正在显示这个 buffer 的 window
+            local winid = nil
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              if vim.api.nvim_win_get_buf(win) == anchor then
+                winid = win
+                break
+              end
+            end
+            if not winid then
+              vim.notify("No window found for the anchor buffer", vim.log.levels.WARN)
+              return
+            end
+            local l = vim.api.nvim_win_get_cursor(0)[1]
+            vim.api.nvim_win_set_cursor(winid, { l * 4, 0 }) -- 跳到第100行，列号0
+            vim.api.nvim_set_current_win(winid) -- 切换到这个窗口
+          end
           vim.keymap.set("n", "q", toggle, { noremap = true, silent = true, buffer = env.buf })
-          vim.keymap.set("n", "<CR>", toggle, { noremap = true, silent = true, buffer = env.buf })
+          vim.keymap.set("n", "<CR>", jump_to, { noremap = true, silent = true, buffer = env.buf })
         end,
       })
 
       --- Put your configuration here
       ---@type Neominimap.UserConfig
       vim.g.neominimap = {
-        layout = "split",
-        sync_cursor = true,
+        layout = "float",
+        sync_cursor = false,
         auto_enable = false,
 
         exclude_filetypes = {

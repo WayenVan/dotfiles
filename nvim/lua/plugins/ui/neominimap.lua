@@ -75,18 +75,20 @@ return {
             m.toggle()
           end
           local function jump_to()
+            -- local anchor = vim.fn.bufnr("#") -- 遍历所有窗口，找到正在显示这个 buffer 的 window
             local anchor = vim.fn.bufnr("#") -- 遍历所有窗口，找到正在显示这个 buffer 的 window
-            local winid = nil
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-              if vim.api.nvim_win_get_buf(win) == anchor then
-                winid = win
-                break
-              end
-            end
-            if not winid then
-              vim.notify("No window found for the anchor buffer", vim.log.levels.WARN)
-              return
-            end
+            local winid = vim.fn.win_getid(vim.fn.winnr("#")) -- 获取当前窗口的 ID
+            -- local winid = nil
+            -- for _, win in ipairs(vim.api.nvim_list_wins()) do
+            --   if vim.api.nvim_win_get_buf(win) == anchor then
+            --     winid = win
+            --     break
+            --   end
+            -- end
+            -- if not winid then
+            --   vim.notify("No window found for the anchor buffer", vim.log.levels.WARN)
+            --   return
+            -- end
             local l = vim.api.nvim_win_get_cursor(0)[1]
             vim.api.nvim_win_set_cursor(winid, { l * 4, 0 }) -- 跳到第100行，列号0
             vim.api.nvim_set_current_win(winid) -- 切换到这个窗口

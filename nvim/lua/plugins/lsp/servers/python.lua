@@ -51,7 +51,7 @@ return {
             -- Disable some feature becuase it is provided by
             -- client.server_capabilities.hoverProvider = false
             -- client.server_capabilities.inlayHintProvider = nil
-            -- client.server_capabilities.diagnosticProvider = nil
+            client.server_capabilities.diagnosticProvider = nil
             -- client.server_capabilities.completionProvider = nil
           end, "pyright")
           return false
@@ -103,7 +103,7 @@ return {
             python = {
               analysis = {
                 typeCheckingMode = "off", -- Disable type checking
-                useLibraryCodeForTypes = true, -- Use library code for types
+                useLibraryCodeForTypes = false, -- Use library code for types
               },
             },
             pyright = {

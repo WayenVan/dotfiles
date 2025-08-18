@@ -66,7 +66,7 @@ return {
         go_out = "H",
         go_out_plus = "<BS>",
         reset = ".",
-        synchronize = "<Tab>",
+        synchronize = "<C-s>",
       },
       options = {
         use_as_default_explorer = true,

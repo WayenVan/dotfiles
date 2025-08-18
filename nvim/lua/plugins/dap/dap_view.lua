@@ -27,11 +27,15 @@ return {
       dap.listeners.before.launch["dap-view-config"] = function()
         dv.open()
       end
-      dap.listeners.before.event_terminated["dap-view-config"] = function()
-        dv.close()
+      dap.listeners.after.event_terminated["dap-view-config"] = function()
+        if require("dap").session() == nil then
+          dv.close()
+        end
       end
-      dap.listeners.before.event_exited["dap-view-config"] = function()
-        dv.close()
+      dap.listeners.after.event_exited["dap-view-config"] = function()
+        if require("dap").session() == nil then
+          dv.close()
+        end
       end
       vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`

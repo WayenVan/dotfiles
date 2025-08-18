@@ -4,6 +4,9 @@ return {
     enabled = true,
     -- branch = "feat/expand-variables",
     opts = {
+      winbar = {
+        sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "console", "sessions" },
+      },
       windows = {
         height = 16,
         terminal = {

@@ -20,18 +20,19 @@ return {
         position = "center",
       },
       navigate = {
-        -- cancel_snipe = "q",
+        cancel_snipe = "q",
+        open_split = "S",
       },
       sort = "last",
     },
     config = function(_, opts)
       require("snipe").setup(opts)
-      vim.api.nvim_create_autocmd({ "Filetype" }, {
-        pattern = { "snipe-menu" },
-        callback = function(ev)
-          vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = ev.buf, nowait = true })
-        end,
-      })
+      -- vim.api.nvim_create_autocmd({ "Filetype" }, {
+      --   pattern = { "snipe-menu" },
+      --   callback = function(ev)
+      --     vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = ev.buf, nowait = true })
+      --   end,
+      -- })
     end,
   },
   {

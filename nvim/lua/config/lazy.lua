@@ -7,6 +7,9 @@ end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
+  git = {
+    timeout = 600,
+  },
   spec = {
     -- add LazyVim and import its plugins
     {

@@ -2,13 +2,18 @@ return {
   "folke/snacks.nvim",
   keys = function(_, keys)
     -- override the default keymaps
+    local excluded_keys = {
+      ["<leader>e"] = true,
+      ["<leader>E"] = true,
+      ["<leader>fe"] = true,
+      ["<leader>fE"] = true,
+      ["<leader>."] = true,
+      ["<leader><space>"] = true,
+      ["<leader>ff"] = true,
+    }
+
     local filtered = vim.tbl_filter(function(value)
-      local k = value[1]
-      if k == "<leader>e" or k == "<leader>E" or k == "<leader>fe" or k == "<leader>fE" or k == "<leader>." then
-        return false
-      else
-        return true
-      end
+      return not excluded_keys[value[1]]
     end, keys)
 
     local my_keys = {
@@ -29,14 +34,14 @@ return {
       -- },
       -- snacks.picker
 
-      {
-        "<leader>ff",
-        function()
-          Snacks.picker.smart()
-        end,
-        desc = "Smart find files (cwd)",
-      },
-      { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+      -- {
+      --   "<leader>ff",
+      --   function()
+      --     Snacks.picker.smart()
+      --   end,
+      --   desc = "Smart find files (cwd)",
+      -- },
+      -- { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
       { "<leader>/", LazyVim.pick("grep", { root = false }), desc = "Grep (cwd)" },
       {
         "<leader>=",
@@ -69,6 +74,7 @@ return {
       },
     },
     explorer = {
+      enabled = false,
       follow_file = false,
     },
     zen = {

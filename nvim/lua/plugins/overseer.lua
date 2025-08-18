@@ -8,7 +8,7 @@ return {
       -- use_terminal = false,
       -- preserve_output = true,
       -- },
-      templates = { "shell", "user.run_python", "user.run_python_with_args" },
+      templates = { "shell", "user.run_python", "user.run_python_with_args", "builtin" },
       default_detail = 3,
       task_list = {
         -- direction = "right",

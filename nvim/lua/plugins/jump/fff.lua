@@ -37,6 +37,7 @@ return {
       require("fff").setup(opts)
       vim.api.nvim_create_autocmd({ "Filetype" }, {
         pattern = { "fff_input" },
+        group = vim.api.nvim_create_augroup("FFFInput", { clear = true }),
         callback = function(ev)
           vim.keymap.set("n", "<esc>", function()
             require("fff.picker_ui").close()

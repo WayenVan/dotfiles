@@ -2,6 +2,8 @@
 -- vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
 -- 	vim.o.shiftwidth = tonumber(input)
 -- end)
+--
+LazyVim.format.info(vim.api.nvim_get_current_buf())
 
 -- Example of using vim.ui.input for prompting user input
 local function ask_user_for_filename()

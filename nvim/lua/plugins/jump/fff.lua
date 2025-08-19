@@ -12,6 +12,9 @@ return {
       layout = {
         prompt_position = "top", -- or "bottom"
       },
+      keymaps = {
+        close = "<c-q>",
+      },
     },
     keys = {
       {
@@ -30,5 +33,16 @@ return {
         desc = "Open file picker in lazyvim root",
       },
     },
+    config = function(_, opts)
+      require("fff").setup(opts)
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
+        pattern = { "fff_input" },
+        callback = function(ev)
+          vim.keymap.set("n", "<esc>", function()
+            require("fff.picker_ui").close()
+          end, { buffer = ev.buf, nowait = true })
+        end,
+      })
+    end,
   },
 }

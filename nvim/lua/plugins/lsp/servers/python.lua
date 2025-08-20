@@ -38,6 +38,8 @@ return {
             -- client.server_capabilities.inlayHintProvider = nil
             -- client.server_capabilities.diagnosticProvider = nil
             -- client.server_capabilities.completionProvider = nil
+            client.server_capabilities.completionProvider = nil
+            client.server_capabilities.renameProvider = nil
             -- client:stop()
           end, "pyrefly")
 
@@ -49,13 +51,15 @@ return {
         pyright = function(_, opts)
           LazyVim.lsp.on_attach(function(client, bufnr)
             -- Disable some feature becuase it is provided by
-            -- client.server_capabilities.hoverProvider = false
-            -- client.server_capabilities.inlayHintProvider = nil
+            client.server_capabilities.inlayHintProvider = nil
+            client.server_capabilities.hoverProvider = false
             client.server_capabilities.diagnosticProvider = nil
             client.server_capabilities.definitionProvider = nil
             client.server_capabilities.declarationProvider = nil
             client.server_capabilities.typeDefinitionProvider = nil
             client.server_capabilities.documentSymbolProvider = nil
+            client.server_capabilities.signatureHelpProvider = nil
+            client.server_capabilities.documentHighlightProvider = nil
             -- client.server_capabilities.completionProvider = nil
           end, "pyright")
           return false
@@ -75,7 +79,7 @@ return {
           --     },
           --   },
           -- },
-          enabled = true, -- Disable ty by default
+          enabled = false, -- Disable ty by default
           mason = false,
         },
         pyrefly = {
@@ -94,11 +98,11 @@ return {
             -- python.pyrefly.disableTypeErrors
             python = {
               pyrefly = {
-                disableTypeErrors = true, -- Disable type errors
+                disableTypeErrors = false, -- Disable type errors
               },
             },
           },
-          enabled = false,
+          enabled = true,
           mason = false,
         },
         pyright = {

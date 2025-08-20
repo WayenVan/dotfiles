@@ -55,6 +55,7 @@ return {
             client.server_capabilities.definitionProvider = nil
             client.server_capabilities.declarationProvider = nil
             client.server_capabilities.typeDefinitionProvider = nil
+            client.server_capabilities.documentSymbolProvider = nil
             -- client.server_capabilities.completionProvider = nil
           end, "pyright")
           return false

@@ -110,20 +110,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { buffer = 0 }) -- Move right
   end,
 })
-
--- setup keymaps for useful information
-map("n", "<leader>ni", "", { desc = "+info" })
-map("n", "<leader>nif", function()
-  LazyVim.format.info(vim.api.nvim_get_current_buf())
-end, { desc = "Format Info" })
-map("n", "<leader>nil", function()
-  local clients = vim.lsp.get_clients()
-  if next(clients) == nil then
-    print("No LSP clients attached.")
-  else
-    for _, client in pairs(clients) do
-      print("Client Name:", client.name)
-      print(vim.inspect(client.server_capabilities))
-    end
-  end
-end, { desc = "Lsp Info" })

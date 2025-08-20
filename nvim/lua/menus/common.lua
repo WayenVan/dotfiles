@@ -142,6 +142,29 @@ return {
   },
 
   { name = "separator" },
+  {
+    name = "Show Formatter Info",
+    cmd = function()
+      LazyVim.format.info(vim.api.nvim_get_current_buf())
+    end,
+    rtxt = "if",
+  },
+  {
+    name = "Show LSP Info",
+    cmd = function()
+      local clients = vim.lsp.get_clients()
+      if next(clients) == nil then
+        vim.notify("No LSP clients attached.", vim.log.levels.WARN)
+      else
+        for _, client in pairs(clients) do
+          vim.notify(vim.inspect(client.server_capabilities), client.name)
+        end
+      end
+    end,
+    rtxt = "il",
+  },
+
+  { name = "separator" },
 
   -- {
   --   name = "Edit Config",

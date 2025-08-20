@@ -3,25 +3,30 @@
 -- 	vim.o.shiftwidth = tonumber(input)
 -- end)
 --
-LazyVim.format.info(vim.api.nvim_get_current_buf())
+local dap = require("dap")
+
+for v, e in pairs(dap.listeners.after.event_stopped) do
+	vim.notify(v)
+end
+-- LazyVim.format.info(vim.api.nvim_get_current_buf())
 
 -- Example of using vim.ui.input for prompting user input
-local function ask_user_for_filename()
-	vim.ui.input({
-		prompt = "Enter a filename: ",
-		default = "new_file.txt",
-		completion = "file",
-	}, function(input)
-		if input then
-			-- User provided a filename
-			vim.cmd("edit " .. input)
-			print("Opening file: " .. input)
-		else
-			-- User cancelled the input
-			print("File creation cancelled")
-		end
-	end)
-end
-
--- Call the function
-ask_user_for_filename()
+-- local function ask_user_for_filename()
+-- 	vim.ui.input({
+-- 		prompt = "Enter a filename: ",
+-- 		default = "new_file.txt",
+-- 		completion = "file",
+-- 	}, function(input)
+-- 		if input then
+-- 			-- User provided a filename
+-- 			vim.cmd("edit " .. input)
+-- 			print("Opening file: " .. input)
+-- 		else
+-- 			-- User cancelled the input
+-- 			print("File creation cancelled")
+-- 		end
+-- 	end)
+-- end
+--
+-- -- Call the function
+-- ask_user_for_filename()

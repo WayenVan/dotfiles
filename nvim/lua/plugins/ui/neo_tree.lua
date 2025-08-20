@@ -56,12 +56,19 @@ return {
       opts.window.mappings["s"] = "none"
       -- opts.window.mappings["s"] = "none"
       -- opts.window.mappings["S"] = "none"
-      vim.notify(vim.inspect(opts.filesystem))
       opts.filesystem.follow_current_file.enabled = false
       opts.filesystem.follow_current_file.leave_dirs_open = true
       opts.filesystem.filtered_items = {
         hide_dotfiles = false,
       }
+
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
+        pattern = { "neo-tree-popup" },
+        group = vim.api.nvim_create_augroup("Neotree-Popup", { clear = true }),
+        callback = function(ev)
+          vim.keymap.set("n", "q", "<c-w>q", { buffer = ev.buf, nowait = true })
+        end,
+      })
     end,
   },
   {
@@ -98,6 +105,8 @@ return {
           ["gy"] = "copy_relative_path",
           ["gY"] = "copy_absolute_path",
           ["ge"] = "open_in_mini_file",
+          ["/"] = "none", -- disable search
+          ["<esc>"] = "none",
         },
       },
     },

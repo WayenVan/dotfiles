@@ -120,11 +120,18 @@ return {
     rtxt = "c",
   },
   {
+    name = "Restore all peek windows",
+    cmd = function()
+      require("overlook.api").restore_all_popups()
+    end,
+    rtxt = "r",
+  },
+  {
     name = "Restore peek window",
     cmd = function()
       require("overlook.api").restore_popup()
     end,
-    rtxt = "r",
+    rtxt = "R",
   },
   {
     name = "Close all peek windows",

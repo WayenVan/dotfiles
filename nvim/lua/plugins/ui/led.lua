@@ -4,6 +4,7 @@ return {
 
     -- This is optional, but recommended for load time performance
     event = "VeryLazy",
+    enabled = false, -- Set to false to disable the plugin
 
     -- You can use opts or the normal config function with `require("led").setup(opts)`
     opts = {

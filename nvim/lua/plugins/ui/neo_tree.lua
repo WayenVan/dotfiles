@@ -2,7 +2,7 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
-    enabled = true,
+    enabled = false,
     branch = "v3.x",
     lazy = true,
     keys = function(_, keys)

@@ -44,6 +44,14 @@ return {
           end, { buffer = ev.buf, nowait = true })
         end,
       })
+      vim.api.nvim_create_autocmd("OptionSet", {
+        group = vim.api.nvim_create_augroup("FFFOptionSet", { clear = true }),
+        pattern = "background",
+        callback = function()
+          -- 每次背景改变时重新保存并恢复高亮
+          require("lazy.core.loader").reload("fff.nvim")
+        end,
+      })
     end,
   },
 }

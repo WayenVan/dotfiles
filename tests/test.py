@@ -1,5 +1,6 @@
 import numpy as np
 
+sda = 1
 
 for i in range(4):
     print(i)

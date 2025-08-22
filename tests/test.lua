@@ -3,14 +3,19 @@
 -- 	vim.o.shiftwidth = tonumber(input)
 -- end)
 --
-local dap = require("dap")
-
-for v, e in pairs(dap.listeners.after.event_stopped) do
-	vim.notify(v)
-end
-
-require("snacks")
-Snacks.picker.lsp_symbols()
+-- local dap = require("dap")
+--
+-- local all_highlights = vim.api.nvim_get_hl(0, {})
+-- for name, hl_def in pairs(all_highlights) do
+-- 	vim.notify(name)
+-- end
+--
+-- for v, e in pairs(dap.listeners.after.event_stopped) do
+-- 	vim.notify(v)
+-- end
+--
+-- require("snacks")
+-- Snacks.picker.lsp_symbols()
 -- LazyVim.format.info(vim.api.nvim_get_current_buf())
 
 -- Example of using vim.ui.input for prompting user input

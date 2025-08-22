@@ -26,7 +26,7 @@ return {
           mode = "i",
         },
         {
-          "<M-h>",
+          "<M-i>",
           function()
             local bufnr = vim.api.nvim_get_current_buf()
             local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })

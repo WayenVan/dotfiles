@@ -1,17 +1,11 @@
 return {
   {
-    "norcalli/nvim-colorizer.lua",
-    ft = {
-      "css",
-      "html",
-      "javascript",
-      "lua",
-    },
-    opts = {
-      "css",
-      "javascript",
-      "lua",
-    },
-    config = true,
+    "brenoprata10/nvim-highlight-colors",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-highlight-colors").setup({
+        render = "virtual", -- or 'background'
+      })
+    end,
   },
 }

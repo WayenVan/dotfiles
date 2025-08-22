@@ -76,8 +76,8 @@ return {
         pattern = "background",
         callback = function()
           -- 每次背景改变时重新保存并恢复高亮
-          -- fix_incline_high_light()
-          require("lazy.core.loader").reload("incline.nvim")
+          fix_incline_high_light()
+          -- require("lazy.core.loader").reload("incline.nvim")
         end,
       })
     end,

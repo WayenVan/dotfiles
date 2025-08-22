@@ -166,6 +166,23 @@ return {
 
   { name = "separator" },
 
+  {
+    name = "Color Shades",
+    cmd = function()
+      vim.cmd("Shades")
+    end,
+    rtxt = "Ms",
+  },
+  {
+    name = "Color Huefy",
+    cmd = function()
+      vim.cmd("Huefy")
+    end,
+    rtxt = "Mh",
+  },
+
+  { name = "separator" },
+
   -- {
   --   name = "Edit Config",
   --   cmd = function()

@@ -1,7 +1,5 @@
 import numpy as np
 
-sda = 1
-
 for i in range(4):
     print(i)
     if i == 5:
@@ -12,9 +10,10 @@ a = np.array([1, 2, 3])
 
 class A:
     def __init__(self, a):
-        self.a = a
+        self.a: int = a
 
     def __repr__(self):
+        self.a
         return f"A({self.a})"
 
     def __str__(self):

@@ -1,7 +1,8 @@
 return {
   {
-    -- "A7Lavinraj/fyler.nvim",
-    dir = "~/Desktop/forked/fyler.nvim",
+    "WayenVan/fyler.nvim",
+    -- dir = "~/Desktop/forked/fyler.nvim",
+    branch = "feature/commands",
     -- dependencies = { "echasnovski/mini.icons" },
     enabled = true,
     dependencies = { "DaikyXendo/nvim-material-icon" },

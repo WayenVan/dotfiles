@@ -14,11 +14,13 @@ return {
 
           LazyVim.lsp.on_attach(function(client, bufnr)
             -- Disable some feature becuase it is provided by
-            client.server_capabilities.hoverProvider = false
             -- client.server_capabilities.inlayHintProvider = nil
             -- disable complement for ty becasue of conflict with pyright
+            client.server_capabilities.hoverProvider = false
             client.server_capabilities.completionProvider = nil
             client.server_capabilities.signatureHelpProvider = nil
+            client.server_capabilities.documentSymbolProvider = nil
+            client.server_capabilities.definitionProvider = false
             -- client:stop()
           end, "ty")
 
@@ -35,8 +37,8 @@ return {
             -- Disable some feature becuase it is provided by
             -- client.server_capabilities.hoverProvider = false
             -- disable complement for tyrefly becasue of conflict with pyright
-            -- client.server_capabilities.inlayHintProvider = nil
-            -- client.server_capabilities.diagnosticProvider = nil
+            client.server_capabilities.inlayHintProvider = nil
+            client.server_capabilities.diagnosticProvider = nil
             -- client.server_capabilities.completionProvider = nil
             -- client:stop()
           end, "pyrefly")
@@ -85,12 +87,9 @@ return {
             "pyrefly.toml",
             "pyproject.toml",
             "setup.py",
-
             "setup.cfg",
             "requirements.txt",
-
             "Pipfile",
-
             ".git",
           },
           settings = {
@@ -101,11 +100,11 @@ return {
               },
             },
           },
-          enabled = false,
+          enabled = true,
           mason = false,
         },
         pyright = {
-          enabled = true, -- Disable pyright by default
+          enabled = false, -- Disable pyright by default
           settings = {
             python = {
               analysis = {

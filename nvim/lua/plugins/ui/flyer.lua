@@ -4,7 +4,7 @@ return {
     -- dir = "~/Desktop/forked/fyler.nvim",
     branch = "feature/commands",
     -- dependencies = { "echasnovski/mini.icons" },
-    enabled = true,
+    enabled = false,
     dependencies = { "DaikyXendo/nvim-material-icon" },
     -- branch = "stable",
     keys = {

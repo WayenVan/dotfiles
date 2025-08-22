@@ -28,6 +28,7 @@ return {
       },
     },
     config = function(_, opts)
+      opts.options.offsets[1] = nil
       require("bufferline").setup(opts)
       -- Fix bufferline when restoring a session
       vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {

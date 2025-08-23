@@ -1,3 +1,20 @@
+local manager = require("fyler.manager").get_manager()
+local tab_id = vim.api.nvim_get_current_tabpage()
+local tabs = vim.api.nvim_list_tabpages()
+vim.notify(vim.inspect(tabs))
+vim.notify("Current tab id: " .. tab_id)
+
+-- for tab_id, id in ipairs(manager.tab_to_id) do
+-- 	vim.notify("tab_id: " .. tab_id .. " -> explorer_id: " .. id)
+-- end
+
+-- vim.notify(vim.inspect(manager.tab_to_id))
+-- vim.notify(vim.inspect(vim.tbl_keys(manager.instances)))
+vim.notify(vim.inspect(vim.tbl_values(manager.tab_to_id)))
+vim.notify(vim.inspect(vim.tbl_keys(manager.tab_to_id)))
+-- for id, ins in pairs(manager.instances) do
+-- 	vim.notify("explorer_id: " .. id)
+-- end
 -- require("multinput").setup()
 -- vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
 -- 	vim.o.shiftwidth = tonumber(input)

@@ -14,6 +14,11 @@ return {
       --   -- NOTE: DAP UI
       --   -- need to be bold
       -- end,
+      plugins = {
+        -- disable some plugins
+        -- auto = false,
+        ["neo-tree"] = false,
+      },
     },
   },
 }

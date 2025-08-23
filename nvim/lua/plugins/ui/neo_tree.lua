@@ -3,7 +3,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
     enabled = true,
-    branch = "v3.x",
+    branch = "main",
     lazy = true,
     keys = function(_, keys)
       return {
@@ -69,6 +69,10 @@ return {
           vim.keymap.set("n", "q", "<c-w>q", { buffer = ev.buf, nowait = true })
         end,
       })
+    end,
+
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
     end,
   },
   {

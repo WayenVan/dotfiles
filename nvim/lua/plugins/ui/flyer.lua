@@ -4,7 +4,7 @@ return {
     -- dir = "~/Desktop/forked/fyler.nvim",
     branch = "feature/commands",
     -- dependencies = { "echasnovski/mini.icons" },
-    enabled = false,
+    enabled = true,
     dependencies = { "DaikyXendo/nvim-material-icon" },
     -- branch = "stable",
     keys = {
@@ -26,26 +26,27 @@ return {
     opts = {
       mappings = {
         explorer = {
-          ["Y"] = "copy_selector",
-        },
-      },
-      commands = {
-        explorer = {
           ---@param view FylerExplorerView
-          ---@return fun()
-          ["copy_selector"] = function(view)
+          ["Y"] = function(view)
             local algos = require("fyler.views.explorer.algos")
             local store = require("fyler.views.explorer.store")
             local api = vim.api
-            return function()
-              local itemid = algos.match_itemid(api.nvim_get_current_line())
-              if not itemid then
-                return
-              end
-              local entry = store.get_entry(itemid)
-              -- vim.notify(vim.inspect(entry))
-              require("utils.yank_path").yank_path_picker(entry.path)
+            local itemid = algos.match_itemid(api.nvim_get_current_line())
+            if not itemid then
+              return
             end
+            local entry = store.get_entry(itemid)
+            -- vim.notify(vim.inspect(entry))
+            require("utils.yank_path").yank_path_picker(entry.path)
+          end,
+        },
+        confirm = {
+          ---@param view FylerConfirmView
+          ---@param cb fun(confirmed: boolean)
+          ["N"] = function(view, cb)
+            cb(false)
+            vim.notify("Cancelled", vim.log.levels.INFO)
+            view:close()
           end,
         },
       },

@@ -2,7 +2,7 @@ return {
   {
     "WayenVan/fyler.nvim",
     -- dir = "~/Desktop/forked/fyler.nvim",
-    branch = "feature/commands",
+    branch = "feature/multi_tabs_support",
     -- dependencies = { "echasnovski/mini.icons" },
     enabled = true,
     dependencies = { "DaikyXendo/nvim-material-icon" },

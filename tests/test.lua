@@ -27,6 +27,7 @@ vim.notify(vim.inspect(vim.tbl_keys(manager.tab_to_id)))
 -- 	vim.notify(name)
 -- end
 --
+
 -- for v, e in pairs(dap.listeners.after.event_stopped) do
 -- 	vim.notify(v)
 -- end

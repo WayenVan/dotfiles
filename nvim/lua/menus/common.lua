@@ -110,7 +110,7 @@ return {
     cmd = function()
       LazyVim.format.info(vim.api.nvim_get_current_buf())
     end,
-    rtxt = "if",
+    rtxt = "IF",
   },
   {
     name = "Show LSP Info",
@@ -124,7 +124,7 @@ return {
         end
       end
     end,
-    rtxt = "il",
+    rtxt = "IL",
   },
 
   { name = "separator" },
@@ -134,14 +134,14 @@ return {
     cmd = function()
       vim.cmd("Shades")
     end,
-    rtxt = "Ms",
+    rtxt = "MS",
   },
   {
     name = "Color Huefy",
     cmd = function()
       vim.cmd("Huefy")
     end,
-    rtxt = "Mh",
+    rtxt = "MH",
   },
 
   { name = "separator" },

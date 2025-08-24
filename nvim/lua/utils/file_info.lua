@@ -1,7 +1,7 @@
 local M = {}
 
 ---@param filepath string file path
----@param opts snacks.win.Config
+---@param opts snacks.win.Config |nil additional options to override defaults
 function M.show_file_info(filepath, opts)
   opts = opts or {}
 

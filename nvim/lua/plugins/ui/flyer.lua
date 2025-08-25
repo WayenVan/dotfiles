@@ -39,7 +39,7 @@ return {
             -- vim.notify(vim.inspect(entry))
             require("utils.yank_path").yank_path_picker(entry.path)
           end,
-          ["<localleader>f"] = function(view)
+          ["K"] = function(view)
             local algos = require("fyler.views.explorer.algos")
             local store = require("fyler.views.explorer.store")
             local api = vim.api

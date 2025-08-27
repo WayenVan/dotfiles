@@ -2,8 +2,9 @@ local M = {}
 
 ---@param filepath string file path
 ---@param opts snacks.win.Config |nil additional options to override defaults
-function M.show_file_info(filepath, opts)
+function M.show_file_info(filepath, opts, auto_close)
   opts = opts or {}
+  auto_close = auto_close == nil and false or auto_close
 
   vim.schedule(function()
     local stat = vim.loop.fs_stat(filepath)
@@ -66,6 +67,15 @@ function M.show_file_info(filepath, opts)
 
     win:set_title("File Info (press <CR> to copy)")
     win:show()
+
+    if auto_close then
+      vim.api.nvim_create_autocmd("CursorMoved", {
+        callback = function()
+          win:close()
+        end,
+        once = true,
+      })
+    end
 
     -- Add highlighting for labels
     local ns = vim.api.nvim_create_namespace("file_info_hl")

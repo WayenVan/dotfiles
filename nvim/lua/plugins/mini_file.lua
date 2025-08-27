@@ -173,9 +173,23 @@ return {
           { desc = "Reveal in NeoTree" },
         },
 
-        { "n", "O", open_in_system, { desc = "Open in system" } },
+        -- { "n", "O", open_in_system, { desc = "Open in system" } },
         { "n", "<localleader>D", go_to_directory, { desc = "Set CWD to directory" } },
-
+        {
+          "n",
+          "K",
+          function()
+            local path = get_entry_path()
+            local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+            require("utils.file_info").show_file_info(path, {
+              col = current_cursor_pos[2],
+              row = current_cursor_pos[1],
+              zindex = 1001,
+              enter = false,
+            }, true)
+          end,
+          {},
+        },
         {
           "i",
           "<C-s>",

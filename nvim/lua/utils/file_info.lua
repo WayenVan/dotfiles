@@ -2,6 +2,7 @@ local M = {}
 
 ---@param filepath string file path
 ---@param opts snacks.win.Config |nil additional options to override defaults
+---@param auto_close boolean|nil whether to auto close the window on cursor move (default: false)
 function M.show_file_info(filepath, opts, auto_close)
   opts = opts or {}
   auto_close = auto_close == nil and false or auto_close

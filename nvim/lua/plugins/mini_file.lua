@@ -1,7 +1,6 @@
 return {
   {
     "echasnovski/mini.files",
-
     keys = {
       {
         "<leader>e",
@@ -10,9 +9,16 @@ return {
         end,
         desc = "Open mini.files (cwd)",
       },
-
       {
         "<leader>E",
+        function()
+          require("mini.files").open(MiniFiles.get_latest_path())
+        end,
+        desc = "Open mini.files (recent)",
+      },
+
+      {
+        "<leader>Of",
         function()
           require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
         end,
@@ -27,14 +33,13 @@ return {
         end,
         desc = "Open mini.files (std data)",
       },
-      {
-        "<leader>Or",
-        function()
-          -- require("mini.files").open(LazyVim.root(), true)
-          require("mini.files").open(MiniFiles.get_latest_path())
-        end,
-        desc = "Open mini.files (Recent)",
-      },
+      -- {
+      --   "<leader>Or",
+      --   function()
+      --     require("mini.files").open(LazyVim.root(), true)
+      --   end,
+      --   desc = "Open mini.files (Recent)",
+      -- },
       {
         "<leader>Oc",
         function()
@@ -52,7 +57,7 @@ return {
         desc = "Open mini.files (state)",
       },
       {
-        "<leader>Of",
+        "<leader>Or",
         function()
           require("mini.files").open(LazyVim.root(), true)
         end,

@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    enabled = false,
+    enabled = true,
     opts = {
       formatters_by_ft = {
         tex = { "tex-fmt" },

@@ -15,10 +15,10 @@ return {
     },
     keys = {
       { "-", "", desc = "+session" },
-      { "--", "<cmd>SessionSearch<cr>", desc = "Search sessions" },
-      { "-s", "<cmd>SessionSave<cr>", desc = "Save session" },
-      { "-d", "<cmd>SessionDelete<cr>", desc = "Delete current session" },
-      { "-D", "<cmd>Autosession delete<cr>", desc = "Delete sessions" },
+      { "--", "<cmd>AutoSession search<cr>", desc = "Search sessions" },
+      { "-s", "<cmd>AutoSession save<cr>", desc = "Save session" },
+      { "-d", "<cmd>AutoSession delete<cr>", desc = "Delete current session" },
+      { "-D", "<cmd>AutoSession deletePicker<cr>", desc = "Delete sessions" },
     },
   },
   {

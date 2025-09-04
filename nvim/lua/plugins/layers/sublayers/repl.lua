@@ -71,7 +71,7 @@ repl_layer:keymaps({
       },
     },
     {
-      "<M-q>",
+      "<leader>$",
       function()
         LayersManager:deactivate("REPL")
       end,

@@ -3,7 +3,12 @@ return {
   {
     "kawre/leetcode.nvim",
     lazy = leet_arg ~= vim.fn.argv()[1],
-    opts = { arg = leet_arg },
+    opts = {
+      arg = leet_arg,
+      cn = {
+        enabled = true,
+      },
+    },
     cmd = "Leet",
     build = ":TSUpdate html",
     dependencies = {

@@ -16,3 +16,5 @@ llamafactory:
 axolotl:
 	docker build -t axolotl -f axotolt.dockerfile .
 
+transformers:
+	docker build -t transformers -f transformers.dockerfile .

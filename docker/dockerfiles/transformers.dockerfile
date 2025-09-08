@@ -33,11 +33,14 @@ RUN pip install --no-cache-dir uv && \
   lmdb                                          \
   matplotlib                                    \
   polars                                        \
-  accelerate                                    \
   polars                                        \
   albumentations                                \
   accelerate                                    \
+  diffusers                                     \
   datasets                                      \
+  peft                                          \
+  accelerate                                    \
+  trl                                           \
   timm                                          \
   opencv-python-headless                        \
   pandas 
@@ -111,4 +114,3 @@ RUN git config --global credential.helper store
 RUN git config --global pull.rebase true
 
 ENV CONDA_PREFIX=/opt/conda
-

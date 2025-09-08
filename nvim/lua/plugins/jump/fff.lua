@@ -15,6 +15,10 @@ return {
       keymaps = {
         close = "<c-q>",
       },
+      hl = {
+        matched = "MatchParen",
+        border = "Type",
+      },
     },
     keys = {
       {

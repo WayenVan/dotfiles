@@ -3,13 +3,17 @@ local platform = require("mason-core.platform")
 
 return Pkg.new({
   name = "dockerfmt",
-  desc = [[A custom CLI tool for testing mason local registry.]],
+  desc = [[A simple Dockerfile formatter that follows best practices and enforces a consistent style.]],
   homepage = "https://github.com/reteps/dockerfmt",
   categories = { Pkg.Cat.Formatter },
   languages = { Pkg.Lang.docker },
 
   install = function(ctx)
-    local asset = platform.is.win and "my-tool-windows.zip" or "dockerfmt-v0.3.7-linux-amd64.tar.gz"
+    if platform.is.darwin or platform.is.win then
+      error("dockerfmt is not available for macOS or Windows.")
+    end
+
+    local asset = "dockerfmt-v0.3.7-linux-amd64.tar.gz"
     local url = ("https://github.com/reteps/dockerfmt/releases/download/v0.3.7/%s"):format(asset)
 
     -- 下载到当前目录

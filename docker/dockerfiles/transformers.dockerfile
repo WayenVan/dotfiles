@@ -1,4 +1,4 @@
-FROM huggingface/accelerate:gpu-deepspeed-nightly-2025-06-27
+FROM huggingface/transformers-pytorch-gpu:latest
 
 WORKDIR /workspace
 
@@ -105,9 +105,6 @@ RUN echo "root:root" | chpasswd \
   && sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config
 # && sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-# finally put my personal dotfiles in the container
-RUN git clone https://github.com/WayenVan/dotfiles.git && \
-  cd dotfiles && git lfs pull && bash install
 
 # git setup
 RUN git config --global credential.helper store

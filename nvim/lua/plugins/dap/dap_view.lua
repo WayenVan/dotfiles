@@ -5,7 +5,7 @@ return {
     -- branch = "feat/expand-variables",
     opts = {
       winbar = {
-        sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "console", "sessions" },
+        sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "sessions" },
       },
       windows = {
         height = 16,

@@ -96,7 +96,7 @@ return {
             -- python.pyrefly.disableTypeErrors
             python = {
               pyrefly = {
-                disableTypeErrors = "force-off",
+                displayTypeErrors = "force-off",
               },
             },
           },

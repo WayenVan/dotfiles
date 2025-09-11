@@ -96,7 +96,7 @@ return {
             -- python.pyrefly.disableTypeErrors
             python = {
               pyrefly = {
-                disableTypeErrors = true, -- Disable type errors
+                disableTypeErrors = "force-off",
               },
             },
           },

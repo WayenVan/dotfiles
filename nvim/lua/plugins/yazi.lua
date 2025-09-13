@@ -18,7 +18,6 @@ return {
         "<leader>-",
         function()
           require("snacks")
-
           Snacks.terminal("yazi", {
             win = {
 

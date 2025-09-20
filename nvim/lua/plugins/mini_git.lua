@@ -1,7 +1,7 @@
 return {
   {
     {
-      "echasnovski/mini-git",
+      "nvim-mini/mini-git",
       version = false,
       cmd = { "Git" },
       main = "mini.git",

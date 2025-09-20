@@ -125,7 +125,7 @@ return {
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           {
-            action = ":Autosession search",
+            action = ":AutoSession search",
             desc = "Restore Session",
             icon = " ",
             key = "--",

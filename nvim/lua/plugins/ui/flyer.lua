@@ -52,7 +52,7 @@ return {
           current:close()
           require("utils.yank_path").yank_path_picker(entry.path)
         end,
-        ["K"] = function(explorer)
+        ["K"] = function()
           local explorer = require("fyler.explorer")
           local current = explorer.current()
           if not current or not current.file_tree then
@@ -92,7 +92,7 @@ return {
       track_current_buffer = false,
       -- views = {
       --   explorer = {
-      close_on_select = false,
+      close_on_select = true,
       --     track_current_buffer = false,
       win = {
         kind = "float",

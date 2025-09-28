@@ -15,7 +15,10 @@ return {
       {
         "<leader>;f",
         function()
-          MiniMap.toggle_focus()
+          MiniMap.toggle()
+
+          vim.schedule(MiniMap.toggle_focus)
+          -- MiniMap.toggle_focus()
         end,
         desc = "Toggle focus",
       },

@@ -1,7 +1,7 @@
 return {
   {
     "dmtrKovalenko/fff.nvim",
-    lazy = false, -- make sure we load this during startup if you want to use it with lazy
+    lazy = true, -- make sure we load this during startup if you want to use it with lazy
     enabled = true,
     build = function()
       -- this will download prebuild binary or try to use existing rustup toolchain to build from source

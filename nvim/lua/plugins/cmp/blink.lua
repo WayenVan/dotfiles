@@ -6,6 +6,7 @@ return {
       return vim.list_extend(event, { "CmdlineEnter" })
     end,
     opts = {
+      -- fuzzy = { implementation = "lua" },
       keymap = {
         preset = "default",
         ["<C-x>"] = { "show", "show_documentation", "hide_documentation" },

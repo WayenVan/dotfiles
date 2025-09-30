@@ -14,6 +14,7 @@ return {
   {
     -- "aidergo",
     "WayenVan/aidergo.nvim",
+    enabled = false,
     dependencies = {
       "folke/snacks.nvim",
     },

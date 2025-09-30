@@ -22,4 +22,5 @@ class A:
 
     def __str__(self):
         self.test_var
-        return f"A with value {self.a}"
+        self.test_var_sum = np.sum(self.test_var)
+        return f"A with value {self.a}, test_var sum: {self.test_var_sum}"

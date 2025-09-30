@@ -56,26 +56,26 @@ return {
         "<cmd>CodeCompanionAction<cr>",
         desc = "Toggle codecompanion",
       },
-      {
-        "<leader>ap",
-        function()
-          local cfg = require("codecompanion.config")
-          local item = {}
-          for k, v in pairs(cfg.prompt_library) do
-            table.insert(item, v.opts.short_name)
-          end
-          table.sort(item) -- Sort the item alphabetically
-          vim.ui.select(item, {
-            prompt = "Select prompt",
-          }, function(selection)
-            if selection == nil then
-              return
-            end
-            require("codecompanion").prompt(selection)
-          end)
-        end,
-        desc = "Prompt translate",
-      },
+      -- {
+      --   "<leader>ap",
+      --   function()
+      --     local cfg = require("codecompanion.config")
+      --     local item = {}
+      --     for k, v in pairs(cfg.prompt_library) do
+      --       table.insert(item, v.opts.short_name)
+      --     end
+      --     table.sort(item) -- Sort the item alphabetically
+      --     vim.ui.select(item, {
+      --       prompt = "Select prompt",
+      --     }, function(selection)
+      --       if selection == nil then
+      --         return
+      --       end
+      --       require("codecompanion").prompt(selection)
+      --     end)
+      --   end,
+      --   desc = "Prompt translate",
+      -- },
     },
 
     config = function()

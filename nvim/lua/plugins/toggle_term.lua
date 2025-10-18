@@ -36,6 +36,7 @@ return {
     lazy = true,
     dependencies = { { "folke/which-key.nvim" } },
     cmd = { "ToggleTerm" },
+    -- enabled = false,
     keys = {
       { "<leader>.", "", desc = "toggle terminal" },
       {
@@ -47,7 +48,7 @@ return {
       {
         "<c-/>",
         toggle_terminal,
-        noremap = true,
+        -- noremap = true,
         desc = "ToggleTerm",
         mode = { "n", "i" },
       },

@@ -5,6 +5,8 @@
 -- fix terminal keymap
 vim.keymap.del({ "t" }, "<C-/>")
 vim.keymap.set({ "t" }, "<C-/>", "<Cmd>q<cr>", {})
+vim.keymap.del({ "t" }, "<C-_>")
+vim.keymap.set({ "t" }, "<C-_>", "<Cmd>q<cr>", {})
 
 --remove keybindings
 -- vim.keymap.del("n", "<A-j>")

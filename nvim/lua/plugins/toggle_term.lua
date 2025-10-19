@@ -69,7 +69,7 @@ return {
       {
         "<leader>.v",
         function()
-          toggle_with_previous(LazyVim.root.get(), "vertical", vim.o.columns * 0.5)
+          toggle_with_previous(LazyVim.root.get(), "vertical")
         end,
         desc = "ToggleTerm (vertical root_dir)",
       },
@@ -144,10 +144,11 @@ return {
     opts = {
       -- size can be a number or function which is passed the current terminal
       size = function(term)
+        vim.notify(term.direction)
         if term.direction == "horizontal" then
-          return 15
+          return 30
         elseif term.direction == "vertical" then
-          return vim.o.columns * 0.5
+          return vim.o.columns * 0.3
         end
       end,
       highlights = {
@@ -215,22 +216,5 @@ return {
         zindex = 1001, -- set the zindex of the floating terminal
       },
     },
-  },
-  {
-    "akinsho/toggleterm.nvim",
-    config = function(_, opts)
-      -- customize the keymaps when toggling the terminal
-
-      require("toggleterm").setup(opts)
-      vim.api.nvim_create_augroup("ToggleTerm", { clear = true })
-
-      -- Close all git terminals when session closes
-      vim.api.nvim_create_autocmd({ "DirChanged" }, {
-        group = "ToggleTerm",
-        callback = function()
-          require("utils.term").clear_storage()
-        end,
-      })
-    end,
   },
 }

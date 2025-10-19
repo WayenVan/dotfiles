@@ -17,13 +17,6 @@ vim.api.nvim_create_user_command("VideScale", function()
   end
 end, {})
 
-vim.api.nvim_create_user_command("Http", function()
-  local port = vim.fn.input("Enter the port", "8080")
-  require("utils.term").create_terminal({
-    cmd = "http-server" .. " -p" .. port,
-  })
-end, {})
-
 -- vim.api.nvim_create_user_command("VennToggle", function()
 --   require("utils.draw").Toggle_venn()
 -- end, {})

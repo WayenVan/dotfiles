@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 --
 -- fix terminal keymap
+--
 vim.keymap.del({ "t" }, "<C-/>")
 vim.keymap.set({ "t" }, "<C-/>", "<Cmd>q<cr>", {})
 vim.keymap.del({ "t" }, "<C-_>")

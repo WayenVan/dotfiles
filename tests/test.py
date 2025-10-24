@@ -1,6 +1,6 @@
 import numpy as np
-from typing import List, Dict, Any
-from pandas import DataFrame
+from typing import List
+from transformers.models.gemma3.modeling_gemma3 import Gemma3ForCausalLM
 
 
 for i in range(4):
@@ -15,6 +15,7 @@ class A:
     def __init__(self, a):
         self.a: int = a
         self.test_var: np.ndarray = np.array([1, 2, 3])
+        self.b: List[int] = [1, 2, 3]
 
     def __repr__(self):
         self.a

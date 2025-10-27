@@ -12,17 +12,7 @@ return {
         ty = function(_, opts)
           vim.lsp.config("ty", opts)
 
-          LazyVim.lsp.on_attach(function(client, bufnr)
-            -- Disable some feature becuase it is provided by
-            -- client.server_capabilities.inlayHintProvider = nil
-            -- disable complement for ty becasue of conflict with pyright
-            -- client.server_capabilities.hoverProvider = false
-            -- client.server_capabilities.completionProvider = nil
-            -- client.server_capabilities.signatureHelpProvider = nil
-            -- client.server_capabilities.documentSymbolProvider = nil
-            -- client.server_capabilities.definitionProvider = false
-            -- client:stop()
-          end, "ty")
+          Snacks.util.lsp.on({ name = "ty" }, function(buf, client) end)
 
           vim.lsp.enable("ty")
 

@@ -3,10 +3,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- change a keymap
-      --
-      vim.list_extend(keys, {
+      opts.servers["*"].keys = vim.list_extend(opts.servers["*"].keys, {
         {
           "<leader>ca",
           function()

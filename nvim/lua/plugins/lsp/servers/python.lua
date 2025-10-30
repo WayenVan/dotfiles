@@ -58,15 +58,13 @@ return {
           cmd = { "ty", "server" },
           filetypes = { "python" },
           root_markers = { "pyproject.toml", "ty.toml", ".git" },
-          -- init_options = {
-          --   settings = {
-          --     python = {
-          --       ty = {
-          --         disableLanguageServices = true, -- Disable type errors
-          --       },
-          --     },
-          --   },
-          -- },
+          settings = {
+            ty = {
+              experimental = {
+                rename = true,
+              },
+            },
+          },
           enabled = true, -- Disable ty by default
           mason = false,
         },

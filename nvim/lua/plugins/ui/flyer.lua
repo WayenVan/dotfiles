@@ -23,85 +23,67 @@ return {
       {
         "<leader>f.",
         function()
-          require("fyler").track_buffer()
+          local file = vim.api.nvim_buf_get_name(0)
+          vim.notify("Tracking current file in Fyler: " .. file, vim.log.levels.INFO)
+          require("fyler").open()
+          require("fyler").navigate(file)
         end,
         desc = "track current buffer in Fyler",
       },
     },
     opts = {
-      view = {
-        win = {
-          kind = "float",
-        },
+      -- Auto focus current file
+      views = {
         finder = {
+          win = {
+            kind = "replace",
+          },
           follow_current_file = false,
-        },
-        mappings = {
-          ["Y"] = function()
-            local explorer = require("fyler.explorer")
-            local current = explorer.current()
-            if not current or not current.file_tree then
-              return
-            end
-            api = vim.api
-            local e_util = require("fyler.explorer.util")
+          mappings = {
+            ["Y"] = function(self)
+              local util = require("fyler.lib.util")
 
-            local ref_id = e_util.parse_ref_id(api.nvim_get_current_line())
-            if not ref_ik then
-              return
-            end
+              local ref_id = util.parse_ref_id(vim.api.nvim_get_current_line())
 
-            local entry = current.file_tree:node_entry(ref_id)
-            if not entry then
-              return
-            end
-            -- vim.notify(vim.inspect(entry))
-            current:close()
-            require("utils.yank_path").yank_path_picker(entry.path)
-          end,
-          ["K"] = function()
-            local explorer = require("fyler.explorer")
-            local current = explorer.current()
-            if not current or not current.file_tree then
-              return
-            end
-            api = vim.api
-            local e_util = require("fyler.explorer.util")
+              if not ref_id then
+                return
+              end
 
-            local ref_id = e_util.parse_ref_id(api.nvim_get_current_line())
-            if not ref_id then
-              return
-            end
+              local entry = self.files:node_entry(ref_id)
+              if not entry then
+                return
+              end
 
-            local entry = current.file_tree:node_entry(ref_id)
-            if not entry then
-              return
-            end
+              require("utils.yank_path").yank_path_picker(entry.path)
+            end,
+            ["K"] = function(self)
+              local api = vim.api
+              local util = require("fyler.lib.util")
 
-            local current_cursor_pos = api.nvim_win_get_cursor(0)
-            require("utils.file_info").show_file_info(entry.path, {
-              row = current_cursor_pos[1],
-              col = current_cursor_pos[2],
-            })
-          end,
+              local ref_id = util.parse_ref_id(vim.api.nvim_get_current_line())
+
+              if not ref_id then
+                return
+              end
+
+              local entry = self.files:node_entry(ref_id)
+              if not entry then
+                return
+              end
+
+              local current_cursor_pos = api.nvim_win_get_cursor(0)
+              require("utils.file_info").show_file_info(entry.path, {
+                row = current_cursor_pos[1],
+                col = current_cursor_pos[2],
+              })
+            end,
+          },
         },
       },
 
       integrations = {
         icon = "nvim_web_devicons",
-
       },
-      --   confirm = {
-      --     ---@param view FylerConfirmView
-      --     ---@param cb fun(confirmed: boolean)
-      --     ["N"] = function(view, cb)
-      --       cb(false)
-      --       vim.notify("Cancelled", vim.log.levels.INFO)
-      --       view:close()
-      --     end,
-      --   },
-      -- },
-
     },
     config = function(_, opts)
       require("fyler").setup(opts)

@@ -2,10 +2,8 @@ import numpy as np
 from typing import List
 
 
-for i in range(4):
+for i in range(100):
     print(i)
-    if i == 5:
-        break
 
 a = np.array([1, 2, 3])
 

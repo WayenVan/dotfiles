@@ -11,57 +11,36 @@ return {
             keymap = ",3",
             label = "Breakpoints [,3]",
             short_label = " [3]",
-            action = function()
-              require("dap-view.views").switch_to_view("breakpoints")
-            end,
           },
           scopes = {
             keymap = ",6",
             label = "Scopes [,6]",
             short_label = "󰂥 [6]",
-            action = function()
-              require("dap-view.views").switch_to_view("scopes")
-            end,
           },
           exceptions = {
             keymap = ",7",
             label = "Exceptions [,7]",
             short_label = "󰢃 [,7]",
-            action = function()
-              require("dap-view.views").switch_to_view("exceptions")
-            end,
           },
           watches = {
             keymap = ",1",
             label = "Watches [,1]",
             short_label = "󰛐 [1]",
-            action = function()
-              require("dap-view.views").switch_to_view("watches")
-            end,
           },
           threads = {
             keymap = ",4",
             label = "Threads [,4]",
             short_label = "󱉯 [,4]",
-            action = function()
-              require("dap-view.views").switch_to_view("threads")
-            end,
           },
           repl = {
             keymap = ",5",
             label = "REPL [,5]",
             short_label = "󰯃 [,5]",
-            action = function()
-              require("dap-view.repl").show()
-            end,
           },
           sessions = {
             keymap = ",2", -- I ran out of mnemonics
             label = "Sessions [,2]",
             short_label = " [,2]",
-            action = function()
-              require("dap-view.views").switch_to_view("sessions")
-            end,
           },
         },
       },

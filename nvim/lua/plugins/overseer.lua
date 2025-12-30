@@ -17,6 +17,12 @@ return {
           ["O"] = "Open",
         },
         min_height = 18,
+        keymaps = {
+          ["<C-k>"] = false,
+          ["<C-j>"] = false,
+          ["<C-f>"] = "keymap.scroll_output_up",
+          ["<C-b>"] = "keymap.scroll_output_down",
+        },
       },
       task_win = {
         zindex = 1001,

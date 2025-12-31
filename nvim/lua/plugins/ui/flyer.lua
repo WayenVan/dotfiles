@@ -37,6 +37,10 @@ return {
         finder = {
           win = {
             kind = "replace",
+            win_opts = {
+              number = true,
+              relativenumber = true,
+            },
           },
           follow_current_file = false,
           mappings = {
@@ -87,6 +91,8 @@ return {
     },
     config = function(_, opts)
       require("fyler").setup(opts)
+      -- local config = require("fyler.config")
+      -- vim.notify(vim.inspect(config), vim.log.levels.INFO)
     end,
   },
 }

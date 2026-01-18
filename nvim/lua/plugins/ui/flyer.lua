@@ -45,9 +45,8 @@ return {
           follow_current_file = false,
           mappings = {
             ["Y"] = function(self)
-              local util = require("fyler.lib.util")
-
-              local ref_id = util.parse_ref_id(vim.api.nvim_get_current_line())
+              local helper = require("fyler.views.finder.helper")
+              local ref_id = helper.parse_ref_id(vim.api.nvim_get_current_line())
 
               if not ref_id then
                 return
@@ -62,9 +61,9 @@ return {
             end,
             ["K"] = function(self)
               local api = vim.api
-              local util = require("fyler.lib.util")
 
-              local ref_id = util.parse_ref_id(vim.api.nvim_get_current_line())
+              local helper = require("fyler.views.finder.helper")
+              local ref_id = helper.parse_ref_id(vim.api.nvim_get_current_line())
 
               if not ref_id then
                 return
@@ -91,8 +90,9 @@ return {
     },
     config = function(_, opts)
       require("fyler").setup(opts)
-      -- local config = require("fyler.config")
+      local config = require("fyler.config")
       -- vim.notify(vim.inspect(config), vim.log.levels.INFO)
+      vim.notify(vim.inspect(config.values.views.finder.follow_current_file), vim.log.levels.INFO)
     end,
   },
 }

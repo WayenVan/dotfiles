@@ -25,7 +25,6 @@ return {
         function()
           local file = vim.api.nvim_buf_get_name(0)
           vim.notify("Tracking current file in Fyler: " .. file, vim.log.levels.INFO)
-          require("fyler").open()
           require("fyler").navigate(file)
         end,
         desc = "track current buffer in Fyler",
@@ -45,31 +44,14 @@ return {
           follow_current_file = false,
           mappings = {
             ["Y"] = function(self)
-              local helper = require("fyler.views.finder.helper")
-              local ref_id = helper.parse_ref_id(vim.api.nvim_get_current_line())
-
-              if not ref_id then
-                return
-              end
-
-              local entry = self.files:node_entry(ref_id)
+              local entry = self:cursor_node_entry()
               if not entry then
                 return
               end
-
               require("utils.yank_path").yank_path_picker(entry.path)
             end,
             ["K"] = function(self)
-              local api = vim.api
-
-              local helper = require("fyler.views.finder.helper")
-              local ref_id = helper.parse_ref_id(vim.api.nvim_get_current_line())
-
-              if not ref_id then
-                return
-              end
-
-              local entry = self.files:node_entry(ref_id)
+              local entry = self.cursor_node_entry()
               if not entry then
                 return
               end
@@ -92,7 +74,7 @@ return {
       require("fyler").setup(opts)
       local config = require("fyler.config")
       -- vim.notify(vim.inspect(config), vim.log.levels.INFO)
-      vim.notify(vim.inspect(config.values.views.finder.follow_current_file), vim.log.levels.INFO)
+      -- vim.notify(vim.inspect(config.values.views.finder.follow_current_file), vim.log.levels.INFO)
     end,
   },
 }

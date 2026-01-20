@@ -45,7 +45,7 @@ return {
         },
       },
       windows = {
-        height = 16,
+        size = 0.25,
         terminal = {
           position = "right",
         },

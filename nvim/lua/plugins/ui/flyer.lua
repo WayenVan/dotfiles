@@ -51,7 +51,7 @@ return {
               require("utils.yank_path").yank_path_picker(entry.path)
             end,
             ["K"] = function(self)
-              local entry = self.cursor_node_entry()
+              local entry = self:cursor_node_entry()
               if not entry then
                 return
               end
@@ -61,6 +61,18 @@ return {
                 row = current_cursor_pos[1],
                 col = current_cursor_pos[2],
               })
+            end,
+            ["L"] = function(self)
+              local entry = self:cursor_node_entry()
+              if not entry then
+                return
+              end
+              local win_id = require("utils.window_pick").pick()
+              if not win_id then
+                return
+              end
+              vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(entry.path))
+              vim.api.nvim_set_current_win(win_id)
             end,
           },
         },
@@ -75,6 +87,17 @@ return {
       local config = require("fyler.config")
       -- vim.notify(vim.inspect(config), vim.log.levels.INFO)
       -- vim.notify(vim.inspect(config.values.views.finder.follow_current_file), vim.log.levels.INFO)
+      --
+      local group = vim.api.nvim_create_augroup("FylerConfig", { clear = true })
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
+        pattern = { "fyler" },
+        group = group,
+        callback = function(ev)
+          vim.keymap.set("n", "<esc>", function()
+            require("fff.picker_ui").close()
+          end, { buffer = ev.buf, nowait = true })
+        end,
+      })
     end,
   },
 }

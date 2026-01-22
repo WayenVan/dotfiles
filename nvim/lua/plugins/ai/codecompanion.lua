@@ -1,4 +1,3 @@
-local deepseek_api_key = vim.env.DEEPSEEK_API_KEY
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -81,6 +80,11 @@ return {
     config = function()
       require("codecompanion").setup({
         display = {
+          chat = {
+            window = {
+              width = 0.35,
+            },
+          },
           action_palette = {
             width = 95,
             height = 10,
@@ -95,7 +99,11 @@ return {
         },
         strategies = {
           chat = {
-            adapter = "deepseek",
+            adapter = {
+              name = "deepseek",
+              model = "deepseek-chat",
+              api_key = vim.env.DEEPSEEK_API_KEY,
+            },
             keymaps = {
               close = {
                 modes = { n = "Q", i = "<C-q>" },
@@ -105,29 +113,6 @@ return {
               },
             },
           },
-        },
-        adapters = {
-          copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {
-              schema = {
-                model = {
-                  default = "claude-3.7-sonnet",
-                },
-              },
-            })
-          end,
-          deepseek = function()
-            return require("codecompanion.adapters").extend("deepseek", {
-              env = {
-                api_key = deepseek_api_key,
-              },
-              schema = {
-                model = {
-                  default = "deepseek-chat",
-                },
-              },
-            })
-          end,
         },
         prompt_library = {
           ["Pharaphrase"] = {
@@ -142,6 +127,7 @@ return {
               adapter = {
                 name = "deepseek",
                 model = "deepseek-reasoner",
+                api_key = vim.env.DEEPSEEK_API_KEY,
               },
             },
             prompts = {

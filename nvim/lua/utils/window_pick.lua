@@ -95,15 +95,15 @@ local function window_keys(windows)
     -- We skip the current window here so that we still "reserve" it the
     -- character, but don't include it in the output. This ensures that window X
     -- always gets hint Y, regardless of what the current active window is.
-    if nr ~= current then
-      local key = chars[index]
+    -- if nr ~= current then
+    local key = chars[index]
 
-      if mapping[key] then
-        key = key .. (index == #chars and chars[1] or chars[index + 1])
-      end
-
-      mapping[key] = ids[nr]
+    if mapping[key] then
+      key = key .. (index == #chars and chars[1] or chars[index + 1])
     end
+
+    mapping[key] = ids[nr]
+    -- end
 
     index = index == #chars and 1 or index + 1
   end

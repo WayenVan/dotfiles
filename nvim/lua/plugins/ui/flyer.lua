@@ -62,7 +62,7 @@ return {
                 col = current_cursor_pos[2],
               })
             end,
-            ["L"] = function(self)
+            ["<C-o>"] = function(self)
               local entry = self:cursor_node_entry()
               if not entry then
                 return

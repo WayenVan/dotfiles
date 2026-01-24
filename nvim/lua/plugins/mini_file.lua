@@ -204,6 +204,22 @@ return {
           end,
           { desc = "Synchronize" },
         },
+        {
+          "n",
+          "<C-o>",
+          function()
+            local path = get_entry_path()
+            MiniFiles.close()
+
+            local win_id = require("utils.window_pick").pick()
+            if not win_id then
+              return
+            end
+            vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(path))
+            vim.api.nvim_set_current_win(win_id)
+          end,
+          {},
+        },
       }
 
       vim.api.nvim_create_autocmd("User", {

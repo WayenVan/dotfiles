@@ -55,6 +55,7 @@ return {
               if not entry then
                 return
               end
+              local api = vim.api
 
               local current_cursor_pos = api.nvim_win_get_cursor(0)
               require("utils.file_info").show_file_info(entry.path, {

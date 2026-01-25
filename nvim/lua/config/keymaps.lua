@@ -116,3 +116,5 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { buffer = 0 }) -- Move right
   end,
 })
+
+vim.keymap.set("n", "<leader>.a", "<cmd>terminal<cr>", { desc = "open new terminal in window" })

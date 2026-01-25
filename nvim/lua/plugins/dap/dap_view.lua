@@ -10,37 +10,30 @@ return {
           breakpoints = {
             keymap = ",3",
             label = "Breakpoints [,3]",
-            short_label = " [3]",
           },
           scopes = {
             keymap = ",6",
             label = "Scopes [,6]",
-            short_label = "󰂥 [6]",
           },
           exceptions = {
             keymap = ",7",
             label = "Exceptions [,7]",
-            short_label = "󰢃 [,7]",
           },
           watches = {
             keymap = ",1",
             label = "Watches [,1]",
-            short_label = "󰛐 [1]",
           },
           threads = {
             keymap = ",4",
             label = "Threads [,4]",
-            short_label = "󱉯 [,4]",
           },
           repl = {
             keymap = ",5",
             label = "REPL [,5]",
-            short_label = "󰯃 [,5]",
           },
           sessions = {
             keymap = ",2", -- I ran out of mnemonics
             label = "Sessions [,2]",
-            short_label = " [,2]",
           },
         },
       },

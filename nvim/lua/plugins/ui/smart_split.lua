@@ -3,7 +3,7 @@ return {
   {
     "mrjones2014/smart-splits.nvim",
     event = "VeryLazy",
-    enabled = true,
+    enabled = false,
     opts = {
       at_edge = "stop",
       multiplexer_integration = false,

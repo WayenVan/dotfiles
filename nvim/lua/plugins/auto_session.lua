@@ -80,7 +80,7 @@ return {
 
       -- opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
-      opts.pre_save_cmds = { disable_bqf, close_minifile, close_minimap, exit_mode, delete_not_good_buffer }
+      opts.pre_save_cmds = { disable_bqf, close_minifile, exit_mode, delete_not_good_buffer }
       opts.post_restore_cmds = { reload_plugins }
     end,
   },

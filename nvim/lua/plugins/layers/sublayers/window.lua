@@ -6,39 +6,24 @@ window:keymaps({
   n = {
     -- scope
     {
-      "h",
-      function()
-        require("smart-splits").resize_left()
-      end,
-      { desc = "resize left" },
+      "+",
+      "<C-w>+",
+      { desc = "Increase height" },
     },
     {
-      "l",
-      function()
-        require("smart-splits").resize_right()
-      end,
-      { desc = "resize right" },
+      "_",
+      "<C-w>-",
+      { desc = "Decrease height" },
     },
     {
-      "j",
-      function()
-        require("smart-splits").resize_down()
-      end,
-      { desc = "resize down" },
+      ">",
+      "<C-w>>",
+      { desc = "Increase width" },
     },
     {
-      "k",
-      function()
-        require("smart-splits").resize_up()
-      end,
-      { desc = "resize up" },
-    },
-    {
-      "q",
-      function()
-        LayersManager:deactivate("WINDOW")
-      end,
-      { desc = "Exit" },
+      "<",
+      "<C-w><",
+      { desc = "Decrease width" },
     },
     {
       "<Esc>",

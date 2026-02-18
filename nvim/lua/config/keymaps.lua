@@ -118,3 +118,12 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.keymap.set("n", "<leader>.a", "<cmd>terminal<cr>", { desc = "open new terminal in window" })
+vim.keymap.set("n", "<c-w>S", function()
+  local winid1 = vim.api.nvim_get_current_win()
+  local winid2 = require("utils.window_pick").pick()
+  local buf1 = vim.api.nvim_win_get_buf(winid1)
+  local buf2 = vim.api.nvim_win_get_buf(winid2)
+
+  vim.api.nvim_win_set_buf(winid1, buf2)
+  vim.api.nvim_win_set_buf(winid2, buf1)
+end, { desc = "Switching window" })

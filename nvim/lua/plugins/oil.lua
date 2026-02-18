@@ -1,12 +1,12 @@
 return {
   {
     "stevearc/oil.nvim",
-    enabled = false,
     keys = {
       {
-        "<leader>e",
+        "<leader>-",
         function()
-          require("oil").open_float()
+          -- require("oil").open_float()
+          require("oil").open()
         end,
         desc = "Open parent directory",
       },
@@ -14,12 +14,20 @@ return {
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
+      default_file_explorer = false,
+      float = {
+        border = "single",
+        max_with = 0.8,
+        max_height = 0.9,
+        zindex = 10000,
+      },
       -- stylelua: ignore
       keymaps = {
         ["g?"] = "actions.show_help",
         ["<CR>"] = "actions.select",
         ["<C-v>"] = "actions.select_vsplit",
-        ["<C-s>"] = "actions.select_split",
+        -- ["<C-s>"] = "actions.select_split",
+        ["<C-s>"] = false,
         ["<C-t>"] = "actions.select_tab",
         ["<C-p>"] = "actions.preview",
         ["q"] = "actions.close",

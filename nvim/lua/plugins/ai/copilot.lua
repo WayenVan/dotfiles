@@ -3,7 +3,7 @@ return {
     "zbirenbaum/copilot.lua",
     event = "VeryLazy",
     opts = {
-      copilot_model = "gpt-4o-copilot",
+      copilot_model = "gpt-41-copilot",
       suggestion = {
         enabled = true,
         keymap = {

@@ -114,6 +114,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.keymap.set("t", "<C-h>", "<Cmd>wincmd h<CR>", { buffer = 0 }) -- Move left
     vim.keymap.set("t", "<C-j>", "<Cmd>wincmd j<CR>", { buffer = 0 }) -- Move down
     vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { buffer = 0 }) -- Move right
+    vim.keymap.set("t", "<C-k>", "<Cmd>wincmd k<CR>", { buffer = 0 }) -- Move right
   end,
 })
 

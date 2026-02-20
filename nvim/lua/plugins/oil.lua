@@ -28,6 +28,7 @@ return {
         ["L"] = "actions.select",
         ["<C-v>"] = "actions.select_vsplit",
         -- ["<C-s>"] = "actions.select_split",
+        ["<C-l>"] = false,
         ["<C-s>"] = false,
         ["<C-t>"] = "actions.select_tab",
         ["<C-p>"] = "actions.preview",

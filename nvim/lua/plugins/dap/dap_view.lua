@@ -9,31 +9,31 @@ return {
         base_sections = {
           breakpoints = {
             keymap = ",3",
-            label = "Breakpoints [,3]",
+            label = "Breakpoints",
           },
           scopes = {
             keymap = ",6",
-            label = "Scopes [,6]",
+            label = "Scopes",
           },
           exceptions = {
             keymap = ",7",
-            label = "Exceptions [,7]",
+            label = "Exceptions",
           },
           watches = {
             keymap = ",1",
-            label = "Watches [,1]",
+            label = "Watches",
           },
           threads = {
             keymap = ",4",
-            label = "Threads [,4]",
+            label = "Threads",
           },
           repl = {
             keymap = ",5",
-            label = "REPL [,5]",
+            label = "REPL",
           },
           sessions = {
             keymap = ",2", -- I ran out of mnemonics
-            label = "Sessions [,2]",
+            label = "Sessions",
           },
         },
       },

@@ -76,6 +76,9 @@ return {
       options = {
         use_as_default_explorer = true,
       },
+      windows = {
+        preview = false,
+      },
     },
 
     config = function(_, opts)
@@ -219,6 +222,12 @@ return {
             vim.api.nvim_set_current_win(win_id)
           end,
           {},
+        },
+        {
+          "n",
+          "<localleader>o",
+          open_in_system,
+          { desc = "open in system" },
         },
       }
 

@@ -3,6 +3,7 @@ return {
   {
     "kawre/leetcode.nvim",
     lazy = leet_arg ~= vim.fn.argv()[1],
+    enabled = false,
     opts = {
       arg = leet_arg,
       cn = {

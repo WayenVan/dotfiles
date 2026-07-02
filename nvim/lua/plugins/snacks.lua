@@ -64,6 +64,13 @@ return {
         end,
         desc = "Buffer Lines",
       },
+      {
+        "<leader>nn",
+        function()
+          Snacks.notifier.show_history()
+        end,
+        desc = "Show notifier history",
+      },
     }
     return vim.list_extend(filtered, my_keys)
   end,
@@ -88,6 +95,7 @@ return {
     notifier = {
       timeout = 1500,
       top_down = false,
+      margin = { bottom = 2, right = 2 },
     },
     scroll = {
       filter = function(buf)

@@ -3,10 +3,11 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     -- tag = "v4.4.7",
-    enabled = true,
+    enabled = false,
     opts = {
       cmdline = {
-        enabled = true,
+        enabled = true, -- enables the Noice cmdline UI
+        view = "cmdline",
       },
       lsp = {
         signature = {
@@ -31,7 +32,7 @@ return {
       },
 
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
+        bottom_search = false, -- use a classic bottom cmdline for search
         command_palette = false, -- position the cmdline and popupmenu together
         long_message_to_split = false, -- long messages will be sent to a split
         inc_rename = true, -- enables an input dialog for inc-rename.nvim

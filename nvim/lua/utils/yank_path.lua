@@ -43,7 +43,7 @@ function M.yank_path_picker(filepath)
     local result = vals[choice]
     if result then
       if vim.fn.has("clipboard") == 0 then
-        require("noice").notify("Clipboard is not available", "warn")
+        vim.notify("Clipboard is not available", vim.log.levels.WARN)
       end
       vim.notify(("Copied: `%s` to uname and plus register"):format(result))
       vim.fn.setreg('"', result)

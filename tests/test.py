@@ -1,11 +1,11 @@
 import numpy as np
-from typing import List
 
 
-for i in range(100):
-    print(i)
+for action in range(100):
+    print(action)
 
 a = np.array([1, 2, 3])
+print()
 
 
 class A:
@@ -14,7 +14,6 @@ class A:
         self.pi: float = 3.14
         self.test_var: np.ndarray = np.array([1, 2, 3])
 
-    def __repr__(self):
         return f"A({self.a})"
 
     def __str__(self):

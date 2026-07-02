@@ -16,12 +16,12 @@ return {
           false,
           mode = "i",
         },
-        {
-          "<M-s>",
-          "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-          desc = "open lsp signature help",
-          mode = "i",
-        },
+        -- {
+        --   "<M-s>",
+        --   "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+        --   desc = "open lsp signature help",
+        --   mode = "i",
+        -- },
         {
           "<M-i>",
           function()

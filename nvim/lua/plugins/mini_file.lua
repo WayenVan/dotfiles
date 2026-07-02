@@ -86,7 +86,7 @@ return {
 
       local Path = require("plenary.path")
       local MiniFiles = require("mini.files")
-      local notify = require("noice").notify
+      local notify = vim.notify
 
       --- Utility functions ---
       local function get_entry_path()

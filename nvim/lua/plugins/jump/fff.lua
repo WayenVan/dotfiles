@@ -53,7 +53,7 @@ return {
         group = vim.api.nvim_create_augroup("FFFInput", { clear = true }),
         callback = function(ev)
           vim.keymap.set("n", "<esc>", function()
-            require("fff.picker_ui").close()
+            require("fff.picker_ui.layout_manager").close()
           end, { buffer = ev.buf, nowait = true })
         end,
       })

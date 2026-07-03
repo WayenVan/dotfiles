@@ -84,6 +84,9 @@ return {
               vim.api.nvim_set_current_win(win_id)
             end,
           },
+          ["<C-s>"] = {
+            disabled = true,
+          },
         },
       },
       integrations = {

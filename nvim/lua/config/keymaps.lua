@@ -128,3 +128,21 @@ vim.keymap.set("n", "<c-w>S", function()
   vim.api.nvim_win_set_buf(winid1, buf2)
   vim.api.nvim_win_set_buf(winid2, buf1)
 end, { desc = "Switching window" })
+
+vim.keymap.set("n", "<leader>nm", "<CMD>messages<CR>", { desc = "Show messages" })
+
+-- undotree
+vim.keymap.set("n", "<leader>uu", function()
+  vim.cmd([[packadd nvim.undotree]])
+  require("undotree").open({
+    command = math.floor(vim.o.columns * 0.3) .. "vnew",
+  })
+end)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nvim-undotree",
+  callback = function(env)
+    vim.keymap.set("n", "q", function()
+      require("undotree").open()
+    end, { noremap = true, silent = true, buffer = env.buf })
+  end,
+})

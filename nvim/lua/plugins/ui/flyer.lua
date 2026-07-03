@@ -25,46 +25,54 @@ return {
         function()
           local file = vim.api.nvim_buf_get_name(0)
           vim.notify("Tracking current file in Fyler: " .. file, vim.log.levels.INFO)
-          require("fyler").navigate(file)
+          require("fyler").open()
+          vim.schedule(function()
+            local inst = require("fyler.finder").instance_get_or_nil()
+            if not inst then
+              return
+            end
+            inst:follow({ target_path = file })
+          end)
         end,
         desc = "track current buffer in Fyler",
       },
     },
     opts = {
       -- Auto focus current file
-      views = {
-        finder = {
-          win = {
-            kind = "replace",
-            win_opts = {
-              number = true,
-              relativenumber = true,
-            },
-          },
-          follow_current_file = false,
-          mappings = {
-            ["Y"] = function(self)
-              local entry = self:cursor_node_entry()
+      follow_current_file = false,
+      kind = "replace",
+      win_opts = {
+        number = true,
+        relativenumber = true,
+      },
+      mappings = {
+
+        n = {
+          ["Y"] = {
+            action = function(self)
+              local entry = require("fyler.finder").parse_cursor_line(self)
               if not entry then
                 return
               end
               require("utils.yank_path").yank_path_picker(entry.path)
             end,
-            ["K"] = function(self)
-              local entry = self:cursor_node_entry()
+          },
+          ["K"] = {
+            action = function(self)
+              local pos = vim.fn.screenpos(0, vim.fn.line("."), vim.fn.col("."))
+              local entry = require("fyler.finder").parse_cursor_line(self)
               if not entry then
                 return
               end
-              local api = vim.api
-
-              local current_cursor_pos = api.nvim_win_get_cursor(0)
               require("utils.file_info").show_file_info(entry.path, {
-                row = current_cursor_pos[1],
-                col = current_cursor_pos[2],
+                row = pos.row + 1,
+                col = pos.col + 1,
               })
             end,
-            ["<C-o>"] = function(self)
-              local entry = self:cursor_node_entry()
+          },
+          ["<C-o>"] = {
+            action = function(self)
+              local entry = self:parse_cursor_line()
               if not entry then
                 return
               end
@@ -78,9 +86,11 @@ return {
           },
         },
       },
-
       integrations = {
         icon = "nvim_web_devicons",
+      },
+      ui = {
+        indent_guides = true,
       },
     },
     config = function(_, opts)

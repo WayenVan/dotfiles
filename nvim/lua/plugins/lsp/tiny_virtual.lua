@@ -20,7 +20,7 @@ return {
       require("tiny-inline-diagnostic").setup(opts)
       -- vim.diagnostic.config({ virtual_text = false })
       -- Only if needed in your configuration, if you already have native LSP diagnostics
-      vim.keymap.set("", "<leader>k", function()
+      vim.keymap.set("", "<leader>K", function()
         require("tiny-inline-diagnostic").toggle()
         vim.diagnostic.config({
           virtual_lines = not vim.diagnostic.config().virtual_lines,

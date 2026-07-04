@@ -144,3 +144,5 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { noremap = true, silent = true, buffer = env.buf })
   end,
 })
+
+vim.keymap.set("n", "<leader>qr", "<CMD>restart<CR>", { desc = "Restart nvim" })

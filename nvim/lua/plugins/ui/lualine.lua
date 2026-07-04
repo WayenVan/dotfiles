@@ -109,6 +109,16 @@ return {
           },
           lualine_x = {
             Snacks.profiler.status(),
+            {
+              function()
+                local reg = vim.fn.reg_recording()
+                if reg == "" then
+                  return ""
+                end
+                return "󰑋 @" .. reg
+              end,
+              color = { fg = "#ff9e64" }, -- 可选
+            },
           -- stylua: ignore
           {
             function() return require("noice").api.status.mode.get() end,

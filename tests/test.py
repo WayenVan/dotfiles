@@ -1,4 +1,3 @@
-from statsmodels.sandbox.distributions.multivariate import df
 import numpy as np
 
 

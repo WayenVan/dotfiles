@@ -1,6 +1,6 @@
 LayersManager.layers.REPL = Layers.mode.new("REPL Layer")
 local repl_layer = LayersManager.layers.REPL
-repl_layer:auto_show_help()
+-- repl_layer:auto_show_help()
 -- repl_layer.window.config.width = nil
 repl_layer:keymaps({
   n = {

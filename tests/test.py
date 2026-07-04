@@ -5,7 +5,6 @@ for action in range(100):
     print(action)
 
 a = np.array([1, 2, 3])
-print()
 
 
 class A:

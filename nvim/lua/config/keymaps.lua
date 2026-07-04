@@ -130,14 +130,12 @@ vim.keymap.set("n", "<c-w>S", function()
 end, { desc = "Switching window" })
 
 vim.keymap.set("n", "<leader>nm", "<CMD>messages<CR>", { desc = "Show messages" })
-
--- undotree
 vim.keymap.set("n", "<leader>uu", function()
   vim.cmd([[packadd nvim.undotree]])
   require("undotree").open({
     command = math.floor(vim.o.columns * 0.3) .. "vnew",
   })
-end)
+end, { desc = "Open undotree" })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "nvim-undotree",
   callback = function(env)

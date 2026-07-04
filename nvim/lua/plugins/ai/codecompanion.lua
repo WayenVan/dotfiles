@@ -5,6 +5,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "MeanderingProgrammer/render-markdown.nvim",
+      -- "ravitemer/mcphub.nvim",
     },
     cmd = { "CodeCompanion", "CodeCompanionAction" },
     keys = {
@@ -26,7 +27,7 @@ return {
       {
         "<leader>as",
         function()
-          require("codecompanion").prompt("ask")
+          require("codecompanion").prompt("General")
         end,
         desc = "Create new chat",
       },
@@ -79,6 +80,45 @@ return {
 
     config = function()
       require("codecompanion").setup({
+        extensions = {
+          -- mcphub = {
+          --   callback = "mcphub.extensions.codecompanion",
+          --   opts = {
+          --     -- MCP Tools
+          --     make_tools = true, -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
+          --     show_server_tools_in_chat = true, -- Show individual tools in chat completion (when make_tools=true)
+          --     add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
+          --     show_result_in_chat = true, -- Show tool results directly in chat buffer
+          --     format_tool = nil, -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
+          --     -- MCP Resources
+          --     make_vars = true, -- Convert MCP resources to #variables for prompts
+          --     -- MCP Prompts
+          --     make_slash_commands = true, -- Add MCP prompts as /slash commands
+          --   },
+          -- },
+        },
+        interactions = {
+          inline = {
+            adapter = {
+              name = "deepseek",
+              model = "deepseek-v4-pro",
+            },
+          },
+          chat = {
+            adapter = {
+              name = "deepseek",
+              model = "deepseek-v4-pro",
+            },
+            keymaps = {
+              close = {
+                modes = { n = "Q", i = "<C-q>" },
+              },
+              stop = {
+                modes = { n = "<C-c>", i = "<C-c>" },
+              },
+            },
+          },
+        },
         display = {
           chat = {
             window = {
@@ -97,118 +137,10 @@ return {
             },
           },
         },
-        strategies = {
-          chat = {
-            adapter = {
-              name = "deepseek",
-              model = "deepseek-chat",
-              api_key = vim.env.DEEPSEEK_API_KEY,
-            },
-            keymaps = {
-              close = {
-                modes = { n = "Q", i = "<C-q>" },
-              },
-              stop = {
-                modes = { n = "<C-c>", i = "<C-c>" },
-              },
-            },
-          },
-        },
         prompt_library = {
-          ["Pharaphrase"] = {
-            strategy = "chat",
-            description = "paraphrase academic text",
-            opts = {
-              index = 1,
-              is_slash_cmd = false,
-              auto_submit = true,
-              short_name = "phrase",
-              ignore_system_prompt = true,
-              adapter = {
-                name = "deepseek",
-                model = "deepseek-reasoner",
-                api_key = vim.env.DEEPSEEK_API_KEY,
-              },
-            },
-            prompts = {
-              {
-                role = "system",
-                -- append to the system prompt
-                content = [[
-                **Task:**  
-                1. **Paraphrase** the following academic text in a paper while preserving its original meaning, formal tone, and key terminology.  
-                2. **Analyze and suggest improvements** for:  
-                  - Clarity & conciseness (wordiness, ambiguity, readability).  
-                  - Logical flow (gaps in reasoning, weak transitions, unsupported claims).  
-                  - Argument strength (evidence linkage, premise-conclusion coherence, counterarguments).  
-                  - Structural coherence (paragraph organization, thesis alignment).  
-                  - Avoid using too much listing format.
-              **Instructions:**  
-              - **Paraphrased Version:** Provide a polished rewrite that avoids plagiarism but retains scholarly precision. Highlight major changes.  
-              - **Critical Feedback:**  
-                - **Logic & Reasoning:** Identify leaps in logic, circular arguments, or underdeveloped points. Suggest fixes (e.g., stronger evidence, clearer causality).  
-                - **Structure:** Flag disjointed transitions or misaligned ideas. Recommend reordering or connective phrases.  
-                - **Clarity:** Note jargon, passive voice overuse, or convoluted sentences. Offer simpler alternatives.  
-                - **Other Improvements:** Redundancies, citation issues, or tone inconsistencies.  
-                ]],
-              },
-              {
-                role = "user",
-                content = "First, tell me who you are, Then do the job of the following content",
-              },
-            },
-          },
-          ["Translate"] = {
-            strategy = "chat",
-            description = "Trnaslate Chinese to English",
-            opts = {
-              index = 1,
-              is_slash_cmd = false,
-              auto_submit = false,
-              short_name = "trans",
-              ignore_system_prompt = true,
-              adapter = {
-                name = "deepseek",
-                model = "deepseek-chat",
-              },
-            },
-            prompts = {
-              {
-                role = "system",
-                -- append to the system prompt
-                content = [[You are Bot, a professional translator specializing in Chinese-to-English academic writing.
-                Your goal is to deliver clear, polished translations which satify the following criteria:
-                1. translation must be in academic writing style.
-                2. translation must be clear and concise.
-                3. translation must be free of grammatical errors and typos.
-                4.
-                ]],
-              },
-              {
-                role = "user",
-                content = "First, tell me who you are, Then translate the following content",
-              },
-            },
-          },
-          ["General ask"] = {
-            strategy = "chat",
-            description = "Asking genral questions",
-            opts = {
-              index = 0,
-              is_slash_cmd = false,
-              auto_submit = false,
-              short_name = "ask",
-              ignore_system_prompt = true,
-              adapter = {
-                name = "deepseek",
-                model = "deepseek-chat",
-              },
-            },
-            prompts = {
-              {
-                role = "user",
-                content = [[]],
-              },
+          markdown = {
+            dirs = {
+              vim.fn.stdpath("config") .. "/prompts",
             },
           },
         },

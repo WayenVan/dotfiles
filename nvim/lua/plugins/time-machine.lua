@@ -2,6 +2,7 @@ return {
   {
     "y3owk1n/time-machine.nvim",
     version = "*", -- remove this if you want to use the `main` branch
+    enabled = false,
     init = function()
       vim.opt.undofile = true
       vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"

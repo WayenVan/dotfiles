@@ -123,7 +123,10 @@ return {
 
                 -- 如果找到已打开的窗口
                 if buf_path == filepath then
-                  print(string.format("Open file founded, stop at %s:%d", filepath, target_line))
+                  vim.notify(
+                    string.format("Open file founded, stop at %s:%d", filepath, target_line),
+                    vim.log.levels.INFO
+                  )
                   vim.api.nvim_set_current_win(win) -- 跳转到该窗口
                   vim.api.nvim_win_set_cursor(win, { target_line, 0 }) -- 定位到断点行
                   return -- 结束处理

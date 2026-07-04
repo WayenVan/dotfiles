@@ -12,7 +12,9 @@ return {
         ty = function(_, opts)
           vim.lsp.config("ty", opts)
 
-          Snacks.util.lsp.on({ name = "ty" }, function(buf, client) end)
+          Snacks.util.lsp.on({ name = "ty" }, function(bufnr, client)
+            client.server_capabilities.executeCommandProvider.workDoneProgress = true
+          end)
 
           vim.lsp.enable("ty")
 

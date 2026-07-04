@@ -101,13 +101,13 @@ return {
           inline = {
             adapter = {
               name = "deepseek",
-              model = "deepseek-v4-pro",
+              model = "deepseek-v4-flash",
             },
           },
           chat = {
             adapter = {
               name = "deepseek",
-              model = "deepseek-v4-pro",
+              model = "deepseek-v4-flash",
             },
             keymaps = {
               close = {

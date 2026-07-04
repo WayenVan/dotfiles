@@ -91,20 +91,6 @@ return {
         desc = "Clear all terms",
       },
       -- lazygit
-      {
-        "<leader>gl",
-        function()
-          require("utils.term").lazygit_cwd()
-        end,
-        desc = "lazygit (cwd)",
-      },
-      {
-        "<leader>gL",
-        function()
-          require("utils.term").lazygit_root()
-        end,
-        desc = "lazygit (root)",
-      },
       -- {
       --   "<leader>a/",
       --   function()

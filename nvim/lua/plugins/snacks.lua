@@ -10,6 +10,7 @@ return {
       ["<leader>."] = true,
       ["<leader><space>"] = true,
       ["<leader>ff"] = true,
+      ["<leader>gd"] = true,
     }
 
     local filtered = vim.tbl_filter(function(value)

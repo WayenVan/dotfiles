@@ -115,7 +115,7 @@ return {
                 if reg == "" then
                   return ""
                 end
-                return "󰑋 @" .. reg
+                return " @" .. reg
               end,
               color = { fg = "#ff9e64" }, -- 可选
             },

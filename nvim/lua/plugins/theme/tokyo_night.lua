@@ -6,6 +6,7 @@ return {
       on_highlights = function(highlights, _)
         -- NOTE: LSP diagnostics viitual line
         --
+        --
         -- highlights["DiagnosticWarn"] = { link = "DiagnosticVirtualTextWarn" }
         -- highlights["DiagnosticError"] = { link = "DiagnosticVirtualTextError" }
         -- highlights["DiagnosticInfo"] = { link = "DiagnosticVirtualTextInfo" }

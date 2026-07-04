@@ -11,17 +11,17 @@ return {
           end,
           desc = "Code action preview",
         },
-        {
-          "<C-k>",
-          false,
-          mode = "i",
-        },
         -- {
-        --   "<M-s>",
-        --   "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-        --   desc = "open lsp signature help",
+        --   "<C-k>",
+        --   false,
         --   mode = "i",
         -- },
+        {
+          "<C-k>",
+          "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+          desc = "open lsp signature help",
+          mode = "i",
+        },
         {
           "<M-i>",
           function()

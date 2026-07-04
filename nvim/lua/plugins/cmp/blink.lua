@@ -13,7 +13,7 @@ return {
         ["<Tab>"] = { LazyVim.cmp.map({ "snippet_forward" }), "fallback" },
         ["<S-Tab>"] = { LazyVim.cmp.map({ "snippet_backward" }), "fallback" },
       },
-      signature = { enabled = true },
+      signature = { enabled = false },
       cmdline = {
         enabled = true,
         keymap = { preset = "cmdline" },

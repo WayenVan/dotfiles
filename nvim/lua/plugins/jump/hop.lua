@@ -4,7 +4,7 @@ return {
     version = "*",
     event = "VeryLazy",
     keys = {
-      { "<leader>j", "<cmd>HopLine<cr>", desc = "Hop line" },
+      { "<leader>j", "<cmd>HopLineStart<cr>", desc = "Hop line" },
     },
     opts = {
       keys = "etovxqpdygfblzhckisuran",

@@ -230,6 +230,11 @@ function M.pick()
     end
   end
 
+  -- If there's only one non-floating window, return it directly.
+  if #windows == 1 then
+    return windows[1]
+  end
+
   local window_keys = window_keys(windows)
   local hints_state = show_hints(window_keys, true)
   local key = get_char()

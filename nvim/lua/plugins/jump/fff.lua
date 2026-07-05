@@ -28,6 +28,10 @@ return {
         matched = "MatchParen",
         border = "Type",
       },
+      select = {
+        -- Return winid to open the chosen file in,or nil to open in the original window
+        -- select_window = function(current_buf, action) end,
+      },
     },
     keys = {
       {
@@ -54,6 +58,36 @@ return {
         callback = function(ev)
           vim.keymap.set("n", "<esc>", function()
             require("fff.picker_ui.layout_manager").close()
+          end, { buffer = ev.buf, nowait = true })
+          vim.keymap.set({ "n", "i" }, "<S-enter>", function()
+            local state = require("fff.picker_ui.picker_ui").state
+            if not state.active then
+              return
+            end
+
+            local items = state.filtered_items
+            local item = items[state.cursor]
+            if not item then
+              return
+            end
+
+            local utils = require("fff.utils")
+            local abs_path = utils.canonicalize_fff_path(item.relative_path)
+            require("fff.picker_ui.layout_manager").close()
+
+            local default_win_id = vim.api.nvim_get_current_win()
+
+            if abs_path then
+              require("snacks")
+              local win_id = Snacks.picker.util.pick_win({ main = default_win_id })
+              -- local win_id = require("utils.window_pick").pick()
+              if not win_id then
+                return
+              end
+              vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(abs_path))
+              vim.api.nvim_set_current_win(win_id)
+              return
+            end
           end, { buffer = ev.buf, nowait = true })
         end,
       })

@@ -30,6 +30,7 @@ return {
         -- ["<C-s>"] = "actions.select_split",
         ["<C-l>"] = false,
         ["<C-s>"] = false,
+        ["<C-h>"] = false,
         ["<C-t>"] = "actions.select_tab",
         ["<C-p>"] = "actions.preview",
         ["q"] = "actions.close",
@@ -38,6 +39,29 @@ return {
         ["`"] = "actions.cd",
         ["~"] = "actions.tcd",
         ["g."] = "actions.toggle_hidden",
+        ["<s-enter>"] = {
+          callback = function()
+            local entry = require("oil").get_cursor_entry()
+            local dir = require("oil").get_current_dir()
+
+            if not entry or not dir then
+              return
+            end
+
+            local abs_path = dir .. "/" .. entry.name
+
+            local default_win_id = vim.api.nvim_get_current_win()
+
+            local win_id = Snacks.picker.util.pick_win({ main = default_win_id })
+            if not win_id then
+              return
+            end
+
+            vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(abs_path))
+            vim.api.nvim_set_current_win(win_id)
+          end,
+          desc = "Open parent directory in a floating window",
+        },
       },
     },
     -- Optional dependencies

@@ -209,12 +209,13 @@ return {
         },
         {
           "n",
-          "<C-o>",
+          "<S-Enter>",
           function()
             local path = get_entry_path()
             MiniFiles.close()
 
-            local win_id = require("utils.window_pick").pick()
+            local default_win_id = vim.api.nvim_get_current_win()
+            local win_id = Snacks.picker.util.pick_win({ main = default_win_id })
             if not win_id then
               return
             end

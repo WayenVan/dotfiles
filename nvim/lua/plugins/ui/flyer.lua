@@ -70,13 +70,14 @@ return {
               })
             end,
           },
-          ["<C-o>"] = {
+          ["<S-enter>"] = {
             action = function(self)
               local entry = require("fyler.finder").parse_cursor_line(self)
               if not entry then
                 return
               end
-              local win_id = require("utils.window_pick").pick()
+              local default_win_id = vim.api.nvim_get_current_win()
+              local win_id = Snacks.picker.util.pick_win({ main = default_win_id })
               if not win_id then
                 return
               end
@@ -102,16 +103,16 @@ return {
       -- vim.notify(vim.inspect(config), vim.log.levels.INFO)
       -- vim.notify(vim.inspect(config.values.views.finder.follow_current_file), vim.log.levels.INFO)
       --
-      local group = vim.api.nvim_create_augroup("FylerConfig", { clear = true })
-      vim.api.nvim_create_autocmd({ "Filetype" }, {
-        pattern = { "fyler" },
-        group = group,
-        callback = function(ev)
-          vim.keymap.set("n", "<esc>", function()
-            require("fff.picker_ui").close()
-          end, { buffer = ev.buf, nowait = true })
-        end,
-      })
+      -- local group = vim.api.nvim_create_augroup("FylerConfig", { clear = true })
+      -- vim.api.nvim_create_autocmd({ "Filetype" }, {
+      --   pattern = { "fyler" },
+      --   group = group,
+      --   callback = function(ev)
+      --     vim.keymap.set("n", "<esc>", function()
+      --       require("fff.picker_ui").close()
+      --     end, { buffer = ev.buf, nowait = true })
+      --   end,
+      -- })
     end,
   },
 }

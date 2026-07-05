@@ -12,6 +12,7 @@ return {
         -- highlights["DiagnosticInfo"] = { link = "DiagnosticVirtualTextInfo" }
         -- highlights["DiagnosticHint"] = { link = "DiagnosticVirtualTextHint" }
         highlights["MsgSeparator"] = { link = "PmenuSel" }
+        highlights["TinyCmdlineBorder"] = { link = "Type" }
 
         -- NOTE: DAP UI
         -- need to be bold

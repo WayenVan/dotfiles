@@ -48,6 +48,15 @@ return {
       mappings = {
 
         n = {
+          ["<localleader>v"] = {
+            action = "select",
+            args = { vsplit = true },
+          },
+          ["<localleader>s"] = {
+            action = "select",
+            args = { split = true },
+          },
+
           ["Y"] = {
             action = function(self)
               local entry = require("fyler.finder").parse_cursor_line(self)

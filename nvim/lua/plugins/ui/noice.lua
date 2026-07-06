@@ -20,10 +20,14 @@ return {
           enabled = true,
         },
       },
+      commands = {},
       -- popupmenu = {
       --   enabled = false,
       -- },
       views = {
+        split = {
+          size = "30%",
+        },
         cmdline_popup = {
           position = {
             row = 5,
@@ -36,7 +40,6 @@ return {
           win_options = {},
         },
       },
-
       presets = {
         bottom_search = false, -- use a classic bottom cmdline for search
         command_palette = false, -- position the cmdline and popupmenu together
@@ -64,11 +67,11 @@ return {
     { "<c-b>", false},
     { "<leader>n", "", desc = "+noice"},
     -- { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-    -- { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+    { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
     -- { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
-    -- { "<leader>nn", function() require("noice").cmd("all") end, desc = "Noice All" },
-    -- { "<leader>nd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
-    -- { "<leader>ns", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
+    { "<leader>nn", function() require("noice").cmd("history") end, desc = "Noice All" },
+    { "<leader>nd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+    { "<leader>ns", function() require("noice").cmd("snacks") end, desc = "Noice Picker" },
     { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
     { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
   },

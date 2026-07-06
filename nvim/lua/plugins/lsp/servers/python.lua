@@ -9,6 +9,13 @@ return {
       -- #NOTE: currently ty is not supported by mason-lspconfig
       --@type lspconfig.options
       setup = {
+        -- ruff = function(_, opts)
+        --   Snacks.util.lsp.on({ name = "ruff" }, function(bufnr, client)
+        --     client.server_capabilities.renameProvider = false
+        --   end)
+        --
+        --   return false
+        -- end,
         ty = function(_, opts)
           vim.lsp.config("ty", opts)
 

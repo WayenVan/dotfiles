@@ -35,7 +35,7 @@ return {
     },
     keys = {
       {
-        "<leader>fz",
+        "<leader>sz",
         function()
           require("fff").live_grep({ grep = { modes = { "fuzzy", "plain" } } })
         end,

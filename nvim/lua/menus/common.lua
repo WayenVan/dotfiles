@@ -68,43 +68,43 @@ return {
   --   hl = "Define",
   --   items = "lsp",
   -- },
-  {
-    name = "Peek definition",
-    cmd = function()
-      require("overlook.api").peek_definition()
-    end,
-    rtxt = "d",
-  },
-  {
-    name = "Peek cursor",
-    cmd = function()
-      require("overlook.api").peek_cursor()
-    end,
-    rtxt = "c",
-  },
-  {
-    name = "Restore all peek windows",
-    cmd = function()
-      require("overlook.api").restore_all_popups()
-    end,
-    rtxt = "r",
-  },
-  {
-    name = "Restore peek window",
-    cmd = function()
-      require("overlook.api").restore_popup()
-    end,
-    rtxt = "R",
-  },
-  {
-    name = "Close all peek windows",
-    cmd = function()
-      require("overlook.api").close_all()
-    end,
-    rtxt = "x",
-  },
-
-  { name = "separator" },
+  -- {
+  --   name = "Peek definition",
+  --   cmd = function()
+  --     require("overlook.api").peek_definition()
+  --   end,
+  --   rtxt = "d",
+  -- },
+  -- {
+  --   name = "Peek cursor",
+  --   cmd = function()
+  --     require("overlook.api").peek_cursor()
+  --   end,
+  --   rtxt = "c",
+  -- },
+  -- {
+  --   name = "Restore all peek windows",
+  --   cmd = function()
+  --     require("overlook.api").restore_all_popups()
+  --   end,
+  --   rtxt = "r",
+  -- },
+  -- {
+  --   name = "Restore peek window",
+  --   cmd = function()
+  --     require("overlook.api").restore_popup()
+  --   end,
+  --   rtxt = "R",
+  -- },
+  -- {
+  --   name = "Close all peek windows",
+  --   cmd = function()
+  --     require("overlook.api").close_all()
+  --   end,
+  --   rtxt = "x",
+  -- },
+  --
+  -- { name = "separator" },
   {
     name = "Show Formatter Info",
     cmd = function()

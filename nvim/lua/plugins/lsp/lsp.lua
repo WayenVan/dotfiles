@@ -1,7 +1,41 @@
+local function open_preview(location)
+  local util = require("lspeek.util")
+  local window = require("lspeek.window")
+  local uri = util.normalize_uri(location.uri or location.targetUri)
+  local bufnr = util.ensure_loaded_buf(uri)
+  local fname = vim.uri_to_fname(uri)
+
+  local source = window.get_source()
+  local target = window.build_target_from_location(location, bufnr, fname)
+
+  local preview = window.create_preview_floating_window(source, target)
+
+  -- add customized keymap to close the preview window and jump to the target window
+  vim.keymap.set("n", "<S-enter>", function()
+    -- close all preview windows
+    window.close_all_previews()
+    -- pickup window
+    require("snacks")
+    local win_id = Snacks.picker.util.pick_win({ main = vim.api.nvim_get_current_win() })
+    vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(fname))
+
+    -- set position
+    local source_pos = util.lsp_pos_to_vim_cursor(preview.source.pos)
+    pcall(vim.api.nvim_win_set_cursor, win_id, source_pos)
+    vim.api.nvim_set_current_win(win_id)
+  end, { buffer = target.buf, desc = "Close lspeek preview" })
+
+  if preview and vim.api.nvim_win_is_valid(preview.win) then
+    pcall(vim.api.nvim_win_set_cursor, preview.win, util.lsp_pos_to_vim_cursor(target.pos))
+  end
+end
 return {
   -- change lsp keymaps
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "r4ppz/lspeek.nvim",
+    },
     opts = function(_, opts)
       opts.servers["*"].keys = vim.list_extend(opts.servers["*"].keys, {
         {
@@ -11,11 +45,30 @@ return {
           end,
           desc = "Code action preview",
         },
-        -- {
-        --   "<C-k>",
-        --   false,
-        --   mode = "i",
-        -- },
+        {
+          "gd",
+          function()
+            require("snacks")
+            Snacks.picker.pick({
+              finder = "lsp_definitions",
+              format = "file",
+              include_current = false,
+              auto_confirm = true,
+              confirm = function(picker, item)
+                picker:close()
+                local lsp_item = require("utils.lsp_picker_converter").PickerToLsp(item)
+
+                open_preview(lsp_item)
+              end,
+              jump = { tagstack = true, reuse_win = true },
+            })
+          end,
+          desc = "Peek Definition (lspeek) with Snacks picker",
+        },
+        {
+          "gD",
+          false,
+        },
         {
           "<C-k>",
           "<cmd>lua vim.lsp.buf.signature_help()<cr>",

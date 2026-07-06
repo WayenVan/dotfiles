@@ -12,6 +12,7 @@ return {
           -- Examples:
           number = true,
           relativenumber = true,
+          cursorline = true,
         },
       },
 
@@ -40,20 +41,20 @@ return {
     -- :LSPeekDef      -> Peek Definition
     -- :LSPeekTypeDef  -> Peek Type Definition
     keys = {
-      {
-        "gD",
-        function()
-          require("lspeek").peek_definition()
-        end,
-        desc = "Peek Definition (lspeek)",
-      },
-      {
-        "gT",
-        function()
-          require("lspeek").peek_type_definition()
-        end,
-        desc = "Peek Type Definition (lspeek)",
-      },
+      -- {
+      --   "gD",
+      --   function()
+      --     require("lspeek").peek_definition()
+      --   end,
+      --   desc = "Peek Definition (lspeek)",
+      -- },
+      -- {
+      --   "gT",
+      --   function()
+      --     require("lspeek").peek_type_definition()
+      --   end,
+      --   desc = "Peek Type Definition (lspeek)",
+      -- },
     },
   },
 }

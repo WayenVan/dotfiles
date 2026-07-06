@@ -13,6 +13,7 @@ local function open_preview(location)
 
   -- add customized keymap to close the preview window and jump to the target window
   vim.keymap.set("n", "<S-enter>", function()
+    local pos = vim.api.nvim_win_get_cursor(preview.win)
     -- close all preview windows
     window.close_all_previews()
 
@@ -21,9 +22,7 @@ local function open_preview(location)
     local win_id = Snacks.picker.util.pick_win({ main = vim.api.nvim_get_current_win() })
     vim.api.nvim_win_set_buf(win_id, target.buf)
 
-    -- set position
-    local target_pos = util.lsp_pos_to_vim_cursor(preview.target.pos)
-    pcall(vim.api.nvim_win_set_cursor, win_id, target_pos)
+    pcall(vim.api.nvim_win_set_cursor, win_id, pos)
     vim.keymap.del("n", "<S-enter>", { buffer = target.buf })
   end, { buffer = target.buf, desc = "Close lspeek preview" })
 

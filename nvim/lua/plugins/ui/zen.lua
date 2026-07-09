@@ -4,7 +4,7 @@ return {
     "folke/zen-mode.nvim",
     lazy = true,
     -- replaced by the snacks.zen
-    enabled = true,
+    enabled = false,
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings

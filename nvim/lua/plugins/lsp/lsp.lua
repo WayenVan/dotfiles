@@ -20,9 +20,11 @@ local function open_preview(location)
     -- pickup window
     require("snacks")
     local win_id = Snacks.picker.util.pick_win({ main = vim.api.nvim_get_current_win() })
-    vim.api.nvim_win_set_buf(win_id, target.buf)
+    -- vim.api.nvim_win_set_buf(win_id, target.buf)
+    vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(target.buf)))
 
     pcall(vim.api.nvim_win_set_cursor, win_id, pos)
+    pcall(vim.api.nvim_set_current_win, win_id)
     vim.keymap.del("n", "<S-enter>", { buffer = target.buf })
   end, { buffer = target.buf, desc = "Close lspeek preview" })
 
@@ -35,6 +37,19 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim",
+        },
+        opts = {
+          lsp = { auto_attach = true },
+          source_buffer = {
+            reorient = "none", -- "smart" | "none"
+          },
+        },
+      },
       "r4ppz/lspeek.nvim",
     },
     opts = function(_, opts)
@@ -110,6 +125,8 @@ return {
           desc = "Momentarily show inlay hints via Alt‑h",
           mode = "n",
         },
+
+        { "<leader>cn", "<cmd>Navbuddy<cr>", desc = "NavBuddy" },
         -- {
         --   "<leader>ss",
         --   function()

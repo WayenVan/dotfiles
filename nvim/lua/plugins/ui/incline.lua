@@ -1,3 +1,8 @@
+local function comment_fg()
+  local hl = vim.api.nvim_get_hl(0, { name = "Comment", link = true })
+  return hl.fg and string.format("#%06x", hl.fg)
+end
+
 return {
   {
     "b0o/incline.nvim",
@@ -21,8 +26,8 @@ return {
           -- },
         },
         render = function(props)
-          local mark_fg = vim.api.nvim_get_hl(0, { name = "WarningMsg" }).fg
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+          local dir, filename =
+            require("utils.misc").pretty_path_parts({ buf = props.buf, relative = "cwd", length = 3 })
           if filename == "" then
             filename = "[No Name]"
           end
@@ -30,8 +35,13 @@ return {
           --
           local modified = vim.bo[props.buf].modified
 
+          local mark_fg = vim.api.nvim_get_hl(0, { name = "WarningMsg" }).fg
           return {
             ft_icon and { " ", ft_icon, " ", guifg = ft_color } or "",
+            {
+              dir .. (dir ~= "" and "/" or ""),
+              guifg = comment_fg() or "#808080",
+            },
             {
               filename,
               gui = modified and "bold,italic" or "bold",

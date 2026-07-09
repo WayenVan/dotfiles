@@ -186,46 +186,77 @@ return {
             -- },
           },
         },
-        -- winbar = {
-        --   lualine_a = {},
-        --   lualine_b = {},
-        --   lualine_c = {
-        --     {
-        --       "%{%v:lua.dropbar()%}",
-        --       cond = function()
-        --         return _G.dropbar ~= nil
-        --       end,
-        --       separator = { left = "", right = "" },
-        --       color = "nil",
-        --     },
-        --   },
-        --   lualine_x = {},
-        --   lualine_y = {
-        --     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        --     { LazyVim.lualine.pretty_path() },
-        --   },
-        --   lualine_z = {},
-        -- },
-        -- inactive_winbar = {
-        --   lualine_a = {},
-        --   lualine_b = {},
-        --   lualine_c = {
-        --     {
-        --       "%{%v:lua.dropbar()%}",
-        --       cond = function()
-        --         return _G.dropbar ~= nil
-        --       end,
-        --       separator = { left = "", right = "" },
-        --       color = "nil",
-        --     },
-        --   },
-        --   lualine_x = {},
-        --   lualine_y = {
-        --     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        --     { LazyVim.lualine.pretty_path() },
-        --   },
-        --   lualine_z = {},
-        -- },
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            -- {
+            --   "%{%v:lua.dropbar()%}",
+            --   cond = function()
+            --     return _G.dropbar ~= nil
+            --   end,
+            --   separator = { left = "", right = "" },
+            --   color = "nil",
+            -- },
+            {
+              function()
+                local navic = require("nvim-navic")
+                -- print("navic.get_location():", navic.get_location({ color_mode = true }))
+                local location = navic.get_location({ highlight = true })
+                if location == "" then
+                  return " "
+                end
+                return location
+              end,
+              cond = function()
+                local navic = require("nvim-navic")
+                return navic.is_available()
+              end,
+            },
+          },
+          lualine_x = {},
+          lualine_y = {
+            -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            -- { LazyVim.lualine.pretty_path() },
+          },
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            -- {
+            --   "%{%v:lua.dropbar()%}",
+            --   cond = function()
+            --     return _G.dropbar ~= nil
+            --   end,
+            --   separator = { left = "", right = "" },
+            --   color = "nil",
+            -- },
+            {
+              function()
+                local navic = require("nvim-navic")
+                -- print("navic.get_location():", navic.get_location({ color_mode = true }))
+                local location = navic.get_location({ highlight = false })
+                if location == "" then
+                  return " "
+                end
+                return location
+              end,
+              cond = function()
+                local navic = require("nvim-navic")
+                return navic.is_available()
+              end,
+            },
+          },
+          lualine_x = {},
+          lualine_y = {
+            -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            -- { LazyVim.lualine.pretty_path() },
+            -- { LazyVim.lualine.pretty_path() },
+          },
+          lualine_z = {},
+        },
         extensions = { "neo-tree", "lazy" },
       }
 

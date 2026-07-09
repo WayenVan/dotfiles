@@ -15,8 +15,6 @@ class A:
         self.pi: float = 3.14
         self.test_var: np.ndarray = np.array([1, 2, 3])
 
-        return f"A({self.a})"
-
     def __str__(self):
         self.test_var_sum = np.sum(self.test_var)
         return f"A with value {self.a}, test_var sum: {self.test_var_sum}"

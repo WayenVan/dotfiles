@@ -146,3 +146,12 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.keymap.set("n", "<leader>qr", "<CMD>restart<CR>", { desc = "Restart nvim" })
+
+vim.keymap.set("x", "<leader>e", function()
+  local mode = vim.fn.visualmode()
+  if mode == "" then
+    return
+  end
+  local text = vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"), { type = mode })
+  vim.api.nvim_echo({ { table.concat(text, "\n"), "Normal" } }, true, {})
+end, { desc = "Echo visual selection to messages" })

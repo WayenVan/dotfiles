@@ -14,6 +14,7 @@ return {
           enabled = true,
           always_show = true,
         },
+        override_open_float = true,
       },
     },
     config = function(_, opts)

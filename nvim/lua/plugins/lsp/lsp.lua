@@ -43,12 +43,34 @@ return {
           "SmiteshP/nvim-navic",
           "MunifTanjim/nui.nvim",
         },
-        opts = {
-          lsp = { auto_attach = true },
-          source_buffer = {
-            reorient = "none", -- "smart" | "none"
-          },
-        },
+        config = function()
+          local actions = require("nvim-navbuddy.actions")
+          require("nvim-navbuddy").setup({
+            lsp = { auto_attach = true },
+            source_buffer = {
+              reorient = "none", -- "smart" | "none"
+            },
+            use_default_mappings = false,
+            mappings = {
+              ["q"] = actions.close(),
+              ["<enter>"] = actions.select(), -- Goto selected symbol
+              ["<localleader>v"] = actions.vsplit(), -- Open selected node in a vertical split
+              ["<localleader>s"] = actions.hsplit(), -- Open selected node in a horizontal split
+              -- ["s"] = {
+              --   callback = function()
+              --     require("flash").jump({
+              --       multi_window = false,
+              --       highlight = { backdrop = true },
+              --       label = {
+              --         rainbow = { enabled = true },
+              --       },
+              --     })
+              --   end,
+              --   desc = "Flash",
+              -- },
+            },
+          })
+        end,
       },
       "r4ppz/lspeek.nvim",
     },

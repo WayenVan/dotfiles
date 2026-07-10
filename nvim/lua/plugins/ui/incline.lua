@@ -9,7 +9,7 @@ return {
     event = "VeryLazy",
     config = function()
       local devicons = require("nvim-web-devicons")
-      local helpers = require("incline.helpers")
+      -- local helpers = require("incline.helpers")
       require("incline").setup({
         hide = {
           cursorline = true, -- Disable hiding cursorline
@@ -57,7 +57,7 @@ return {
       --  改良版的 incline 高亮修复
       local function fix_incline_high_light()
         local all_highlights = vim.api.nvim_get_hl(0, {})
-        for name, hl_def in pairs(all_highlights) do
+        for name, _ in pairs(all_highlights) do
           local fg = name:match("incline__guifg_([0-9a-fA-F]+)") -- 提取十六进制颜色代码
           if fg then
             vim.api.nvim_set_hl(0, name, { fg = "#" .. fg })

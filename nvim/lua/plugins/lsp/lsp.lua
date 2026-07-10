@@ -56,6 +56,22 @@ return {
               ["<enter>"] = actions.select(), -- Goto selected symbol
               ["<localleader>v"] = actions.vsplit(), -- Open selected node in a vertical split
               ["<localleader>s"] = actions.hsplit(), -- Open selected node in a horizontal split
+              ["j"] = actions.next_sibling(), -- down
+              ["k"] = actions.previous_sibling(), -- up
+
+              ["h"] = actions.parent(), -- Move to left panel
+              ["l"] = actions.children(), -- Move to right panel
+              ["r"] = actions.rename(), -- Rename currently focused symbol
+
+              ["d"] = actions.delete(), -- Delete scope
+              ["J"] = actions.move_down(), -- Move focused node down
+              ["K"] = actions.move_up(), -- Move focused node up
+
+              ["y"] = actions.yank_name(), -- Yank the name to system clipboard "+
+              ["Y"] = actions.yank_scope(), -- Yank the scope to system clipboard "+
+
+              ["i"] = actions.insert_name(), -- Insert at start of name
+              ["I"] = actions.insert_scope(), -- Insert at start of scope
               -- ["s"] = {
               --   callback = function()
               --     require("flash").jump({

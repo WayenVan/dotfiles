@@ -1,8 +1,10 @@
--- customised cmds
---
-local function noice()
-  return require("noice")
+-- NOTE: vscode:
+if vim.g.vscode then
+  require("vscode_config.cmds")
+  return
 end
+
+-- customised cmds
 
 vim.api.nvim_create_user_command("VideScale", function()
   local factor = vim.fn.input("Enter the Scaler Factor")
@@ -10,9 +12,9 @@ vim.api.nvim_create_user_command("VideScale", function()
     factor = tonumber(factor)
     if factor then
       vim.g.neovide_scale_factor = factor
-      noice().notify("Neovide Facotr Set to " .. tostring(factor), "info")
+      vim.notify("Neovide Scale Factor Set to " .. tostring(factor), "info")
     else
-      noice().notify("Invalid Factor", "error")
+      vim.notify("Invalid Factor", "error")
     end
   end
 end, {})
@@ -26,7 +28,7 @@ vim.g.saved_makeprg = vim.o.makeprg
 vim.api.nvim_create_user_command("RestoreCompiler", function()
   vim.o.errorformat = vim.g.saved_eft
   vim.o.makeprg = vim.g.saved_makeprg
-  require("noice").notify("Compiler Restored", "info")
+  vim.notify("Compiler Restored", "info")
 end, {})
 
 vim.api.nvim_create_user_command("LspCapabilities", function()

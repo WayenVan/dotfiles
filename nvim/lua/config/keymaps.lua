@@ -3,19 +3,16 @@
 -- Add any additional keymaps here
 --
 -- fix terminal keymap
+
+if vim.g.vscode then
+  require("vscode_config.keymappings")
+  return
+end
 --
 vim.keymap.del({ "t" }, "<C-/>")
 vim.keymap.set({ "t" }, "<C-/>", "<Cmd>q<cr>", {})
 vim.keymap.del({ "t" }, "<C-_>")
 vim.keymap.set({ "t" }, "<C-_>", "<Cmd>q<cr>", {})
-
---remove keybindings
--- vim.keymap.del("n", "<A-j>")
--- vim.keymap.del("n", "<A-k>")
--- vim.keymap.del("n", "<C-j>")
--- vim.keymap.del("n", "<C-k>")
--- vim.keymap.del("n", "<C-l>")
--- vim.keymap.del("n", "<C-h>")
 
 local map = vim.keymap.set
 

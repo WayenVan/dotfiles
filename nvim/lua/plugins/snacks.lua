@@ -1,5 +1,6 @@
 return {
   "folke/snacks.nvim",
+  vscode = false,
   keys = function(_, keys)
     -- override the default keymaps
     local excluded_keys = {

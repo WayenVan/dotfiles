@@ -1,6 +1,15 @@
 local vs = require("vscode")
 -- custom key maps
 local map = vim.keymap.set
+local del = vim.keymap.del
+
+-- clean unuseful keymaps from LazyVim
+del("n", "<leader>l")
+del("n", "<leader><leader>")
+del("n", "<leader><tab><tab>")
+
+-- set new keymaps
+map("n", "<Space>", "<Nop>")
 
 -- settings for tabs(buffers)
 map("n", "H", function()

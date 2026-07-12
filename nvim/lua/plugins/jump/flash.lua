@@ -15,6 +15,7 @@ return {
           },
         },
         char = {
+          enabled = false,
           jump_labels = true,
           -- highlight = { backdrop = true },
           -- multi_line = false,

@@ -7,6 +7,8 @@ if vim.g.vscode then
   return
 end
 
+vim.o.termguicolors = true
+
 -- local leader
 if LazyVim.is_win() then
   vim.o.clipboard = "unnamed,unnamedplus"

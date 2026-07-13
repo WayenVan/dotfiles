@@ -73,7 +73,7 @@ return {
           vim.keymap.set("n", "<esc>", function()
             require("fff.picker_ui.layout_manager").close()
           end, { buffer = ev.buf, nowait = true })
-          vim.keymap.set({ "n", "i" }, "<S-enter>", function()
+          vim.keymap.set({ "n", "i" }, "<c-o>", function()
             local state = require("fff.picker_ui.picker_ui").state
             if not state.active then
               return

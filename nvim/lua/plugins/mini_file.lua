@@ -209,7 +209,7 @@ return {
         },
         {
           "n",
-          "<S-Enter>",
+          "<C-o>",
           function()
             local path = get_entry_path()
             MiniFiles.close()

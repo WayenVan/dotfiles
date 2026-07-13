@@ -85,7 +85,7 @@ return {
               })
             end,
           },
-          ["<S-enter>"] = {
+          ["<c-o>"] = {
             action = function(self)
               local entry = require("fyler.finder").parse_cursor_line(self)
               if not entry then

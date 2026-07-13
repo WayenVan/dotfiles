@@ -42,7 +42,7 @@ return {
         ["`"] = "actions.cd",
         ["~"] = "actions.tcd",
         ["g."] = "actions.toggle_hidden",
-        ["<s-enter>"] = {
+        ["<c-o>"] = {
           callback = function()
             local entry = require("oil").get_cursor_entry()
             local dir = require("oil").get_current_dir()

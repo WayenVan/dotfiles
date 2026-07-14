@@ -7,6 +7,7 @@ if vim.g.vscode then
   return
 end
 
+vim.o.laststatus = 3
 vim.o.termguicolors = true
 
 -- local leader

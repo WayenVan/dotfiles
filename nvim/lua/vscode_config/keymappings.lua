@@ -1,11 +1,11 @@
 local vs = require("vscode")
+
 -- custom key maps
 local map = vim.keymap.set
 local del = vim.keymap.del
 
 -- clean unuseful keymaps from LazyVim
 del("n", "<leader>l")
-del("n", "<leader><leader>")
 del("n", "<leader><tab><tab>")
 
 -- set new keymaps
@@ -39,6 +39,10 @@ map("n", "<leader>bl", function()
 end, {})
 map("n", "<leader>br", function()
   vs.action("workbench.action.closeEditorsToTheRight")
+end, {})
+
+map("n", "<leader>bo", function()
+  vs.action("workbench.action.closeOtherEditors")
 end, {})
 
 -- setting for panel and bar
@@ -178,4 +182,9 @@ end, {})
 -- lsp settings
 map("n", "<leader>cr", function()
   vs.action("editor.action.rename")
+end, {})
+
+-- minimap
+map("n", "<leader>mm", function()
+  vs.action("editor.action.toggleMinimap")
 end, {})

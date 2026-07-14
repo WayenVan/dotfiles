@@ -11,6 +11,10 @@ return {
       local devicons = require("nvim-web-devicons")
       -- local helpers = require("incline.helpers")
       require("incline").setup({
+        debounce_threshold = {
+          falling = 75,
+          rising = 75,
+        },
         hide = {
           cursorline = true, -- Disable hiding cursorline
           focused_win = false, -- Disable hiding in focused window

@@ -7,5 +7,5 @@ windows:
     panes:
       - shell_command:
           - ./siyuan.sh
-      - shell_command:
-          - ./zotero.sh
+      # - shell_command:
+      #     - ./zotero.sh

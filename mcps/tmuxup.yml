@@ -1,0 +1,11 @@
+session_name: mcps
+start_directory: .
+
+windows:
+  - window_name: dev
+    layout: tiled
+    panes:
+      - shell_command:
+          - ./siyuan.sh
+      - shell_command:
+          - ./zotero.sh

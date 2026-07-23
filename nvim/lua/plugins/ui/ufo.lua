@@ -36,9 +36,35 @@ return {
     config = function()
       require("ufo").setup({
         provider_selector = function(bufnr, filetype, buftype)
+          -- 仅对普通文件启用
           if buftype ~= "" then
             return ""
           end
+
+          -- 排除部分特殊 filetype
+          local excluded_filetypes = {
+            dashboard = true,
+            snacks_dashboard = true,
+            snacks_picker_list = true,
+            neo_tree = true,
+            NvimTree = true,
+            oil = true,
+            trouble = true,
+            lazy = true,
+            mason = true,
+            notify = true,
+            qf = true,
+            help = true,
+            man = true,
+            gitcommit = true,
+            toggleterm = true,
+            fish = true,
+          }
+
+          if excluded_filetypes[filetype] then
+            return ""
+          end
+
           return { "lsp", "treesitter" }
         end,
       })

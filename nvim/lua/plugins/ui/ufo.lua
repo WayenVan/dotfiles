@@ -59,6 +59,7 @@ return {
             gitcommit = true,
             toggleterm = true,
             fish = true,
+            tmux = true,
           }
 
           if excluded_filetypes[filetype] then

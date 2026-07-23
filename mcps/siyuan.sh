@@ -21,4 +21,4 @@ SIYUAN_API_URL=http://127.0.0.1:6806 \
   --port=7801 \
   --api-key="siyuan-wayenvan" \
   -- \
-  node "$SIYUAN_MCP_PATH"
+  node "$SIYUAN_WORKSPACE/data/plugins/siyuan-plugins-mcp-sisyphus/mcp-server.cjs"

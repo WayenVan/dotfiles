@@ -60,6 +60,8 @@ return {
             toggleterm = true,
             fish = true,
             tmux = true,
+            ["dap-view"] = true,
+            ["dap-view-term"] = true,
           }
 
           if excluded_filetypes[filetype] then

@@ -66,7 +66,7 @@ return {
             tmux = true,
             ["dap-view"] = true,
             ["dap-view-term"] = true,
-            big_file = true,
+            bigfile = true,
           }
 
           if excluded_filetypes[filetype] then

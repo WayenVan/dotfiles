@@ -41,6 +41,10 @@ return {
             return ""
           end
 
+          -- 没有 filetype 的新建缓冲区也排除
+          if filetype == "" then
+            return ""
+          end
           -- 排除部分特殊 filetype
           local excluded_filetypes = {
             dashboard = true,

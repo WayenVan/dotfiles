@@ -9,3 +9,5 @@ windows:
           - ./siyuan.sh
       - shell_command:
           - ./zotero.sh
+      - shell_command:
+          - ./thunder_bird.sh

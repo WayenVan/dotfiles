@@ -1,18 +1,7 @@
-local function get_build_command()
-  local os_name, _ = require("utils.os_name").get_os_name()
-  if os_name == "Windows" then
-    return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-  else
-    return "make"
-  end
-end
-
-local build_command = get_build_command()
 return {
   {
     "yetone/avante.nvim",
     -- event = "VeryLazy",
-    version = false, -- set this if you want to always pull the latest changes
     enabled = true,
     opts = {
       mappings = {
@@ -22,7 +11,6 @@ return {
         },
       },
       hints = { enabled = false },
-      provider = "copilot",
       -- add any opts here
       windows = {
         width = 35,
@@ -34,13 +22,29 @@ return {
       behaviour = {
         auto_set_keymaps = false,
       },
+      instructions_file = "avante.md",
+      -- for example
+      provider = "deepseek",
+      providers = {
+        deepseek = {
+          __inherited_from = "openai",
+          api_key_name = "DEEPSEEK_API_KEY",
+          endpoint = "https://api.deepseek.com/",
+          model = "deepseek-v4-flash",
+          extra_request_body = {
+            max_tokens = 393216,
+            thinking = { type = "enabled" },
+          },
+        },
+      },
+      -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+      -- build = "make",
+      -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
     },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    -- build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
     keys = {
+
       {
-        "<leader>Aa",
+        "<leader>AA",
         "<CMD>AvanteToggle<CR>",
         desc = "Toggle Avante",
       },
@@ -50,9 +54,11 @@ return {
         desc = "+ Avante",
       },
     },
-    build = build_command,
+    build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      or "make",
+    event = "VeryLazy",
+    version = false, -- Never set this value to "*"! Never!
     config = function(_, opts)
-      require("avante_lib").load()
       require("avante").setup(opts)
 
       -- setup auto command for avante buffer
@@ -85,6 +91,7 @@ return {
       --- The below dependencies are optional,
       "DaikyXendo/nvim-material-icon",
       "zbirenbaum/copilot.lua", -- for providers='copilot'
+      "folke/snacks.nvim", -- for input provider snacks
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",

@@ -1,0 +1,15 @@
+[profiles.deepseek-flash]
+model = "deepseek-v4-flash"
+model_provider = "deepseek"
+model_reasoning_effort = "high"
+
+[profiles.deepseek-pro]
+model = "deepseek-v4-pro"
+model_provider = "deepseek"
+model_reasoning_effort = "max"
+
+[model_providers.deepseek]
+name = "DeepSeek"
+base_url = "https://api.deepseek.com"
+env_key = "DEEPSEEK_API_KEY"
+wire_api = "responses"

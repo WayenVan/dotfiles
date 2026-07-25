@@ -37,3 +37,6 @@
       path: rime/*
       create: true
       glob: true
+    ~/.codex/deepseek.config.toml:
+      path: codex/deepseek.config.toml
+      create: true

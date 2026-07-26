@@ -67,6 +67,7 @@ return {
             ["dap-view"] = true,
             ["dap-view-term"] = true,
             bigfile = true,
+            env = true,
           }
 
           if excluded_filetypes[filetype] then

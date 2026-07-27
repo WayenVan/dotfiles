@@ -40,10 +40,15 @@ return {
     opts = {
       -- Auto focus current file
       follow_current_file = false,
-      kind = "replace",
+      kind = "split_left_most",
       win_opts = {
         number = true,
         relativenumber = true,
+      },
+      kind_presets = {
+        split_left_most = {
+          width = "15%",
+        },
       },
       -- hooks = {
       --   on_rename = function(src_path, destination_path)
@@ -102,6 +107,15 @@ return {
           },
           ["<C-s>"] = {
             disabled = true,
+          },
+          ["<localleader>o"] = {
+            action = function(self)
+              local entry = require("fyler.finder").parse_cursor_line(self)
+              if not entry then
+                return
+              end
+              vim.ui.open(entry.path)
+            end,
           },
         },
       },

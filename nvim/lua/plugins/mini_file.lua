@@ -110,31 +110,7 @@ return {
         end
       end
 
-      local open_in_system = function()
-        local path = Path:new(MiniFiles.get_fs_entry().path)
-        if path:is_dir() then
-          path = path:absolute()
-          path = require("utils.misc").shellescape_dir(path)
-          -- is dir, oepn with system viewer
-          local os_name = require("utils.os_name").get_os_name()
-          if os_name == "Mac" then
-            -- macOS: open Finder at the specified path
-            vim.fn.jobstart({ "open", path }, { detach = true })
-          elseif os_name == "Linux" then
-            -- Linux: open file in default application
-            vim.fn.jobstart({ "xdg-open", path }, { detach = true })
-          elseif os_name == "Windows" then
-            -- Windows: Without removing the file from the path, it opens in code.exe instead of explorer.exe
-            -- vim.cmd("silent !start " .. path)
-            vim.cmd("silent !start " .. path)
-          else
-          end
-          return
-        end
-        -- no a dir, open with system application
-        local uri = vim.uri_from_fname(path:absolute())
-        require("lazy.util").open(uri, { system = true })
-      end
+      local preview_enabled = opts.windows.preview
 
       --- Keymap configurations ---
       local keymaps = {
@@ -227,8 +203,29 @@ return {
         {
           "n",
           "<localleader>o",
-          open_in_system,
+          function()
+            local entry = get_entry_path()
+            if not entry then
+              return
+            end
+            vim.ui.open(entry)
+          end,
           { desc = "open in system" },
+        },
+        {
+          "n",
+          "<c-p>",
+          function()
+            preview_enabled = not preview_enabled
+
+            MiniFiles.refresh({
+              windows = {
+                preview = preview_enabled,
+              },
+            })
+          end,
+
+          { desc = "Toggle MiniFiles Preview" },
         },
       }
       -- vim.api.nvim_create_autocmd("User", {
@@ -237,7 +234,6 @@ return {
       --     Snacks.rename.on_rename_file(event.data.from, event.data.to)
       --     vim.notify("Lsp renamed file: " .. event.data.from .. " -> " .. event.data.to, vim.log.levels.INFO)
       --   end,
-      -- })
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)

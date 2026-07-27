@@ -152,3 +152,24 @@ vim.keymap.set("x", "<leader>e", function()
   local text = vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"), { type = mode })
   vim.api.nvim_echo({ { table.concat(text, "\n"), "Normal" } }, true, {})
 end, { desc = "Echo visual selection to messages" })
+
+-- fix window equalize issue when some windows are fixed size
+local function force_equalize()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.api.nvim_win_is_valid(win) then
+      local config = vim.api.nvim_win_get_config(win)
+
+      -- 跳过浮动窗口
+      if config.relative == "" then
+        vim.wo[win].winfixwidth = false
+        vim.wo[win].winfixheight = false
+      end
+    end
+  end
+
+  vim.cmd("wincmd =")
+end
+
+vim.keymap.set("n", "<C-w>=", force_equalize, {
+  desc = "Force equalize all windows",
+})

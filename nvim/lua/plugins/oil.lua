@@ -9,7 +9,7 @@ return {
         "<leader>-",
         function()
           -- require("oil").open_float()
-          require("oil").open()
+          require("oil").toggle_float()
         end,
         desc = "Open parent directory",
       },
@@ -20,9 +20,11 @@ return {
       default_file_explorer = false,
       float = {
         border = "single",
-        max_with = 0.8,
+        max_width = 0.7,
         max_height = 0.9,
         zindex = 10000,
+        -- 类似 Yazi：文件列表在左，预览在右
+        preview_split = "right",
       },
       -- stylelua: ignore
       keymaps = {
@@ -64,6 +66,21 @@ return {
             vim.api.nvim_set_current_win(win_id)
           end,
           desc = "Open parent directory in a floating window",
+        },
+        ["<localleader>o"] = {
+          callback = function()
+            local entry = require("oil").get_cursor_entry()
+            local dir = require("oil").get_current_dir()
+
+            if not entry or not dir then
+              return
+            end
+
+            local abs_path = dir .. "/" .. entry.name
+
+            vim.ui.open(abs_path)
+          end,
+          desc = "Open file in system",
         },
       },
     },

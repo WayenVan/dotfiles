@@ -38,25 +38,6 @@ map("n", "<leader>gO", function()
   Snacks.gitbrowse()
 end, { desc = "Git Browse" })
 
--- terminal send esc to shell
--- map("t", "\\\\", [[<C-\><C-n>]], { silent = true })
--- map("t", "<c-[>", [[<Esc>]], { silent = true })
-
--- cutomized text object
--- local function select_above()
---   local line = vim.fn.line(".")
---   local cmd = string.format("normal! ggV%dgg", line)
---   vim.cmd(cmd)
--- end
--- local function select_below()
---   local line = vim.fn.line(".")
---   local cmd = string.format("normal! GV%dgg", line)
---   vim.cmd(cmd)
--- end
--- vim.keymap.set("n", "gA", select_above, { desc = "select above" })
--- vim.keymap.set("n", "gB", select_below, { desc = "select below" })
-
--- neovide setting
 if vim.g.neovide then
   vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
   vim.keymap.set(
@@ -154,22 +135,26 @@ vim.keymap.set("x", "<leader>e", function()
 end, { desc = "Echo visual selection to messages" })
 
 -- fix window equalize issue when some windows are fixed size
-local function force_equalize()
+local fix_width = {
+  ["fyler-finder"] = true,
+  ["codecompanion"] = true,
+}
+
+local fix_height = {
+  qf = true,
+  trouble = true,
+}
+local function update_window_fix()
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-    if vim.api.nvim_win_is_valid(win) then
-      local config = vim.api.nvim_win_get_config(win)
+    local buf = vim.api.nvim_win_get_buf(win)
+    local ft = vim.bo[buf].filetype
 
-      -- 跳过浮动窗口
-      if config.relative == "" then
-        vim.wo[win].winfixwidth = false
-        vim.wo[win].winfixheight = false
-      end
-    end
+    vim.wo[win].winfixwidth = fix_width[ft] or vim.wo[win].winfixwidth
+    vim.wo[win].winfixheight = fix_height[ft] or vim.wo[win].winfixheight
   end
-
-  vim.cmd("wincmd =")
 end
 
-vim.keymap.set("n", "<C-w>=", force_equalize, {
-  desc = "Force equalize all windows",
-})
+vim.keymap.set("n", "<C-w>=", function()
+  update_window_fix()
+  vim.cmd.wincmd("=")
+end, { desc = "Equalize windows" })

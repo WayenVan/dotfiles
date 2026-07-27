@@ -20,3 +20,9 @@ vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
     end
   end,
 })
+
+vim.filetype.add({
+  pattern = {
+    [".*%.md%.j2"] = "jinja",
+  },
+})

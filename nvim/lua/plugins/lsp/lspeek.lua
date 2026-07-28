@@ -1,6 +1,6 @@
 return {
   {
-    "WayenVan/lspeek.nvim",
+    "r4ppz/lspeek.nvim",
     opts = {
       window = {
         width = 180,

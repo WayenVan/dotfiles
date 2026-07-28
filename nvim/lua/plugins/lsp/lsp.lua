@@ -15,7 +15,7 @@ local function open_preview(location)
   vim.keymap.set("n", "<c-o>", function()
     local pos = vim.api.nvim_win_get_cursor(preview.win)
     -- close all preview windows
-    window.close_all_previews()
+    require("lspeek").close_all()
 
     -- pickup window
     require("snacks")
@@ -26,7 +26,23 @@ local function open_preview(location)
     pcall(vim.api.nvim_win_set_cursor, win_id, pos)
     pcall(vim.api.nvim_set_current_win, win_id)
     vim.keymap.del("n", "<c-o>", { buffer = target.buf })
-  end, { buffer = target.buf, desc = "Close lspeek preview" })
+  end, { buffer = target.buf })
+
+  -- add customized keymap to close the preview window and jump to the target window
+  vim.keymap.set("n", "<enter>", function()
+    local pos = vim.api.nvim_win_get_cursor(preview.win)
+    -- close all preview windows
+    require("lspeek").close_all()
+
+    local win_id = vim.api.nvim_get_current_win()
+    -- vim.api.nvim_win_set_buf(win_id, target.buf)
+    vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(target.buf)))
+
+    pcall(vim.api.nvim_win_set_cursor, win_id, pos)
+    pcall(vim.api.nvim_set_current_win, win_id)
+
+    vim.keymap.del("n", "<c-o>", { buffer = target.buf })
+  end, { buffer = target.buf })
 
   if preview and vim.api.nvim_win_is_valid(preview.win) then
     pcall(vim.api.nvim_win_set_cursor, preview.win, util.lsp_pos_to_vim_cursor(target.pos))
@@ -108,6 +124,11 @@ return {
               format = "file",
               include_current = false,
               auto_confirm = true,
+
+              layout = {
+                preset = "vertical",
+              },
+
               confirm = function(picker, item)
                 picker:close()
                 local lsp_item = require("utils.lsp_picker_converter").PickerToLsp(item)
@@ -128,6 +149,9 @@ return {
               format = "file",
               include_current = false,
               auto_confirm = true,
+              layout = {
+                preset = "vertical",
+              },
               confirm = function(picker, item)
                 picker:close()
                 local lsp_item = require("utils.lsp_picker_converter").PickerToLsp(item)

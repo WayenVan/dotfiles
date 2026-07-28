@@ -77,6 +77,42 @@ return {
     return vim.list_extend(filtered, my_keys)
   end,
   opts = {
+    picker = {
+      layouts = {
+        vertical = {
+          reverse = false,
+          layout = {
+            box = "vertical",
+            backdrop = false,
+            width = 0.5,
+            min_width = 80,
+            height = 0.8,
+            min_height = 30,
+            border = true,
+
+            {
+              win = "preview",
+              title = "{preview}",
+              height = 0.6,
+              border = "bottom",
+            },
+
+            {
+              win = "input",
+              height = 1,
+              border = "bottom",
+              title = "{title} {live} {flags}",
+              title_pos = "center",
+            },
+
+            {
+              win = "list",
+              border = "none",
+            },
+          },
+        },
+      },
+    },
     input = {
       win = {
         relative = "cursor",

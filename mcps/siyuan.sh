@@ -16,7 +16,10 @@
 #   -- http://127.0.0.1:36806/mcp
 
 SIYUAN_API_URL=http://127.0.0.1:6806 \
-  uvx mcpo \
+  uvx \
+  --with 'mcp>=1.17,<2' \
+  --refresh \
+  mcpo \
   --host=0.0.0.0 \
   --port=7801 \
   --api-key="siyuan-wayenvan" \

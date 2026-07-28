@@ -214,6 +214,19 @@ return {
         },
         {
           "n",
+          "<leader>-",
+          function()
+            local entry = get_entry_path()
+            if not entry then
+              return
+            end
+            MiniFiles.close()
+            require("oil").open_float(vim.fs.dirname(entry))
+          end,
+          { desc = "open in system" },
+        },
+        {
+          "n",
           "<c-p>",
           function()
             preview_enabled = not preview_enabled

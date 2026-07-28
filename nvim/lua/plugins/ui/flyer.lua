@@ -117,6 +117,16 @@ return {
               vim.ui.open(entry.path)
             end,
           },
+          ["<leader>-"] = {
+            action = function(self)
+              local entry = require("fyler.finder").parse_cursor_line(self)
+              if not entry then
+                return
+              end
+              require("oil").open_float(vim.fs.dirname(entry.path))
+              -- require("utils.oil").focus_file_in_oil(entry.path)
+            end,
+          },
         },
       },
       integrations = {

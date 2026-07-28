@@ -10,8 +10,8 @@ return {
       ["<leader>fE"] = true,
       ["<leader>."] = true,
       ["<leader><space>"] = true,
-      ["<leader>ff"] = true,
       ["<leader>gd"] = true,
+      ["<leader>ff"] = true,
     }
 
     local filtered = vim.tbl_filter(function(value)
@@ -72,6 +72,23 @@ return {
           Snacks.notifier.show_history()
         end,
         desc = "Show notifier history",
+      },
+      {
+        "<leader>ff",
+        function()
+          require("utils.pickers").pick_directories(vim.fn.getcwd(), function(path)
+            vim.notify("Selected directory: " .. path, vim.log.levels.INFO)
+            require("fyler").open()
+            vim.schedule(function()
+              local inst = require("fyler.finder").instance_get_or_nil()
+              if not inst then
+                return
+              end
+              inst:follow({ target_path = path })
+            end)
+          end)
+        end,
+        desc = "Find Directories",
       },
     }
     return vim.list_extend(filtered, my_keys)

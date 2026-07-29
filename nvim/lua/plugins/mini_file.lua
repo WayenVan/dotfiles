@@ -220,8 +220,12 @@ return {
             if not entry then
               return
             end
+            vim.schedule(function()
+              require("utils.oil").open_oil_float_at_file(entry)
+            end)
             MiniFiles.close()
-            require("oil").open_float(vim.fs.dirname(entry))
+            -- require("oil").open_float(vim.fs.dirname(entry))
+            -- require("utils.oil").open_oil_float_at_file(entry)
           end,
           { desc = "open in system" },
         },

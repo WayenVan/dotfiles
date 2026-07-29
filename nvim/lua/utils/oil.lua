@@ -6,7 +6,7 @@ function M.open_oil_float_at_file(filepath)
   filepath = vim.fs.normalize(vim.fn.fnamemodify(vim.fn.expand(filepath), ":p"))
 
   local stat = vim.uv.fs_stat(filepath)
-  if not stat or stat.type ~= "file" then
+  if not stat then
     vim.notify("File does not exist: " .. filepath, vim.log.levels.ERROR)
     return
   end

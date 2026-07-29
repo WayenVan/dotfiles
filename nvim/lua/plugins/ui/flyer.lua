@@ -123,8 +123,8 @@ return {
               if not entry then
                 return
               end
-              require("oil").open_float(vim.fs.dirname(entry.path))
-              -- require("utils.oil").focus_file_in_oil(entry.path)
+              -- require("oil").open_float(vim.fs.dirname(entry.path))
+              require("utils.oil").open_oil_float_at_file(entry.path)
             end,
           },
         },

@@ -24,9 +24,9 @@ return {
       },
       instructions_file = "avante.md",
       -- for example
-      mode = "agentic",
-      provider = "hermes",
-      -- provider = "deepseek",
+      -- mode = "agentic",
+      -- provider = "hermes",
+      provider = "deepseek",
       providers = {
         deepseek = {
           __inherited_from = "openai",

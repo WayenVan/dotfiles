@@ -138,6 +138,7 @@ end, { desc = "Echo visual selection to messages" })
 local fix_width = {
   ["fyler-finder"] = true,
   ["codecompanion"] = true,
+  ["dap-view"] = true,
 }
 
 local fix_height = {

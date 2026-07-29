@@ -102,6 +102,27 @@ return {
           end,
           desc = "Open file in system",
         },
+        ["K"] = {
+          callback = function()
+            local entry = require("oil").get_cursor_entry()
+            local dir = require("oil").get_current_dir()
+
+            if not entry or not dir then
+              return
+            end
+
+            local abs_path = dir .. "/" .. entry.name
+
+            local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+            require("utils.file_info").show_file_info(abs_path, {
+              col = current_cursor_pos[2],
+              row = current_cursor_pos[1],
+              zindex = 1001,
+              enter = true,
+            })
+          end,
+          desc = "Show file info",
+        },
       },
     },
     -- Optional dependencies

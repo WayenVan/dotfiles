@@ -24,7 +24,9 @@ return {
       },
       instructions_file = "avante.md",
       -- for example
-      provider = "deepseek",
+      mode = "agentic",
+      provider = "hermes",
+      -- provider = "deepseek",
       providers = {
         deepseek = {
           __inherited_from = "openai",
@@ -37,6 +39,31 @@ return {
           },
         },
       },
+      acp_providers = {
+        hermes = {
+          command = "hermes",
+          args = { "acp" },
+
+          env = {
+            HOME = vim.env.HOME,
+            PATH = vim.env.PATH,
+          },
+        },
+        codex = {
+          command = "codex-acp",
+          args = {},
+
+          env = {
+            HOME = os.getenv("HOME"),
+            PATH = os.getenv("PATH"),
+            NODE_NO_WARNINGS = "1",
+
+            -- 使用 ChatGPT Plus 登录时不要在这里传 API key
+            -- OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
+          },
+        },
+      },
+
       -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
       -- build = "make",
       -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows

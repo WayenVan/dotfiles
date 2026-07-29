@@ -117,7 +117,7 @@ return {
               vim.ui.open(entry.path)
             end,
           },
-          ["<leader>-"] = {
+          ["-"] = {
             action = function(self)
               local entry = require("fyler.finder").parse_cursor_line(self)
               if not entry then

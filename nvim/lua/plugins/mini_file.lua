@@ -214,7 +214,7 @@ return {
         },
         {
           "n",
-          "<leader>-",
+          "-",
           function()
             local entry = get_entry_path()
             if not entry then

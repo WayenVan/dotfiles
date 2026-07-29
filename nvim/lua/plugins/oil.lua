@@ -6,12 +6,17 @@ return {
     },
     keys = {
       {
-        "<leader>-",
+        "<leader>_",
         function()
           -- require("oil").open_float()
           require("oil").toggle_float()
         end,
         desc = "Open parent directory",
+      },
+      {
+        "<leader>-",
+        function() end,
+        desc = "Open recent",
       },
     },
     ---@module 'oil'
@@ -82,6 +87,21 @@ return {
           end,
           desc = "Open file in system",
         },
+        ["Y"] = {
+          callback = function()
+            local entry = require("oil").get_cursor_entry()
+            local dir = require("oil").get_current_dir()
+
+            if not entry or not dir then
+              return
+            end
+
+            local abs_path = dir .. "/" .. entry.name
+
+            require("utils.yank_path").yank_path_picker(abs_path)
+          end,
+          desc = "Open file in system",
+        },
       },
     },
     -- Optional dependencies
@@ -90,19 +110,34 @@ return {
     lazy = false,
     config = function(_, opts)
       require("oil").setup(opts)
-      -- create an autocmd to listen for the OilActionsPost event and call Snacks.rename.on_rename_file when a file is moved
-      -- vim.api.nvim_create_autocmd("User", {
-      --   pattern = "OilActionsPost",
-      --   callback = function(event)
-      --     if event.data.actions[1].type == "move" then
-      --       Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
-      --       -- vim.notify(
-      --       --   "Lsp renamed file: " .. event.data.actions[1].src_url .. " -> " .. event.data.actions[1].dest_url,
-      --       --   vim.log.levels.INFO
-      --       -- )
-      --     end
-      -- end,
-      -- })
+      local last_oil_dir = nil
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "oil",
+        callback = function(args)
+          vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, {
+            buffer = args.buf,
+            callback = function()
+              local dir = require("oil").get_current_dir(args.buf)
+              if dir then
+                last_oil_dir = dir
+              end
+            end,
+          })
+        end,
+      })
+
+      local function reopen_last_oil()
+        local oil = require("oil")
+
+        if last_oil_dir then
+          oil.open_float(last_oil_dir)
+        else
+          oil.open_float()
+        end
+      end
+
+      vim.keymap.set("n", "<leader>-", reopen_last_oil, { desc = "Reopen last oil directory" })
     end,
   },
 }

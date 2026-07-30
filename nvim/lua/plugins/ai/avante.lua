@@ -1,7 +1,6 @@
 return {
   {
     "yetone/avante.nvim",
-    -- event = "VeryLazy",
     enabled = true,
     opts = {
       mappings = {
@@ -76,6 +75,23 @@ return {
         desc = "Toggle Avante",
       },
       {
+        "<leader>AS",
+        "<CMD>AvanteSwitchProvider<CR>",
+        desc = "Switch Avante Provider",
+      },
+      {
+        "<leader>A+",
+        function()
+          local file = vim.api.nvim_buf_get_name(0)
+          if vim.fn.isdirectory(file) == 1 then
+            vim.notify("Current buffer is a directory, cannot add.", vim.log.levels.WARN)
+            return
+          end
+          require("avante.api").add_selected_file(file)
+        end,
+        desc = "Add Current File",
+      },
+      {
         "<leader>A",
         "",
         desc = "+ Avante",
@@ -95,7 +111,7 @@ return {
         pattern = { "Avante", "AvanteInput" },
         callback = function()
           local buf = vim.api.nvim_get_current_buf()
-          vim.api.nvim_buf_set_keymap(buf, "n", "q", "<CMD>AvanteToggle<CR>", { noremap = true, silent = true })
+          vim.keymap.set("n", "q", "<CMD>AvanteToggle<CR>", { buffer = buf, noremap = true, silent = true })
         end,
       })
 

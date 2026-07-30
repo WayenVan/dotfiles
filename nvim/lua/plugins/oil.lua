@@ -100,7 +100,30 @@ return {
 
             require("utils.yank_path").yank_path_picker(abs_path)
           end,
-          desc = "Open file in system",
+          desc = "Yank file path",
+        },
+        ["<leader>f."] = {
+          callback = function()
+            local entry = require("oil").get_cursor_entry()
+            local dir = require("oil").get_current_dir()
+
+            if not entry or not dir then
+              return
+            end
+
+            local abs_path = dir .. "/" .. entry.name
+
+            require("oil").close()
+            require("fyler").open()
+            vim.schedule(function()
+              local inst = require("fyler.finder").instance_get_or_nil()
+              if not inst then
+                return
+              end
+              inst:follow({ target_path = abs_path })
+            end)
+          end,
+          desc = "Follow file in fyler",
         },
         ["K"] = {
           callback = function()

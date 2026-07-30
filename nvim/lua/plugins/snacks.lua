@@ -77,15 +77,7 @@ return {
         "<leader>ff",
         function()
           require("utils.pickers").pick_directories(vim.fn.getcwd(), function(path)
-            vim.notify("Selected directory: " .. path, vim.log.levels.INFO)
-            require("fyler").open()
-            vim.schedule(function()
-              local inst = require("fyler.finder").instance_get_or_nil()
-              if not inst then
-                return
-              end
-              inst:follow({ target_path = path })
-            end)
+            require("oil").open_float(path, {}, function() end)
           end)
         end,
         desc = "Find Directories",

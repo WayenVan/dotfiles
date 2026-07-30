@@ -1,6 +1,7 @@
 return {
   {
     "fredeeb/tardis.nvim",
+    enabled = false,
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
       {

@@ -112,19 +112,7 @@ return {
         callback = function()
           local buf = vim.api.nvim_get_current_buf()
           vim.keymap.set("n", "q", "<CMD>AvanteToggle<CR>", { buffer = buf, noremap = true, silent = true })
-        end,
-      })
-
-      --automatic refresh when enter thing in
-      vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-        group = "Avante_",
-        callback = function()
-          local pattern = { "AvanteInput" }
-          if not vim.tbl_contains(pattern, vim.bo.filetype) then
-            return
-          end
-          vim.cmd("AvanteRefresh")
-          -- vim.notify("refresh")
+          vim.keymap.set({ "n", "i" }, "<c-c>", "<CMD>AvanteStop<CR>", { buffer = buf, noremap = true, silent = true })
         end,
       })
     end,

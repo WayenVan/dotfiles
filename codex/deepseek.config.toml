@@ -1,15 +1,12 @@
-[profiles.deepseek-flash]
 model = "deepseek-v4-flash"
 model_provider = "deepseek"
+preferred_auth_method = "apikey"
+forced_login_method = "api"
 model_reasoning_effort = "high"
-
-[profiles.deepseek-pro]
-model = "deepseek-v4-pro"
-model_provider = "deepseek"
-model_reasoning_effort = "max"
+model_catalog_json = "~/.codex/models.json"
 
 [model_providers.deepseek]
-name = "DeepSeek"
-base_url = "https://api.deepseek.com"
-env_key = "DEEPSEEK_API_KEY"
+name = "deepseek"
+base_url = "https://api.deepseek.com/"
 wire_api = "responses"
+experimental_bearer_token = "sk-0dddee9a3f5148f0b8d554ba5f534b6e"

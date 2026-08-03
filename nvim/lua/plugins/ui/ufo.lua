@@ -66,6 +66,7 @@ return {
             tmux = true,
             ["dap-view"] = true,
             ["dap-view-term"] = true,
+            ["nvim-undotree"] = true,
             bigfile = true,
             env = true,
             jinja = true,

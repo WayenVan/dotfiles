@@ -12,7 +12,7 @@ function M.pick_directories(cwd, open)
     format = "file",
 
     hidden = false,
-    ignored = false,
+    ignored = true,
 
     toggles = {
       hidden = "h",

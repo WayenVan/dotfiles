@@ -77,7 +77,11 @@ return {
         "<leader>ff",
         function()
           require("utils.pickers").pick_directories(vim.fn.getcwd(), function(path)
-            require("oil").open_float(path, {}, function() end)
+            require("oil").open_float(path, {
+              preview = {
+                preview_split = "right",
+              },
+            }, function() end)
           end)
         end,
         desc = "Find Directories",

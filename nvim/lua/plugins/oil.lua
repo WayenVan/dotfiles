@@ -176,9 +176,17 @@ return {
         local oil = require("oil")
 
         if last_oil_dir then
-          oil.open_float(last_oil_dir)
+          oil.open_float(last_oil_dir, {
+            preview = {
+              preview_split = "right",
+            },
+          })
         else
-          oil.open_float()
+          oil.open_float(nil, {
+            preview = {
+              preview_split = "right",
+            },
+          })
         end
       end
 

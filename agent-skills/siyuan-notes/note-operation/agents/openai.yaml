@@ -1,0 +1,4 @@
+interface:
+  display_name: "Note Operation"
+  short_description: "Manage SiYuan notes safely and consistently"
+  default_prompt: "Use $note-operation to operate on my SiYuan notes."

@@ -37,6 +37,9 @@
       path: rime/*
       create: true
       glob: true
-    ~/.codex/deepseek.config.toml:
-      path: codex/deepseek.config.toml
+    ~/.hermes/config.yaml:
+      path: hermes/config.yaml
+      create: true
+    ~/.hermes/skills/siyuan-notes:
+      path: agent-skills/siyuan-notes
       create: true

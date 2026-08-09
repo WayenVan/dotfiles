@@ -1,3 +1,0 @@
-return {
-  { import = "plugins.submodes" },
-}

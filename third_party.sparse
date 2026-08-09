@@ -1,0 +1,9 @@
+# Third-party 依赖清单 (manifest)
+# 每行一个仓库: <submodule 路径> <要保留的目录/文件, 空格分隔>
+# 以 # 开头或空行会被忽略。
+#
+# 新增第三方仓库的流程:
+#   git submodule add <url> third_party/<name>
+#   然后在本文件加一行, 最后提交:
+#   git add .gitmodules third_party third_party.sparse && git commit
+third_party/siyuan-plugins-mcp-sisyphus skills

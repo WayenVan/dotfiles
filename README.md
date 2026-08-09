@@ -20,5 +20,3 @@ third_party/ 下的第三方仓库由 `third_party.sparse`(清单)+ `third-party
 更新所有第三方仓库:
 
     ./third-party.sh update
-
-

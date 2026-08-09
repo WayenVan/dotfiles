@@ -70,6 +70,13 @@ return {
             bigfile = true,
             env = true,
             jinja = true,
+            gitconfig = true,
+            gitignore = true,
+            gitattributes = true,
+            git = true,
+            gitrebase = true,
+            gitsendemail = true,
+            template = true,
           }
 
           if excluded_filetypes[filetype] then

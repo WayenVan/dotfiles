@@ -1,0 +1,78 @@
+return {
+  {
+    "igorlfs/nvim-dap-view",
+    enabled = true,
+    -- branch = "feat/expand-variables",
+    opts = {
+      winbar = {
+        sections = { "watches", "sessions", "breakpoints", "threads", "repl", "scopes", "exceptions" },
+        base_sections = {
+          breakpoints = {
+            keymap = ",3",
+            label = "Breakpoints",
+          },
+          scopes = {
+            keymap = ",6",
+            label = "Scopes",
+          },
+          exceptions = {
+            keymap = ",7",
+            label = "Exceptions",
+          },
+          watches = {
+            keymap = ",1",
+            label = "Watches",
+          },
+          threads = {
+            keymap = ",4",
+            label = "Threads",
+          },
+          repl = {
+            keymap = ",5",
+            label = "REPL",
+          },
+          sessions = {
+            keymap = ",2", -- I ran out of mnemonics
+            label = "Sessions",
+          },
+        },
+      },
+      windows = {
+        size = 0.25,
+        terminal = {
+          position = "right",
+        },
+      },
+    },
+    keys = {
+      { "<leader>du", "<cmd>lua require('dap-view').toggle()<CR>", desc = "Toggle dap view" },
+      { "<leader>de", "<cmd>lua require('dap-view').add_expr()<CR>", desc = "Add expression" },
+    },
+    config = function(_, opts)
+      require("dap-view").setup(opts)
+      local dap, dv = require("dap"), require("dap-view")
+      dap.listeners.before.attach["dap-view-config"] = function()
+        dv.open()
+      end
+      dap.listeners.before.launch["dap-view-config"] = function()
+        dv.open()
+      end
+      dap.listeners.after.event_terminated["dap-view-config"] = function()
+        if require("dap").session() == nil then
+          dv.close()
+        end
+      end
+      dap.listeners.after.event_exited["dap-view-config"] = function()
+        if require("dap").session() == nil then
+          dv.close()
+        end
+      end
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
+        callback = function(evt)
+          vim.keymap.set("n", "q", "<C-w>q", { silent = true, buffer = evt.buf })
+        end,
+      })
+    end,
+  },
+}

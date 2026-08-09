@@ -1,0 +1,161 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+--
+-- fix terminal keymap
+
+if vim.g.vscode then
+  require("vscode_config.keymappings")
+  return
+end
+--
+vim.keymap.del({ "t" }, "<C-/>")
+vim.keymap.set({ "t" }, "<C-/>", "<Cmd>q<cr>", {})
+vim.keymap.del({ "t" }, "<C-_>")
+vim.keymap.set({ "t" }, "<C-_>", "<Cmd>q<cr>", {})
+
+local map = vim.keymap.set
+
+map("n", "<Space>", "<Nop>")
+
+-- -- Yank to the system clipboard by default
+-- groups
+map("n", "<leader>n", "", { desc = "+noice" })
+map("n", "<leader>z", "", { desc = "+zen" })
+
+-- lazyvim extra
+map("n", "<leader>l", "", { desc = "LazyVim" })
+map("n", "<leader>lx", "", { desc = "Lazy" })
+map("n", "<leader>lx", "<cmd>LazyExtras<cr>", { desc = "Lazy Extras" })
+map("n", "<leader>lc", function()
+  LazyVim.news.changelog()
+end, { desc = "LazyVim Changelog" })
+map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy Packages" })
+
+-- diable git mappping from LazyVim
+-- vim.keymap.del("n", "<leader>gB", {})
+map("n", "<leader>gO", function()
+  Snacks.gitbrowse()
+end, { desc = "Git Browse" })
+
+if vim.g.neovide then
+  vim.keymap.set("n", "<leader>uv", "<cmd>VideScale<cr>", { desc = "Neovide scaler factor" })
+  vim.keymap.set(
+    "n",
+    "<leader>uV",
+    ":let g:neovide_fullscreen = !g:neovide_fullscreen<CR>",
+    { desc = "Neovide toggle fullscreen" }
+  )
+end
+
+-- set toggle mouse setup
+Snacks.toggle.option("mouse", { off = nil, on = "a", name = "Mouse" }):map("<leader>uM")
+Snacks.toggle
+  .new({
+    name = "Mouse",
+    get = function()
+      return vim.opt.mouse._value == "a"
+    end,
+    set = function(state)
+      if state then
+        vim.opt.mouse = "a"
+      else
+        vim.opt.mouse = ""
+      end
+    end,
+  })
+  :map("<leader>uM")
+
+-- tab
+vim.keymap.set("n", "<M-]>", "<CMD>tabnext<cr>", { desc = "next tab" })
+vim.keymap.set("n", "<M-[>", "<CMD>tabprevious<CR>", { desc = "previous tab" })
+
+-- map cmdline up and down
+map("c", "<C-d>", "<Down>", {})
+map("c", "<C-u>", "<Up>", {})
+
+-- set c-i back
+vim.keymap.set("n", "<C-i>", "<C-i>", { noremap = true })
+
+local terminal_keymap_autocmd = vim.api.nvim_create_augroup("TerminalKeymap", { clear = true })
+-- Setup keymaps for all terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  group = terminal_keymap_autocmd,
+  -- group = "ToggleTerm",
+  callback = function()
+    -- Set terminal-local keymaps
+    -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
+    -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = 0 }) -- Exit terminal mode with Esc
+    vim.keymap.set("t", "<C-]>", [[<C-\><C-n>]], { buffer = 0 })
+    vim.keymap.set("t", "<C-<localleader>>", [[<C-\><C-n>]], { buffer = 0 })
+    vim.keymap.set("t", "<C-h>", "<Cmd>wincmd h<CR>", { buffer = 0 }) -- Move left
+    vim.keymap.set("t", "<C-j>", "<Cmd>wincmd j<CR>", { buffer = 0 }) -- Move down
+    vim.keymap.set("t", "<C-l>", "<Cmd>wincmd l<CR>", { buffer = 0 }) -- Move right
+    vim.keymap.set("t", "<C-k>", "<Cmd>wincmd k<CR>", { buffer = 0 }) -- Move right
+  end,
+})
+
+vim.keymap.set("n", "<leader>.a", "<cmd>terminal<cr>", { desc = "open new terminal in window" })
+vim.keymap.set("n", "<c-w>S", function()
+  local winid1 = vim.api.nvim_get_current_win()
+  local winid2 = require("utils.window_pick").pick()
+  local buf1 = vim.api.nvim_win_get_buf(winid1)
+  local buf2 = vim.api.nvim_win_get_buf(winid2)
+
+  vim.api.nvim_win_set_buf(winid1, buf2)
+  vim.api.nvim_win_set_buf(winid2, buf1)
+end, { desc = "Switching window" })
+
+vim.keymap.set("n", "<leader>nm", "<CMD>messages<CR>", { desc = "Show messages" })
+vim.keymap.set("n", "<leader>uu", function()
+  vim.cmd([[packadd nvim.undotree]])
+  require("undotree").open({
+    command = math.floor(vim.o.columns * 0.3) .. "vnew",
+  })
+end, { desc = "Open undotree" })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nvim-undotree",
+  callback = function(env)
+    vim.keymap.set("n", "q", function()
+      require("undotree").open()
+    end, { noremap = true, silent = true, buffer = env.buf })
+  end,
+})
+
+vim.keymap.set("n", "<leader>qr", "<CMD>restart<CR>", { desc = "Restart nvim" })
+
+vim.keymap.set("x", "<leader>e", function()
+  local mode = vim.fn.visualmode()
+  if mode == "" then
+    return
+  end
+  local text = vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"), { type = mode })
+  vim.api.nvim_echo({ { table.concat(text, "\n"), "Normal" } }, true, {})
+end, { desc = "Echo visual selection to messages" })
+
+-- fix window equalize issue when some windows are fixed size
+local fix_width = {
+  ["fyler-finder"] = true,
+  ["codecompanion"] = true,
+  ["dap-view"] = true,
+}
+
+local fix_height = {
+  qf = true,
+  trouble = true,
+}
+local function update_window_fix()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local ft = vim.bo[buf].filetype
+
+    vim.wo[win].winfixwidth = fix_width[ft] or vim.wo[win].winfixwidth
+    vim.wo[win].winfixheight = fix_height[ft] or vim.wo[win].winfixheight
+  end
+end
+
+vim.keymap.set("n", "<C-w>=", function()
+  update_window_fix()
+  vim.cmd.wincmd("=")
+end, { desc = "Equalize windows" })

@@ -1,0 +1,265 @@
+return {
+  {
+    "nvim-mini/mini.files",
+    keys = {
+      {
+        "<leader>e",
+        function()
+          require("mini.files").open(nil, true)
+        end,
+        desc = "Open mini.files (cwd)",
+      },
+      {
+        "<leader>E",
+        function()
+          require("mini.files").open(MiniFiles.get_latest_path())
+        end,
+        desc = "Open mini.files (recent)",
+      },
+
+      {
+        "<leader>Of",
+        function()
+          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+        end,
+        desc = "Open mini.files (current file)",
+      },
+      { "<leader>O", "", desc = "+ Open in mini.files" },
+      {
+        "<leader>Od",
+        function()
+          local path = require("plenary.path"):new(vim.fn.stdpath("data")):absolute()
+          require("mini.files").open(path, true, {})
+        end,
+        desc = "Open mini.files (std data)",
+      },
+      -- {
+      --   "<leader>Or",
+      --   function()
+      --     require("mini.files").open(LazyVim.root(), true)
+      --   end,
+      --   desc = "Open mini.files (Recent)",
+      -- },
+      {
+        "<leader>Oc",
+        function()
+          local path = require("plenary.path"):new(vim.fn.stdpath("cache")):absolute()
+          require("mini.files").open(path, true, {})
+        end,
+        desc = "Open mini.files (cache)",
+      },
+      {
+        "<leader>Os",
+        function()
+          local path = require("plenary.path"):new(vim.fn.stdpath("state")):absolute()
+          require("mini.files").open(path, true, {})
+        end,
+        desc = "Open mini.files (state)",
+      },
+      {
+        "<leader>Or",
+        function()
+          require("mini.files").open(LazyVim.root(), true)
+        end,
+        desc = "Open mini.files (root)",
+      },
+    },
+    opts = {
+      mappings = {
+        go_in_plus = "<CR>",
+        go_in = "L",
+        go_out = "H",
+        go_out_plus = "<BS>",
+        reset = ".",
+        synchronize = "<C-s>",
+      },
+      options = {
+        use_as_default_explorer = true,
+      },
+      windows = {
+        preview = false,
+      },
+    },
+
+    config = function(_, opts)
+      require("mini.files").setup(opts)
+
+      local Path = require("plenary.path")
+      local MiniFiles = require("mini.files")
+      local notify = vim.notify
+
+      --- Utility functions ---
+      local function get_entry_path()
+        local entry = MiniFiles.get_fs_entry()
+        return entry and entry.path or nil
+      end
+
+      local yank_path = require("utils.yank_path").yank_path
+
+      --- Action implementations ---
+      local function go_to_directory()
+        local path = get_entry_path()
+        if not path then
+          return
+        end
+
+        if Path:new(path):is_dir() then
+          vim.cmd.tcd(path)
+        else
+          notify("Not a directory", "error")
+        end
+      end
+
+      local preview_enabled = opts.windows.preview
+
+      --- Keymap configurations ---
+      local keymaps = {
+        {
+          "n",
+          "gy",
+          function()
+            yank_path(":t", get_entry_path())
+          end,
+          { desc = "Yank relative path" },
+        },
+
+        {
+          "n",
+          "gY",
+          function()
+            yank_path(":p", get_entry_path())
+          end,
+          { desc = "Yank absolute path" },
+        },
+
+        {
+          "n",
+          "Y",
+          function()
+            local path = get_entry_path()
+            MiniFiles.close()
+            require("utils.yank_path").yank_path_picker(path)
+          end,
+          { desc = "Yank filename" },
+        },
+
+        {
+          "n",
+          "gr",
+          function()
+            require("neo-tree.command").execute({
+              action = "focus",
+              position = "left",
+              reveal_file = get_entry_path(),
+              dir = vim.fn.getcwd(),
+            })
+          end,
+          { desc = "Reveal in NeoTree" },
+        },
+
+        -- { "n", "O", open_in_system, { desc = "Open in system" } },
+        { "n", "<localleader>D", go_to_directory, { desc = "Set CWD to directory" } },
+        {
+          "n",
+          "K",
+          function()
+            local path = get_entry_path()
+            local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+            require("utils.file_info").show_file_info(path, {
+              col = current_cursor_pos[2],
+              row = current_cursor_pos[1],
+              zindex = 1001,
+              enter = false,
+            }, true)
+          end,
+          {},
+        },
+        {
+          "i",
+          "<C-s>",
+          function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+            MiniFiles.synchronize()
+          end,
+          { desc = "Synchronize" },
+        },
+        {
+          "n",
+          "<C-o>",
+          function()
+            local path = get_entry_path()
+            MiniFiles.close()
+
+            local default_win_id = vim.api.nvim_get_current_win()
+            local win_id = Snacks.picker.util.pick_win({ main = default_win_id })
+            if not win_id then
+              return
+            end
+            vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(path))
+            vim.api.nvim_set_current_win(win_id)
+          end,
+          {},
+        },
+        {
+          "n",
+          "<localleader>o",
+          function()
+            local entry = get_entry_path()
+            if not entry then
+              return
+            end
+            vim.ui.open(entry)
+          end,
+          { desc = "open in system" },
+        },
+        {
+          "n",
+          "-",
+          function()
+            local entry = get_entry_path()
+            if not entry then
+              return
+            end
+            vim.schedule(function()
+              require("utils.oil").open_oil_float_at_file(entry)
+            end)
+            MiniFiles.close()
+            -- require("oil").open_float(vim.fs.dirname(entry))
+            -- require("utils.oil").open_oil_float_at_file(entry)
+          end,
+          { desc = "open in system" },
+        },
+        {
+          "n",
+          "<c-p>",
+          function()
+            preview_enabled = not preview_enabled
+
+            MiniFiles.refresh({
+              windows = {
+                preview = preview_enabled,
+              },
+            })
+          end,
+
+          { desc = "Toggle MiniFiles Preview" },
+        },
+      }
+      -- vim.api.nvim_create_autocmd("User", {
+      --   pattern = "MiniFilesActionRename",
+      --   callback = function(event)
+      --     Snacks.rename.on_rename_file(event.data.from, event.data.to)
+      --     vim.notify("Lsp renamed file: " .. event.data.from .. " -> " .. event.data.to, vim.log.levels.INFO)
+      --   end,
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+          for _, map in ipairs(keymaps) do
+            map[4] = vim.tbl_deep_extend("force", map[4] or {}, { buffer = args.data.buf_id })
+            vim.keymap.set(map[1], map[2], map[3], map[4])
+          end
+        end,
+      })
+    end,
+  },
+}

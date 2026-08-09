@@ -1,0 +1,137 @@
+-- this setting override the default setting from LazyVim
+-- vim.fn.exepath("pythhon") get python path
+-- set pyright to basedpyright
+return {
+  {
+    "neovim/nvim-lspconfig",
+    ---@class PluginLspOpts
+    opts = {
+      -- #NOTE: currently ty is not supported by mason-lspconfig
+      --@type lspconfig.options
+      setup = {
+        -- ruff = function(_, opts)
+        --   Snacks.util.lsp.on({ name = "ruff" }, function(bufnr, client)
+        --     client.server_capabilities.renameProvider = false
+        --   end)
+        --
+        --   return false
+        -- end,
+        ty = function(_, opts)
+          vim.lsp.config("ty", opts)
+
+          Snacks.util.lsp.on({ name = "ty" }, function(bufnr, client)
+            client.server_capabilities.executeCommandProvider.workDoneProgress = true
+          end)
+
+          vim.lsp.enable("ty")
+
+          -- NOTE: we stop the setting from the lspconfig by this
+          return true
+        end,
+        pyrefly = function(_, opts)
+          vim.lsp.config("pyrefly", opts)
+
+          LazyVim.lsp.on_attach(function(client, bufnr)
+            -- client.server_capabilities.definitionProvider = false
+            -- Disable some feature becuase it is provided by
+            -- client.server_capabilities.hoverProvider = false
+            -- disable complement for tyrefly becasue of conflict with pyright
+            client.server_capabilities.inlayHintProvider = nil
+            client.server_capabilities.diagnosticProvider = nil
+            -- client.server_capabilities.completionProvider = nil
+            -- client:stop()
+          end, "pyrefly")
+
+          vim.lsp.enable("pyrefly")
+
+          -- NOTE: we stop the setting from the lspconfig by this
+          return true
+        end,
+        pyright = function(_, opts)
+          LazyVim.lsp.on_attach(function(client, bufnr)
+            -- Disable some feature becuase it is provided by
+            -- client.server_capabilities.hoverProvider = false
+            -- client.server_capabilities.inlayHintProvider = nil
+            client.server_capabilities.diagnosticProvider = nil
+            client.server_capabilities.definitionProvider = nil
+            client.server_capabilities.declarationProvider = nil
+            client.server_capabilities.typeDefinitionProvider = nil
+            client.server_capabilities.documentSymbolProvider = nil
+            -- client.server_capabilities.completionProvider = nil
+          end, "pyright")
+          return false
+        end,
+      },
+      servers = {
+        ty = {
+          cmd = { "ty", "server" },
+          filetypes = { "python" },
+          root_markers = { "pyproject.toml", "ty.toml", ".git" },
+          settings = {
+            ty = {
+              experimental = {
+                rename = true,
+              },
+            },
+          },
+          enabled = true, -- Disable ty by default
+          mason = false,
+        },
+        pyrefly = {
+          cmd = { "pyrefly", "lsp" },
+          filetypes = { "python" },
+          root_markers = {
+            "pyrefly.toml",
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+            "Pipfile",
+            ".git",
+          },
+          settings = {
+            -- python.pyrefly.disableTypeErrors
+            python = {
+              pyrefly = {
+                displayTypeErrors = "force-off",
+              },
+            },
+          },
+          enabled = false, -- Disable pyrefly by default
+          mason = false,
+        },
+        pyright = {
+          enabled = false, -- Disable pyright by default
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "off", -- Disable type checking
+                useLibraryCodeForTypes = false, -- Use library code for types
+              },
+            },
+            pyright = {
+              disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true, -- Using Ruff
+            },
+          },
+        },
+        basedpyright = {
+          enabled = false, -- Disable basedpyright by default
+          settings = {
+            basedpyright = {
+              disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true, -- Using Ruff
+              analysis = {
+                inlayHints = {
+                  functionReturnTypes = false, -- Enable function return types in inlay hints
+                },
+                typeCheckingMode = "off", -- Disable type checking
+                useLibraryCodeForTypes = true, -- Use library code for types
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}

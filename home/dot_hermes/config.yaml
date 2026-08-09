@@ -260,7 +260,7 @@ mcp_servers:
       HERMES_WEB_UI_MANAGED_MCP: "1"
     enabled: true
   zotero:
-    command: /Users/wayenvan/.local/bin/zotero-mcp-clean
+    command: ~/.local/bin/zotero-mcp-clean
     enabled: true
   icloud-calendar:
     command: npx

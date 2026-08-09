@@ -1,0 +1,8 @@
+#!/bin/bash
+# Zotero MCP wrapper: strip the Hermes agent's PYTHONPATH before launching
+# zotero-mcp. The uv-installed zotero-mcp-server runs Python 3.12; inheriting
+# Hermes' venv (3.11) site-packages via PYTHONPATH makes fastmcp import the
+# wrong pydantic_core (C extension ABI mismatch) and crash on startup.
+# See ~/.hermes/logs/agent.log: "MCP server 'zotero' failed initial connection".
+unset PYTHONPATH
+exec zotero-mcp "$@"

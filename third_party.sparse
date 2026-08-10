@@ -7,3 +7,5 @@
 #   然后在本文件加一行, 最后提交:
 #   git add .gitmodules third_party third_party.sparse && git commit
 third_party/siyuan-plugins-mcp-sisyphus skills
+third_party/skills skills
+third_party/i-have-adhd skills

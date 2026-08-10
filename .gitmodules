@@ -1,3 +1,9 @@
 [submodule "third_party/siyuan-plugins-mcp-sisyphus"]
 	path = third_party/siyuan-plugins-mcp-sisyphus
 	url = https://github.com/yangtaihong59/siyuan-plugins-mcp-sisyphus
+[submodule "third_party/skills"]
+	path = third_party/skills
+	url = https://github.com/mattpocock/skills.git
+[submodule "third_party/i-have-adhd"]
+	path = third_party/i-have-adhd
+	url = https://github.com/ayghri/i-have-adhd

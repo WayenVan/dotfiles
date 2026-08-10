@@ -219,6 +219,12 @@ return {
       --   })
       -- end, { desc = "Toggle diagnostic [l]ines" })
       vim.diagnostic.config({ float = { source = true } })
+      -- opts.servers["marksman"] = {
+      --   enabled = false,
+      -- }
+      opts.servers["markdownlint"] = {
+        enabled = false,
+      }
     end,
   },
 }

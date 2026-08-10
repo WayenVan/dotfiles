@@ -1,0 +1,5 @@
+interface:
+  display_name: "Inbox Capture"
+  short_description: "Quickly capture ideas into .ai/INBOX.md without interrupting the current task"
+policy:
+  allow_implicit_invocation: false

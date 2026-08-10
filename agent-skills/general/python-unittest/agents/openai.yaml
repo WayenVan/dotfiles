@@ -1,0 +1,5 @@
+interface:
+  display_name: "Python Unit Test Writer"
+  short_description: "Write high-quality, minimal Python unittest tests for a given code target"
+policy:
+  allow_implicit_invocation: false

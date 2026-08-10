@@ -1,0 +1,5 @@
+interface:
+  display_name: "Python Pytest Writer"
+  short_description: "Write high-quality, minimal Python pytest tests for a given code target"
+policy:
+  allow_implicit_invocation: false

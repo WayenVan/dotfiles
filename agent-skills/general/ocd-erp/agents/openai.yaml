@@ -1,0 +1,5 @@
+interface:
+  display_name: "Ask"
+  short_description: "Analyze and advise without making changes"
+policy:
+  allow_implicit_invocation: false

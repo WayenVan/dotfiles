@@ -7,3 +7,6 @@
 [submodule "third_party/i-have-adhd"]
 	path = third_party/i-have-adhd
 	url = https://github.com/ayghri/i-have-adhd
+[submodule "third_party/Auto-claude-code-research-in-sleep"]
+	path = third_party/Auto-claude-code-research-in-sleep
+	url = https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep.git

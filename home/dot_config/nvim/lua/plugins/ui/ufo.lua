@@ -77,6 +77,7 @@ return {
             gitrebase = true,
             gitsendemail = true,
             template = true,
+            conf = true,
           }
 
           if excluded_filetypes[filetype] then

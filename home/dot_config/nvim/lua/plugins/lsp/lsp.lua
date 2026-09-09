@@ -1,52 +1,23 @@
--- NOTE: hack function for lspeek.nvim
-local function open_preview(location)
-  local util = require("lspeek.util")
-  local window = require("lspeek.window")
-  local uri = util.normalize_uri(location.uri or location.targetUri)
-  local bufnr = util.ensure_loaded_buf(uri)
-  local fname = vim.uri_to_fname(uri)
+local function peek_with_snacks(finder)
+  require("snacks").picker.pick({
+    finder = finder,
+    format = "file",
+    include_current = false,
+    auto_confirm = true,
+    layout = { preset = "vertical" },
+    jump = { tagstack = true, reuse_win = true },
+    confirm = function(picker, item)
+      local source_win = picker.main
+      picker:close()
 
-  local source = window.get_source()
-  local target = window.build_target_from_location(location, bufnr, fname)
+      if source_win and vim.api.nvim_win_is_valid(source_win) then
+        vim.api.nvim_set_current_win(source_win)
+      end
 
-  local preview = window.create_preview_floating_window(source, target)
-
-  -- add customized keymap to close the preview window and jump to the target window
-  vim.keymap.set("n", "<c-o>", function()
-    local pos = vim.api.nvim_win_get_cursor(preview.win)
-    -- close all preview windows
-    require("lspeek").close_all()
-
-    -- pickup window
-    require("snacks")
-    local win_id = Snacks.picker.util.pick_win({ main = vim.api.nvim_get_current_win() })
-    -- vim.api.nvim_win_set_buf(win_id, target.buf)
-    vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(target.buf)))
-
-    pcall(vim.api.nvim_win_set_cursor, win_id, pos)
-    pcall(vim.api.nvim_set_current_win, win_id)
-    vim.keymap.del("n", "<c-o>", { buffer = target.buf })
-  end, { buffer = target.buf })
-
-  -- add customized keymap to close the preview window and jump to the target window
-  vim.keymap.set("n", "<enter>", function()
-    local pos = vim.api.nvim_win_get_cursor(preview.win)
-    -- close all preview windows
-    require("lspeek").close_all()
-
-    local win_id = vim.api.nvim_get_current_win()
-    -- vim.api.nvim_win_set_buf(win_id, target.buf)
-    vim.fn.win_execute(win_id, "edit " .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(target.buf)))
-
-    pcall(vim.api.nvim_win_set_cursor, win_id, pos)
-    pcall(vim.api.nvim_set_current_win, win_id)
-
-    vim.keymap.del("n", "<c-o>", { buffer = target.buf })
-  end, { buffer = target.buf })
-
-  if preview and vim.api.nvim_win_is_valid(preview.win) then
-    pcall(vim.api.nvim_win_set_cursor, preview.win, util.lsp_pos_to_vim_cursor(target.pos))
-  end
+      local location = require("utils.lsp_picker_converter").PickerToLsp(item)
+      require("utils.lspeek").open_preview(location)
+    end,
+  })
 end
 return {
   -- change lsp keymaps
@@ -118,48 +89,14 @@ return {
         {
           "gd",
           function()
-            require("snacks")
-            Snacks.picker.pick({
-              finder = "lsp_definitions",
-              format = "file",
-              include_current = false,
-              auto_confirm = true,
-
-              layout = {
-                preset = "vertical",
-              },
-
-              confirm = function(picker, item)
-                picker:close()
-                local lsp_item = require("utils.lsp_picker_converter").PickerToLsp(item)
-
-                open_preview(lsp_item)
-              end,
-              jump = { tagstack = true, reuse_win = true },
-            })
+            peek_with_snacks("lsp_definitions")
           end,
           desc = "Peek Definition (lspeek) with Snacks picker",
         },
         {
           "gT",
           function()
-            require("snacks")
-            Snacks.picker.pick({
-              finder = "lsp_type_definitions",
-              format = "file",
-              include_current = false,
-              auto_confirm = true,
-              layout = {
-                preset = "vertical",
-              },
-              confirm = function(picker, item)
-                picker:close()
-                local lsp_item = require("utils.lsp_picker_converter").PickerToLsp(item)
-
-                open_preview(lsp_item)
-              end,
-              jump = { tagstack = true, reuse_win = true },
-            })
+            peek_with_snacks("lsp_type_definitions")
           end,
           desc = "Peek Type Definition (lspeek) with Snacks picker",
         },

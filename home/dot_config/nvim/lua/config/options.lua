@@ -10,10 +10,9 @@ end
 vim.o.laststatus = 3
 vim.o.termguicolors = true
 
--- local leader
-if LazyVim.is_win() then
-  vim.o.clipboard = "unnamed,unnamedplus"
-end
+-- Use OSC 52 for the default clipboard, including through SSH/tmux.
+vim.g.clipboard = "osc52"
+vim.o.clipboard = "unnamedplus"
 
 vim.g.maplocalleader = ","
 -- setting the powershell settings

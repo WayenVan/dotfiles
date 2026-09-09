@@ -1,6 +1,5 @@
 return {
   {
-
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async" },
     init = function()
@@ -34,57 +33,23 @@ return {
     },
     event = "BufReadPost",
     config = function()
+      -- Keep this table small and only add filetypes with a confirmed provider bug.
+      -- Most unsupported filetypes automatically fall back from treesitter to indent.
+      local provider_overrides = {
+        -- Example: problematic_filetype = "indent",
+        -- Example: incompatible_filetype = "",
+      }
+
       require("ufo").setup({
-        provider_selector = function(bufnr, filetype, buftype)
-          -- 仅对普通文件启用
-          if buftype ~= "" then
+        provider_selector = function(_, filetype, buftype)
+          -- Special/plugin buffers own their folding behavior.
+          if buftype ~= "" or filetype == "" or filetype == "bigfile" then
             return ""
           end
 
-          -- 没有 filetype 的新建缓冲区也排除
-          if filetype == "" then
-            return ""
-          end
-          -- 排除部分特殊 filetype
-          local excluded_filetypes = {
-            dashboard = true,
-            snacks_dashboard = true,
-            snacks_picker_list = true,
-            neo_tree = true,
-            NvimTree = true,
-            oil = true,
-            trouble = true,
-            lazy = true,
-            mason = true,
-            notify = true,
-            qf = true,
-            help = true,
-            man = true,
-            gitcommit = true,
-            toggleterm = true,
-            fish = true,
-            tmux = true,
-            ["dap-view"] = true,
-            ["dap-view-term"] = true,
-            ["nvim-undotree"] = true,
-            bigfile = true,
-            env = true,
-            jinja = true,
-            gitconfig = true,
-            gitignore = true,
-            gitattributes = true,
-            git = true,
-            gitrebase = true,
-            gitsendemail = true,
-            template = true,
-            conf = true,
-          }
-
-          if excluded_filetypes[filetype] then
-            return ""
-          end
-
-          return { "lsp", "treesitter" }
+          -- LSP folding errors do not always trigger ufo's fallback. Tree-sitter
+          -- reliably falls back to indent when no parser/folds query is available.
+          return provider_overrides[filetype] or { "treesitter", "indent" }
         end,
       })
     end,

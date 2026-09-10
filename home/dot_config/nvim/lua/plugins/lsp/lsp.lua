@@ -8,13 +8,12 @@ local function peek_with_snacks(finder)
     jump = { tagstack = true, reuse_win = true },
     confirm = function(picker, item)
       local source_win = picker.main
+      local location = require("utils.lsp_picker_converter").PickerToLsp(item)
       picker:close()
 
       if source_win and vim.api.nvim_win_is_valid(source_win) then
         vim.api.nvim_set_current_win(source_win)
       end
-
-      local location = require("utils.lsp_picker_converter").PickerToLsp(item)
       require("utils.lspeek").open_preview(location)
     end,
   })

@@ -21,13 +21,16 @@ return {
         },
         window = {
           padding = 0,
-          margin = { horizontal = 0 },
-          -- overlap = {
-          --   borders = false,
-          --   winbar = false,
-          --
-          --   tabline = true,
-          -- },
+          margin = {
+            horizontal = 0,
+            vertical = 0,
+          },
+          overlap = {
+            borders = false,
+            winbar = false,
+            tabline = false,
+            statusline = false,
+          },
         },
         render = function(props)
           local dir, filename =

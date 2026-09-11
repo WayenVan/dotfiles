@@ -20,7 +20,10 @@ return {
           enabled = true,
         },
       },
-      commands = {},
+      commands = {
+        history = { filter_opts = { reverse = true } },
+        all = { filter_opts = { reverse = true } },
+      },
       -- popupmenu = {
       --   enabled = false,
       -- },

@@ -3,9 +3,6 @@ return {
     "cxwx/specs.nvim",
     -- lazy = false,
 
-    keys = {
-      { "<leader>;", "<cmd>lua require('specs').show_specs()<CR>", desc = "Show jump specs" },
-    },
     config = function(_, opts)
       require("specs").setup({
         show_jumps = false,

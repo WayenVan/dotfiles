@@ -134,14 +134,9 @@ return {
         if term.direction == "horizontal" then
           return 30
         elseif term.direction == "vertical" then
-          return vim.o.columns * 0.3
+          return vim.o.columns * 0.35
         end
       end,
-      highlights = {
-        Normal = {
-          link = "Normal",
-        },
-      },
       -- open_mapping = [[<c-\>]],
       open_mapping = nil,
       -- on_open = fun(t: Terminal), -- function to run when the terminal opens
@@ -179,8 +174,7 @@ return {
       end,
       hide_numbers = true, -- hide the number column in toggleterm buffers
       shade_filetypes = {},
-      shade_terminals = true,
-      shading_factor = -30,
+      shade_terminals = false,
       -- shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
       start_in_insert = true,
       insert_mappings = true, -- whether or not the open mapping applies in insert mode

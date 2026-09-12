@@ -40,13 +40,6 @@ return {
     dependencies = { "leath-dub/snipe.nvim" },
     keys = {
       {
-        "<leader>'",
-        function()
-          require("snipe-marks").open_marks_menu()
-        end,
-        desc = "Find local marks",
-      },
-      {
         "<leader>@",
         function()
           require("snipe-marks").open_marks_menu("all")

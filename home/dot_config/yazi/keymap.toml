@@ -1,0 +1,9 @@
+[[mgr.prepend_keymap]]
+on = ["g", "u"]
+run = "cd sftp://uofg"
+desc = "Go to uofg VFS"
+
+[[mgr.prepend_keymap]]
+on = "<c-p>"
+run = "plugin toggle-pane min-preview"
+desc = "Show or hide the preview pane"

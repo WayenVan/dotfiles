@@ -5,3 +5,6 @@ Library/Rime
 {{ if ne .chezmoi.os "linux" }}
 .config/ibus/rime
 {{ end }}
+
+# Keep machine-specific VFS credentials out of dotfiles.
+.config/yazi/vfs.toml

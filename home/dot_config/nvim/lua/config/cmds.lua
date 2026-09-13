@@ -6,6 +6,13 @@ end
 
 -- customised cmds
 
+vim.api.nvim_create_user_command("Todo", function()
+  require("utils.project_todo").open()
+end, { desc = "Open TODO.md in the current working directory" })
+
+-- Lowercase command-line entry; user commands must start with an uppercase letter.
+vim.cmd([[cnoreabbrev <expr> todo getcmdtype() == ':' && getcmdline() ==# 'todo' ? 'Todo' : 'todo']])
+
 vim.api.nvim_create_user_command("VideScale", function()
   local factor = vim.fn.input("Enter the Scaler Factor")
   if factor ~= "" and factor ~= nil then

@@ -1,7 +1,7 @@
 return {
   {
     "yetone/avante.nvim",
-    enabled = true,
+    enabled = false,
     opts = {
       mappings = {
         files = {

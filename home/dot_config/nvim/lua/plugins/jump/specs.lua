@@ -2,6 +2,7 @@ return {
   {
     "cxwx/specs.nvim",
     -- lazy = false,
+    enabled = false,
 
     config = function(_, opts)
       require("specs").setup({

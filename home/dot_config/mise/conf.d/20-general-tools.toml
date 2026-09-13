@@ -12,8 +12,10 @@ os = ["linux/x64"]
 asset_pattern = "nvim-linux-x86_64.tar.gz"
 strip_components = 1
 bin_path = "bin"
+# Keep this out of a bare `mise install`. The unreachable placeholder avoids
+# attaching lazy installation to `nvim`, so installation remains explicit-only.
 lazy = true
-lazy_bins = ["nvim"]
+lazy_bins = ["__mise_manual_neovim_oldglibc__"]
 
 [tools.yazi-musl]
 version = "latest"
@@ -21,11 +23,14 @@ os = ["linux/x64"]
 asset_pattern = "yazi-x86_64-unknown-linux-musl.zip"
 strip_components = 1
 bin_path = "."
+# Keep this out of a bare `mise install`. The unreachable placeholder avoids
+# attaching lazy installation to `yazi`/`ya`, so installation remains explicit-only.
 lazy = true
-lazy_bins = ["yazi", "ya"]
+lazy_bins = ["__mise_manual_yazi_musl__"]
 
 [tools]
 neovim = "nightly"
+yazi = { version = "latest", lazy = true }
 lazygit = { version = "latest", lazy = true }
 lazydocker = { version = "latest", lazy = true }
 fzf = { version = "latest", lazy = true }
@@ -34,6 +39,8 @@ btop = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
+tmux = "latest"
+duckdb = "latest"
 
 [tools.procs]
 version = "latest"

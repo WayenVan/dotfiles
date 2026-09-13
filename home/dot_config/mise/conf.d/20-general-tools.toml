@@ -39,7 +39,7 @@ btop = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
-tmux = "latest"
+tmux = "3.6b"
 duckdb = "latest"
 
 [tools.procs]

@@ -7,3 +7,18 @@ desc = "Go to uofg VFS"
 on = "<c-p>"
 run = "plugin toggle-pane min-preview"
 desc = "Show or hide the preview pane"
+
+[[mgr.prepend_keymap]]
+on = ["u", "c"]
+run = "plugin toggle-pane max-current"
+desc = "Maximize or restore the current pane"
+
+[[mgr.prepend_keymap]]
+on = ["u", "p"]
+run = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
+
+[[mgr.prepend_keymap]]
+on = ["u", "r"]
+run = "plugin toggle-pane reset"
+desc = "Reset pane layout"

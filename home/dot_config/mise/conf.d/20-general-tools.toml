@@ -5,6 +5,7 @@
 neovim-oldglibc = "github:neovim/neovim-releases"
 yazi-musl = "github:sxyazi/yazi"
 procs = "aqua:dalance/procs"
+dust = "github:bootandy/dust"
 
 [tools.neovim-oldglibc]
 version = "latest"
@@ -34,13 +35,20 @@ yazi = { version = "latest", lazy = true }
 lazygit = { version = "latest", lazy = true }
 lazydocker = { version = "latest", lazy = true }
 fzf = { version = "latest", lazy = true }
-dust = { version = "latest", lazy = true }
 btop = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
 tmux = "3.6b"
 duckdb = "latest"
+
+[tools.dust]
+version = "latest"
+lazy = true
+
+[tools.dust.platforms]
+linux-x64 = { asset_pattern = "dust-v*-x86_64-unknown-linux-musl.tar.gz" }
+linux-arm64 = { asset_pattern = "dust-v*-aarch64-unknown-linux-musl.tar.gz" }
 
 [tools.procs]
 version = "latest"

@@ -8,3 +8,6 @@ Library/Rime
 
 # Keep machine-specific VFS credentials out of dotfiles.
 .config/yazi/vfs.toml
+
+# Keep Neovim runtime logs out of dotfiles.
+.config/nvim/nvim.log

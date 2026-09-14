@@ -18,8 +18,8 @@ return {
     keys = {
       {
         "<leader>E",
-        "<cmd>Yazi cwd<cr>",
-        desc = "Yazi (cwd)",
+        "<cmd>Yazi<cr>",
+        desc = "Yazi (current file)",
       },
       { "<leader>O", "", desc = "+ Open in Yazi" },
       {

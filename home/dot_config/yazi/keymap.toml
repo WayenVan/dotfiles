@@ -1,4 +1,24 @@
 [[mgr.prepend_keymap]]
+on = "="
+run = "link --relative"
+desc = "Symlink the relative path of yanked files"
+
+[[mgr.prepend_keymap]]
+on = "+"
+run = "link"
+desc = "Symlink the absolute path of yanked files"
+
+[[mgr.prepend_keymap]]
+on = "-"
+run = "noop"
+desc = "Reserved for Oil in Neovim"
+
+[[mgr.prepend_keymap]]
+on = "_"
+run = "noop"
+desc = "Unbind the default relative symlink key"
+
+[[mgr.prepend_keymap]]
 on = "<C-o>"
 run = "back"
 desc = "Go back in directory history"

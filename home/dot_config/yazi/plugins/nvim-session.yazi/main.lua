@@ -55,7 +55,8 @@ local attach = ya.sync(function(state, token)
 		for _, binding in ipairs({
 			{ on = { "g", "=" }, action = "cwd", desc = "Go to Neovim cwd" },
 			{ on = { "g", "r" }, action = "fyler", desc = "Reveal in Fyler" },
-			{ on = "=", action = "oil", desc = "Open cwd in Oil" },
+			{ on = { "g", "R" }, action = "root", desc = "Go to LazyVim root of hovered file" },
+			{ on = "-", action = "oil", desc = "Open cwd in Oil" },
 			{ on = "Y", action = "copy_path", desc = "Copy path picker" },
 		}) do
 			km.mgr.rules:insert(1, {
@@ -107,7 +108,7 @@ return {
 	entry = function(_, job)
 		if job.args[1] == "action" then
 			local action = job.args[2]
-			if action == "cwd" or action == "fyler" or action == "oil" or action == "copy_path" then
+			if action == "cwd" or action == "root" or action == "fyler" or action == "oil" or action == "copy_path" then
 				dispatch(action)
 			end
 			return

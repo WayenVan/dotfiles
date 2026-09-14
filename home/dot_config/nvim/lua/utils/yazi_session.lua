@@ -66,6 +66,14 @@ function M.ready(buffer, config, api, saved)
     local function go_cwd()
       api:emit_to_yazi({ "cd", "--str", vim.fn.getcwd() })
     end
+    local function go_root(body)
+      if type(body.path) ~= "string" or body.path == "" then
+        return
+      end
+      local file_buffer = vim.fn.bufadd(body.path)
+      local root = LazyVim.root.get({ buf = file_buffer })
+      api:emit_to_yazi({ "cd", "--str", root })
+    end
     local switching_explorer = false
     local function close_then(open)
       if switching_explorer then
@@ -113,7 +121,7 @@ function M.ready(buffer, config, api, saved)
       end)
     end
     actions = {}
-    for name, action in pairs({ cwd = go_cwd, oil = open_oil, fyler = reveal_fyler, copy_path = copy_path }) do
+    for name, action in pairs({ cwd = go_cwd, root = go_root, oil = open_oil, fyler = reveal_fyler, copy_path = copy_path }) do
       actions[name] = function(body)
         if vim.api.nvim_buf_is_valid(buffer) then
           action(body)

@@ -29,6 +29,16 @@ run = "link"
 desc = "Symlink the absolute path of yanked files"
 
 [[mgr.prepend_keymap]]
+on = ["<Space>", "<Space>"]
+run = "plugin fzf-dir"
+desc = "Jump to a file/directory via fzf (includes dirs, Alt-I/Alt-R toggle .gitignore)"
+
+[[mgr.prepend_keymap]]
+on = ["<Space>", "f", "f"]
+run = "plugin fzf-dir -- dir"
+desc = "Jump to a directory only via fzf (Alt-I/Alt-R toggle .gitignore)"
+
+[[mgr.prepend_keymap]]
 on = "-"
 run = "noop"
 desc = "Reserved for Oil in Neovim"

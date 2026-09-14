@@ -3,6 +3,16 @@ use = "yazi-rs/plugins:toggle-pane"
 rev = "58c4f4e"
 hash = "5b2fbef7d1513ce38ff72623a071a5e"
 
+[[plugin.deps]]
+use = "wylie102/duckdb"
+rev = "3f8c863"
+hash = "87b9233a74325e95011670ed20bbd0d4"
+
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "596b666"
+hash = "c2f4f4aca257dcceafa9e3b828dbf1c9"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
 rev = "20b47bf"

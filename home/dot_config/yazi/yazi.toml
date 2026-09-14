@@ -1,1 +1,10 @@
 # User overrides for Yazi's main configuration.
+
+[plugin]
+prepend_previewers = [
+  { url = "*.parquet", run = "duckdb" },
+  { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", run = "ouch" },
+]
+prepend_preloaders = [
+  { url = "*.parquet", run = "duckdb", multi = false },
+]

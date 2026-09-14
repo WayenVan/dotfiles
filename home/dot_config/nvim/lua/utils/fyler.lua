@@ -1,10 +1,16 @@
 local M = {}
 
-function M.reveal(target)
+function M.reveal(target, opts)
+  opts = opts or {}
   local fyler = require("fyler")
   local finder = require("fyler.finder")
   local instance = finder.instance_get_or_nil()
-  if instance then
+  if opts.focus == false then
+    if not instance then
+      vim.notify("Open Fyler first to reveal in the background", vim.log.levels.INFO)
+      return
+    end
+  elseif instance then
     instance:open()
   else
     fyler.open()

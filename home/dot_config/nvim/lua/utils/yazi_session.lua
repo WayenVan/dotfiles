@@ -104,10 +104,10 @@ function M.ready(buffer, config, api, saved)
         require("oil").open_float(directory, { preview = false })
       end)
     end
-    local function reveal_fyler()
-      close_then(function(directory, hovered)
-        require("utils.fyler").reveal(hovered or directory)
-      end)
+    local function reveal_fyler(body)
+      if type(body.path) == "string" and body.path ~= "" then
+        require("utils.fyler").reveal(body.path, { focus = false })
+      end
     end
     local function copy_path(body)
       if type(body.path) ~= "string" or body.path == "" then
@@ -121,7 +121,13 @@ function M.ready(buffer, config, api, saved)
       end)
     end
     actions = {}
-    for name, action in pairs({ cwd = go_cwd, root = go_root, oil = open_oil, fyler = reveal_fyler, copy_path = copy_path }) do
+    for name, action in pairs({
+      cwd = go_cwd,
+      root = go_root,
+      oil = open_oil,
+      fyler = reveal_fyler,
+      copy_path = copy_path,
+    }) do
       actions[name] = function(body)
         if vim.api.nvim_buf_is_valid(buffer) then
           action(body)

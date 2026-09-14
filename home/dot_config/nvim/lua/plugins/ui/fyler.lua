@@ -42,6 +42,7 @@ return {
       follow_current_file = false,
       kind = "split_left_most",
       win_opts = {
+        cursorline = true,
         number = true,
         relativenumber = true,
       },

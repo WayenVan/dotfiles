@@ -64,3 +64,11 @@ lazy_bins = ["ouch"]
 [tools.ouch.platforms]
 linux-x64 = { asset_pattern = "ouch-x86_64-unknown-linux-musl.tar.gz" }
 linux-arm64 = { asset_pattern = "ouch-aarch64-unknown-linux-musl.tar.gz" }
+
+# broot's GitHub release bundles every platform's binary into a single zip
+# instead of per-platform assets, so the usual github backend can't target it.
+# Build from crates.io via the cargo backend instead.
+[tools."cargo:broot"]
+version = "latest"
+lazy = true
+lazy_bins = ["broot"]

@@ -69,5 +69,5 @@ build/
 # Project specific
 .aider*
 
-!home/dot_config/nvim/lazy-lock.json
+!symlink-targets/nvim/lazy-lock.json
 !home/dot_config/nvim/lazyvim.json

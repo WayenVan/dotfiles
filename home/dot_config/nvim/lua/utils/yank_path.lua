@@ -12,7 +12,7 @@ function M.yank_path(modifier, path)
   vim.notify(("Copied: `%s` to unnamed and plus register"):format(modified), "info")
 end
 
-function M.yank_path_picker(filepath)
+function M.yank_path_picker(filepath, on_done)
   local modify = vim.fn.fnamemodify
   local filename = modify(filepath, ":t")
 
@@ -31,11 +31,20 @@ function M.yank_path_picker(filepath)
   end, vim.tbl_keys(vals))
   if vim.tbl_isempty(options) then
     vim.notify("No values to copy", vim.log.levels.WARN)
+    if on_done then
+      on_done()
+    end
     return
   end
   table.sort(options)
   vim.ui.select(options, {
     prompt = "Choose to copy to clipboard:",
+    snacks = {
+      focus = "input",
+      on_show = function()
+        vim.cmd("startinsert")
+      end,
+    },
     format_item = function(item)
       return ("%s: %s"):format(item, vals[item])
     end,
@@ -48,6 +57,9 @@ function M.yank_path_picker(filepath)
       vim.notify(("Copied: `%s` to uname and plus register"):format(result))
       vim.fn.setreg('"', result)
       vim.fn.setreg("+", result)
+    end
+    if on_done then
+      on_done()
     end
   end)
 end

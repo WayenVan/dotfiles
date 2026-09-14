@@ -56,6 +56,7 @@ local attach = ya.sync(function(state, token)
 			{ on = { "g", "=" }, action = "cwd", desc = "Go to Neovim cwd" },
 			{ on = { "g", "r" }, action = "fyler", desc = "Reveal in Fyler" },
 			{ on = "=", action = "oil", desc = "Open cwd in Oil" },
+			{ on = "Y", action = "copy_path", desc = "Copy path picker" },
 		}) do
 			km.mgr.rules:insert(1, {
 				on = binding.on,
@@ -81,7 +82,12 @@ local dispatch = ya.sync(function(state, action)
 		return
 	end
 	publish(state)
-	ps.pub_to(0, "nvim-session", { token = state.token, action = action })
+	local current = cx.active.current
+	ps.pub_to(0, "nvim-session", {
+		token = state.token,
+		action = action,
+		path = tostring(current.hovered and current.hovered.url or current.cwd),
+	})
 end)
 
 local function apply(tab)
@@ -101,7 +107,7 @@ return {
 	entry = function(_, job)
 		if job.args[1] == "action" then
 			local action = job.args[2]
-			if action == "cwd" or action == "fyler" or action == "oil" then
+			if action == "cwd" or action == "fyler" or action == "oil" or action == "copy_path" then
 				dispatch(action)
 			end
 			return

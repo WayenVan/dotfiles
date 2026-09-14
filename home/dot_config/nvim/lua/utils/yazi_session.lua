@@ -42,7 +42,7 @@ function M.setup()
         return
       end
       if type(body.action) == "string" and actions[body.action] then
-        actions[body.action]()
+        actions[body.action](body)
       elseif type(body.snapshot) == "table" then
         local incoming = body.snapshot
         if type(incoming.tabs) == "table" and #incoming.tabs > 0 and incoming.tabs[incoming.active] then
@@ -83,7 +83,7 @@ function M.ready(buffer, config, api, saved)
         end
         if chosen == nil then
           local directory = state.last_directory.filename
-          -- Wait for Yazi's window/buffer cleanup before opening another explorer.
+          -- Wait for Yazi's window/buffer cleanup before opening the next UI.
           vim.schedule(function()
             open(directory, cwd == directory and hovered or nil)
           end)
@@ -101,11 +101,22 @@ function M.ready(buffer, config, api, saved)
         require("utils.fyler").reveal(hovered or directory)
       end)
     end
+    local function copy_path(body)
+      if type(body.path) ~= "string" or body.path == "" then
+        return
+      end
+      close_then(function()
+        -- Let terminal-exit mode changes settle before Snacks enters Insert mode.
+        vim.defer_fn(function()
+          require("utils.yank_path").yank_path_picker(body.path)
+        end, 50)
+      end)
+    end
     actions = {}
-    for name, action in pairs({ cwd = go_cwd, oil = open_oil, fyler = reveal_fyler }) do
-      actions[name] = function()
+    for name, action in pairs({ cwd = go_cwd, oil = open_oil, fyler = reveal_fyler, copy_path = copy_path }) do
+      actions[name] = function(body)
         if vim.api.nvim_buf_is_valid(buffer) then
-          action()
+          action(body)
         end
       end
     end

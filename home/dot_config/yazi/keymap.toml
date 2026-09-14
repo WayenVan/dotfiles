@@ -66,6 +66,16 @@ run = "plugin ouch"
 desc = "Compress with ouch"
 
 [[mgr.prepend_keymap]]
+on = "s"
+run = "plugin easyjump"
+desc = "Jump to a visible file"
+
+[[mgr.prepend_keymap]]
+on = "S"
+run = "search --via=fd"
+desc = "Search files by name via fd"
+
+[[mgr.prepend_keymap]]
 on = ["g", "u"]
 run = "cd sftp://uofg"
 desc = "Go to uofg VFS"

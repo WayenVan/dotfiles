@@ -81,10 +81,10 @@ return {
     opts = {
       -- add copy path command
       commands = {
-        open_in_mini_file = function(state)
+        open_in_yazi = function(state)
           local node = state.tree:get_node()
           local filepath = node:get_id()
-          require("mini.files").open(filepath)
+          require("yazi").yazi(nil, filepath)
         end,
         copy_selector = function(state)
           local node = state.tree:get_node()
@@ -108,7 +108,7 @@ return {
           Y = "copy_selector",
           ["gy"] = "copy_relative_path",
           ["gY"] = "copy_absolute_path",
-          ["ge"] = "open_in_mini_file",
+          ["ge"] = "open_in_yazi",
           ["/"] = "none", -- disable search
           ["<esc>"] = "none",
         },

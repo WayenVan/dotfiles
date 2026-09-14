@@ -1,4 +1,25 @@
 [[mgr.prepend_keymap]]
+on = "<C-o>"
+run = "back"
+desc = "Go back in directory history"
+
+[[mgr.prepend_keymap]]
+on = "<C-i>"
+run = "forward"
+desc = "Go forward in directory history"
+
+# Legacy terminals send Ctrl+i as Tab; file information remains on K.
+[[mgr.prepend_keymap]]
+on = "<Tab>"
+run = "forward"
+desc = "Go forward in directory history"
+
+[[mgr.prepend_keymap]]
+on = "K"
+run = "spot"
+desc = "Show file information"
+
+[[mgr.prepend_keymap]]
 on = ["g", "u"]
 run = "cd sftp://uofg"
 desc = "Go to uofg VFS"

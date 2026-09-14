@@ -9,7 +9,7 @@ return {
         "<leader>_",
         function()
           -- require("oil").open_float()
-          require("oil").toggle_float()
+          require("oil").toggle_float(nil, { preview = false })
         end,
         desc = "Open parent directory",
       },
@@ -177,15 +177,11 @@ return {
 
         if last_oil_dir then
           oil.open_float(last_oil_dir, {
-            preview = {
-              preview_split = "right",
-            },
+            preview = false,
           })
         else
           oil.open_float(nil, {
-            preview = {
-              preview_split = "right",
-            },
+            preview = false,
           })
         end
       end

@@ -24,11 +24,6 @@ return {
   {
     "rmagatti/auto-session",
     opts = function(_, opts)
-      local function close_minifile()
-        local minifile = require("mini.files")
-        minifile.close()
-      end
-
       local function close_minimap()
         require("neominimap").off()
       end
@@ -82,7 +77,7 @@ return {
 
       -- opts.post_restore_cmds = { open_minifile }
       -- do the cleaning job before saving so avoid any possible errors
-      opts.pre_save_cmds = { disable_bqf, close_minifile, exit_mode, delete_not_good_buffer, noice_dismiss }
+      opts.pre_save_cmds = { disable_bqf, exit_mode, delete_not_good_buffer, noice_dismiss }
       opts.post_restore_cmds = { reload_plugins }
     end,
   },

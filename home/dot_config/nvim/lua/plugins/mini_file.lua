@@ -1,14 +1,9 @@
 return {
   {
     "nvim-mini/mini.files",
+    enabled = false,
     keys = {
-      {
-        "<leader>e",
-        function()
-          require("mini.files").open(nil, true)
-        end,
-        desc = "Open mini.files (cwd)",
-      },
+      { "<leader>e", false }, -- Reserved for Yazi.
       {
         "<leader>E",
         function()
@@ -214,7 +209,7 @@ return {
         },
         {
           "n",
-          "-",
+          "=",
           function()
             local entry = get_entry_path()
             if not entry then
@@ -227,7 +222,7 @@ return {
             -- require("oil").open_float(vim.fs.dirname(entry))
             -- require("utils.oil").open_oil_float_at_file(entry)
           end,
-          { desc = "open in system" },
+          { desc = "Open in Oil" },
         },
         {
           "n",

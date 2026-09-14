@@ -44,9 +44,7 @@ function M.open_oil_float_at_file(filepath)
   end
 
   oil.open_float(directory, {
-    preview = {
-      split = "right",
-    },
+    preview = false,
   }, function()
     local bufnr = vim.api.nvim_get_current_buf()
     local winid = vim.api.nvim_get_current_win()

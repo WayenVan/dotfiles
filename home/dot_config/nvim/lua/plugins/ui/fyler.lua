@@ -59,6 +59,21 @@ return {
       mappings = {
 
         n = {
+          ["ge"] = {
+            action = function(self)
+              local entry = require("fyler.finder").parse_cursor_line(self)
+              if not entry then
+                return
+              end
+              local directory = vim.fs.dirname(entry.path)
+              local args = { reveal_path = entry.path }
+              if entry.path == self.state.pseudo_root_path then
+                directory = entry.path
+                args = nil
+              end
+              require("yazi").yazi(nil, directory, args)
+            end,
+          },
           ["<localleader>v"] = {
             action = "select",
             args = { vsplit = true },
@@ -117,7 +132,7 @@ return {
               vim.ui.open(entry.path)
             end,
           },
-          ["-"] = {
+          ["="] = {
             action = function(self)
               local entry = require("fyler.finder").parse_cursor_line(self)
               if not entry then

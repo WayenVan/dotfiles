@@ -7,6 +7,7 @@ yazi-musl = "github:sxyazi/yazi"
 procs = "aqua:dalance/procs"
 dust = "github:bootandy/dust"
 ouch = "github:ouch-org/ouch"
+zsh-autosuggest = "http:zsh-autosuggestions"
 
 [tools.neovim-oldglibc]
 version = "latest"
@@ -40,6 +41,9 @@ btop = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
+chezmoi = { version = "latest", lazy = true }
+zoxide = { version = "latest", lazy = true }
+eza = { version = "latest", lazy = true }
 tmux = "3.6b"
 duckdb = "latest"
 
@@ -72,3 +76,11 @@ linux-arm64 = { asset_pattern = "ouch-aarch64-unknown-linux-musl.tar.gz" }
 version = "latest"
 lazy = true
 lazy_bins = ["broot"]
+
+# zsh-autosuggestions ships no binaries -- it's a plain shell script repo meant
+# to be `source`d from .zshrc. Pull the tagged source tarball via the http
+# backend just to get the files onto disk at a pinned version.
+[tools.zsh-autosuggest]
+version = "0.7.1"
+url = "https://github.com/zsh-users/zsh-autosuggestions/archive/refs/tags/v{{ version }}.tar.gz"
+strip_components = 1

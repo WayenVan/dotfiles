@@ -47,6 +47,7 @@ eza = { version = "latest", lazy = true }
 tmux = "3.6b"
 duckdb = "latest"
 "pipx:shell-gpt" = { version = "latest", lazy = true, lazy_bins = ["sgpt"] }
+"pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
 
 [tools.dust]
 version = "latest"

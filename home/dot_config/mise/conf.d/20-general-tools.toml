@@ -46,7 +46,9 @@ zoxide = { version = "latest", lazy = true }
 eza = { version = "latest", lazy = true }
 tmux = "3.6b"
 duckdb = "latest"
-"pipx:shell-gpt" = { version = "latest", lazy = true, lazy_bins = ["sgpt"] }
+# shell-gpt's own dependency resolution via mise's uv-backed pipx install
+# drops `click` (a hard runtime dep of its typer CLI) -- force it in explicitly.
+"pipx:shell-gpt" = { version = "latest", lazy = true, lazy_bins = ["sgpt"], uvx_args = "--with click" }
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
 
 [tools.dust]

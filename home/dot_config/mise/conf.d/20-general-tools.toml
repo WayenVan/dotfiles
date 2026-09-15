@@ -46,6 +46,7 @@ zoxide = { version = "latest", lazy = true }
 eza = { version = "latest", lazy = true }
 tmux = "3.6b"
 duckdb = "latest"
+"pipx:shell-gpt" = { version = "latest", lazy = true, lazy_bins = ["sgpt"] }
 
 [tools.dust]
 version = "latest"

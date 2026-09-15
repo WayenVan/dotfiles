@@ -1,4 +1,14 @@
 [[mgr.prepend_keymap]]
+on = ["g", "~"]
+run = "cd ~"
+desc = "Go to the home directory"
+
+[[mgr.prepend_keymap]]
+on = ["g", "h"]
+run = "noop"
+desc = "Freed up for Neovim cwd (see nvim-session plugin)"
+
+[[mgr.prepend_keymap]]
 on = "'"
 run = ["toggle", "arrow 1"]
 desc = "Toggle the current selection state"

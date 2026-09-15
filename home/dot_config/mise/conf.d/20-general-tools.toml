@@ -7,6 +7,7 @@ yazi-musl = "github:sxyazi/yazi"
 procs = "aqua:dalance/procs"
 dust = "github:bootandy/dust"
 ouch = "github:ouch-org/ouch"
+lazyslurm = "github:hill/lazyslurm"
 zsh-autosuggest = "http:zsh-autosuggestions"
 
 [tools.neovim-oldglibc]
@@ -73,6 +74,16 @@ lazy_bins = ["ouch"]
 [tools.ouch.platforms]
 linux-x64 = { asset_pattern = "ouch-x86_64-unknown-linux-musl.tar.gz" }
 linux-arm64 = { asset_pattern = "ouch-aarch64-unknown-linux-musl.tar.gz" }
+
+[tools.lazyslurm]
+version = "latest"
+lazy = true
+lazy_bins = ["lazyslurm"]
+
+[tools.lazyslurm.platforms]
+linux-x64 = { asset_pattern = "lazyslurm-x86_64-unknown-linux-musl.tar.gz" }
+macos-x64 = { asset_pattern = "lazyslurm-x86_64-apple-darwin.tar.gz" }
+macos-arm64 = { asset_pattern = "lazyslurm-aarch64-apple-darwin.tar.gz" }
 
 # broot's GitHub release bundles every platform's binary into a single zip
 # instead of per-platform assets, so the usual github backend can't target it.

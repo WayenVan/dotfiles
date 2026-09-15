@@ -38,6 +38,7 @@ lazygit = { version = "latest", lazy = true }
 lazydocker = { version = "latest", lazy = true }
 fzf = { version = "latest", lazy = true }
 btop = { version = "latest", lazy = true }
+fastfetch = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
@@ -80,6 +81,11 @@ linux-arm64 = { asset_pattern = "ouch-aarch64-unknown-linux-musl.tar.gz" }
 version = "latest"
 lazy = true
 lazy_bins = ["broot"]
+
+[tools."cargo:somo"]
+version = "latest"
+lazy = true
+lazy_bins = ["somo"]
 
 # zsh-autosuggestions ships no binaries -- it's a plain shell script repo meant
 # to be `source`d from .zshrc. Pull the tagged source tarball via the http

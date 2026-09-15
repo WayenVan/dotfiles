@@ -1,2 +1,2 @@
 alias ls='eza'
-alias ll='eza -l'
+alias ll='eza -l --icons=auto'

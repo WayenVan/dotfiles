@@ -42,6 +42,7 @@ btop = { version = "latest", lazy = true }
 fastfetch = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
+bat = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
 chezmoi = { version = "latest", lazy = true }
 zoxide = { version = "latest", lazy = true }
@@ -52,6 +53,7 @@ duckdb = "latest"
 # drops `click` (a hard runtime dep of its typer CLI) -- force it in explicitly.
 "pipx:shell-gpt" = { version = "latest", lazy = true, lazy_bins = ["sgpt"], uvx_args = "--with click" }
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
+"pipx:innomd" = { version = "latest", lazy = true, lazy_bins = ["innomd"] }
 
 [tools.dust]
 version = "latest"

@@ -8,6 +8,7 @@ procs = "aqua:dalance/procs"
 dust = "github:bootandy/dust"
 ouch = "github:ouch-org/ouch"
 lazyslurm = "github:hill/lazyslurm"
+terminal-browser = "http:terminal-browser"
 zsh-autosuggest = "http:zsh-autosuggestions"
 
 [tools.neovim-oldglibc]
@@ -86,6 +87,20 @@ lazy_bins = ["lazyslurm"]
 linux-x64 = { asset_pattern = "lazyslurm-x86_64-unknown-linux-musl.tar.gz" }
 macos-x64 = { asset_pattern = "lazyslurm-x86_64-apple-darwin.tar.gz" }
 macos-arm64 = { asset_pattern = "lazyslurm-aarch64-apple-darwin.tar.gz" }
+
+# terminal-browser distributes full application bundles outside GitHub Releases.
+[tools.terminal-browser]
+version = "0.8.1"
+strip_components = 1
+bin_path = "bin"
+lazy = true
+lazy_bins = ["terminal-browser"]
+
+[tools.terminal-browser.platforms]
+macos-x64 = { url = "https://terminal-browser.sh/install/dl/stable/v0.8.1/terminal-browser-darwin-x64.tar.gz", checksum = "sha256:51645cfdf0428b439434776b5c2c21e50ea1200ea618c742cb3f5d65717f79dd" }
+macos-arm64 = { url = "https://terminal-browser.sh/install/dl/stable/v0.8.1/terminal-browser-darwin-arm64.tar.gz", checksum = "sha256:3b0e034d557986ab9289aa8baefdca5c3eb66aa493e27110f4e82c05f224a738" }
+linux-x64 = { url = "https://terminal-browser.sh/install/dl/stable/v0.8.1/terminal-browser-linux-x64.tar.gz", checksum = "sha256:35e78089d1089dc4f492bbd7d2a03d57ed5543b4394b4fddf3be57c75b77747e" }
+linux-arm64 = { url = "https://terminal-browser.sh/install/dl/stable/v0.8.1/terminal-browser-linux-arm64.tar.gz", checksum = "sha256:7f90d97003eedd6ac62e61c82290ffd280f2f0e8f266911f70ab0fbac8a102fe" }
 
 # broot's GitHub release bundles every platform's binary into a single zip
 # instead of per-platform assets, so the usual github backend can't target it.

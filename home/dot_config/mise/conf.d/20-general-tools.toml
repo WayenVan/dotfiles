@@ -8,6 +8,7 @@ procs = "aqua:dalance/procs"
 dust = "github:bootandy/dust"
 ouch = "github:ouch-org/ouch"
 lazyslurm = "github:hill/lazyslurm"
+tuzi = "github:WayenVan/tuzi"
 terminal-browser = "http:terminal-browser"
 zsh-autosuggest = "http:zsh-autosuggestions"
 
@@ -41,6 +42,7 @@ lazydocker = { version = "latest", lazy = true }
 fzf = { version = "latest", lazy = true }
 btop = { version = "latest", lazy = true }
 fastfetch = { version = "latest", lazy = true }
+vhs = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 bat = { version = "latest", lazy = true }
@@ -87,6 +89,16 @@ lazy_bins = ["lazyslurm"]
 linux-x64 = { asset_pattern = "lazyslurm-x86_64-unknown-linux-musl.tar.gz" }
 macos-x64 = { asset_pattern = "lazyslurm-x86_64-apple-darwin.tar.gz" }
 macos-arm64 = { asset_pattern = "lazyslurm-aarch64-apple-darwin.tar.gz" }
+
+[tools.tuzi]
+version = "0.1.0"
+lazy = true
+lazy_bins = ["tuzi"]
+
+[tools.tuzi.platforms]
+linux-x64 = { asset_pattern = "tuzi-v*-x86_64-unknown-linux-musl.tar.gz" }
+macos-x64 = { asset_pattern = "tuzi-v*-x86_64-apple-darwin.tar.gz" }
+macos-arm64 = { asset_pattern = "tuzi-v*-aarch64-apple-darwin.tar.gz" }
 
 # terminal-browser distributes full application bundles outside GitHub Releases.
 [tools.terminal-browser]

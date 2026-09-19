@@ -9,6 +9,7 @@ dust = "github:bootandy/dust"
 ouch = "github:ouch-org/ouch"
 lazyslurm = "github:hill/lazyslurm"
 tuzi = "github:WayenVan/tuzi"
+portop = "github:padovanl/portop"
 terminal-browser = "http:terminal-browser"
 zsh-autosuggest = "http:zsh-autosuggestions"
 
@@ -46,6 +47,7 @@ vhs = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 bat = { version = "latest", lazy = true }
+glow = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
 chezmoi = { version = "latest", lazy = true }
 zoxide = { version = "latest", lazy = true }
@@ -99,6 +101,17 @@ lazy_bins = ["tuzi"]
 linux-x64 = { asset_pattern = "tuzi-v*-x86_64-unknown-linux-musl.tar.gz" }
 macos-x64 = { asset_pattern = "tuzi-v*-x86_64-apple-darwin.tar.gz" }
 macos-arm64 = { asset_pattern = "tuzi-v*-aarch64-apple-darwin.tar.gz" }
+
+[tools.portop]
+version = "latest"
+lazy = true
+lazy_bins = ["portop"]
+
+[tools.portop.platforms]
+linux-x64 = { asset_pattern = "portop_*_linux_amd64.tar.gz" }
+linux-arm64 = { asset_pattern = "portop_*_linux_arm64.tar.gz" }
+macos-x64 = { asset_pattern = "portop_*_darwin_amd64.tar.gz" }
+macos-arm64 = { asset_pattern = "portop_*_darwin_arm64.tar.gz" }
 
 # terminal-browser distributes full application bundles outside GitHub Releases.
 [tools.terminal-browser]

@@ -1,1 +1,1 @@
-eval "$(starship init bash)"
+[[ $- == *i* && ${TERM:-} != dumb ]] && eval "$(starship init bash)"

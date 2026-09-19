@@ -26,3 +26,11 @@ vim.filetype.add({
     [".*%.md%.j2"] = "jinja",
   },
 })
+
+-- LazyVim turns on spell for markdown, which underlines code words and CJK/English mixes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})

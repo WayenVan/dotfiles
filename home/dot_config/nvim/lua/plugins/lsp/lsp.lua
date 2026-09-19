@@ -34,6 +34,7 @@ return {
           require("nvim-navbuddy").setup({
             lsp = { auto_attach = true },
             source_buffer = {
+              follow_node = false,
               reorient = "none", -- "smart" | "none"
             },
             use_default_mappings = false,

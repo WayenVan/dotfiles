@@ -6,6 +6,7 @@ neovim-oldglibc = "github:neovim/neovim-releases"
 yazi-musl = "github:sxyazi/yazi"
 procs = "aqua:dalance/procs"
 dust = "github:bootandy/dust"
+chezmoi = "github:twpayne/chezmoi"
 ouch = "github:ouch-org/ouch"
 lazyslurm = "github:hill/lazyslurm"
 tuzi = "github:WayenVan/tuzi"
@@ -49,7 +50,6 @@ fd = { version = "latest", lazy = true }
 bat = { version = "latest", lazy = true }
 glow = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
-chezmoi = { version = "latest", lazy = true }
 zoxide = { version = "latest", lazy = true }
 eza = { version = "latest", lazy = true }
 tmux = "3.6b"
@@ -59,6 +59,16 @@ duckdb = "latest"
 "pipx:shell-gpt" = { version = "latest", lazy = true, lazy_bins = ["sgpt"], uvx_args = "--with click" }
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
 "pipx:innomd" = { version = "latest", lazy = true, lazy_bins = ["innomd"] }
+
+[tools.chezmoi]
+version = "latest"
+lazy = true
+
+[tools.chezmoi.platforms]
+linux-x64 = { asset_pattern = "chezmoi_*_linux-musl_amd64.tar.gz" }
+linux-arm64 = { asset_pattern = "chezmoi_*_linux_arm64.tar.gz" }
+macos-x64 = { asset_pattern = "chezmoi_*_darwin_amd64.tar.gz" }
+macos-arm64 = { asset_pattern = "chezmoi_*_darwin_arm64.tar.gz" }
 
 [tools.dust]
 version = "latest"

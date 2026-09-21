@@ -6,6 +6,7 @@ neovim-oldglibc = "github:neovim/neovim-releases"
 yazi-musl = "github:sxyazi/yazi"
 procs = "aqua:dalance/procs"
 dust = "github:bootandy/dust"
+bottom = "github:ClementTsang/bottom"
 chezmoi = "github:twpayne/chezmoi"
 ouch = "github:ouch-org/ouch"
 lazyslurm = "github:hill/lazyslurm"
@@ -77,6 +78,17 @@ lazy = true
 [tools.dust.platforms]
 linux-x64 = { asset_pattern = "dust-v*-x86_64-unknown-linux-musl.tar.gz" }
 linux-arm64 = { asset_pattern = "dust-v*-aarch64-unknown-linux-musl.tar.gz" }
+
+[tools.bottom]
+version = "latest"
+lazy = true
+lazy_bins = ["btm"]
+
+[tools.bottom.platforms]
+linux-x64 = { asset_pattern = "bottom_x86_64-unknown-linux-musl.tar.gz" }
+linux-arm64 = { asset_pattern = "bottom_aarch64-unknown-linux-musl.tar.gz" }
+macos-x64 = { asset_pattern = "bottom_x86_64-apple-darwin.tar.gz" }
+macos-arm64 = { asset_pattern = "bottom_aarch64-apple-darwin.tar.gz" }
 
 [tools.procs]
 version = "latest"

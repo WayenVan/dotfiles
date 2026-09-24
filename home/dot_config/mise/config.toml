@@ -1,2 +1,5 @@
 [settings]
 minimum_release_age_excludes = ["github:WayenVan/tuzi"]
+
+[settings.github]
+credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'

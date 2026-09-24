@@ -14,6 +14,9 @@ tuzi = "github:WayenVan/tuzi"
 portop = "github:padovanl/portop"
 terminal-browser = "http:terminal-browser"
 zsh-autosuggest = "http:zsh-autosuggestions"
+atuin = "github:atuinsh/atuin"
+opencode = "github:anomalyco/opencode"
+gh = "aqua:cli/cli"
 
 [tools.neovim-oldglibc]
 version = "latest"
@@ -50,6 +53,7 @@ starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 bat = { version = "latest", lazy = true }
 glow = { version = "latest", lazy = true }
+gum = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
 zoxide = { version = "latest", lazy = true }
 eza = { version = "latest", lazy = true }
@@ -62,6 +66,33 @@ duckdb = "latest"
 ], uvx_args = "--with click" }
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
 "pipx:innomd" = { version = "latest", lazy = true, lazy_bins = ["innomd"] }
+"pipx:openviking" = { version = "latest", lazy = true, lazy_bins = [
+  "ov",
+  "openviking",
+  "openviking-server",
+] }
+
+[tools.atuin]
+version = "latest"
+strip_components = 1
+lazy = true
+lazy_bins = ["atuin"]
+
+[tools.atuin.platforms]
+linux-x64 = { asset_pattern = "atuin-x86_64-unknown-linux-musl.tar.gz" }
+linux-arm64 = { asset_pattern = "atuin-aarch64-unknown-linux-musl.tar.gz" }
+macos-x64 = { asset_pattern = "atuin-x86_64-apple-darwin.tar.gz" }
+macos-arm64 = { asset_pattern = "atuin-aarch64-apple-darwin.tar.gz" }
+
+[tools.opencode]
+version = "latest"
+lazy = true
+lazy_bins = ["opencode"]
+
+[tools.gh]
+version = "latest"
+lazy = true
+lazy_bins = ["gh"]
 
 [tools.chezmoi]
 version = "latest"

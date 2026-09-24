@@ -1,0 +1,3 @@
+interface:
+  display_name: "PDF Reader"
+  short_description: "Read PDFs through a lazy, verifiable workspace"

@@ -5,7 +5,7 @@ set -u
 IDLE_TTL=${SHELL_AI_IDLE_TTL:-3600}
 MAX_TTL=${SHELL_AI_MAX_TTL:-28800}
 MODEL=${SHELL_AI_MODEL:-deepseek/deepseek-flash}
-ASK_TOOLS=${SHELL_AI_ASK_TOOLS:-read,grep,find,ls,web_search,fetch_content,get_search_content}
+ASK_TOOLS=${SHELL_AI_ASK_TOOLS:-read,grep,bash,find,ls,web_search,fetch_content,get_search_content}
 EXEC_TOOLS=${SHELL_AI_EXEC_TOOLS:-read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content}
 WEB_EXTENSION=${SHELL_AI_WEB_EXTENSION-npm:pi-web-access}
 
@@ -25,7 +25,7 @@ require_command() {
 
 validate_ttl() {
   case $1 in
-    ''|*[!0-9]*) die "$2 must be a non-negative integer" ;;
+  '' | *[!0-9]*) die "$2 must be a non-negative integer" ;;
   esac
 }
 
@@ -62,7 +62,7 @@ acquire_lock() {
     if [[ -r $lock_dir/pid ]]; then
       owner=$(sed -n '1p' "$lock_dir/pid" 2>/dev/null || true)
       case $owner in
-        ''|*[!0-9]*) owner= ;;
+      '' | *[!0-9]*) owner= ;;
       esac
       if [[ -n $owner ]] && ! kill -0 "$owner" 2>/dev/null; then
         rm -f "$lock_dir/pid"
@@ -94,12 +94,12 @@ load_valid_session() {
   [[ $stored_dir == "$expected_dir" ]] || return 1
   [[ $session_id =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || return 1
   case $created_at:$last_used in
-    *[!0-9:]*) return 1 ;;
+  *[!0-9:]*) return 1 ;;
   esac
-  (( now >= last_used )) || return 1
-  (( now - last_used < IDLE_TTL )) || return 1
-  (( now >= created_at )) || return 1
-  (( now - created_at < MAX_TTL )) || return 1
+  ((now >= last_used)) || return 1
+  ((now - last_used < IDLE_TTL)) || return 1
+  ((now >= created_at)) || return 1
+  ((now - created_at < MAX_TTL)) || return 1
   printf '%s\n' "$session_id"
 }
 
@@ -201,12 +201,16 @@ check_events() {
   }
   stop_reason=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.stopReason] | last // empty' "$events" 2>/dev/null) || return 1
   case $stop_reason in
-    stop) ;;
-    error|aborted)
-      error_message=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.errorMessage // empty] | last // empty' "$events" 2>/dev/null)
-      printf 'shell-ai: Pi request %s%s\n' "$stop_reason" "${error_message:+: $error_message}" >&2
-      return 1 ;;
-    *) printf 'shell-ai: Pi returned no completed answer\n' >&2; return 1 ;;
+  stop) ;;
+  error | aborted)
+    error_message=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.errorMessage // empty] | last // empty' "$events" 2>/dev/null)
+    printf 'shell-ai: Pi request %s%s\n' "$stop_reason" "${error_message:+: $error_message}" >&2
+    return 1
+    ;;
+  *)
+    printf 'shell-ai: Pi returned no completed answer\n' >&2
+    return 1
+    ;;
   esac
   jq -e -s 'any(.[]; .type == "agent_settled")' "$events" >/dev/null 2>&1 || {
     printf 'shell-ai: Pi did not finish the request\n' >&2
@@ -266,9 +270,9 @@ ask() {
   }
 
   case $mode:$force_new in
-    exec:*) label=Execute ;;
-    ask:1) label="New chat" ;;
-    *) label=Ask ;;
+  exec:*) label=Execute ;;
+  ask:1) label="New chat" ;;
+  *) label=Ask ;;
   esac
   if ! run_request "$mode" "$label" "$directory" "$session_id" "$prompt" "$events" "$errors"; then
     cat "$errors" >&2
@@ -307,8 +311,8 @@ current() {
   now=$(date +%s)
   idle_left=$((IDLE_TTL - (now - last_used)))
   max_left=$((MAX_TTL - (now - created_at)))
-  (( idle_left > 0 )) || idle_left=0
-  (( max_left > 0 )) || max_left=0
+  ((idle_left > 0)) || idle_left=0
+  ((max_left > 0)) || max_left=0
   printf 'Directory:  %s\nSession:    %s\nIdle left:  %ss\nMax left:   %ss\n' \
     "$stored_dir" "$session_id" "$idle_left" "$max_left"
 }
@@ -343,7 +347,10 @@ EOF
 }
 
 case ${1:-} in
-  -h|--help|help|'') usage; exit 0 ;;
+-h | --help | help | '')
+  usage
+  exit 0
+  ;;
 esac
 
 validate_ttl "$IDLE_TTL" SHELL_AI_IDLE_TTL
@@ -353,10 +360,27 @@ require_command pi
 mkdir -p "$sessions_dir" "$scopes_dir" || die "cannot create state directories"
 
 case ${1:-} in
-  ask) shift; ask ask 0 "$@" ;;
-  exec) shift; ask exec 0 "$@" ;;
-  new) shift; ask ask 1 "$@" ;;
-  current) shift; [[ $# -eq 0 ]] || die "current takes no arguments"; current ;;
-  reset) shift; [[ $# -eq 0 ]] || die "reset takes no arguments"; reset ;;
-  *) die "unknown command: $1" ;;
+ask)
+  shift
+  ask ask 0 "$@"
+  ;;
+exec)
+  shift
+  ask exec 0 "$@"
+  ;;
+new)
+  shift
+  ask ask 1 "$@"
+  ;;
+current)
+  shift
+  [[ $# -eq 0 ]] || die "current takes no arguments"
+  current
+  ;;
+reset)
+  shift
+  [[ $# -eq 0 ]] || die "reset takes no arguments"
+  reset
+  ;;
+*) die "unknown command: $1" ;;
 esac

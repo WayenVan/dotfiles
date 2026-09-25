@@ -187,6 +187,88 @@ render_events() {
   fi
 }
 
+run_execute_request() {
+  local directory=$1 session_id=$2 prompt=$3 events=$4 errors=$5
+  local status
+  local -a args
+
+  args=(run --dir "$directory" --agent build --model "$MODEL" --format json)
+  if [[ -n $session_id ]]; then
+    args+=(--session "$session_id")
+  else
+    args+=(--title "shell-ai: $(basename "$directory")")
+  fi
+  args+=("直接完成用户的任务；保持简洁：$prompt")
+
+  printf 'shell-ai · build · %s · auto-approved\n' "$MODEL" >&2
+  OPENCODE_DB=$database \
+  OPENCODE_ENABLE_PARALLEL=1 \
+  OPENCODE_WEBSEARCH_PROVIDER=parallel \
+  OPENCODE_PERMISSION='allow' \
+    opencode "${args[@]}" 2>"$errors" | tee "$events" | render_progress
+  status=${PIPESTATUS[0]}
+  return "$status"
+}
+
+execute_mode() {
+  local directory key state now prompt session_id= created_at events errors result_id finished
+
+  prompt=$(read_prompt "$@") || return
+  [[ -n $prompt ]] || return
+  directory=$(scope_directory) || die "cannot resolve the current directory"
+  key=$(scope_key "$directory") || die "cannot calculate the scope key"
+  state=$scopes_dir/$key.json
+  acquire_lock "$state"
+
+  now=$(date +%s)
+  session_id=$(load_valid_session "$state" "$directory" "$now" || true)
+  if [[ -n $session_id ]]; then
+    created_at=$(state_value "$state" '.created_at') || created_at=$now
+  else
+    created_at=$now
+  fi
+
+  events=$(mktemp "$cache_root/events.XXXXXX") || die "cannot create an events file"
+  errors=$(mktemp "$cache_root/errors.XXXXXX") || {
+    rm -f "$events"
+    die "cannot create an error file"
+  }
+
+  if ! run_execute_request "$directory" "$session_id" "$prompt" "$events" "$errors"; then
+    if [[ -n $session_id ]] && session_error "$errors"; then
+      session_id=
+      created_at=$now
+      : >"$events"
+      : >"$errors"
+      run_execute_request "$directory" "" "$prompt" "$events" "$errors" || {
+        cat "$errors" >&2
+        rm -f "$events" "$errors"
+        return 1
+      }
+    else
+      cat "$errors" >&2
+      rm -f "$events" "$errors"
+      return 1
+    fi
+  fi
+  [[ ! -s $errors ]] || cat "$errors" >&2
+
+  result_id=$(jq -rs 'map(.sessionID // .part.sessionID // empty) | map(select(type == "string")) | first // empty' "$events" 2>/dev/null)
+  if [[ $result_id != ses_* ]]; then
+    rm -f "$events" "$errors"
+    die "OpenCode returned no session ID"
+  fi
+  finished=$(date +%s)
+  write_state "$state" "$directory" "$result_id" "$created_at" "$finished" || {
+    rm -f "$events" "$errors"
+    die "cannot update the session state"
+  }
+  if ! render_events "$events"; then
+    printf 'shell-ai: the response was saved in session %s, but no text event was returned\n' "$result_id" >&2
+  fi
+  rm -f "$events" "$errors"
+}
+
 ask() {
   local force_new=$1
   shift
@@ -289,6 +371,7 @@ Usage: shell-ai <command> [prompt]
 
 Commands:
   ask [prompt]      Reuse the current directory session when it is valid
+  exec [prompt]     Run in Build mode with tools automatically approved
   new [prompt]      Start a new session for the current directory
   current           Show the current directory session
   reset             Forget the current directory session
@@ -307,6 +390,7 @@ mkdir -p "$data_root" "$scopes_dir" || die "cannot create state directories"
 
 case ${1:-} in
   ask) shift; ask 0 "$@" ;;
+  exec) shift; execute_mode "$@" ;;
   new) shift; ask 1 "$@" ;;
   current) shift; [[ $# -eq 0 ]] || die "current takes no arguments"; current ;;
   reset) shift; [[ $# -eq 0 ]] || die "reset takes no arguments"; reset ;;

@@ -49,6 +49,7 @@ fzf = { version = "latest", lazy = true }
 btop = { version = "latest", lazy = true }
 fastfetch = { version = "latest", lazy = true }
 vhs = { version = "latest", lazy = true }
+resvg = { version = "latest", lazy = true }
 starship = { version = "latest", lazy = true }
 fd = { version = "latest", lazy = true }
 bat = { version = "latest", lazy = true }

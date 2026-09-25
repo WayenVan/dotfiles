@@ -5,12 +5,14 @@ set -u
 IDLE_TTL=${SHELL_AI_IDLE_TTL:-3600}
 MAX_TTL=${SHELL_AI_MAX_TTL:-28800}
 MODEL=${SHELL_AI_MODEL:-deepseek/deepseek-flash}
-AGENT=${SHELL_AI_AGENT:-plan}
+ASK_TOOLS=${SHELL_AI_ASK_TOOLS:-read,grep,find,ls,web_search,fetch_content,get_search_content}
+EXEC_TOOLS=${SHELL_AI_EXEC_TOOLS:-read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content}
+WEB_EXTENSION=${SHELL_AI_WEB_EXTENSION-npm:pi-web-access}
 
 data_root=${XDG_DATA_HOME:-"$HOME/.local/share"}/shell-ai
 cache_root=${XDG_CACHE_HOME:-"$HOME/.cache"}/shell-ai
-database=$data_root/opencode.db
-scopes_dir=$cache_root/scopes
+sessions_dir=$data_root/pi-sessions
+scopes_dir=$cache_root/pi-scopes
 
 die() {
   printf 'shell-ai: %s\n' "$*" >&2
@@ -90,7 +92,7 @@ load_valid_session() {
   created_at=$(state_value "$state" '.created_at') || return 1
   last_used=$(state_value "$state" '.last_used') || return 1
   [[ $stored_dir == "$expected_dir" ]] || return 1
-  [[ $session_id == ses_* ]] || return 1
+  [[ $session_id =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || return 1
   case $created_at:$last_used in
     *[!0-9:]*) return 1 ;;
   esac
@@ -130,55 +132,92 @@ read_prompt() {
 
 render_progress() {
   jq --unbuffered -r '
-    if .type == "step_start" then
-      "● Thinking…"
-    elif .type == "tool_use" then
-      if .part.state.status == "completed" then
-        "✓ " + (.part.state.title // .part.tool // "tool")
-      elif .part.state.status == "error" then
-        "✗ " + (.part.state.title // .part.tool // "tool")
+    if .type == "agent_start" then
+      "  ◌ Thinking…"
+    elif .type == "tool_execution_start" then
+      "  ↳ " + (.toolName // "tool") + "…"
+    elif .type == "tool_execution_end" then
+      if .isError then
+        "  ✗ " + (.toolName // "tool") +
+        ([.result.content[]? | select(.type == "text") | .text] | join("\n") |
+          if . == "" then "" else "\n" + (split("\n") | map("    " + .) | join("\n")) end)
       else
-        "⚙ " + (.part.state.title // .part.tool // "tool")
+        "  ✓ " + (.toolName // "tool")
       end
-    elif .type == "error" then
-      "✗ OpenCode error"
     else
       empty
     end
   ' >&2
 }
 
+render_heading() {
+  local label=$1 model=${MODEL##*/}
+  if [[ -t 2 && -z ${NO_COLOR+x} ]]; then
+    printf '\033[1;36m✦ Pi\033[0m  \033[1m%s\033[0m \033[2m· %s\033[0m\n' "$label" "$model" >&2
+  else
+    printf '✦ Pi  %s · %s\n' "$label" "$model" >&2
+  fi
+}
+
 run_request() {
-  local directory=$1 session_id=$2 prompt=$3 events=$4 errors=$5
+  local mode=$1 label=$2 directory=$3 session_id=$4 prompt=$5 events=$6 errors=$7
   local status
   local -a args
 
-  args=(run --dir "$directory" --agent "$AGENT" --model "$MODEL" --format json)
+  args=(--mode json --print --session-dir "$sessions_dir" --model "$MODEL")
   if [[ -n $session_id ]]; then
-    args+=(--session "$session_id")
-  else
-    args+=(--title "shell-ai: $(basename "$directory")")
+    args+=(--session-id "$session_id")
   fi
-  args+=("请简短回答；需要最新或不确定的信息时使用 websearch：$prompt")
+  if [[ -n $WEB_EXTENSION ]]; then
+    args+=(--extension "$WEB_EXTENSION")
+  fi
+  if [[ $mode == ask ]]; then
+    args+=(--tools "$ASK_TOOLS")
+    prompt="请简短回答；需要最新或不确定的信息时使用 web_search，必要时读取网页并附来源链接：$prompt"
+  else
+    args+=(--tools "$EXEC_TOOLS")
+    prompt="直接完成用户的任务；保持简洁：$prompt"
+  fi
 
-  printf 'shell-ai · %s · %s\n' "$AGENT" "$MODEL" >&2
-  OPENCODE_DB=$database \
-  OPENCODE_ENABLE_PARALLEL=1 \
-  OPENCODE_WEBSEARCH_PROVIDER=parallel \
-  OPENCODE_PERMISSION='{"websearch":"allow"}' \
-    opencode "${args[@]}" 2>"$errors" | tee "$events" | render_progress
+  render_heading "$label"
+  (cd "$directory" && pi "${args[@]}" -- "$prompt") 2>"$errors" | tee "$events" | render_progress
   status=${PIPESTATUS[0]}
   return "$status"
 }
 
-session_error() {
-  grep -Eiq 'session.*(not found|invalid|missing)|not found.*session|invalid.*session' "$1"
+check_events() {
+  local events=$1 expected_id=$2 result_id stop_reason error_message
+  result_id=$(jq -rs '[.[] | select(.type == "session") | .id] | first // empty' "$events" 2>/dev/null) || {
+    printf 'shell-ai: Pi returned invalid JSON events\n' >&2
+    return 1
+  }
+  [[ $result_id =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || {
+    printf 'shell-ai: Pi returned no session ID\n' >&2
+    return 1
+  }
+  [[ -z $expected_id || $result_id == "$expected_id" ]] || {
+    printf 'shell-ai: Pi returned an unexpected session ID\n' >&2
+    return 1
+  }
+  stop_reason=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.stopReason] | last // empty' "$events" 2>/dev/null) || return 1
+  case $stop_reason in
+    stop) ;;
+    error|aborted)
+      error_message=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.errorMessage // empty] | last // empty' "$events" 2>/dev/null)
+      printf 'shell-ai: Pi request %s%s\n' "$stop_reason" "${error_message:+: $error_message}" >&2
+      return 1 ;;
+    *) printf 'shell-ai: Pi returned no completed answer\n' >&2; return 1 ;;
+  esac
+  jq -e -s 'any(.[]; .type == "agent_settled")' "$events" >/dev/null 2>&1 || {
+    printf 'shell-ai: Pi did not finish the request\n' >&2
+    return 1
+  }
+  printf '%s\n' "$result_id"
 }
 
-render_events() {
+render_answer() {
   local events=$1 answer
-
-  answer=$(jq -rs '[.[] | select(.type == "text" and (.part.text | type == "string")) | .part.text] | join("")' "$events" 2>/dev/null) || return 1
+  answer=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant" and .message.stopReason == "stop") | .message.content | map(select(.type == "text") | .text) | join("")] | last // empty' "$events" 2>/dev/null) || return 1
   [[ -n $answer ]] || return 1
   if command -v glow >/dev/null 2>&1; then
     printf '%s\n' "$answer" | glow -
@@ -187,92 +226,21 @@ render_events() {
   fi
 }
 
-run_execute_request() {
-  local directory=$1 session_id=$2 prompt=$3 events=$4 errors=$5
-  local status
-  local -a args
-
-  args=(run --dir "$directory" --agent build --model "$MODEL" --format json)
-  if [[ -n $session_id ]]; then
-    args+=(--session "$session_id")
+show_errors() {
+  local errors=$1
+  [[ -s $errors ]] || return 0
+  if [[ $WEB_EXTENSION == npm:pi-web-access || $WEB_EXTENSION == npm:pi-web-access@* ]]; then
+    # This release emits a warning about optional activation even when web tools work.
+    grep -Fvx '[pi-web-access] Dynamic tool activation requires Pi 0.86.1 or newer; web tools remain eagerly available.' "$errors" >&2 || true
   else
-    args+=(--title "shell-ai: $(basename "$directory")")
+    cat "$errors" >&2
   fi
-  args+=("直接完成用户的任务；保持简洁：$prompt")
-
-  printf 'shell-ai · build · %s · auto-approved\n' "$MODEL" >&2
-  OPENCODE_DB=$database \
-  OPENCODE_ENABLE_PARALLEL=1 \
-  OPENCODE_WEBSEARCH_PROVIDER=parallel \
-  OPENCODE_PERMISSION='allow' \
-    opencode "${args[@]}" 2>"$errors" | tee "$events" | render_progress
-  status=${PIPESTATUS[0]}
-  return "$status"
-}
-
-execute_mode() {
-  local directory key state now prompt session_id= created_at events errors result_id finished
-
-  prompt=$(read_prompt "$@") || return
-  [[ -n $prompt ]] || return
-  directory=$(scope_directory) || die "cannot resolve the current directory"
-  key=$(scope_key "$directory") || die "cannot calculate the scope key"
-  state=$scopes_dir/$key.json
-  acquire_lock "$state"
-
-  now=$(date +%s)
-  session_id=$(load_valid_session "$state" "$directory" "$now" || true)
-  if [[ -n $session_id ]]; then
-    created_at=$(state_value "$state" '.created_at') || created_at=$now
-  else
-    created_at=$now
-  fi
-
-  events=$(mktemp "$cache_root/events.XXXXXX") || die "cannot create an events file"
-  errors=$(mktemp "$cache_root/errors.XXXXXX") || {
-    rm -f "$events"
-    die "cannot create an error file"
-  }
-
-  if ! run_execute_request "$directory" "$session_id" "$prompt" "$events" "$errors"; then
-    if [[ -n $session_id ]] && session_error "$errors"; then
-      session_id=
-      created_at=$now
-      : >"$events"
-      : >"$errors"
-      run_execute_request "$directory" "" "$prompt" "$events" "$errors" || {
-        cat "$errors" >&2
-        rm -f "$events" "$errors"
-        return 1
-      }
-    else
-      cat "$errors" >&2
-      rm -f "$events" "$errors"
-      return 1
-    fi
-  fi
-  [[ ! -s $errors ]] || cat "$errors" >&2
-
-  result_id=$(jq -rs 'map(.sessionID // .part.sessionID // empty) | map(select(type == "string")) | first // empty' "$events" 2>/dev/null)
-  if [[ $result_id != ses_* ]]; then
-    rm -f "$events" "$errors"
-    die "OpenCode returned no session ID"
-  fi
-  finished=$(date +%s)
-  write_state "$state" "$directory" "$result_id" "$created_at" "$finished" || {
-    rm -f "$events" "$errors"
-    die "cannot update the session state"
-  }
-  if ! render_events "$events"; then
-    printf 'shell-ai: the response was saved in session %s, but no text event was returned\n' "$result_id" >&2
-  fi
-  rm -f "$events" "$errors"
 }
 
 ask() {
-  local force_new=$1
-  shift
-  local directory key state now prompt session_id= created_at events errors result_id finished
+  local mode=$1 force_new=$2
+  shift 2
+  local directory key state now prompt session_id= result_id created_at events errors finished label
 
   prompt=$(read_prompt "$@") || return
   [[ -n $prompt ]] || return
@@ -297,37 +265,28 @@ ask() {
     die "cannot create an error file"
   }
 
-  if ! run_request "$directory" "$session_id" "$prompt" "$events" "$errors"; then
-    if [[ -n $session_id ]] && session_error "$errors"; then
-      session_id=
-      created_at=$now
-      : >"$events"
-      : >"$errors"
-      run_request "$directory" "" "$prompt" "$events" "$errors" || {
-        cat "$errors" >&2
-        rm -f "$events" "$errors"
-        return 1
-      }
-    else
-      cat "$errors" >&2
-      rm -f "$events" "$errors"
-      return 1
-    fi
-  fi
-  [[ ! -s $errors ]] || cat "$errors" >&2
-
-  result_id=$(jq -rs 'map(.sessionID // .part.sessionID // empty) | map(select(type == "string")) | first // empty' "$events" 2>/dev/null)
-  if [[ $result_id != ses_* ]]; then
+  case $mode:$force_new in
+    exec:*) label=Execute ;;
+    ask:1) label="New chat" ;;
+    *) label=Ask ;;
+  esac
+  if ! run_request "$mode" "$label" "$directory" "$session_id" "$prompt" "$events" "$errors"; then
+    cat "$errors" >&2
     rm -f "$events" "$errors"
-    die "OpenCode returned no session ID"
+    return 1
+  fi
+  show_errors "$errors"
+  if ! result_id=$(check_events "$events" "$session_id"); then
+    rm -f "$events" "$errors"
+    return 1
   fi
   finished=$(date +%s)
   write_state "$state" "$directory" "$result_id" "$created_at" "$finished" || {
     rm -f "$events" "$errors"
     die "cannot update the session state"
   }
-  if ! render_events "$events"; then
-    printf 'shell-ai: the response was saved in session %s, but no text event was returned\n' "$result_id" >&2
+  if ! render_answer "$events"; then
+    printf 'shell-ai: the response was saved in session %s, but no text was returned\n' "$result_id" >&2
   fi
   rm -f "$events" "$errors"
 }
@@ -339,7 +298,7 @@ current() {
   key=$(scope_key "$directory") || die "cannot calculate the scope key"
   state=$scopes_dir/$key.json
   acquire_lock "$state"
-  [[ -f $state ]] || die "no session for $directory"
+  [[ -f $state ]] || die "no Pi session for $directory"
   stored_dir=$(state_value "$state" '.directory') || die "invalid session state"
   session_id=$(state_value "$state" '.session_id') || die "invalid session state"
   created_at=$(state_value "$state" '.created_at') || die "invalid session state"
@@ -362,7 +321,7 @@ reset() {
   state=$scopes_dir/$key.json
   acquire_lock "$state"
   rm -f "$state"
-  printf 'Reset shell-ai session for %s\n' "$directory"
+  printf 'Reset Pi shell-ai session for %s\n' "$directory"
 }
 
 usage() {
@@ -370,11 +329,16 @@ usage() {
 Usage: shell-ai <command> [prompt]
 
 Commands:
-  ask [prompt]      Reuse the current directory session when it is valid
-  exec [prompt]     Run in Build mode with tools automatically approved
-  new [prompt]      Start a new session for the current directory
+  ask [prompt]      Ask Pi with read-only and web tools, reusing a valid directory session
+  exec [prompt]     Let Pi execute the task with its default tools
+  new [prompt]      Start a new Pi session for the current directory
   current           Show the current directory session
   reset             Forget the current directory session
+
+Environment:
+  SHELL_AI_ASK_TOOLS     Comma-separated Pi tools for ask/new
+  SHELL_AI_EXEC_TOOLS    Comma-separated Pi tools for exec
+  SHELL_AI_WEB_EXTENSION Web extension package for ask/new/exec (empty disables it)
 EOF
 }
 
@@ -385,13 +349,13 @@ esac
 validate_ttl "$IDLE_TTL" SHELL_AI_IDLE_TTL
 validate_ttl "$MAX_TTL" SHELL_AI_MAX_TTL
 require_command jq
-require_command opencode
-mkdir -p "$data_root" "$scopes_dir" || die "cannot create state directories"
+require_command pi
+mkdir -p "$sessions_dir" "$scopes_dir" || die "cannot create state directories"
 
 case ${1:-} in
-  ask) shift; ask 0 "$@" ;;
-  exec) shift; execute_mode "$@" ;;
-  new) shift; ask 1 "$@" ;;
+  ask) shift; ask ask 0 "$@" ;;
+  exec) shift; ask exec 0 "$@" ;;
+  new) shift; ask ask 1 "$@" ;;
   current) shift; [[ $# -eq 0 ]] || die "current takes no arguments"; current ;;
   reset) shift; [[ $# -eq 0 ]] || die "reset takes no arguments"; reset ;;
   *) die "unknown command: $1" ;;

@@ -220,10 +220,24 @@ check_events() {
 }
 
 render_answer() {
-  local events=$1 answer
+  local events=$1 answer renderer=${SHELL_AI_RENDERER:-pi} pi_bin
   answer=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant" and .message.stopReason == "stop") | .message.content | map(select(.type == "text") | .text) | join("")] | last // empty' "$events" 2>/dev/null) || return 1
   [[ -n $answer ]] || return 1
-  if command -v glow >/dev/null 2>&1; then
+
+  if [[ ! -t 1 || -n ${NO_COLOR+x} || $renderer == plain ]]; then
+    printf '%s\n' "$answer"
+  elif [[ $renderer == pi ]] && command -v shell-ai-render >/dev/null 2>&1; then
+    pi_bin=$(command -v pi)
+    if printf '%s\n' "$answer" | shell-ai-render "$pi_bin"; then
+      return 0
+    fi
+    printf 'shell-ai: Pi Markdown renderer unavailable; using glow\n' >&2
+    if command -v glow >/dev/null 2>&1; then
+      printf '%s\n' "$answer" | glow -
+    else
+      printf '%s\n' "$answer"
+    fi
+  elif command -v glow >/dev/null 2>&1; then
     printf '%s\n' "$answer" | glow -
   else
     printf '%s\n' "$answer"
@@ -343,6 +357,8 @@ Environment:
   SHELL_AI_ASK_TOOLS     Comma-separated Pi tools for ask/new
   SHELL_AI_EXEC_TOOLS    Comma-separated Pi tools for exec
   SHELL_AI_WEB_EXTENSION Web extension package for ask/new/exec (empty disables it)
+  SHELL_AI_RENDERER      pi (default), glow, or plain
+  SHELL_AI_THEME         Pi theme name for rendered answers
 EOF
 }
 

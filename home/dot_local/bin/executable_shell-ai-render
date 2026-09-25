@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+// Render a completed Pi answer with the Markdown component already installed with Pi.
+import { existsSync, readFileSync, realpathSync } from "node:fs"
+import { dirname, resolve } from "node:path"
+import { pathToFileURL } from "node:url"
+
+const pi = process.argv[2]
+if (!pi) process.exit(1)
+
+const bin = dirname(pi)
+const realBin = dirname(realpathSync(pi))
+const roots = [
+  resolve(bin, "../.mise/node_modules/@earendil-works"),
+  resolve(bin, "../@earendil-works"),
+  resolve(realBin, "../@earendil-works"),
+]
+const root = roots.find((candidate) =>
+  existsSync(resolve(candidate, "pi-tui/dist/index.js")) &&
+  existsSync(resolve(candidate, "pi-coding-agent/dist/modes/interactive/theme/theme.js")),
+)
+if (!root) process.exit(1)
+
+const [{ Markdown }, { getMarkdownTheme, initTheme }] = await Promise.all([
+  import(pathToFileURL(resolve(root, "pi-tui/dist/index.js")).href),
+  import(pathToFileURL(resolve(root, "pi-coding-agent/dist/modes/interactive/theme/theme.js")).href),
+])
+
+initTheme(process.env.SHELL_AI_THEME || undefined)
+const width = Math.max(20, process.stdout.columns || Number(process.env.COLUMNS) || 80)
+const answer = readFileSync(0, "utf8").trimEnd()
+const markdown = new Markdown(answer, 0, 0, getMarkdownTheme())
+for (const line of markdown.render(width)) {
+  process.stdout.write(`${line.trimEnd()}\n`)
+}

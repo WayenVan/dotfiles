@@ -1,13 +1,6 @@
-# Shared entry point for AI-related Zsh commands and widgets.
+# Shell AI entry points. Session logic lives in the shared shell-ai executable.
 
-ai() {
-  local prompt
-
-  prompt=$(gum input --prompt "AI> " --placeholder "Ask a question...") || return
-  [[ -n "$prompt" ]] || return
-
-  command opencode run \
-    --agent plan \
-    --model deepseek/deepseek-flash \
-    "请简短回答：$prompt" | command glow -
-}
+ai()  { command shell-ai ask "$@"; }
+ain() { command shell-ai new "$@"; }
+aic() { command shell-ai current "$@"; }
+air() { command shell-ai reset "$@"; }

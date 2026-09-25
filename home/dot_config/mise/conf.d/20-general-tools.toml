@@ -54,6 +54,7 @@ fd = { version = "latest", lazy = true }
 bat = { version = "latest", lazy = true }
 glow = { version = "latest", lazy = true }
 gum = { version = "latest", lazy = true }
+jq = { version = "latest", lazy = true }
 ripgrep = { version = "latest", lazy = true }
 zoxide = { version = "latest", lazy = true }
 eza = { version = "latest", lazy = true }

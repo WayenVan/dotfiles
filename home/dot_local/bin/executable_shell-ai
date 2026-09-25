@@ -1,0 +1,314 @@
+#!/usr/bin/env bash
+
+set -u
+
+IDLE_TTL=${SHELL_AI_IDLE_TTL:-3600}
+MAX_TTL=${SHELL_AI_MAX_TTL:-28800}
+MODEL=${SHELL_AI_MODEL:-deepseek/deepseek-flash}
+AGENT=${SHELL_AI_AGENT:-plan}
+
+data_root=${XDG_DATA_HOME:-"$HOME/.local/share"}/shell-ai
+cache_root=${XDG_CACHE_HOME:-"$HOME/.cache"}/shell-ai
+database=$data_root/opencode.db
+scopes_dir=$cache_root/scopes
+
+die() {
+  printf 'shell-ai: %s\n' "$*" >&2
+  exit 1
+}
+
+require_command() {
+  command -v "$1" >/dev/null 2>&1 || die "$1 is required"
+}
+
+validate_ttl() {
+  case $1 in
+    ''|*[!0-9]*) die "$2 must be a non-negative integer" ;;
+  esac
+}
+
+scope_directory() {
+  local dir
+
+  dir=$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null) || dir=$PWD
+  (cd "$dir" 2>/dev/null && pwd -P) || return 1
+}
+
+scope_key() {
+  if command -v shasum >/dev/null 2>&1; then
+    printf '%s' "$1" | shasum -a 256 | awk '{print $1}'
+  elif command -v sha256sum >/dev/null 2>&1; then
+    printf '%s' "$1" | sha256sum | awk '{print $1}'
+  else
+    printf '%s' "$1" | cksum | awk '{print $1 "-" $2}'
+  fi
+}
+
+lock_dir=
+release_lock() {
+  if [[ -n ${lock_dir:-} && -d $lock_dir ]]; then
+    rm -f "$lock_dir/pid"
+    rmdir "$lock_dir" 2>/dev/null || true
+  fi
+}
+
+acquire_lock() {
+  local attempts=0 owner=
+
+  lock_dir=$1.lock
+  while ! mkdir "$lock_dir" 2>/dev/null; do
+    if [[ -r $lock_dir/pid ]]; then
+      owner=$(sed -n '1p' "$lock_dir/pid" 2>/dev/null || true)
+      case $owner in
+        ''|*[!0-9]*) owner= ;;
+      esac
+      if [[ -n $owner ]] && ! kill -0 "$owner" 2>/dev/null; then
+        rm -f "$lock_dir/pid"
+        rmdir "$lock_dir" 2>/dev/null || true
+        continue
+      fi
+    fi
+    attempts=$((attempts + 1))
+    [[ $attempts -lt 200 ]] || die "timed out waiting for the session lock"
+    sleep 0.05
+  done
+  printf '%s\n' "$$" >"$lock_dir/pid"
+  trap release_lock EXIT HUP INT TERM
+}
+
+state_value() {
+  jq -er "$2" "$1" 2>/dev/null
+}
+
+load_valid_session() {
+  local state=$1 expected_dir=$2 now=$3
+  local stored_dir session_id created_at last_used
+
+  [[ -f $state ]] || return 1
+  stored_dir=$(state_value "$state" '.directory') || return 1
+  session_id=$(state_value "$state" '.session_id') || return 1
+  created_at=$(state_value "$state" '.created_at') || return 1
+  last_used=$(state_value "$state" '.last_used') || return 1
+  [[ $stored_dir == "$expected_dir" ]] || return 1
+  [[ $session_id == ses_* ]] || return 1
+  case $created_at:$last_used in
+    *[!0-9:]*) return 1 ;;
+  esac
+  (( now >= last_used )) || return 1
+  (( now - last_used < IDLE_TTL )) || return 1
+  (( now >= created_at )) || return 1
+  (( now - created_at < MAX_TTL )) || return 1
+  printf '%s\n' "$session_id"
+}
+
+write_state() {
+  local state=$1 directory=$2 session_id=$3 created_at=$4 last_used=$5 tmp
+
+  tmp=$(mktemp "$state.tmp.XXXXXX") || return 1
+  if ! jq -n \
+    --arg directory "$directory" \
+    --arg session_id "$session_id" \
+    --argjson created_at "$created_at" \
+    --argjson last_used "$last_used" \
+    '{directory: $directory, session_id: $session_id, created_at: $created_at, last_used: $last_used}' \
+    >"$tmp"; then
+    rm -f "$tmp"
+    return 1
+  fi
+  chmod 600 "$tmp"
+  mv "$tmp" "$state"
+}
+
+read_prompt() {
+  if [[ $# -gt 0 ]]; then
+    printf '%s\n' "$*"
+  else
+    require_command gum
+    gum input --prompt 'AI> ' --placeholder 'Ask a question...'
+  fi
+}
+
+render_progress() {
+  jq --unbuffered -r '
+    if .type == "step_start" then
+      "● Thinking…"
+    elif .type == "tool_use" then
+      if .part.state.status == "completed" then
+        "✓ " + (.part.state.title // .part.tool // "tool")
+      elif .part.state.status == "error" then
+        "✗ " + (.part.state.title // .part.tool // "tool")
+      else
+        "⚙ " + (.part.state.title // .part.tool // "tool")
+      end
+    elif .type == "error" then
+      "✗ OpenCode error"
+    else
+      empty
+    end
+  ' >&2
+}
+
+run_request() {
+  local directory=$1 session_id=$2 prompt=$3 events=$4 errors=$5
+  local status
+  local -a args
+
+  args=(run --dir "$directory" --agent "$AGENT" --model "$MODEL" --format json)
+  if [[ -n $session_id ]]; then
+    args+=(--session "$session_id")
+  else
+    args+=(--title "shell-ai: $(basename "$directory")")
+  fi
+  args+=("请简短回答；需要最新或不确定的信息时使用 websearch：$prompt")
+
+  printf 'shell-ai · %s · %s\n' "$AGENT" "$MODEL" >&2
+  OPENCODE_DB=$database \
+  OPENCODE_ENABLE_PARALLEL=1 \
+  OPENCODE_WEBSEARCH_PROVIDER=parallel \
+  OPENCODE_PERMISSION='{"websearch":"allow"}' \
+    opencode "${args[@]}" 2>"$errors" | tee "$events" | render_progress
+  status=${PIPESTATUS[0]}
+  return "$status"
+}
+
+session_error() {
+  grep -Eiq 'session.*(not found|invalid|missing)|not found.*session|invalid.*session' "$1"
+}
+
+render_events() {
+  local events=$1 answer
+
+  answer=$(jq -rs '[.[] | select(.type == "text" and (.part.text | type == "string")) | .part.text] | join("")' "$events" 2>/dev/null) || return 1
+  [[ -n $answer ]] || return 1
+  if command -v glow >/dev/null 2>&1; then
+    printf '%s\n' "$answer" | glow -
+  else
+    printf '%s\n' "$answer"
+  fi
+}
+
+ask() {
+  local force_new=$1
+  shift
+  local directory key state now prompt session_id= created_at events errors result_id finished
+
+  prompt=$(read_prompt "$@") || return
+  [[ -n $prompt ]] || return
+  directory=$(scope_directory) || die "cannot resolve the current directory"
+  key=$(scope_key "$directory") || die "cannot calculate the scope key"
+  state=$scopes_dir/$key.json
+  acquire_lock "$state"
+
+  now=$(date +%s)
+  if [[ $force_new != 1 ]]; then
+    session_id=$(load_valid_session "$state" "$directory" "$now" || true)
+  fi
+  if [[ -n $session_id ]]; then
+    created_at=$(state_value "$state" '.created_at') || created_at=$now
+  else
+    created_at=$now
+  fi
+
+  events=$(mktemp "$cache_root/events.XXXXXX") || die "cannot create an events file"
+  errors=$(mktemp "$cache_root/errors.XXXXXX") || {
+    rm -f "$events"
+    die "cannot create an error file"
+  }
+
+  if ! run_request "$directory" "$session_id" "$prompt" "$events" "$errors"; then
+    if [[ -n $session_id ]] && session_error "$errors"; then
+      session_id=
+      created_at=$now
+      : >"$events"
+      : >"$errors"
+      run_request "$directory" "" "$prompt" "$events" "$errors" || {
+        cat "$errors" >&2
+        rm -f "$events" "$errors"
+        return 1
+      }
+    else
+      cat "$errors" >&2
+      rm -f "$events" "$errors"
+      return 1
+    fi
+  fi
+  [[ ! -s $errors ]] || cat "$errors" >&2
+
+  result_id=$(jq -rs 'map(.sessionID // .part.sessionID // empty) | map(select(type == "string")) | first // empty' "$events" 2>/dev/null)
+  if [[ $result_id != ses_* ]]; then
+    rm -f "$events" "$errors"
+    die "OpenCode returned no session ID"
+  fi
+  finished=$(date +%s)
+  write_state "$state" "$directory" "$result_id" "$created_at" "$finished" || {
+    rm -f "$events" "$errors"
+    die "cannot update the session state"
+  }
+  if ! render_events "$events"; then
+    printf 'shell-ai: the response was saved in session %s, but no text event was returned\n' "$result_id" >&2
+  fi
+  rm -f "$events" "$errors"
+}
+
+current() {
+  local directory key state now stored_dir session_id created_at last_used idle_left max_left
+
+  directory=$(scope_directory) || die "cannot resolve the current directory"
+  key=$(scope_key "$directory") || die "cannot calculate the scope key"
+  state=$scopes_dir/$key.json
+  acquire_lock "$state"
+  [[ -f $state ]] || die "no session for $directory"
+  stored_dir=$(state_value "$state" '.directory') || die "invalid session state"
+  session_id=$(state_value "$state" '.session_id') || die "invalid session state"
+  created_at=$(state_value "$state" '.created_at') || die "invalid session state"
+  last_used=$(state_value "$state" '.last_used') || die "invalid session state"
+  [[ $stored_dir == "$directory" ]] || die "session directory mismatch"
+  now=$(date +%s)
+  idle_left=$((IDLE_TTL - (now - last_used)))
+  max_left=$((MAX_TTL - (now - created_at)))
+  (( idle_left > 0 )) || idle_left=0
+  (( max_left > 0 )) || max_left=0
+  printf 'Directory:  %s\nSession:    %s\nIdle left:  %ss\nMax left:   %ss\n' \
+    "$stored_dir" "$session_id" "$idle_left" "$max_left"
+}
+
+reset() {
+  local directory key state
+
+  directory=$(scope_directory) || die "cannot resolve the current directory"
+  key=$(scope_key "$directory") || die "cannot calculate the scope key"
+  state=$scopes_dir/$key.json
+  acquire_lock "$state"
+  rm -f "$state"
+  printf 'Reset shell-ai session for %s\n' "$directory"
+}
+
+usage() {
+  cat <<'EOF'
+Usage: shell-ai <command> [prompt]
+
+Commands:
+  ask [prompt]      Reuse the current directory session when it is valid
+  new [prompt]      Start a new session for the current directory
+  current           Show the current directory session
+  reset             Forget the current directory session
+EOF
+}
+
+case ${1:-} in
+  -h|--help|help|'') usage; exit 0 ;;
+esac
+
+validate_ttl "$IDLE_TTL" SHELL_AI_IDLE_TTL
+validate_ttl "$MAX_TTL" SHELL_AI_MAX_TTL
+require_command jq
+require_command opencode
+mkdir -p "$data_root" "$scopes_dir" || die "cannot create state directories"
+
+case ${1:-} in
+  ask) shift; ask 0 "$@" ;;
+  new) shift; ask 1 "$@" ;;
+  current) shift; [[ $# -eq 0 ]] || die "current takes no arguments"; current ;;
+  reset) shift; [[ $# -eq 0 ]] || die "reset takes no arguments"; reset ;;
+  *) die "unknown command: $1" ;;
+esac

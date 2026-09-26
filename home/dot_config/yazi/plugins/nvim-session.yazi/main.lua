@@ -53,7 +53,7 @@ local attach = ya.sync(function(state, token)
 		-- Native runtime bindings: included in the usual g-prefix popup and help.
 		-- Installed only in processes attached to Neovim; nothing is written to disk.
 		for _, binding in ipairs({
-			{ on = { "g", "h" }, action = "cwd", desc = "Go to Neovim cwd" },
+			{ on = { "g", "=" }, action = "cwd", desc = "Go to Neovim cwd" },
 			{ on = { "g", "r" }, action = "fyler", desc = "Reveal in Fyler (stay)" },
 			{ on = { "g", "R" }, action = "root", desc = "Go to LazyVim root of hovered file" },
 			{ on = "-", action = "oil", desc = "Open cwd in Oil" },

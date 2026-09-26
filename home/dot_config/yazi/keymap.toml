@@ -4,9 +4,14 @@ run = "cd ~"
 desc = "Go to the home directory"
 
 [[mgr.prepend_keymap]]
-on = ["g", "h"]
+on = ["g", "="]
 run = "noop"
 desc = "Freed up for Neovim cwd (see nvim-session plugin)"
+
+[[mgr.prepend_keymap]]
+on = ["g", "D"]
+run = "cd ~/Desktop"
+desc = "Go to the Desktop directory"
 
 [[mgr.prepend_keymap]]
 on = "'"

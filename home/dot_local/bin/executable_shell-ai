@@ -5,7 +5,7 @@ set -u
 IDLE_TTL=${SHELL_AI_IDLE_TTL:-3600}
 MAX_TTL=${SHELL_AI_MAX_TTL:-28800}
 MODEL=${SHELL_AI_MODEL:-deepseek/deepseek-flash}
-ASK_TOOLS=${SHELL_AI_ASK_TOOLS:-read,grep,bash,find,ls,web_search,fetch_content,get_search_content}
+ASK_TOOLS=${SHELL_AI_ASK_TOOLS:-read,grep,find,ls,web_search,fetch_content,get_search_content}
 EXEC_TOOLS=${SHELL_AI_EXEC_TOOLS:-read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content}
 WEB_EXTENSION=${SHELL_AI_WEB_EXTENSION-npm:pi-web-access}
 
@@ -79,7 +79,7 @@ acquire_lock() {
 }
 
 state_value() {
-  jq -er "$2" "$1" 2>/dev/null
+  "$JQ_BIN" -er "$2" "$1" 2>/dev/null
 }
 
 load_valid_session() {
@@ -107,7 +107,7 @@ write_state() {
   local state=$1 directory=$2 session_id=$3 created_at=$4 last_used=$5 tmp
 
   tmp=$(mktemp "$state.tmp.XXXXXX") || return 1
-  if ! jq -n \
+  if ! "$JQ_BIN" -n \
     --arg directory "$directory" \
     --arg session_id "$session_id" \
     --argjson created_at "$created_at" \
@@ -131,23 +131,62 @@ read_prompt() {
 }
 
 render_progress() {
-  jq --unbuffered -r '
-    if .type == "agent_start" then
-      "  ◌ Thinking…"
-    elif .type == "tool_execution_start" then
-      "  ↳ " + (.toolName // "tool") + "…"
-    elif .type == "tool_execution_end" then
-      if .isError then
-        "  ✗ " + (.toolName // "tool") +
-        ([.result.content[]? | select(.type == "text") | .text] | join("\n") |
-          if . == "" then "" else "\n" + (split("\n") | map("    " + .) | join("\n")) end)
+  "$JQ_BIN" --unbuffered -nr '
+    def indent: split("\n") | map("    " + .) | join("\n");
+    foreach inputs as $event (
+      {shown: {}, report: ""};
+      .report = "" |
+      if $event.type == "agent_start" then
+        .report = "  ◌ Thinking…"
+      elif $event.type == "tool_execution_start" then
+        if $event.toolName == "bash" then
+          .report = "  ↳ bash: " + (($event.args.command // "") | gsub("\n"; "\n    ")) +
+            (if $event.args.timeout then " (timeout: \($event.args.timeout)s)" else " (no timeout)" end)
+        else
+          .report = "  ↳ " + ($event.toolName // "tool") + "…"
+        end
+      elif $event.type == "tool_execution_update" and $event.toolName == "bash" then
+        ($event.toolCallId // "") as $id |
+        ([$event.partialResult.content[]? | select(.type == "text") | .text] | join("\n")) as $output |
+        (.shown[$id] // "") as $previous |
+        .shown[$id] = $output |
+        if $output | startswith($previous) then
+          ($output[($previous | length):]) as $new |
+          if $new != "" then .report = ($new | indent) else . end
+        else
+          .report = "    [bash output truncated; showing latest output]\n" + ($output | indent)
+        end
+      elif $event.type == "tool_execution_end" then
+        .shown |= del(.[$event.toolCallId // ""]) |
+        if $event.isError then
+          .report = "  ✗ " + ($event.toolName // "tool") +
+            ([$event.result.content[]? | select(.type == "text") | .text] | join("\n") |
+              if . == "" then "" else "\n" + indent end)
+        else
+          .report = "  ✓ " + ($event.toolName // "tool")
+        end
       else
-        "  ✓ " + (.toolName // "tool")
-      end
-    else
-      empty
-    end
+        .
+      end;
+      .report | select(length > 0)
+    )
   ' >&2
+}
+
+watch_progress() {
+  local events=$1 previous_size current_size sleeper=
+  trap '[[ -z ${sleeper:-} ]] || kill "$sleeper" 2>/dev/null' EXIT
+  previous_size=$(wc -c <"$events")
+  while :; do
+    sleep 30 >/dev/null 2>&1 &
+    sleeper=$!
+    wait "$sleeper" || break
+    current_size=$(wc -c <"$events")
+    if [[ $current_size == "$previous_size" ]]; then
+      printf '  … Pi is still running (no new events for 30s; Ctrl-C to stop)\n' >&2
+    fi
+    previous_size=$current_size
+  done
 }
 
 render_heading() {
@@ -160,8 +199,8 @@ render_heading() {
 }
 
 run_request() {
-  local mode=$1 label=$2 directory=$3 session_id=$4 prompt=$5 events=$6 errors=$7
-  local status
+  local mode=$1 label=$2 directory=$3 session_id=$4 prompt=$5 events=$6
+  local status watcher
   local -a args
 
   args=(--mode json --print --session-dir "$sessions_dir" --model "$MODEL")
@@ -176,18 +215,22 @@ run_request() {
     prompt="请简短回答；需要最新或不确定的信息时使用 web_search，必要时读取网页并附来源链接：$prompt"
   else
     args+=(--tools "$EXEC_TOOLS")
-    prompt="直接完成用户的任务；保持简洁：$prompt"
+    prompt="直接完成用户的任务；bash 命令使用非交互方式，并为可能等待的命令设置 timeout；保持简洁：$prompt"
   fi
 
   render_heading "$label"
-  (cd "$directory" && pi "${args[@]}" -- "$prompt") 2>"$errors" | tee "$events" | render_progress
+  watch_progress "$events" &
+  watcher=$!
+  (cd "$directory" && pi "${args[@]}" -- "$prompt") | tee "$events" | render_progress
   status=${PIPESTATUS[0]}
+  kill "$watcher" 2>/dev/null || true
+  wait "$watcher" 2>/dev/null || true
   return "$status"
 }
 
 check_events() {
   local events=$1 expected_id=$2 result_id stop_reason error_message
-  result_id=$(jq -rs '[.[] | select(.type == "session") | .id] | first // empty' "$events" 2>/dev/null) || {
+  result_id=$("$JQ_BIN" -rs '[.[] | select(.type == "session") | .id] | first // empty' "$events" 2>/dev/null) || {
     printf 'shell-ai: Pi returned invalid JSON events\n' >&2
     return 1
   }
@@ -199,11 +242,11 @@ check_events() {
     printf 'shell-ai: Pi returned an unexpected session ID\n' >&2
     return 1
   }
-  stop_reason=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.stopReason] | last // empty' "$events" 2>/dev/null) || return 1
+  stop_reason=$("$JQ_BIN" -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.stopReason] | last // empty' "$events" 2>/dev/null) || return 1
   case $stop_reason in
   stop) ;;
   error | aborted)
-    error_message=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.errorMessage // empty] | last // empty' "$events" 2>/dev/null)
+    error_message=$("$JQ_BIN" -rs '[.[] | select(.type == "message_end" and .message.role == "assistant") | .message.errorMessage // empty] | last // empty' "$events" 2>/dev/null)
     printf 'shell-ai: Pi request %s%s\n' "$stop_reason" "${error_message:+: $error_message}" >&2
     return 1
     ;;
@@ -212,7 +255,7 @@ check_events() {
     return 1
     ;;
   esac
-  jq -e -s 'any(.[]; .type == "agent_settled")' "$events" >/dev/null 2>&1 || {
+  "$JQ_BIN" -e -s 'any(.[]; .type == "agent_settled")' "$events" >/dev/null 2>&1 || {
     printf 'shell-ai: Pi did not finish the request\n' >&2
     return 1
   }
@@ -221,7 +264,7 @@ check_events() {
 
 render_answer() {
   local events=$1 answer renderer=${SHELL_AI_RENDERER:-pi} pi_bin
-  answer=$(jq -rs '[.[] | select(.type == "message_end" and .message.role == "assistant" and .message.stopReason == "stop") | .message.content | map(select(.type == "text") | .text) | join("")] | last // empty' "$events" 2>/dev/null) || return 1
+  answer=$("$JQ_BIN" -rs '[.[] | select(.type == "message_end" and .message.role == "assistant" and .message.stopReason == "stop") | .message.content | map(select(.type == "text") | .text) | join("")] | last // empty' "$events" 2>/dev/null) || return 1
   [[ -n $answer ]] || return 1
 
   if [[ ! -t 1 || -n ${NO_COLOR+x} || $renderer == plain ]]; then
@@ -244,21 +287,10 @@ render_answer() {
   fi
 }
 
-show_errors() {
-  local errors=$1
-  [[ -s $errors ]] || return 0
-  if [[ $WEB_EXTENSION == npm:pi-web-access || $WEB_EXTENSION == npm:pi-web-access@* ]]; then
-    # This release emits a warning about optional activation even when web tools work.
-    grep -Fvx '[pi-web-access] Dynamic tool activation requires Pi 0.86.1 or newer; web tools remain eagerly available.' "$errors" >&2 || true
-  else
-    cat "$errors" >&2
-  fi
-}
-
 ask() {
   local mode=$1 force_new=$2
   shift 2
-  local directory key state now prompt session_id= result_id created_at events errors finished label
+  local directory key state now prompt session_id= result_id created_at events finished label
 
   prompt=$(read_prompt "$@") || return
   [[ -n $prompt ]] || return
@@ -278,35 +310,29 @@ ask() {
   fi
 
   events=$(mktemp "$cache_root/events.XXXXXX") || die "cannot create an events file"
-  errors=$(mktemp "$cache_root/errors.XXXXXX") || {
-    rm -f "$events"
-    die "cannot create an error file"
-  }
 
   case $mode:$force_new in
   exec:*) label=Execute ;;
   ask:1) label="New chat" ;;
   *) label=Ask ;;
   esac
-  if ! run_request "$mode" "$label" "$directory" "$session_id" "$prompt" "$events" "$errors"; then
-    cat "$errors" >&2
-    rm -f "$events" "$errors"
+  if ! run_request "$mode" "$label" "$directory" "$session_id" "$prompt" "$events"; then
+    rm -f "$events"
     return 1
   fi
-  show_errors "$errors"
   if ! result_id=$(check_events "$events" "$session_id"); then
-    rm -f "$events" "$errors"
+    rm -f "$events"
     return 1
   fi
   finished=$(date +%s)
   write_state "$state" "$directory" "$result_id" "$created_at" "$finished" || {
-    rm -f "$events" "$errors"
+    rm -f "$events"
     die "cannot update the session state"
   }
   if ! render_answer "$events"; then
     printf 'shell-ai: the response was saved in session %s, but no text was returned\n' "$result_id" >&2
   fi
-  rm -f "$events" "$errors"
+  rm -f "$events"
 }
 
 current() {
@@ -371,7 +397,11 @@ esac
 
 validate_ttl "$IDLE_TTL" SHELL_AI_IDLE_TTL
 validate_ttl "$MAX_TTL" SHELL_AI_MAX_TTL
-require_command jq
+if [[ -x /usr/bin/jq ]]; then
+  JQ_BIN=/usr/bin/jq
+else
+  JQ_BIN=$(command -v jq) || die "jq is required"
+fi
 require_command pi
 mkdir -p "$sessions_dir" "$scopes_dir" || die "cannot create state directories"
 

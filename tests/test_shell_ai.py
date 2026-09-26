@@ -27,10 +27,15 @@ class ShellAiTest(unittest.TestCase):
                 "sid = args[args.index('--session-id') + 1] if '--session-id' in args else str(uuid.uuid4())\n"
                 "with open(os.environ['PI_LOG'], 'a') as log:\n"
                 "    log.write(json.dumps({'cwd': os.getcwd(), 'args': args}) + '\\n')\n"
-                "if '--extension' in args:\n"
-                "    print('[pi-web-access] Dynamic tool activation requires Pi 0.86.1 or newer; web tools remain eagerly available.', file=sys.stderr)\n"
+                "if os.environ.get('PI_MOCK_STDERR'):\n"
+                "    print('mock diagnostic', file=sys.stderr)\n"
                 "print(json.dumps({'type': 'session', 'id': sid}))\n"
                 "print(json.dumps({'type': 'agent_start'}))\n"
+                "if os.environ.get('PI_MOCK_BASH'):\n"
+                "    print(json.dumps({'type': 'tool_execution_start', 'toolCallId': 'bash-1', 'toolName': 'bash', 'args': {'command': 'printf first\\nread answer'}}))\n"
+                "    for output in ['first\\n', 'first\\nChoose [y/N]: ']:\n"
+                "        print(json.dumps({'type': 'tool_execution_update', 'toolCallId': 'bash-1', 'toolName': 'bash', 'partialResult': {'content': [{'type': 'text', 'text': output}]}}))\n"
+                "    print(json.dumps({'type': 'tool_execution_end', 'toolCallId': 'bash-1', 'toolName': 'bash', 'isError': False, 'result': {'content': []}}))\n"
                 "if os.environ.get('PI_MOCK_TOOL_ERROR'):\n"
                 "    print(json.dumps({'type': 'tool_execution_start', 'toolName': 'web_search'}))\n"
                 "    print(json.dumps({'type': 'tool_execution_end', 'toolName': 'web_search', 'isError': True, 'result': {'content': [{'type': 'text', 'text': 'Search failed\\nHTTP 429: rate limit exceeded'}]}}))\n"
@@ -57,12 +62,16 @@ class ShellAiTest(unittest.TestCase):
                 PI_LOG=str(log),
             )
 
-            def run(*args, error=False, tool_error=False, ask_tools=None, exec_tools=None):
+            def run(*args, error=False, tool_error=False, mock_bash=False, mock_stderr=False, ask_tools=None, exec_tools=None):
                 current_env = dict(env)
                 if error:
                     current_env["PI_MOCK_ERROR"] = "1"
                 if tool_error:
                     current_env["PI_MOCK_TOOL_ERROR"] = "1"
+                if mock_bash:
+                    current_env["PI_MOCK_BASH"] = "1"
+                if mock_stderr:
+                    current_env["PI_MOCK_STDERR"] = "1"
                 if ask_tools is not None:
                     current_env["SHELL_AI_ASK_TOOLS"] = ask_tools
                 if exec_tools is not None:
@@ -78,7 +87,6 @@ class ShellAiTest(unittest.TestCase):
             self.assertIn("✦ Pi  Ask · deepseek-flash", first.stderr)
             self.assertIn("  ◌ Thinking…", first.stderr)
             self.assertNotIn("\x1b[", first.stderr)
-            self.assertNotIn("Dynamic tool activation", first.stderr)
             scopes = list((cache / "shell-ai/pi-scopes").glob("*.json"))
             self.assertEqual(len(scopes), 1)
             state = json.loads(scopes[0].read_text())
@@ -97,7 +105,12 @@ class ShellAiTest(unittest.TestCase):
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--session-id") + 1], first_id)
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--tools") + 1], "read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content")
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--extension") + 1], "npm:pi-web-access")
-            self.assertNotIn("Dynamic tool activation", second.stderr)
+            visible = run("exec", "run command", mock_bash=True, mock_stderr=True)
+            self.assertEqual(visible.returncode, 0, visible.stderr)
+            self.assertIn("mock diagnostic", visible.stderr)
+            self.assertIn("↳ bash: printf first", visible.stderr)
+            self.assertIn("    Choose [y/N]:", visible.stderr)
+            self.assertEqual(visible.stderr.count("    first"), 1)
             self.assertIn("Session:", run("current").stdout)
 
             failed = run("ask", "fail", error=True)

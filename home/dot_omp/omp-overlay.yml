@@ -1,0 +1,52 @@
+# omp configuration overlay — owned by chezmoi, READ-ONLY for omp itself.
+#
+# Loaded through PI_CONFIG_FILES, wired in ~/.zshrc.d/22-omp.zsh and ~/.bashrc.d/22-omp.sh.
+# omp never writes this file, so comments here are safe (unlike ~/.omp/agent/config.yml,
+# which omp rewrites and which loses all comments).
+#
+# Precedence (low -> high), from omp://config-usage.md:
+#   schema defaults < ~/.omp/agent/config.yml (global) < project ./.omp/config.yml
+#   < PI_CONFIG_FILES overlays < --config overlays < runtime overrides
+#
+# Must stay a YAML mapping: a bare scalar or a list is a hard startup error
+# ("Config overlay must be a YAML mapping"). An empty mapping is fine.
+
+# ---------------------------------------------------------------------------
+# Theme: Tokyo Night in both appearance slots, matching kitty's
+# current-theme.conf (folke/tokyonight) and nvim's `colorscheme = "tokyonight"`.
+# omp picks dark/light automatically from the terminal background luminance.
+# ---------------------------------------------------------------------------
+
+theme:
+  dark: dark-tokyo-night
+  light: light-tokyo-night
+
+# ---------------------------------------------------------------------------
+# Transcript: tool cards stay visible, everything else folds away.
+# ---------------------------------------------------------------------------
+
+display:
+  # false = tool calls and their results are rendered as cards in the transcript.
+  # (true would remove model-initiated tool activity from the transcript entirely.)
+  hideToolActivity: false
+  # Pre-compaction history stays folded behind the summary divider.
+  collapseCompacted: true
+
+# Thinking blocks are hidden from assistant responses.
+hideThinkingBlock: true
+
+read:
+  # read results collapse into summary rows instead of rendering bodies inline.
+  toolResultPreview: false
+
+# Tool output folding: anything above 4 KB spills to an artifact, and only a
+# 1 KB head plus a 4 KB / 20-line tail stays inline around a middle elision.
+tools:
+  artifactSpillThreshold: 4
+  artifactHeadBytes: 1
+  artifactTailBytes: 4
+  artifactTailLines: 20
+
+# Tight layout: drop the 1-character horizontal padding around terminal output.
+tui:
+  tight: true

@@ -69,6 +69,7 @@ duckdb = "latest"
   "sgpt",
 ], uvx_args = "--with click" }
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
+"pipx:dooit" = { version = "latest", lazy = true, lazy_bins = ["dooit"] }
 "pipx:rich-cli" = { version = "latest", lazy = true, lazy_bins = ["rich"] }
 "pipx:innomd" = { version = "latest", lazy = true, lazy_bins = ["innomd"] }
 "pipx:openviking" = { version = "latest", lazy = true, lazy_bins = [

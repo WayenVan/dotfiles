@@ -11,3 +11,12 @@ Library/Rime
 
 # Keep Neovim runtime logs out of dotfiles.
 .config/nvim/nvim.log
+
+# Keep omp runtime state out of dotfiles (DBs, caches, bundled binaries).
+# Only .omp/omp-overlay.yml is managed.
+.omp/agent
+.omp/cache
+.omp/logs
+.omp/natives
+.omp/profiles
+.omp/run

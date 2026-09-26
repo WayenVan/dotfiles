@@ -10,9 +10,25 @@ end
 vim.o.laststatus = 3
 vim.o.termguicolors = true
 
--- Use OSC 52 for the default clipboard, including through SSH/tmux.
-vim.g.clipboard = "osc52"
+-- Use the system clipboard locally. Over SSH, copy through tmux when available.
 vim.o.clipboard = "unnamedplus"
+
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION then
+  if vim.env.TMUX then
+    -- tmux forwards copied text to the local terminal via set-clipboard.
+    vim.g.clipboard = "tmux"
+  else
+    -- Keep normal paste local; send yanks to the terminal with OSC 52.
+    vim.o.clipboard = ""
+    vim.api.nvim_create_autocmd("TextYankPost", {
+      callback = function()
+        if vim.v.event.operator == "y" then
+          require("vim.ui.clipboard.osc52").copy("+")(vim.v.event.regcontents)
+        end
+      end,
+    })
+  end
+end
 
 vim.g.maplocalleader = ","
 -- setting the powershell settings

@@ -39,13 +39,16 @@ read:
   # read results collapse into summary rows instead of rendering bodies inline.
   toolResultPreview: false
 
-# Tool output folding: anything above 4 KB spills to an artifact, and only a
-# 1 KB head plus a 4 KB / 20-line tail stays inline around a middle elision.
-tools:
-  artifactSpillThreshold: 4
-  artifactHeadBytes: 1
-  artifactTailBytes: 4
-  artifactTailLines: 20
+# Tool output folding: deliberately NOT overridden — schema defaults apply
+# (artifactSpillThreshold 50 KB, artifactHeadBytes 20 KB, artifactTailBytes 20 KB /
+# 500 lines), so the model receives full tool output rather than head/tail only.
+# Showing only part is a TUI-only concern: bash/eval cards render a fixed 10-line
+# preview with "… N more lines (ctrl+o to expand)", and the read.toolResultPreview
+# setting above keeps read bodies collapsed to summary rows.
+#
+# If this ever needs revisiting: tools.artifact* keys are context-affecting (they
+# cut what the model sees, spilling the rest to artifact://N), whereas display.*,
+# read.toolResultPreview and tui.tight are render-only.
 
 # Tight layout: drop the 1-character horizontal padding around terminal output.
 tui:

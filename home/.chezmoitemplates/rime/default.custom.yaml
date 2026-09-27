@@ -3,5 +3,7 @@ patch:
   "key_binder/bindings/+":
     - { accept: "Control+p", send: Up, when: composing }
     - { accept: "Control+n", send: Down, when: composing }
-    - { accept: "Control+d", send: Page_Down, when: composing }
-    - { accept: "Control+u", send: Page_Up, when: composing }
+    - { accept: "Control+f", send: Page_Down, when: composing }
+    - { accept: "Control+b", send: Page_Up, when: composing }
+    - { accept: "Control+h", send: BackSpace, when: composing }
+    - { accept: "Control+y", send: space, when: has_menu }

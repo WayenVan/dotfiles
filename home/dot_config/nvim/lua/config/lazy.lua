@@ -18,6 +18,7 @@ require("lazy").setup({
       opts = {
         -- colorscheme = "everforest",
         colorscheme = "tokyonight",
+        news = { lazyvim = false }, -- do not show LazyVim NEWS.md on startup
         -- colorscheme = false,
         -- default coloshceme is everforest
         -- colorscheme = function()
@@ -66,7 +67,7 @@ require("lazy").setup({
       "habamax",
     },
   },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = { enabled = true, notify = false }, -- check for updates without startup notifications
   performance = {
     rtp = {
       -- disable some rtp plugins

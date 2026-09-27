@@ -122,21 +122,52 @@ write_state() {
 }
 
 read_prompt() {
+  local marker=$1
+  shift
   if [[ $# -gt 0 ]]; then
     printf '%s\n' "$*"
   else
     require_command gum
-    gum input --prompt 'AI> ' --placeholder 'Ask a question...'
+    gum write --header "$marker" --placeholder '' --cursor.mode static
   fi
 }
 
-render_progress() {
-  "$JQ_BIN" --unbuffered -nr '
+progress_events() {
+  "$JQ_BIN" --unbuffered -nr --argjson live "${1:-false}" '
     def indent: split("\n") | map("    " + .) | join("\n");
+    def details: [.result.content[]? | select(.type == "text") | .text] | join("\n");
+    def target:
+      if .toolName == "bash" then "bash: " + ((.args.command // "") | gsub("\\s*\n\\s*"; " ⏎ "))
+      else (.toolName // "tool") +
+        ((.args.path // .args.pattern // .args.query // .args.url // "") | tostring |
+          if . == "" then "" else ": " + . end)
+      end;
+    def status: "T\t" + .;
+    def persist: "P\t" + gsub("\n"; "\u001e");
     foreach inputs as $event (
-      {shown: {}, report: ""};
+      {report: "", tools: {}};
       .report = "" |
-      if $event.type == "agent_start" then
+      ($event.toolCallId // $event.toolName // "tool") as $id |
+      if $live then
+        if $event.type == "agent_start" then
+          .report = ("Thinking…" | status)
+        elif $event.type == "tool_execution_start" then
+          .tools[$id] = ($event | target) |
+          .report = ("↳ " + .tools[$id] | status)
+        elif $event.type == "tool_execution_end" then
+          (.tools[$id] // $event.toolName // "tool") as $target |
+          if $event.isError then
+            .report = ("  ✗ " + $target +
+              (if $event.toolName == "bash" then "" else
+                ($event | details | if . == "" then "" else "\n" + indent end)
+              end) | persist)
+          else
+            .report = ("✓ " + $target | status)
+          end
+        else
+          .
+        end
+      elif $event.type == "agent_start" then
         .report = "  ◌ Thinking…"
       elif $event.type == "tool_execution_start" then
         if $event.toolName == "bash" then
@@ -145,23 +176,12 @@ render_progress() {
         else
           .report = "  ↳ " + ($event.toolName // "tool") + "…"
         end
-      elif $event.type == "tool_execution_update" and $event.toolName == "bash" then
-        ($event.toolCallId // "") as $id |
-        ([$event.partialResult.content[]? | select(.type == "text") | .text] | join("\n")) as $output |
-        (.shown[$id] // "") as $previous |
-        .shown[$id] = $output |
-        if $output | startswith($previous) then
-          ($output[($previous | length):]) as $new |
-          if $new != "" then .report = ($new | indent) else . end
-        else
-          .report = "    [bash output truncated; showing latest output]\n" + ($output | indent)
-        end
       elif $event.type == "tool_execution_end" then
-        .shown |= del(.[$event.toolCallId // ""]) |
         if $event.isError then
           .report = "  ✗ " + ($event.toolName // "tool") +
-            ([$event.result.content[]? | select(.type == "text") | .text] | join("\n") |
-              if . == "" then "" else "\n" + indent end)
+            (if $event.toolName == "bash" then "" else
+              ($event | details | if . == "" then "" else "\n" + indent end)
+            end)
         else
           .report = "  ✓ " + ($event.toolName // "tool")
         end
@@ -170,7 +190,47 @@ render_progress() {
       end;
       .report | select(length > 0)
     )
-  ' >&2
+  '
+}
+
+# On a terminal, progress stays on one refreshing status line; only failures
+# are printed as lasting lines above it.
+render_progress() {
+  local record pending='' status='Pi is working…' result index=0 width
+  local -a frames=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏)
+
+  if [[ ! -t 2 || ${TERM:-} == dumb ]]; then
+    progress_events false >&2
+    return
+  fi
+
+  width=$(stty size <&2 2>/dev/null) && width=${width##* } || width=0
+  ((width > 10)) || width=80
+  width=$((width - 6))
+  progress_events true | {
+    trap 'printf "\r\033[K" >&2' EXIT
+    while :; do
+      printf '\r\033[K  %s %s' "${frames[index]}" "${status:0:width}" >&2
+      index=$(((index + 1) % ${#frames[@]}))
+      record=''
+      if IFS= read -r -t 0.12 record; then
+        record=$pending$record
+        pending=''
+        case $record in
+        P$'\t'*)
+          record=${record#P$'\t'}
+          printf '\r\033[K%s\n' "${record//$'\x1e'/$'\n'}" >&2
+          status='Pi is working…'
+          ;;
+        T$'\t'*) status=${record#T$'\t'} ;;
+        esac
+      else
+        result=$?
+        pending+=$record
+        ((result > 128)) || break
+      fi
+    done
+  }
 }
 
 watch_progress() {
@@ -183,6 +243,7 @@ watch_progress() {
     wait "$sleeper" || break
     current_size=$(wc -c <"$events")
     if [[ $current_size == "$previous_size" ]]; then
+      [[ ! -t 2 ]] || printf '\r\033[K' >&2
       printf '  … Pi is still running (no new events for 30s; Ctrl-C to stop)\n' >&2
     fi
     previous_size=$current_size
@@ -195,6 +256,40 @@ render_heading() {
     printf '\033[1;36m✦ Pi\033[0m  \033[1m%s\033[0m \033[2m· %s\033[0m\n' "$label" "$model" >&2
   else
     printf '✦ Pi  %s · %s\n' "$label" "$model" >&2
+  fi
+}
+
+shell_instructions() {
+  local mode=$1 directory=$2
+  cat <<EOF
+# 运行环境
+你是用户在终端里通过快捷命令调用的助手（shell-ai：ai 提问、ain 开新对话、aix 执行任务）。
+- 这是非交互的一次性请求：运行期间用户看不到中间过程，也无法回答你的问题或给命令输入内容。
+- 系统：$(uname -sm)；用户 shell：${SHELL##*/}；当前目录：$directory
+- 同一目录下的多次调用共享会话，可以引用之前的上下文。
+
+# 回答格式
+- 回答会以 Markdown 渲染在终端里：用用户提问的语言，简洁直接，不要铺垫和客套。
+- 命令放在带语言标注的代码块里，方便直接复制；命令要适配上面的系统和 shell（例如 macOS 上 BSD 与 GNU 工具的参数差异）。
+- 少用标题和表格，终端宽度有限。
+EOF
+  if [[ $mode == ask ]]; then
+    cat <<'EOF'
+
+# 当前模式：ai（问答）
+- 只回答问题，不要修改文件或执行有副作用的操作；用户需要执行时，给出可以直接运行的命令并说明关键参数。
+- 问题和当前目录有关时，先读取相关文件再回答，不要凭空猜测。
+- 需要最新或不确定的信息时使用 web_search，必要时读取网页，并附来源链接。
+EOF
+  else
+    cat <<'EOF'
+
+# 当前模式：aix（执行）
+- 直接动手完成任务，而不是只给建议。
+- bash 命令必须是非交互的（例如加 -y、--no-pager，设置 GIT_PAGER=cat），可能等待或耗时较长的命令要设置 timeout。
+- 不要执行难以撤销或对外生效的操作（大量删除、强制覆盖、git push、发布、付费调用等），除非用户明确要求；遇到这种情况就停下，说明需要用户确认什么。
+- 完成后简要总结：做了什么、改了哪些文件、结果如何；失败时说明原因和建议的下一步。
+EOF
   fi
 }
 
@@ -212,11 +307,10 @@ run_request() {
   fi
   if [[ $mode == ask ]]; then
     args+=(--tools "$ASK_TOOLS")
-    prompt="请简短回答；需要最新或不确定的信息时使用 web_search，必要时读取网页并附来源链接：$prompt"
   else
     args+=(--tools "$EXEC_TOOLS")
-    prompt="直接完成用户的任务；bash 命令使用非交互方式，并为可能等待的命令设置 timeout；保持简洁：$prompt"
   fi
+  args+=(--append-system-prompt "$(shell_instructions "$mode" "$directory")")
 
   render_heading "$label"
   watch_progress "$events" &
@@ -262,10 +356,20 @@ check_events() {
   printf '%s\n' "$result_id"
 }
 
+render_divider() {
+  local width rule
+  [[ -t 1 && -t 2 && -z ${NO_COLOR+x} && ${TERM:-} != dumb ]] || return 0
+  width=$(stty size <&2 2>/dev/null) && width=${width##* } || width=0
+  ((width > 20)) || width=80
+  printf -v rule '%*s' $((width - 12)) ''
+  printf '\n\033[2m── Answer ─%s\033[0m\n\n' "${rule// /─}" >&2
+}
+
 render_answer() {
   local events=$1 answer renderer=${SHELL_AI_RENDERER:-pi} pi_bin
   answer=$("$JQ_BIN" -rs '[.[] | select(.type == "message_end" and .message.role == "assistant" and .message.stopReason == "stop") | .message.content | map(select(.type == "text") | .text) | join("")] | last // empty' "$events" 2>/dev/null) || return 1
   [[ -n $answer ]] || return 1
+  render_divider
 
   if [[ ! -t 1 || -n ${NO_COLOR+x} || $renderer == plain ]]; then
     printf '%s\n' "$answer"
@@ -292,7 +396,13 @@ ask() {
   shift 2
   local directory key state now prompt session_id= result_id created_at events finished label
 
-  prompt=$(read_prompt "$@") || return
+  local marker
+  case $mode:$force_new in
+  exec:*) marker="✦ aix · Execute — Pi can run tools in this directory" ;;
+  ask:1) marker="✦ ain · New chat — starts a fresh session" ;;
+  *) marker="✦ ai · Ask — continues this directory's session" ;;
+  esac
+  prompt=$(read_prompt "$marker" "$@") || return
   [[ -n $prompt ]] || return
   directory=$(scope_directory) || die "cannot resolve the current directory"
   key=$(scope_key "$directory") || die "cannot calculate the scope key"

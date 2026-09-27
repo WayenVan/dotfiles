@@ -2,6 +2,8 @@
 
 import json
 import os
+import pty
+import select
 import subprocess
 import tempfile
 import unittest
@@ -22,7 +24,7 @@ class ShellAiTest(unittest.TestCase):
             pi = bin_dir / "pi"
             pi.write_text(
                 "#!/usr/bin/env python3\n"
-                "import json, os, sys, uuid\n"
+                "import json, os, sys, time, uuid\n"
                 "args = sys.argv[1:]\n"
                 "sid = args[args.index('--session-id') + 1] if '--session-id' in args else str(uuid.uuid4())\n"
                 "with open(os.environ['PI_LOG'], 'a') as log:\n"
@@ -30,12 +32,15 @@ class ShellAiTest(unittest.TestCase):
                 "if os.environ.get('PI_MOCK_STDERR'):\n"
                 "    print('mock diagnostic', file=sys.stderr)\n"
                 "print(json.dumps({'type': 'session', 'id': sid}))\n"
-                "print(json.dumps({'type': 'agent_start'}))\n"
+                "print(json.dumps({'type': 'agent_start'}), flush=True)\n"
+                "if os.environ.get('PI_MOCK_DELAY'):\n"
+                "    time.sleep(float(os.environ['PI_MOCK_DELAY']))\n"
                 "if os.environ.get('PI_MOCK_BASH'):\n"
                 "    print(json.dumps({'type': 'tool_execution_start', 'toolCallId': 'bash-1', 'toolName': 'bash', 'args': {'command': 'printf first\\nread answer'}}))\n"
                 "    for output in ['first\\n', 'first\\nChoose [y/N]: ']:\n"
                 "        print(json.dumps({'type': 'tool_execution_update', 'toolCallId': 'bash-1', 'toolName': 'bash', 'partialResult': {'content': [{'type': 'text', 'text': output}]}}))\n"
-                "    print(json.dumps({'type': 'tool_execution_end', 'toolCallId': 'bash-1', 'toolName': 'bash', 'isError': False, 'result': {'content': []}}))\n"
+                "    bash_error = bool(os.environ.get('PI_MOCK_BASH_ERROR'))\n"
+                "    print(json.dumps({'type': 'tool_execution_end', 'toolCallId': 'bash-1', 'toolName': 'bash', 'isError': bash_error, 'result': {'content': [{'type': 'text', 'text': 'long bash failure details'}]}}))\n"
                 "if os.environ.get('PI_MOCK_TOOL_ERROR'):\n"
                 "    print(json.dumps({'type': 'tool_execution_start', 'toolName': 'web_search'}))\n"
                 "    print(json.dumps({'type': 'tool_execution_end', 'toolName': 'web_search', 'isError': True, 'result': {'content': [{'type': 'text', 'text': 'Search failed\\nHTTP 429: rate limit exceeded'}]}}))\n"
@@ -62,7 +67,7 @@ class ShellAiTest(unittest.TestCase):
                 PI_LOG=str(log),
             )
 
-            def run(*args, error=False, tool_error=False, mock_bash=False, mock_stderr=False, ask_tools=None, exec_tools=None):
+            def run(*args, error=False, tool_error=False, mock_bash=False, mock_bash_error=False, mock_stderr=False, ask_tools=None, exec_tools=None):
                 current_env = dict(env)
                 if error:
                     current_env["PI_MOCK_ERROR"] = "1"
@@ -70,6 +75,8 @@ class ShellAiTest(unittest.TestCase):
                     current_env["PI_MOCK_TOOL_ERROR"] = "1"
                 if mock_bash:
                     current_env["PI_MOCK_BASH"] = "1"
+                if mock_bash_error:
+                    current_env["PI_MOCK_BASH_ERROR"] = "1"
                 if mock_stderr:
                     current_env["PI_MOCK_STDERR"] = "1"
                 if ask_tools is not None:
@@ -97,6 +104,10 @@ class ShellAiTest(unittest.TestCase):
             self.assertEqual(calls[0]["args"][calls[0]["args"].index("--tools") + 1], "read,grep,find,ls,web_search,fetch_content,get_search_content")
             self.assertEqual(calls[0]["args"][calls[0]["args"].index("--extension") + 1], "npm:pi-web-access")
             self.assertEqual(calls[0]["args"][calls[0]["args"].index("--session-dir") + 1], str(data / "shell-ai/pi-sessions"))
+            system = calls[0]["args"][calls[0]["args"].index("--append-system-prompt") + 1]
+            self.assertIn("当前模式：ai（问答）", system)
+            self.assertIn(f"当前目录：{project.resolve()}", system)
+            self.assertEqual(calls[0]["args"][-2:], ["--", "hello"])
 
             second = run("exec", "change a file")
             self.assertEqual(second.returncode, 0, second.stderr)
@@ -105,12 +116,62 @@ class ShellAiTest(unittest.TestCase):
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--session-id") + 1], first_id)
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--tools") + 1], "read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content")
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--extension") + 1], "npm:pi-web-access")
+            self.assertIn("当前模式：aix（执行）", calls[1]["args"][calls[1]["args"].index("--append-system-prompt") + 1])
             visible = run("exec", "run command", mock_bash=True, mock_stderr=True)
             self.assertEqual(visible.returncode, 0, visible.stderr)
             self.assertIn("mock diagnostic", visible.stderr)
             self.assertIn("↳ bash: printf first", visible.stderr)
-            self.assertIn("    Choose [y/N]:", visible.stderr)
-            self.assertEqual(visible.stderr.count("    first"), 1)
+            self.assertIn("  ✓ bash", visible.stderr)
+            self.assertNotIn("Choose [y/N]:", visible.stderr)
+            self.assertNotIn("    first", visible.stderr)
+            bash_failed = run("exec", "run failing command", mock_bash=True, mock_bash_error=True)
+            self.assertEqual(bash_failed.returncode, 0, bash_failed.stderr)
+            self.assertIn("  ✗ bash", bash_failed.stderr)
+            self.assertNotIn("long bash failure details", bash_failed.stderr)
+
+            def run_tty(*args, **extra_env):
+                master, slave = pty.openpty()
+                try:
+                    process = subprocess.Popen(
+                        ["bash", str(SCRIPT), *args], cwd=project, env=dict(env, TERM="xterm", **extra_env),
+                        stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=slave,
+                    )
+                    os.close(slave)
+                    slave = -1
+                    tty_output = bytearray()
+                    while True:
+                        readable, _, _ = select.select([master], [], [], 5)
+                        self.assertTrue(readable, "shell-ai TTY output timed out")
+                        try:
+                            chunk = os.read(master, 4096)
+                        except OSError:
+                            break
+                        if not chunk:
+                            break
+                        tty_output.extend(chunk)
+                    answer, _ = process.communicate(timeout=5)
+                    self.assertEqual(process.returncode, 0)
+                    return answer.decode(), tty_output.decode()
+                finally:
+                    os.close(master)
+                    if slave >= 0:
+                        os.close(slave)
+
+            answer, tty_output = run_tty("ask", "wait", PI_MOCK_DELAY="0.5")
+            self.assertIn("answer", answer)
+            self.assertIn("Pi is working…", tty_output)
+            self.assertIn("Thinking…", tty_output)
+            self.assertIn("\x1b[K", tty_output)
+
+            _, tty_output = run_tty("exec", "run", PI_MOCK_BASH="1", PI_MOCK_TOOL_ERROR="1")
+            self.assertIn("↳ bash: printf first ⏎ read answer", tty_output)
+            self.assertIn("✓ bash: printf first ⏎ read answer", tty_output)
+            self.assertNotIn("✓ bash: printf first ⏎ read answer\r\n", tty_output)
+            self.assertIn("  ✗ web_search\r\n    Search failed\r\n    HTTP 429: rate limit exceeded\r\n", tty_output)
+
+            _, tty_output = run_tty("exec", "run", PI_MOCK_BASH="1", PI_MOCK_BASH_ERROR="1")
+            self.assertIn("  ✗ bash: printf first ⏎ read answer\r\n", tty_output)
+            self.assertNotIn("long bash failure details", tty_output)
             self.assertIn("Session:", run("current").stdout)
 
             failed = run("ask", "fail", error=True)

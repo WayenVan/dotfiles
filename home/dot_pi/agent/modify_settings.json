@@ -3,4 +3,11 @@
 {{- /* Add more package sources to the list below. */ -}}
 {{- $packages := list "npm:pi-web-access" -}}
 {{- $settings := .chezmoi.stdin | default "{}" | fromJson -}}
-{{- $settings | setValueAtPath "theme" "dark" | setValueAtPath "tuiMode" "fullscreen" | setValueAtPath "packages" $packages | toPrettyJson -}}
+{{- $settings
+  | setValueAtPath "theme" "dark"
+  | setValueAtPath "tuiMode" "fullscreen"
+  | setValueAtPath "defaultProvider" "deepseek"
+  | setValueAtPath "defaultModel" "deepseek-flash"
+  | setValueAtPath "defaultThinkingLevel" "medium"
+  | setValueAtPath "packages" $packages
+  | toPrettyJson -}}

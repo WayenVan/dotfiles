@@ -164,6 +164,8 @@ class ShellAiTest(unittest.TestCase):
             self.assertIn("Pi is working…", tty_output)
             self.assertIn("Thinking…", tty_output)
             self.assertIn("\x1b[K", tty_output)
+            self.assertIn("\x1b[?7l\r\x1b[K  ", tty_output)
+            self.assertEqual(tty_output.count("\x1b[?7l"), tty_output.count("\x1b[?7h"))
 
             _, tty_output = run_tty("exec", "run", PI_MOCK_BASH="1", PI_MOCK_TOOL_ERROR="1")
             self.assertIn("↳ bash: printf first ⏎ read answer", tty_output)

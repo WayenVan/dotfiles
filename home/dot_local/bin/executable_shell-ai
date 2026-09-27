@@ -209,7 +209,9 @@ render_progress() {
   progress_events true | {
     trap 'printf "\r\033[K" >&2' EXIT
     while :; do
-      printf '\r\033[K  %s %s' "${frames[index]}" "${status:0:width}" >&2
+      # Autowrap is off while drawing so wide (e.g. CJK) text is clipped
+      # instead of wrapping, which would leave a stale line on every frame.
+      printf '\033[?7l\r\033[K  %s %s\033[?7h' "${frames[index]}" "${status:0:width}" >&2
       index=$(((index + 1) % ${#frames[@]}))
       record=''
       if IFS= read -r -t 0.12 record; then

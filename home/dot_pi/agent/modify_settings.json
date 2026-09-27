@@ -9,5 +9,6 @@
   | setValueAtPath "defaultProvider" "deepseek"
   | setValueAtPath "defaultModel" "deepseek-flash"
   | setValueAtPath "defaultThinkingLevel" "medium"
+  | setValueAtPath "hideThinkingBlock" true
   | setValueAtPath "packages" $packages
   | toPrettyJson -}}

@@ -1,6 +1,6 @@
 [settings]
 lockfile = false
-minimum_release_age_excludes = ["github:WayenVan/tuzi"]
+minimum_release_age_excludes = ["github:WayenVan/tuzi", "github:WayenVan/argus"]
 
 [settings.github]
 credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'

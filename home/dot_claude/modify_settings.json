@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Keep Claude's dark theme while preserving settings written by Claude."""
+
+import json
+import sys
+
+
+def reject_duplicate_keys(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+original = sys.stdin.read()
+try:
+    settings = json.loads(original or "{}", object_pairs_hook=reject_duplicate_keys)
+    if not isinstance(settings, dict):
+        raise ValueError("settings.json must contain a JSON object")
+except (json.JSONDecodeError, ValueError) as exc:
+    sys.exit(f"chezmoi Claude settings: {exc}")
+
+if settings.get("theme") == "dark":
+    sys.stdout.write(original)
+else:
+    settings["theme"] = "dark"
+    sys.stdout.write(json.dumps(settings, ensure_ascii=False, indent=2) + "\n")

@@ -55,6 +55,8 @@ doc/tags
 data/
 *.csv
 *.json
+!home/dot_pi/agent/modify_settings.json
+!home/dot_claude/modify_settings.json
 *.pickle
 *.pkl
 

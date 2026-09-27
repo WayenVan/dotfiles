@@ -102,7 +102,8 @@ class ShellAiTest(unittest.TestCase):
             self.assertEqual(calls[0]["cwd"], str(project.resolve()))
             self.assertNotIn("--session-id", calls[0]["args"])
             self.assertEqual(calls[0]["args"][calls[0]["args"].index("--tools") + 1], "read,grep,find,ls,web_search,fetch_content,get_search_content")
-            self.assertEqual(calls[0]["args"][calls[0]["args"].index("--extension") + 1], "npm:pi-web-access")
+            self.assertNotIn("--extension", calls[0]["args"])
+            self.assertNotIn("--no-extensions", calls[0]["args"])
             self.assertEqual(calls[0]["args"][calls[0]["args"].index("--session-dir") + 1], str(data / "shell-ai/pi-sessions"))
             system = calls[0]["args"][calls[0]["args"].index("--append-system-prompt") + 1]
             self.assertIn("当前模式：ai（问答）", system)
@@ -115,7 +116,8 @@ class ShellAiTest(unittest.TestCase):
             calls = [json.loads(line) for line in log.read_text().splitlines()]
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--session-id") + 1], first_id)
             self.assertEqual(calls[1]["args"][calls[1]["args"].index("--tools") + 1], "read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content")
-            self.assertEqual(calls[1]["args"][calls[1]["args"].index("--extension") + 1], "npm:pi-web-access")
+            self.assertNotIn("--extension", calls[1]["args"])
+            self.assertNotIn("--no-extensions", calls[1]["args"])
             self.assertIn("当前模式：aix（执行）", calls[1]["args"][calls[1]["args"].index("--append-system-prompt") + 1])
             visible = run("exec", "run command", mock_bash=True, mock_stderr=True)
             self.assertEqual(visible.returncode, 0, visible.stderr)

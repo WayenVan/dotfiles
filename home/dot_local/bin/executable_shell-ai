@@ -7,7 +7,6 @@ MAX_TTL=${SHELL_AI_MAX_TTL:-28800}
 MODEL=${SHELL_AI_MODEL:-deepseek/deepseek-flash}
 ASK_TOOLS=${SHELL_AI_ASK_TOOLS:-read,grep,find,ls,web_search,fetch_content,get_search_content}
 EXEC_TOOLS=${SHELL_AI_EXEC_TOOLS:-read,bash,edit,write,grep,find,ls,web_search,fetch_content,get_search_content}
-WEB_EXTENSION=${SHELL_AI_WEB_EXTENSION-npm:pi-web-access}
 
 data_root=${XDG_DATA_HOME:-"$HOME/.local/share"}/shell-ai
 cache_root=${XDG_CACHE_HOME:-"$HOME/.cache"}/shell-ai
@@ -302,9 +301,6 @@ run_request() {
   if [[ -n $session_id ]]; then
     args+=(--session-id "$session_id")
   fi
-  if [[ -n $WEB_EXTENSION ]]; then
-    args+=(--extension "$WEB_EXTENSION")
-  fi
   if [[ $mode == ask ]]; then
     args+=(--tools "$ASK_TOOLS")
   else
@@ -492,7 +488,6 @@ Commands:
 Environment:
   SHELL_AI_ASK_TOOLS     Comma-separated Pi tools for ask/new
   SHELL_AI_EXEC_TOOLS    Comma-separated Pi tools for exec
-  SHELL_AI_WEB_EXTENSION Web extension package for ask/new/exec (empty disables it)
   SHELL_AI_RENDERER      pi (default), glow, or plain
   SHELL_AI_THEME         Pi theme name for rendered answers
 EOF

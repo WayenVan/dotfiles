@@ -1,4 +1,6 @@
+# Todos
 
 
-- [ ] commit dotfile修改
-- [x] 找到less的终端替代品
+- [x] 维护pi的配置
+- [x] claude 配置维护
+- [x] commit 提交

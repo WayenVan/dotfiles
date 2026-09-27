@@ -1,0 +1,6 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Manage selected preferences and packages; preserve Pi-owned fields. */ -}}
+{{- /* Add more package sources to the list below. */ -}}
+{{- $packages := list "npm:pi-web-access" -}}
+{{- $settings := .chezmoi.stdin | default "{}" | fromJson -}}
+{{- $settings | setValueAtPath "theme" "dark" | setValueAtPath "tuiMode" "fullscreen" | setValueAtPath "packages" $packages | toPrettyJson -}}

@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""Keep a few Codex UI preferences without rewriting Codex-managed state."""
+
+import re
+import sys
+
+
+MANAGED = (
+    ("tui", "theme", '"1337"'),
+    ("tui.keymap.global", "toggle_side_conversation", '"ctrl-,"'),
+)
+
+
+def set_key(content, table, key, value):
+    lines = content.splitlines(keepends=True)
+    newline = "\r\n" if "\r\n" in content else "\n"
+    table_pattern = re.compile(r"\[" + re.escape(table) + r"\][ \t]*(?:#.*)?$")
+    headers = [
+        index
+        for index, line in enumerate(lines)
+        if table_pattern.fullmatch(line.rstrip("\r\n"))
+    ]
+    if len(headers) > 1:
+        raise ValueError(f"duplicate TOML table [{table}]")
+
+    assignment = f"{key} = {value}{newline}"
+    if not headers:
+        if content and not content.endswith(("\n", "\r")):
+            content += newline
+        if content and not content.endswith(newline * 2):
+            content += newline
+        return content + f"[{table}]{newline}" + assignment
+
+    start = headers[0] + 1
+    end = next(
+        (
+            index
+            for index in range(start, len(lines))
+            if re.match(r"^[ \t]*\[", lines[index])
+        ),
+        len(lines),
+    )
+    key_pattern = re.compile(r"^[ \t]*" + re.escape(key) + r"[ \t]*=")
+    positions = [index for index in range(start, end) if key_pattern.match(lines[index])]
+    if len(positions) > 1:
+        raise ValueError(f"duplicate TOML key {table}.{key}")
+    if positions:
+        index = positions[0]
+        if not lines[index].endswith(("\n", "\r")):
+            assignment = assignment.rstrip("\r\n")
+        lines[index] = assignment
+    else:
+        lines.insert(start, assignment)
+    return "".join(lines)
+
+
+try:
+    output = sys.stdin.read()
+    for table_name, key_name, setting in MANAGED:
+        output = set_key(output, table_name, key_name, setting)
+except ValueError as exc:
+    sys.exit(f"chezmoi Codex config: {exc}")
+
+sys.stdout.write(output)

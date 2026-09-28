@@ -29,3 +29,18 @@ gui:
       - "#f7768e" # red
     defaultFgColor:
       - "#c0caf5" # fg
+
+# vim 风格跳到顶/底：g / G，在列表和 diff（staging）视图里都生效
+# lazygit 只支持单键，没法做 gg，所以用单个 g
+keybinding:
+  universal:
+    gotoTop: g
+    gotoBottom: G
+  # 下面是原本占用 g / G 的面板级快捷键（会盖过 universal），挪到空闲键上
+  commits:
+    viewResetOptions: D # 原 g：reset 菜单，与 Files 面板的 D 统一
+    openPullRequestInBrowser: <ctrl+g> # 原 G
+  branches:
+    openPullRequestInBrowser: <ctrl+g> # 原 G
+  stash:
+    popStash: X # 原 g

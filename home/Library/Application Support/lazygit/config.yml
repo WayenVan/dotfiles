@@ -1,0 +1,31 @@
+# Tokyo Night theme —— 与 kitty current-theme.conf / LazyVim tokyonight 同一套色板
+# 参考 https://github.com/folke/tokyonight.nvim
+gui:
+  nerdFontsVersion: "3" # Maple Mono NF 已装，用 Nerd Font 图标
+  theme:
+    activeBorderColor:
+      - "#7aa2f7" # blue
+      - bold
+    inactiveBorderColor:
+      - "#565f89" # comment
+    searchingActiveBorderColor:
+      - "#e0af68" # yellow
+      - bold
+    optionsTextColor:
+      - "#7aa2f7" # blue
+    selectedLineBgColor:
+      - default # 不铺底色，只加粗 => 选中/未选中时 unstaged 的红色完全一致
+    inactiveViewSelectedLineBgColor:
+      - bold # lazygit 原生默认值；0.65 实测失焦面板这行没有可见效果
+    cherryPickedCommitFgColor:
+      - "#15161e" # bg_dark
+    cherryPickedCommitBgColor:
+      - "#bb9af7" # magenta
+    markedBaseCommitFgColor:
+      - "#15161e" # bg_dark
+    markedBaseCommitBgColor:
+      - "#e0af68" # yellow
+    unstagedChangesColor:
+      - "#f7768e" # red
+    defaultFgColor:
+      - "#c0caf5" # fg

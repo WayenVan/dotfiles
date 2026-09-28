@@ -24,7 +24,6 @@ return {
       instructions_file = "avante.md",
       -- for example
       -- mode = "agentic",
-      -- provider = "hermes",
       provider = "deepseek",
       providers = {
         deepseek = {
@@ -39,15 +38,6 @@ return {
         },
       },
       acp_providers = {
-        hermes = {
-          command = "hermes",
-          args = { "acp" },
-
-          env = {
-            HOME = vim.env.HOME,
-            PATH = vim.env.PATH,
-          },
-        },
         codex = {
           command = "codex-acp",
           args = {},

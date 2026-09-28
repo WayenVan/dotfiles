@@ -14,7 +14,7 @@ gui:
     optionsTextColor:
       - "#7aa2f7" # blue
     selectedLineBgColor:
-      - default # 不铺底色，只加粗 => 选中/未选中时 unstaged 的红色完全一致
+      - "#3b4261" # Tokyo Night 高亮底色；保留 unstaged 的红色文字
     inactiveViewSelectedLineBgColor:
       - bold # lazygit 原生默认值；0.65 实测失焦面板这行没有可见效果
     cherryPickedCommitFgColor:

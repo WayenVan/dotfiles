@@ -1,5 +1,6 @@
 {{ if ne .chezmoi.os "darwin" }}
 Library/Rime
+Library/Application Support/lazygit
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}

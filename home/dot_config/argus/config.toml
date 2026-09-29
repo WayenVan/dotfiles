@@ -1,0 +1,5 @@
+# argus 配置 —— 参考 https://github.com/WayenVan/argus/blob/main/docs/src/reference/config.md
+
+[dashboard]
+# Tree/Grid 里按 a 新建 agent 时，用 tmux session 名预填 --in
+group_from_tmux = true

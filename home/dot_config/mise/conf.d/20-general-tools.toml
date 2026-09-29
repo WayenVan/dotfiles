@@ -70,6 +70,7 @@ duckdb = "latest"
 ], uvx_args = "--with click" }
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
 "pipx:dooit" = { version = "latest", lazy = true, lazy_bins = ["dooit"] }
+"pipx:kanban-tui" = { version = "latest", lazy = true, lazy_bins = ["kanban-tui", "ktui"] }
 "pipx:rich-cli" = { version = "latest", lazy = true, lazy_bins = ["rich"] }
 "pipx:innomd" = { version = "latest", lazy = true, lazy_bins = ["innomd"] }
 

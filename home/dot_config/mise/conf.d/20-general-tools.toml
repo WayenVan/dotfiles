@@ -12,6 +12,7 @@ ouch = "github:ouch-org/ouch"
 lazyslurm = "github:hill/lazyslurm"
 tuzi = "github:WayenVan/tuzi"
 argus = "github:WayenVan/argus"
+kanban = "github:WayenVan/kanban"
 portop = "github:padovanl/portop"
 terminal-browser = "http:terminal-browser"
 zsh-autosuggest = "http:zsh-autosuggestions"
@@ -71,7 +72,6 @@ duckdb = "latest"
 "pipx:nvitop" = { version = "latest", lazy = true, lazy_bins = ["nvitop"] }
 "pipx:dooit" = { version = "latest", lazy = true, lazy_bins = ["dooit"] }
 "pipx:kanban-tui" = { version = "latest", lazy = true, lazy_bins = ["kanban-tui", "ktui"] }
-"cargo:https://github.com/WayenVan/kanban" = { version = "branch:master", crate = "kanban-cli", lazy = true, lazy_bins = ["kanban"] }
 "pipx:rich-cli" = { version = "latest", lazy = true, lazy_bins = ["rich"] }
 "pipx:innomd" = { version = "latest", lazy = true, lazy_bins = ["innomd"] }
 
@@ -86,6 +86,19 @@ linux-x64 = { asset_pattern = "atuin-x86_64-unknown-linux-musl.tar.gz" }
 linux-arm64 = { asset_pattern = "atuin-aarch64-unknown-linux-musl.tar.gz" }
 macos-x64 = { asset_pattern = "atuin-x86_64-apple-darwin.tar.gz" }
 macos-arm64 = { asset_pattern = "atuin-aarch64-apple-darwin.tar.gz" }
+
+# Personal fork's releases (tag v*-wayen.*); Linux gets the static musl build.
+[tools.kanban]
+version = "latest"
+strip_components = 1
+lazy = true
+lazy_bins = ["kanban", "kanban-mcp"]
+
+[tools.kanban.platforms]
+linux-x64 = { asset_pattern = "kanban-*-x86_64-unknown-linux-musl.tar.gz" }
+linux-arm64 = { asset_pattern = "kanban-*-aarch64-unknown-linux-musl.tar.gz" }
+macos-x64 = { asset_pattern = "kanban-*-x86_64-apple-darwin.tar.gz" }
+macos-arm64 = { asset_pattern = "kanban-*-aarch64-apple-darwin.tar.gz" }
 
 [tools.opencode]
 version = "latest"
